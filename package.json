@@ -10,9 +10,9 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:squarecloud.helloWorld"
+    "*"
   ],
-  "main": "./dist/extension.js",
+  "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
@@ -33,19 +33,20 @@
     "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
-    "@types/vscode": "^1.74.0",
     "@types/glob": "^8.0.0",
     "@types/mocha": "^10.0.0",
     "@types/node": "16.x",
+    "@types/vscode": "^1.74.0",
     "@typescript-eslint/eslint-plugin": "^5.38.1",
     "@typescript-eslint/parser": "^5.38.1",
+    "@vscode/test-electron": "^2.1.5",
     "eslint": "^8.24.0",
     "glob": "^8.0.3",
     "mocha": "^10.0.0",
-    "typescript": "^4.8.4",
     "ts-loader": "^9.4.1",
+    "typescript": "^4.8.4",
+    "vscode-ext-localisation": "^1.0.1",
     "webpack": "^5.74.0",
-    "webpack-cli": "^4.10.0",
-    "@vscode/test-electron": "^2.1.5"
+    "webpack-cli": "^4.10.0"
   }
 }

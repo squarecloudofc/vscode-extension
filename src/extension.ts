@@ -1,26 +1,50 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
+import { getVscodeLang, loadTranslations } from 'vscode-ext-localisation';
+import CommandManager from './CommandManager';
+import { existsSync, readdirSync } from 'fs';
 import * as vscode from 'vscode';
+import { join } from 'path';
 
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
-export function activate(context: vscode.ExtensionContext) {
+export async function activate(context: vscode.ExtensionContext) {
+	console.log('Loading extension...')
 
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "squarecloud" is now active!');
+  loadTranslations(
+    getVscodeLang(process.env.VSCODE_NLS_CONFIG),
+    context.extensionPath
+  );
 
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('squarecloud.helloWorld', () => {
-		// The code you place here will be executed every time your command is executed
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from SquareCloud!');
-	});
+	console.log('Translations loaded!');
 
-	context.subscriptions.push(disposable);
+  for await (const file of getAllFiles(join(__dirname, 'commands'))) {
+    await import(file);
+  }
+
+	console.log('Commands loaded!');
+
+  context.subscriptions.push(...CommandManager.commands);
+  console.log('Extension loaded!');
 }
 
-// This method is called when your extension is deactivated
 export function deactivate() {}
+
+export function getAllFiles(path: string) {
+  if (!existsSync(path)) {
+    return [];
+  }
+
+  const rawFiles = readdirSync(path, { withFileTypes: true });
+  let files: string[] = [];
+
+  for (const file of rawFiles) {
+    if (file.isDirectory()) {
+      files = [...files, ...getAllFiles(`${path}/${file.name}`)];
+    }
+
+    if (!file.name.endsWith('.ts')) {
+      continue;
+    }
+
+    files.push(file.name);
+  }
+
+  return files;
+}
