@@ -1,4 +1,7 @@
-node_modules
-.vscode
-pnpm-lock.yaml
 out
+dist
+node_modules
+.vscode-test/
+.vscode/
+*.vsix
+*.yaml
