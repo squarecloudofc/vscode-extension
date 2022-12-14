@@ -16,8 +16,9 @@
   "contributes": {
     "commands": [
       {
-        "command": "squarecloud.helloWorld",
-        "title": "Hello World"
+        "command": "squarecloud.setApiKey",
+        "title": "%command.setApiKey%",
+        "category": "SquareCloud"
       }
     ]
   },
@@ -42,5 +43,9 @@
     "ts-loader": "^9.4.1",
     "typescript": "^4.8.4",
     "vscode-ext-localisation": "^1.0.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/squarecloudofc/vscode-extension"
   }
 }

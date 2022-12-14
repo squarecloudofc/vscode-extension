@@ -1,7 +1,6 @@
-import CommandManager from '../CommandManager';
-import * as vs from 'vscode';
+import { SquareCloud } from './SquareCloud';
 
-export type ExecuteCommand = (vscode: typeof vs) => any;
+export type ExecuteCommand = (ctx: SquareCloud) => any;
 
 export class Command {
   public name: string;
@@ -10,7 +9,5 @@ export class Command {
   constructor(name: string, execute: ExecuteCommand) {
     this.name = 'squarecloud.' + name;
     this.execute = execute;
-
-    CommandManager.registerCommand(this);
   }
 }
