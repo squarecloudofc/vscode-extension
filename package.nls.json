@@ -1,3 +1,5 @@
 {
-  "command.setApiKey": "Set API key"
+  "command.setApiKey": "Set API key",
+  "activitybar.title": "Teste1",
+  "container.name": "Teste2"
 }

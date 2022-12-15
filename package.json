@@ -20,7 +20,24 @@
         "title": "%command.setApiKey%",
         "category": "SquareCloud"
       }
-    ]
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "squarecloud-container",
+          "title": "%activitybar.title%",
+          "icon": "resources/squarecloud-tree.svg"
+        }
+      ]
+    },
+    "views": {
+      "squarecloud-container": [
+        {
+          "id": "squarecloud-view",
+          "name": "%container.name%"
+        }
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "pnpm run compile",
