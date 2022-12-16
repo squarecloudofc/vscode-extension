@@ -14,6 +14,7 @@
   ],
   "main": "./out/extension.js",
   "contributes": {
+    "menus": {},
     "commands": [
       {
         "command": "squarecloud.setApiKey",
@@ -25,7 +26,7 @@
       "activitybar": [
         {
           "id": "squarecloud-container",
-          "title": "%activitybar.title%",
+          "title": "%container.name%",
           "icon": "resources/squarecloud-tree.svg"
         }
       ]
@@ -34,10 +35,27 @@
       "squarecloud-container": [
         {
           "id": "squarecloud-view",
-          "name": "%container.name%"
+          "name": "%view.title%"
         }
       ]
-    }
+    },
+    "viewsWelcome": [
+      {
+        "view": "squarecloud-view",
+        "contents": "%view.welcome%"
+      }
+    ],
+    "configuration": [
+      {
+        "title": "SquareCloud",
+        "properties": {
+          "squarecloud.apiKey": {
+            "title": "SquareCloud API Key.",
+            "type": "string"
+          }
+        }
+      }
+    ]
   },
   "scripts": {
     "vscode:prepublish": "pnpm run compile",

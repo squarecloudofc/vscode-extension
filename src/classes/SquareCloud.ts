@@ -7,15 +7,20 @@ import { join } from 'path';
 export class SquareCloud {
   public config = vscode.workspace.getConfiguration('squarecloud');
 
-  constructor(public context: vscode.ExtensionContext) {}
+  constructor(public context: vscode.ExtensionContext) {
+    this.loadTranslations();
+    this.loadCommands();
+  }
 
   loadCommands() {
-    const files = getAllFiles(join(__dirname, 'commands'));
+    const files = getAllFiles(join(__dirname, '..', 'commands'));
 
     for (const file of files) {
       const command: Command = require(file).default;
 
-      console.log(command);
+      if (!command) {
+        continue;
+      }
 
       const disposable: vscode.Disposable = vscode.commands.registerCommand(
         command.name,

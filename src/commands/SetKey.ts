@@ -1,7 +1,7 @@
 import { Command } from '../classes/Command';
 import { env, Uri, window } from 'vscode';
 
-export default new Command('setApiKey', async () => {
+export default new Command('setApiKey', async (ctx) => {
   const hasKey = await window.showQuickPick(['Yes', 'No'], {
     title: 'Do you have your API key already?',
     placeHolder: 'Choose an option...',
@@ -23,4 +23,21 @@ export default new Command('setApiKey', async () => {
 
     return;
   }
+
+  const apiKey = await window.showInputBox({
+    placeHolder: 'Paste here...',
+    title: 'Enter your API key.',
+  });
+
+  console.log(apiKey);
+
+  if (!apiKey) {
+    return;
+  }
+
+  await ctx.config.update('apiKey', apiKey, true);
+
+  window.showInformationMessage(
+    'Your API key has been successfuly registered!'
+  );
 });

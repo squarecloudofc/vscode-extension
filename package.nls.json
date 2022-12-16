@@ -1,5 +1,6 @@
 {
   "command.setApiKey": "Set API key",
-  "activitybar.title": "Teste1",
-  "container.name": "Teste2"
+  "container.name": "SquareCloud",
+  "view.title": "Main",
+  "view.welcome": "No registered API key.\n[Set API key](command:squarecloud.setApiKey)"
 }

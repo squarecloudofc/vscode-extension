@@ -5,7 +5,7 @@ process.on('uncaughtException', console.error);
 
 process.on('unhandledRejection', console.error);
 
-export async function activate(context: vscode.ExtensionContext) {
+export function activate(context: vscode.ExtensionContext) {
   new SquareCloud(context);
 }
 
