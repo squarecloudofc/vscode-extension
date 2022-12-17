@@ -29,13 +29,12 @@ export default new Command('setApiKey', async (ctx) => {
     title: 'Enter your API key.',
   });
 
-  console.log(apiKey);
-
   if (!apiKey) {
     return;
   }
 
   await ctx.config.update('apiKey', apiKey, true);
+  ctx.appsView.refresh();
 
   window.showInformationMessage(
     'Your API key has been successfuly registered!'

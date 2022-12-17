@@ -1,6 +1,7 @@
 {
   "name": "squarecloud",
   "displayName": "SquareCloud",
+  "icon": "resources/squarecloud.logo",
   "description": "An extension to easily interact with the SquareCloud API.",
   "version": "0.0.1",
   "engines": {
@@ -27,21 +28,30 @@
         {
           "id": "squarecloud-container",
           "title": "%container.name%",
-          "icon": "resources/squarecloud-tree.svg"
+          "icon": "resources/squarecloud.svg"
         }
       ]
     },
     "views": {
       "squarecloud-container": [
         {
-          "id": "squarecloud-view",
-          "name": "%view.title%"
+          "id": "apps-view",
+          "name": "%view.apps.title%"
+        },
+        {
+          "id": "sites-view",
+          "name": "%view.sites.title%"
+        },
+        {
+          "id": "user-view",
+          "name": "%view.user.title%",
+          "visibility": "collapsed"
         }
       ]
     },
     "viewsWelcome": [
       {
-        "view": "squarecloud-view",
+        "view": "apps-view",
         "contents": "%view.welcome%"
       }
     ],
@@ -82,5 +92,10 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/squarecloudofc/vscode-extension"
+  },
+  "dependencies": {
+    "axios": "^1.2.1",
+    "node-fetch": "^3.3.0",
+    "webpack": "^5.75.0"
   }
 }

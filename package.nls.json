@@ -1,6 +1,8 @@
 {
   "command.setApiKey": "Set API key",
   "container.name": "SquareCloud",
-  "view.title": "Main",
+  "view.user.title": "User",
+  "view.apps.title": "Applications",
+  "view.sites.title": "Websites",
   "view.welcome": "No registered API key.\n[Set API key](command:squarecloud.setApiKey)"
 }
