@@ -1,10 +1,12 @@
-import { AxiosStatic } from 'axios';
+import { Application } from '@squarecloud/api';
+import CacheManager from './CacheManager';
 import * as vscode from 'vscode';
+import { once } from 'events';
 import * as path from 'path';
 
-const axios: AxiosStatic = require('axios');
-
-export class AppsProvider implements vscode.TreeDataProvider<ApplicationItem> {
+export class AppsProvider
+  implements vscode.TreeDataProvider<ApplicationItem | vscode.TreeItem>
+{
   private _onDidChangeTreeData: vscode.EventEmitter<
     ApplicationItem | undefined | void
   > = new vscode.EventEmitter<ApplicationItem | undefined | void>();
@@ -13,7 +15,15 @@ export class AppsProvider implements vscode.TreeDataProvider<ApplicationItem> {
     ApplicationItem | undefined | void
   > = this._onDidChangeTreeData.event;
 
-  constructor(private apiKey: string | undefined) {}
+  protected websiteOnly?: boolean;
+
+  constructor(private cache: CacheManager) {
+    this.refresh();
+
+    cache.on('refresh', () => {
+      this.refresh();
+    });
+  }
 
   refresh(): void {
     this._onDidChangeTreeData.fire();
@@ -23,56 +33,50 @@ export class AppsProvider implements vscode.TreeDataProvider<ApplicationItem> {
     return element;
   }
 
-  async getChildren(element?: ApplicationItem): Promise<ApplicationItem[]> {
-    if (!this.apiKey) {
-      return [];
+  async getChildren(
+    element?: ApplicationItem
+  ): Promise<ApplicationItem[] | vscode.TreeItem[]> {
+    let { applications } = this.cache;
+
+    if (!applications?.length) {
+      if (!this.cache.api) {
+        return [
+          new vscode.TreeItem(
+            'No API key provided.',
+            vscode.TreeItemCollapsibleState.None
+          ),
+        ];
+      }
+
+      return [
+        new vscode.TreeItem('Loading...', vscode.TreeItemCollapsibleState.None),
+      ];
     }
 
-    const applications = await this.getApplications();
+    applications = applications.filter(({ isWebsite }) => {
+      return this.websiteOnly ? isWebsite : !isWebsite;
+    });
 
-    if (!applications) {
-      return [];
-    }
-
-    return applications
-      .filter((app) => !app.isWebsite)
-      .map(
-        (app) =>
-          new ApplicationItem(app, vscode.TreeItemCollapsibleState.Collapsed)
-      );
-  }
-
-  async getApplications(): Promise<Application[] | undefined> {
-    const data = await axios
-      .get('https://api.squarecloud.app/v1/public/user', {
-        headers: { authorization: this.apiKey },
-      })
-      .then((r) => r.data)
-      .catch(() => null);
-
-    if (!data) {
-      return;
-    }
-
-    if (data.status === 'error') {
-      vscode.window.showErrorMessage(
-        'Error while trying to load applications.'
-      );
-
-      return;
-    }
-
-    return data.response.applications;
+    return await Promise.all(
+      applications.map(
+        async (app) => new ApplicationItem(app, await app.getStatus())
+      )
+    );
   }
 }
 
 export class ApplicationItem extends vscode.TreeItem {
   constructor(
     public readonly app: Application,
-    public readonly collapsibleState: vscode.TreeItemCollapsibleState,
+    public readonly status: ThenArg<ReturnType<Application['getStatus']>>,
     public readonly command?: vscode.Command
   ) {
-    super(app.tag, collapsibleState);
+    super(
+      app.tag,
+      status.running
+        ? vscode.TreeItemCollapsibleState.Collapsed
+        : vscode.TreeItemCollapsibleState.None
+    );
 
     this.tooltip = `${app.id}`;
   }
@@ -84,7 +88,7 @@ export class ApplicationItem extends vscode.TreeItem {
       '..',
       'resources',
       'light',
-      'squarecloud.svg'
+      this.status.running ? 'app-online.svg' : 'app-offline.svg'
     ),
     dark: path.join(
       __dirname,
@@ -92,20 +96,11 @@ export class ApplicationItem extends vscode.TreeItem {
       '..',
       'resources',
       'dark',
-      'squarecloud.svg'
+      this.status.running ? 'app-online.svg' : 'app-offline.svg'
     ),
   };
 
   contextValue = 'application';
 }
 
-interface Application {
-  id: string;
-  tag: string;
-  ram: number;
-  lang: 'javascript' | 'typescript' | 'python' | 'java';
-  type: 'free' | 'paid';
-  avatar: string;
-  cluster: string;
-  isWebsite: boolean;
-}
+type ThenArg<T> = T extends PromiseLike<infer U> ? U : T;

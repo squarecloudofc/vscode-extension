@@ -1,15 +1,18 @@
 import { getVscodeLang, loadTranslations } from 'vscode-ext-localisation';
+import { SitesProvider } from './SitesProvides';
+import { BotsProvider } from './BotsProvider';
 import { getAllFiles } from '../getAllFiles';
+import CacheManager from './CacheManager';
 import { Command } from './Command';
 import * as vscode from 'vscode';
 import { join } from 'path';
-import { AppsProvider } from './AppsProvider';
-import { SitesProvider } from './SitesProvides';
 
 export class SquareCloud {
   public config = vscode.workspace.getConfiguration('squarecloud');
-  public appsView = new AppsProvider(this.config.get('apiKey'));
-  public sitesView = new SitesProvider(this.config.get('apiKey'));
+
+  public cache = new CacheManager(this);
+  public sitesView = new SitesProvider(this.cache);
+  public botsView = new BotsProvider(this.cache);
 
   constructor(public context: vscode.ExtensionContext) {
     this.loadTranslations();
@@ -36,7 +39,7 @@ export class SquareCloud {
   }
 
   loadTreeViews() {
-    vscode.window.registerTreeDataProvider('apps-view', this.appsView);
+    vscode.window.registerTreeDataProvider('bots-view', this.botsView);
     vscode.window.registerTreeDataProvider('sites-view', this.sitesView);
   }
 
@@ -45,5 +48,9 @@ export class SquareCloud {
       getVscodeLang(process.env.VSCODE_NLS_CONFIG),
       this.context.extensionPath
     );
+  }
+
+  get apiKey(): string | undefined {
+    return this.config.get('apiKey');
   }
 }
