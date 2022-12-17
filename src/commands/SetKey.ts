@@ -34,7 +34,7 @@ export default new Command('setApiKey', async (ctx) => {
   }
 
   await ctx.config.update('apiKey', apiKey, true);
-  ctx.appsView.refresh();
+  ctx.cache.refresh();
 
   window.showInformationMessage(
     'Your API key has been successfuly registered!'
