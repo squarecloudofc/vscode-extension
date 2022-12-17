@@ -35,12 +35,12 @@
     "views": {
       "squarecloud-container": [
         {
-          "id": "apps-view",
-          "name": "%view.apps.title%"
+          "id": "bots-view",
+          "name": "Bots"
         },
         {
           "id": "sites-view",
-          "name": "%view.sites.title%"
+          "name": "Websites"
         },
         {
           "id": "user-view",
@@ -49,12 +49,6 @@
         }
       ]
     },
-    "viewsWelcome": [
-      {
-        "view": "apps-view",
-        "contents": "%view.welcome%"
-      }
-    ],
     "configuration": [
       {
         "title": "SquareCloud",
@@ -75,6 +69,7 @@
     "lint": "eslint src --ext ts"
   },
   "devDependencies": {
+    "@squarecloud/api": "^1.1.13",
     "@types/glob": "^8.0.0",
     "@types/mocha": "^10.0.0",
     "@types/node": "16.x",
@@ -87,15 +82,11 @@
     "mocha": "^10.0.0",
     "ts-loader": "^9.4.1",
     "typescript": "^4.8.4",
-    "vscode-ext-localisation": "^1.0.1"
+    "vscode-ext-localisation": "^1.0.1",
+    "webpack": "^5.75.0"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/squarecloudofc/vscode-extension"
-  },
-  "dependencies": {
-    "axios": "^1.2.1",
-    "node-fetch": "^3.3.0",
-    "webpack": "^5.75.0"
   }
 }
