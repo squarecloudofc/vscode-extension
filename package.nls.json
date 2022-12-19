@@ -1,6 +1,5 @@
 {
   "command.setApiKey": "Set API key",
-  "container.name": "SquareCloud",
   "view.user.title": "User",
   "view.welcome": "No registered API key.\n[Set API key](command:squarecloud.setApiKey)"
 }

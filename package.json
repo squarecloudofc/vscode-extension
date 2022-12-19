@@ -11,7 +11,7 @@
     "Other"
   ],
   "activationEvents": [
-    "*"
+    "onView:squarecloud-container"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -27,7 +27,7 @@
       "activitybar": [
         {
           "id": "squarecloud-container",
-          "title": "%container.name%",
+          "title": "Square Cloud",
           "icon": "resources/squarecloud.svg"
         }
       ]
@@ -69,7 +69,7 @@
     "lint": "eslint src --ext ts"
   },
   "devDependencies": {
-    "@squarecloud/api": "^1.1.13",
+    "@squarecloud/api": "^1.1.14",
     "@types/glob": "^8.0.0",
     "@types/mocha": "^10.0.0",
     "@types/node": "16.x",
@@ -88,5 +88,8 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/squarecloudofc/vscode-extension"
+  },
+  "dependencies": {
+    "pretty-ms": "7.0.1"
   }
 }

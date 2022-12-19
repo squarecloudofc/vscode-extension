@@ -1,6 +1,5 @@
 {
   "command.setApiKey": "Definir chave de API",
-  "container.name": "SquareCloud",
   "view.user.title": "Usuário",
   "view.welcome": "Nenhuma chave de API foi encontrada.\n[Definir chave de API](command:squarecloud.setApiKey)"
 }
