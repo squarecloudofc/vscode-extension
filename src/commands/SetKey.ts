@@ -1,4 +1,4 @@
-import { Command } from '../classes/Command';
+import { Command } from '../structures/Command';
 import { env, Uri, window } from 'vscode';
 
 export default new Command('setApiKey', async (ctx) => {
@@ -34,7 +34,7 @@ export default new Command('setApiKey', async (ctx) => {
   }
 
   await ctx.config.update('apiKey', apiKey, true);
-  ctx.cache.refresh();
+  ctx.cache.refreshAll();
 
   window.showInformationMessage(
     'Your API key has been successfuly registered!'
