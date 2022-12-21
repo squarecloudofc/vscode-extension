@@ -1,6 +1,6 @@
 import { SquareCloud } from './SquareCloud';
 
-export type ExecuteCommand = (ctx: SquareCloud) => any;
+export type ExecuteCommand = (ctx: SquareCloud, arg: any) => any;
 
 export class Command {
   public name: string;
