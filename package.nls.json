@@ -1,5 +1,45 @@
 {
-  "command.setApiKey": "Set API key",
+  "config.apiKey.description": "Your [Square Cloud](https://squarecloud.app/) API key.",
+
+  "command.setApiKey": "Set new API key",
+  "command.showLogs": "Show logs",
+  "command.copyText": "Copy",
+  "command.refresh": "Refresh",
+
   "view.user.title": "User",
-  "view.welcome": "No registered API key.\n[Set API key](command:squarecloud.setApiKey)"
+  "view.welcome": "No registered API key.\n[Set API key](command:squarecloud.setApiKey)",
+
+  "generic": {
+    "yes": "Yes",
+    "no": "No",
+    "loading": "Loading...",
+    "network": "Network",
+    "storage": "Storage",
+    "wait": "Please wait a moment before making new requests.",
+    "refreshing": "Refreshing...",
+    "done": "Done!"
+  },
+
+  "setApiKey": {
+    "hasKey": {
+      "title": "Do you have your API key already?",
+      "placeHolder": "Choose an option..."
+    },
+    "tutorial": {
+      "label": "First open the \"SquareCloud Dashboard\", then go to \"My Account\" and finally click \"Regenerate API/CLI KEY\".",
+      "button": "Open Dashboard"
+    },
+    "apiKey": {
+      "title": "Enter your API key.",
+      "placeHolder": "Paste here..."
+    },
+    "success": "Your API key has been successfuly registered!"
+  },
+
+  "logs": {
+    "loading": "Fetching logs.",
+    "loaded": "Logs have been successfully loaded.",
+    "null": "No logs were found.",
+    "button": "Show logs"
+  }
 }

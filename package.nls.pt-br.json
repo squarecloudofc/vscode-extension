@@ -1,5 +1,45 @@
 {
-  "command.setApiKey": "Definir chave de API",
+  "config.apiKey.description": "Sua chave de API da [Square Cloud](https://squarecloud.app/).",
+
+  "command.setApiKey": "Definir nova chave de API",
+  "command.showLogs": "Exibir logs",
+  "command.copyText": "Copiar",
+  "command.refresh": "Atualizar",
+
   "view.user.title": "Usuário",
-  "view.welcome": "Nenhuma chave de API foi encontrada.\n[Definir chave de API](command:squarecloud.setApiKey)"
+  "view.welcome": "Nenhuma chave de API registrada.\n[Definir chave de API](command:squarecloud.setApiKey)",
+
+  "generic": {
+    "yes": "Sim",
+    "no": "Não",
+    "loading": "Carregando...",
+    "network": "Rede",
+    "storage": "Armazenamento",
+    "wait": "Por favor, aguarde um momento antes de fazer novas solicitações.",
+    "refreshing": "Atualizando...",
+    "done": "Feito!"
+  },
+
+  "setApiKey": {
+    "hasKey": {
+      "title": "Você já possui sua chave de API?",
+      "placeHolder": "Escolha uma opção..."
+    },
+    "tutorial": {
+      "label": "Primeiro abra o \"Dashboard da SquareCloud\", depois vá para \"Minha conta\" e finalmente clique em \"Regenerar chave de API/CLI\".",
+      "button": "Abrir Dashboard"
+    },
+    "apiKey": {
+      "title": "Insira sua chave de API.",
+      "placeHolder": "Cole aqui..."
+    },
+    "success": "Sua chave de API foi registrada com sucesso!"
+  },
+
+  "logs": {
+    "loading": "Buscando logs.",
+    "loaded": "Os logs foram carregados com sucesso.",
+    "null": "Nenhum log foi encontrado.",
+    "button": "Exibir logs"
+  }
 }
