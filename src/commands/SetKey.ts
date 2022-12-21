@@ -1,23 +1,27 @@
 import { Command } from '../structures/Command';
+import { t } from 'vscode-ext-localisation';
 import { env, Uri, window } from 'vscode';
 
 export default new Command('setApiKey', async (ctx) => {
-  const hasKey = await window.showQuickPick(['Yes', 'No'], {
-    title: 'Do you have your API key already?',
-    placeHolder: 'Choose an option...',
-  });
+  const hasKey = await window.showQuickPick(
+    [t('generic.yes'), t('generic.no')],
+    {
+      title: t('setApiKey.hasKey.title'),
+      placeHolder: t('setApiKey.hasKey.placeHolder'),
+    }
+  );
 
   if (!hasKey) {
     return;
   }
 
-  if (hasKey === 'No') {
+  if (hasKey === t('generic.no')) {
     const tutorialButton = await window.showInformationMessage(
-      'First open the "SquareCloud Dashboard", then go to "My Account" and finally click "Regenerate API/CLI KEY".',
-      'Open Dashboard'
+      t('setApiKey.tutorial.label'),
+      t('setApiKey.tutorial.button')
     );
 
-    if (tutorialButton === 'Open Dashboard') {
+    if (tutorialButton === t('setApiKey.tutorial.button')) {
       env.openExternal(Uri.parse('https://squarecloud.app/dashboard'));
     }
 
@@ -25,8 +29,8 @@ export default new Command('setApiKey', async (ctx) => {
   }
 
   const apiKey = await window.showInputBox({
-    placeHolder: 'Paste here...',
-    title: 'Enter your API key.',
+    title: t('setApiKey.apiKey.title'),
+    placeHolder: t('setApiKey.apiKey.placeHolder'),
   });
 
   if (!apiKey) {
@@ -34,9 +38,7 @@ export default new Command('setApiKey', async (ctx) => {
   }
 
   await ctx.config.update('apiKey', apiKey, true);
-  ctx.cache.refreshAll();
+  ctx.cache.refresh();
 
-  window.showInformationMessage(
-    'Your API key has been successfuly registered!'
-  );
+  window.showInformationMessage(t('setApiKey.success'));
 });
