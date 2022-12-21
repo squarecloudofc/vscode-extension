@@ -1,56 +1,80 @@
 import SquareCloudAPI, { Application, FullUser } from '@squarecloud/api';
 import { SquareCloud } from '../structures/SquareCloud';
+import { t } from 'vscode-ext-localisation';
 import { EventEmitter } from 'events';
+import * as vscode from 'vscode';
 
 export default class CacheManager extends EventEmitter {
   public applications: Application[] = [];
   public user?: FullUser;
 
-  public api?: SquareCloudAPI;
+  public blocked: boolean = false;
 
-  constructor(public context: SquareCloud, public interval?: number) {
+  public status = new Map<
+    string,
+    ThenArg<ReturnType<Application['getStatus']>>
+  >();
+
+  constructor(public context: SquareCloud) {
     super();
+  }
 
-    this.setApi();
-
-    if (interval) {
-      setInterval(() => this.refreshAll(), interval);
+  get api() {
+    if (!this.context.apiKey) {
+      return;
     }
+
+    return new SquareCloudAPI(this.context.apiKey);
   }
 
-  setApi() {
-    if (this.context.apiKey) {
-      this.api = new SquareCloudAPI(this.context.apiKey);
+  async refreshStatus(appId: string, bypass?: boolean) {
+    if (!bypass && this.blocked) {
+      vscode.window.showErrorMessage(t('generic.wait'));
+      return;
     }
+
+    const app = this.applications.find((app) => app.id === appId);
+
+    if (!app) {
+      return;
+    }
+
+    this.blocked = true;
+    this.status.set(appId, await app.getStatus());
+    this.blocked = false;
+
+    console.log('refreshStatus');
+
+    this.emit('refreshStatus', appId);
   }
 
-  async refreshAll() {
-    this.refreshUser();
-    this.refreshApps();
+  async refresh(bypass?: boolean) {
+    if (!bypass && this.blocked) {
+      vscode.window.showErrorMessage(t('generic.wait'));
+      return;
+    }
 
-    this.emit('refresh');
-  }
+    this.blocked = true;
 
-  async refreshApps() {
-    this.applications = await this.fetchApplications().catch((err) => {
-      console.error(err);
-      return [];
-    });
-
-    this.emit('refreshApps');
-  }
-
-  async refreshUser() {
     this.user = await this.fetchUser().catch((err) => {
       console.error(err);
       return undefined;
     });
 
-    this.emit('refreshUser');
+    this.applications = await this.fetchApplications().catch((err) => {
+      console.error(err);
+      return [];
+    });
+
+    this.blocked = false;
+
+    console.log('refresh');
+
+    this.emit('refresh');
   }
 
   async fetchApplications() {
-    const user = await this.fetchUser();
+    const { user } = this;
 
     if (!user?.applications?.size) {
       return [];
@@ -63,3 +87,5 @@ export default class CacheManager extends EventEmitter {
     return await this.api?.getUser?.();
   }
 }
+
+type ThenArg<T> = T extends PromiseLike<infer U> ? U : T;
