@@ -1,72 +1,43 @@
+import { BaseProvider, GenericTreeItem } from './BaseProvider';
 import CacheManager from '../managers/CacheManager';
-import * as vscode from 'vscode';
-import * as path from 'path';
+import { t } from 'vscode-ext-localisation';
 
-export class AppsProvider implements vscode.TreeDataProvider<GenericTreeItem> {
-  private _onDidChangeTreeData: vscode.EventEmitter<
-    GenericTreeItem | undefined | void
-  > = new vscode.EventEmitter<GenericTreeItem | undefined | void>();
-
-  readonly onDidChangeTreeData: vscode.Event<
-    GenericTreeItem | undefined | void
-  > = this._onDidChangeTreeData.event;
-
-  protected websiteOnly?: boolean;
-
+export class UserProvider extends BaseProvider<GenericTreeItem> {
   constructor(private cache: CacheManager) {
-    cache.refreshUser();
+    super();
 
-    cache.on('refreshUser', () => {
+    cache.on('refresh', () => {
       this.refresh();
     });
-  }
-
-  refresh(): void {
-    this._onDidChangeTreeData.fire();
-  }
-
-  getTreeItem(element: GenericTreeItem): GenericTreeItem {
-    return element;
   }
 
   async getChildren(element?: GenericTreeItem): Promise<GenericTreeItem[]> {
     const { user } = this.cache;
 
-    console.log(user);
+    if (!user) {
+      return [
+        new GenericTreeItem(
+          t('generic.loading'),
+          'loading',
+          undefined,
+          'ripple'
+        ),
+      ];
+    }
 
-    return [];
+    return [
+      new GenericTreeItem('Username', 'username', user.tag),
+      new GenericTreeItem('E-mail', 'email', user.email),
+      new GenericTreeItem('Id', 'id', user.id),
+      new GenericTreeItem(
+        capitalize(user.plan.name),
+        'plan',
+        user.plan.duration.formatted
+      ),
+    ];
   }
 }
 
-export class GenericTreeItem extends vscode.TreeItem {
-  constructor(
-    public readonly label: string,
-    public readonly collapsibleState: vscode.TreeItemCollapsibleState = 0,
-    public readonly iconName?: string,
-    public readonly description?: string
-  ) {
-    super(label, collapsibleState);
-    this.description = description;
-  }
-
-  iconPath = {
-    light: path.join(
-      __dirname,
-      '..',
-      '..',
-      'resources',
-      'light',
-      `${this.iconName}.svg`
-    ),
-    dark: path.join(
-      __dirname,
-      '..',
-      '..',
-      'resources',
-      'dark',
-      `${this.iconName}.svg`
-    ),
-  };
+function capitalize(str: string) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
 }
-
-type ThenArg<T> = T extends PromiseLike<infer U> ? U : T;
