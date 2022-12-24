@@ -5,6 +5,10 @@
   "command.showLogs": "Show logs",
   "command.copyText": "Copy",
   "command.refresh": "Refresh",
+  "command.start": "Start",
+  "command.stop": "Stop",
+  "command.restart": "Restart",
+  "command.delete": "Delete",
 
   "view.user.title": "User",
   "view.welcome": "No registered API key.\n[Set API key](command:squarecloud.setApiKey)",
@@ -41,5 +45,34 @@
     "loaded": "Logs have been successfully loaded.",
     "null": "No logs were found.",
     "button": "Show logs"
+  },
+
+  "start": {
+    "loading": "Launching application...",
+    "loaded": "Application is now running."
+  },
+
+  "stop": {
+    "loading": "Shutting down application...",
+    "loaded": "Application is no longer running."
+  },
+
+  "restart": {
+    "loading": "Restarting application...",
+    "loaded": "Application has been restarted."
+  },
+
+  "delete": {
+    "loading": "Deleting application...",
+    "loaded": "Application has been deleted.",
+    "cancelled": "The delete process has been cancelled.",
+    "confirm": "Enter the application name to confirm that you want to delete it."
+  },
+
+  "commit": {
+    "loading": "Committing files...",
+    "loaded": "Committed files successfuly.",
+    "select": "Select folder to commit",
+    "useGitIgnore": "No squarecloud.ignore file found. Ignore .gitignore listed files instead?"
   }
 }

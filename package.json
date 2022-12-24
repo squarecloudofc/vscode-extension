@@ -32,6 +32,26 @@
         {
           "command": "squarecloud.copyText",
           "when": "false"
+        },
+        {
+          "command": "squarecloud.startEntry",
+          "when": "false"
+        },
+        {
+          "command": "squarecloud.stopEntry",
+          "when": "false"
+        },
+        {
+          "command": "squarecloud.restartEntry",
+          "when": "false"
+        },
+        {
+          "command": "squarecloud.deleteEntry",
+          "when": "false"
+        },
+        {
+          "command": "squarecloud.commitEntry",
+          "when": "false"
         }
       ],
       "view/title": [
@@ -55,6 +75,26 @@
           "command": "squarecloud.showLogs",
           "when": "viewItem == square-bot || viewItem == square-site",
           "group": "inline"
+        },
+        {
+          "command": "squarecloud.startEntry",
+          "when": "viewItem == square-bot || viewItem == square-site"
+        },
+        {
+          "command": "squarecloud.stopEntry",
+          "when": "viewItem == square-bot || viewItem == square-site"
+        },
+        {
+          "command": "squarecloud.restartEntry",
+          "when": "viewItem == square-bot || viewItem == square-site"
+        },
+        {
+          "command": "squarecloud.deleteEntry",
+          "when": "viewItem == square-bot || viewItem == square-site"
+        },
+        {
+          "command": "squarecloud.commitEntry",
+          "when": "viewItem == square-bot || viewItem == square-site"
         },
         {
           "command": "squarecloud.copyText",
@@ -116,6 +156,10 @@
       {
         "command": "squarecloud.deleteEntry",
         "title": "%command.delete%"
+      },
+      {
+        "command": "squarecloud.commitEntry",
+        "title": "Commit"
       }
     ],
     "viewsContainers": {
@@ -165,7 +209,8 @@
     "lint": "eslint src --ext ts"
   },
   "devDependencies": {
-    "@squarecloud/api": "link:..\\..\\Packages\\squarecloud-api",
+    "@squarecloud/api": "^1.1.15",
+    "@types/adm-zip": "^0.5.0",
     "@types/glob": "^8.0.0",
     "@types/mocha": "^10.0.0",
     "@types/node": "16.x",
@@ -173,9 +218,11 @@
     "@typescript-eslint/eslint-plugin": "^5.38.1",
     "@typescript-eslint/parser": "^5.38.1",
     "@vscode/test-electron": "^2.1.5",
+    "adm-zip": "^0.5.10",
     "eslint": "^8.24.0",
     "glob": "^8.0.3",
     "mocha": "^10.0.0",
+    "pretty-ms": "7.0.1",
     "ts-loader": "^9.4.1",
     "typescript": "^4.8.4",
     "vscode-ext-localisation": "^1.0.1",
@@ -186,6 +233,6 @@
     "url": "https://github.com/squarecloudofc/vscode-extension"
   },
   "dependencies": {
-    "pretty-ms": "7.0.1"
+    "ignore": "^5.2.4"
   }
 }

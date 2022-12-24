@@ -5,6 +5,10 @@
   "command.showLogs": "Exibir logs",
   "command.copyText": "Copiar",
   "command.refresh": "Atualizar",
+  "command.start": "Iniciar",
+  "command.stop": "Parar",
+  "command.restart": "Reiniciar",
+  "command.delete": "Excluir",
 
   "view.user.title": "Usuário",
   "view.welcome": "Nenhuma chave de API registrada.\n[Definir chave de API](command:squarecloud.setApiKey)",
@@ -41,5 +45,34 @@
     "loaded": "Os logs foram carregados com sucesso.",
     "null": "Nenhum log foi encontrado.",
     "button": "Exibir logs"
+  },
+
+  "start": {
+    "loading": "Iniciando aplicação...",
+    "loaded": "Aplicação iniciada com sucesso."
+  },
+
+  "stop": {
+    "loading": "Desligando aplicação...",
+    "loaded": "A aplicação foi desligada."
+  },
+
+  "restart": {
+    "loading": "Reiniciando aplicação...",
+    "loaded": "A aplicação foi reiniciada."
+  },
+
+  "delete": {
+    "loading": "Excluindo a aplicação...",
+    "loaded": "A aplicação foi excluída permanentemente.",
+    "cancelled": "O processo de exclusão foi cancelado.",
+    "confirm": "Insira o nome da aplicação para confirmar que deseja excluí-la."
+  },
+
+  "commit": {
+    "loading": "Realizando commit dos arquivos...",
+    "loaded": "Commit realizado com sucesso.",
+    "select": "Selecione uma pasta para o commit",
+    "useGitIgnore": "Nenhum arquivo squarecloud.ignore encontrado. Ignorar arquivos listados em .gitignore?"
   }
 }
