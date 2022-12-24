@@ -50,7 +50,7 @@ export default new Command(
           filter: (filename) => !ig.ignores(filename),
         });
 
-        await zipFile.writeZipPromise(folder + '/src.zip');
+        await app.commit(zipFile.toBuffer(), `${app.id}.zip`);
 
         progress.report({ increment: 100 });
         vscode.window.showInformationMessage(t('commit.loaded'));
