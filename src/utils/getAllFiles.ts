@@ -1,7 +1,7 @@
 import { existsSync, readdirSync } from 'fs';
 import { join } from 'path';
 
-export function getAllFiles(path: string) {
+export default function getAllFiles(path: string, fileExtensions?: string[]) {
   if (!existsSync(path)) {
     return [];
   }
@@ -11,10 +11,10 @@ export function getAllFiles(path: string) {
 
   for (const file of rawFiles) {
     if (file.isDirectory()) {
-      files = [...files, ...getAllFiles(join(path, file.name))];
+      files = [...files, ...getAllFiles(join(path, file.name), fileExtensions)];
     }
 
-    if (!file.name.endsWith('.ts') && !file.name.endsWith('.js')) {
+    if (fileExtensions && !fileExtensions.some((e) => file.name.endsWith(e))) {
       continue;
     }
 
