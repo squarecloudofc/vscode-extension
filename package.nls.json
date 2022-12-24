@@ -11,7 +11,7 @@
   "command.delete": "Delete",
 
   "view.user.title": "User",
-  "view.welcome": "No registered API key.\n[Set API key](command:squarecloud.setApiKey)",
+  "view.noApiKey": "You do not have a registered API key. Please register one.",
 
   "generic": {
     "yes": "Yes",
