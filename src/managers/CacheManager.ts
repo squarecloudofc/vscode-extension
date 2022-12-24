@@ -89,13 +89,7 @@ export default class CacheManager extends EventEmitter {
         location: vscode.ProgressLocation.Window,
         title: t('generic.refreshing'),
       },
-      async (progress) => {
-        const response = await fn();
-
-        progress.report({ increment: 100 });
-
-        return response;
-      }
+      (progress) => fn()
     );
   }
 
