@@ -39,36 +39,32 @@ export default class CacheManager extends EventEmitter {
       return;
     }
 
-    this.blocked = true;
-    this.status.set(appId, await app.getStatus());
-    this.blocked = false;
-
-    console.log('refreshStatus');
+    await this.handleProgress(async () =>
+      this.blockUntil(async () => this.status.set(appId, await app.getStatus()))
+    );
 
     this.emit('refreshStatus', appId);
   }
 
   async refresh(bypass?: boolean) {
     if (!bypass && this.blocked) {
-      vscode.window.showErrorMessage(t('generic.wait'));
+      this.handleBlock();
       return;
     }
 
-    this.blocked = true;
+    await this.handleProgress(async () =>
+      this.blockUntil(async () => {
+        this.user = await this.fetchUser().catch((err) => {
+          console.error(err);
+          return undefined;
+        });
 
-    this.user = await this.fetchUser().catch((err) => {
-      console.error(err);
-      return undefined;
-    });
-
-    this.applications = await this.fetchApplications().catch((err) => {
-      console.error(err);
-      return [];
-    });
-
-    this.blocked = false;
-
-    console.log('refresh');
+        this.applications = await this.fetchApplications().catch((err) => {
+          console.error(err);
+          return [];
+        });
+      })
+    );
 
     this.emit('refresh');
   }
@@ -85,6 +81,36 @@ export default class CacheManager extends EventEmitter {
 
   async fetchUser() {
     return await this.api?.getUser?.();
+  }
+
+  handleProgress<T>(fn: () => Promise<T>): Promise<T> {
+    return <Promise<T>>vscode.window.withProgress(
+      {
+        location: vscode.ProgressLocation.Window,
+        title: t('generic.refreshing'),
+      },
+      async (progress) => {
+        const response = await fn();
+
+        progress.report({ increment: 100 });
+
+        return response;
+      }
+    );
+  }
+
+  block(value: boolean) {
+    this.blocked = value;
+    return this;
+  }
+
+  handleBlock() {
+    return vscode.window.showErrorMessage(t('generic.wait'));
+  }
+
+  async blockUntil<T>(fn: () => Promise<T>): Promise<T> {
+    this.block(true);
+    return await fn().finally(() => this.block(false));
   }
 }
 
