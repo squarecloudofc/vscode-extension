@@ -1,14 +1,10 @@
-import { BaseProvider, GenericTreeItem } from './BaseProvider';
+import { BaseProvider, GenericTreeItem } from './BaseProviders';
 import CacheManager from '../managers/CacheManager';
 import { t } from 'vscode-ext-localisation';
 
 export class UserProvider extends BaseProvider<GenericTreeItem> {
   constructor(private cache: CacheManager) {
     super();
-
-    cache.on('refresh', () => {
-      this.refresh();
-    });
   }
 
   async getChildren(element?: GenericTreeItem): Promise<GenericTreeItem[]> {
