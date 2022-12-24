@@ -8,8 +8,8 @@ import { join } from 'path';
 
 export class SquareCloud {
   public config = vscode.workspace.getConfiguration('squarecloud');
-
   public cache = new CacheManager(this);
+  
   public sitesView = new SitesProvider(this.cache);
   public botsView = new BotsProvider(this.cache);
   public userView = new UserProvider(this.cache);
