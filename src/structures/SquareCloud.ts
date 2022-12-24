@@ -1,7 +1,7 @@
 import { getVscodeLang, loadTranslations } from 'vscode-ext-localisation';
 import { BotsProvider, SitesProvider, UserProvider } from '../providers';
 import CacheManager from '../managers/CacheManager';
-import { getAllFiles } from '../utils/getAllFiles';
+import getAllFiles from '../utils/getAllFiles';
 import { Command } from './Command';
 import * as vscode from 'vscode';
 import { join } from 'path';
@@ -23,7 +23,10 @@ export class SquareCloud {
   }
 
   loadCommands() {
-    const files = getAllFiles(join(__dirname, '..', 'commands'));
+    const files = getAllFiles(join(__dirname, '..', 'commands'), [
+      '.js',
+      '.ts',
+    ]);
 
     for (const file of files) {
       const command: Command = require(file).default;
@@ -47,6 +50,21 @@ export class SquareCloud {
     vscode.window.registerTreeDataProvider('user-view', this.userView);
     vscode.window.registerTreeDataProvider('bots-view', this.botsView);
     vscode.window.registerTreeDataProvider('sites-view', this.sitesView);
+
+    this.cache.on('refresh', () => {
+      this.userView.refresh();
+      this.botsView.refresh();
+      this.sitesView.refresh();
+
+      console.log('refresh');
+    });
+
+    this.cache.on('refreshStatus', () => {
+      this.botsView.refresh();
+      this.sitesView.refresh();
+
+      console.log('refreshStatus');
+    });
   }
 
   loadTranslations() {
