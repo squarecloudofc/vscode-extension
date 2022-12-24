@@ -4,25 +4,17 @@ import {
   CustomTreeItem,
   BaseProvider,
   TreeItem,
-} from './BaseProvider';
+} from './BaseProviders';
 
 import CacheManager from '../managers/CacheManager';
 import { t } from 'vscode-ext-localisation';
-import * as pretty from 'pretty-ms';
+import pretty from 'pretty-ms';
 
 export class AppsProvider extends BaseProvider<TreeItem> {
   protected websiteOnly?: boolean;
 
   constructor(private cache: CacheManager) {
     super();
-
-    cache.on('refresh', () => {
-      this.refresh();
-    });
-
-    cache.on('refreshStatus', () => {
-      this.refresh();
-    });
   }
 
   async getChildren(element?: TreeItem): Promise<TreeItem[]> {
@@ -42,7 +34,11 @@ export class AppsProvider extends BaseProvider<TreeItem> {
         ),
 
         new GenericTreeItem('CPU', 'cpu', status.cpuUsage),
-        new GenericTreeItem('RAM', 'ram', status.ramUsage + 'MB'),
+        new GenericTreeItem(
+          'RAM',
+          'ram',
+          `${status.ramUsage}/${element.app.ram}MB`
+        ),
         new GenericTreeItem(
           t('generic.network'),
           'network',
