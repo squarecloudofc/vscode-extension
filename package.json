@@ -11,7 +11,7 @@
     "Other"
   ],
   "activationEvents": [
-    "*"
+    "onView:squarecloud-container"
   ],
   "main": "./out/extension.js",
   "contributes": {
