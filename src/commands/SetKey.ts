@@ -22,7 +22,7 @@ export default new Command('setApiKey', async (ctx) => {
     );
 
     if (tutorialButton === t('setApiKey.tutorial.button')) {
-      env.openExternal(Uri.parse('https://squarecloud.app/dashboard'));
+      env.openExternal(Uri.parse('https://squarecloud.app/dashboard/me'));
     }
 
     return;
