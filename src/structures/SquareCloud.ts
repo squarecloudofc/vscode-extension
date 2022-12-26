@@ -7,12 +7,10 @@ import * as vscode from 'vscode';
 import { join } from 'path';
 
 export class SquareCloud {
-  public config = vscode.workspace.getConfiguration('squarecloud');
   public cache = new CacheManager(this);
-  
-  public sitesView = new SitesProvider(this.cache);
-  public botsView = new BotsProvider(this.cache);
   public userView = new UserProvider(this.cache);
+  public botsView = new BotsProvider(this.cache);
+  public sitesView = new SitesProvider(this.cache);
 
   constructor(public context: vscode.ExtensionContext) {
     this.loadTranslations();
@@ -76,5 +74,9 @@ export class SquareCloud {
 
   get apiKey(): string | undefined {
     return this.config.get('apiKey');
+  }
+
+  get config() {
+    return vscode.workspace.getConfiguration('squarecloud');
   }
 }
