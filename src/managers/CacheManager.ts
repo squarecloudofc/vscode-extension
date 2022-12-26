@@ -3,6 +3,7 @@ import { SquareCloud } from '../structures/SquareCloud';
 import { t } from 'vscode-ext-localisation';
 import { EventEmitter } from 'events';
 import vscode from 'vscode';
+import APIManager from './APIManager';
 
 export default class CacheManager extends EventEmitter {
   public applications: Application[] = [];
@@ -20,11 +21,7 @@ export default class CacheManager extends EventEmitter {
   }
 
   get api() {
-    if (!this.context.apiKey) {
-      return;
-    }
-
-    return new SquareCloudAPI(this.context.apiKey);
+    return new APIManager(this.context.apiKey);
   }
 
   async refreshStatus(appId: string, bypass?: boolean) {
@@ -48,39 +45,18 @@ export default class CacheManager extends EventEmitter {
 
   async refresh(bypass?: boolean) {
     if (!bypass && this.blocked) {
-      this.handleBlock();
+      this.throwBlockError();
       return;
     }
 
     await this.handleProgress(async () =>
       this.blockUntil(async () => {
-        this.user = await this.fetchUser().catch((err) => {
-          console.error(err);
-          return undefined;
-        });
-
-        this.applications = await this.fetchApplications().catch((err) => {
-          console.error(err);
-          return [];
-        });
+        this.user = await this.api.fetchUser();
+        this.applications = this.api.fetchApps(this.user);
       })
     );
 
     this.emit('refresh');
-  }
-
-  async fetchApplications() {
-    const { user } = this;
-
-    if (!user?.applications?.size) {
-      return [];
-    }
-
-    return user.applications.toJSON();
-  }
-
-  async fetchUser() {
-    return await this.api?.getUser?.();
   }
 
   handleProgress<T>(fn: () => Promise<T>): Promise<T> {
@@ -89,16 +65,15 @@ export default class CacheManager extends EventEmitter {
         location: vscode.ProgressLocation.Window,
         title: t('generic.refreshing'),
       },
-      (progress) => fn()
+      () => fn()
     );
   }
 
   block(value: boolean) {
     this.blocked = value;
-    return this;
   }
 
-  handleBlock() {
+  throwBlockError() {
     return vscode.window.showErrorMessage(t('generic.wait'));
   }
 

@@ -7,7 +7,7 @@ export default new Command(
   'showLogs',
   async (ctx, { app }: ApplicationItem) => {
     if (ctx.cache.blocked) {
-      ctx.cache.handleBlock();
+      ctx.cache.throwBlockError();
       return;
     }
 

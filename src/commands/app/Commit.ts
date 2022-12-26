@@ -9,6 +9,11 @@ import vscode from 'vscode';
 export default new Command(
   'commitEntry',
   async (ctx, { app }: ApplicationItem) => {
+    if (ctx.cache.blocked) {
+      ctx.cache.throwBlockError();
+      return;
+    }
+
     const dialog = await vscode.window.showOpenDialog({
       canSelectFolders: true,
       openLabel: t('commit.select'),

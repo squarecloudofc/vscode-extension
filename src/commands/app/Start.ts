@@ -5,7 +5,7 @@ import vscode from 'vscode';
 
 export default new Command('startEntry', (ctx, { app }: ApplicationItem) => {
   if (ctx.cache.blocked) {
-    ctx.cache.handleBlock();
+    ctx.cache.throwBlockError();
     return;
   }
 
