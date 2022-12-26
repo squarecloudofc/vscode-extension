@@ -9,6 +9,7 @@
   "command.stop": "Parar",
   "command.restart": "Reiniciar",
   "command.delete": "Excluir",
+  "command.createConfig": "Criar arquivo de configuração Square Cloud",
 
   "view.user.title": "Usuário",
   "view.noApiKey": "Você não possui uma chave de API registrada. Por favor, registre uma.",
