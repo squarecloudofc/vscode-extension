@@ -1,7 +1,6 @@
 import { BaseProvider, GenericTreeItem } from './BaseProviders';
 import CacheManager from '../managers/CacheManager';
 import { t } from 'vscode-ext-localisation';
-import * as vscode from 'vscode';
 
 export class UserProvider extends BaseProvider<GenericTreeItem> {
   constructor(protected cache: CacheManager) {

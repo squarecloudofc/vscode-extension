@@ -3,8 +3,8 @@ import { BotsProvider, SitesProvider, UserProvider } from '../providers';
 import CacheManager from '../managers/CacheManager';
 import getAllFiles from '../utils/getAllFiles';
 import { Command } from './Command';
-import * as vscode from 'vscode';
 import { join } from 'path';
+import vscode from 'vscode';
 
 export class SquareCloud {
   public cache = new CacheManager(this);

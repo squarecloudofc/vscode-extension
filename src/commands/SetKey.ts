@@ -1,7 +1,7 @@
 import { Command } from '../structures/Command';
-import { t } from 'vscode-ext-localisation';
-import * as vscode from 'vscode';
 import SquareCloudAPI from '@squarecloud/api';
+import { t } from 'vscode-ext-localisation';
+import vscode from 'vscode';
 
 export default new Command('setApiKey', async (ctx) => {
   const hasKey = await vscode.window.showQuickPick(
@@ -58,7 +58,7 @@ export default new Command('setApiKey', async (ctx) => {
           ? vscode.commands.executeCommand('squarecloud.setApiKey')
           : null
       );
-      
+
     return;
   }
 

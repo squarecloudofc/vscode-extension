@@ -1,7 +1,6 @@
 import {
   ApplicationItem,
   GenericTreeItem,
-  CustomTreeItem,
   BaseProvider,
   TreeItem,
 } from './BaseProviders';
@@ -9,7 +8,6 @@ import {
 import CacheManager from '../managers/CacheManager';
 import { t } from 'vscode-ext-localisation';
 import pretty from 'pretty-ms';
-import * as vscode from 'vscode';
 
 export class AppsProvider extends BaseProvider<TreeItem> {
   protected websiteOnly?: boolean;
