@@ -9,12 +9,13 @@ import {
 import CacheManager from '../managers/CacheManager';
 import { t } from 'vscode-ext-localisation';
 import pretty from 'pretty-ms';
+import * as vscode from 'vscode';
 
 export class AppsProvider extends BaseProvider<TreeItem> {
   protected websiteOnly?: boolean;
 
-  constructor(private cache: CacheManager) {
-    super();
+  constructor(protected cache: CacheManager) {
+    super(cache);
   }
 
   async getChildren(element?: TreeItem): Promise<TreeItem[]> {
@@ -56,16 +57,9 @@ export class AppsProvider extends BaseProvider<TreeItem> {
 
     if (!applications?.length) {
       if (!this.cache.api) {
-        return [
-          new CustomTreeItem(
-            'Click here to set an API key.',
-            {
-              command: 'squarecloud.setApiKey',
-              title: '%command.setApiKey%',
-            },
-            'warning'
-          ),
-        ];
+        this.notifyNoApiKey();
+
+        return [];
       }
 
       return [

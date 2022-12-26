@@ -1,6 +1,7 @@
 import CacheManager from '../managers/CacheManager';
 import { Application } from '@squarecloud/api';
 import getIconPath from '../utils/getIconPath';
+import { t } from 'vscode-ext-localisation';
 import * as vscode from 'vscode';
 
 export class BaseProvider<
@@ -14,6 +15,8 @@ export class BaseProvider<
   readonly onDidChangeTreeData: vscode.Event<TreeItemType | undefined | void> =
     this._onDidChangeTreeData.event;
 
+  constructor(protected cache: CacheManager) {}
+
   refresh(): void {
     this._onDidChangeTreeData.fire();
   }
@@ -24,6 +27,16 @@ export class BaseProvider<
 
   async getChildren(element?: TreeItemType): Promise<TreeItemType[]> {
     return [];
+  }
+
+  notifyNoApiKey() {
+    vscode.window
+      .showErrorMessage(t('view.noApiKey'), t('command.setApiKey'))
+      .then((value) =>
+        value === t('command.setApiKey')
+          ? vscode.commands.executeCommand('squarecloud.setApiKey')
+          : null
+      );
   }
 }
 
