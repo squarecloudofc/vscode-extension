@@ -12,8 +12,6 @@ export class UserProvider extends BaseProvider<GenericTreeItem> {
 
     if (!user) {
       if (!this.cache.api) {
-        this.notifyNoApiKey();
-
         return [];
       }
 

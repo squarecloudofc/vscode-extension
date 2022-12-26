@@ -28,16 +28,6 @@ export class BaseProvider<
   async getChildren(element?: TreeItemType): Promise<TreeItemType[]> {
     return [];
   }
-
-  notifyNoApiKey() {
-    vscode.window
-      .showErrorMessage(t('view.noApiKey'), t('command.setApiKey'))
-      .then((value) =>
-        value === t('command.setApiKey')
-          ? vscode.commands.executeCommand('squarecloud.setApiKey')
-          : null
-      );
-  }
 }
 
 export class CustomTreeItem extends vscode.TreeItem {

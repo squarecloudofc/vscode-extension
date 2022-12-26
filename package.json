@@ -103,6 +103,14 @@
         }
       ]
     },
+    "viewsWelcome": [
+      {
+        "view": "bots-view",
+        "contents": "%view.welcome%",
+        "enablement": "!config.squarecloud.apiKey",
+        "when": "!config.squarecloud.apiKey"
+      }
+    ],
     "commands": [
       {
         "command": "squarecloud.setApiKey",

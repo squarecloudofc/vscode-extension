@@ -55,8 +55,6 @@ export class AppsProvider extends BaseProvider<TreeItem> {
 
     if (!applications?.length) {
       if (!this.cache.api) {
-        this.notifyNoApiKey();
-
         return [];
       }
 
