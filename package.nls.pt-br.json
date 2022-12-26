@@ -37,6 +37,8 @@
       "title": "Insira sua chave de API.",
       "placeHolder": "Cole aqui..."
     },
+    "testing": "Validando a chave de API fornecida.",
+    "invalid": "A chave de API fornecida não é válida.",
     "success": "Sua chave de API foi registrada com sucesso!"
   },
 

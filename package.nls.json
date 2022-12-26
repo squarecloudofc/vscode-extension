@@ -37,6 +37,8 @@
       "title": "Enter your API key.",
       "placeHolder": "Paste here..."
     },
+    "testing": "Verifying the provided API key.",
+    "invalid": "The provided API key is not valid.",
     "success": "Your API key has been successfuly registered!"
   },
 
