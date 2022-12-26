@@ -1,9 +1,10 @@
 import { Command } from '../structures/Command';
 import { t } from 'vscode-ext-localisation';
-import { env, Uri, window } from 'vscode';
+import * as vscode from 'vscode';
+import SquareCloudAPI from '@squarecloud/api';
 
 export default new Command('setApiKey', async (ctx) => {
-  const hasKey = await window.showQuickPick(
+  const hasKey = await vscode.window.showQuickPick(
     [t('generic.yes'), t('generic.no')],
     {
       title: t('setApiKey.hasKey.title'),
@@ -16,19 +17,21 @@ export default new Command('setApiKey', async (ctx) => {
   }
 
   if (hasKey === t('generic.no')) {
-    const tutorialButton = await window.showInformationMessage(
+    const tutorialButton = await vscode.window.showInformationMessage(
       t('setApiKey.tutorial.label'),
       t('setApiKey.tutorial.button')
     );
 
     if (tutorialButton === t('setApiKey.tutorial.button')) {
-      env.openExternal(Uri.parse('https://squarecloud.app/dashboard/me'));
+      vscode.env.openExternal(
+        vscode.Uri.parse('https://squarecloud.app/dashboard/me')
+      );
     }
 
     return;
   }
 
-  const apiKey = await window.showInputBox({
+  const apiKey = await vscode.window.showInputBox({
     title: t('setApiKey.apiKey.title'),
     placeHolder: t('setApiKey.apiKey.placeHolder'),
   });
@@ -37,8 +40,30 @@ export default new Command('setApiKey', async (ctx) => {
     return;
   }
 
+  const testKey = await vscode.window.withProgress(
+    {
+      location: vscode.ProgressLocation.Notification,
+      title: t('setApiKey.testing'),
+    },
+    async () => {
+      return await new SquareCloudAPI(apiKey).getUser().catch(() => undefined);
+    }
+  );
+
+  if (!testKey) {
+    vscode.window
+      .showErrorMessage(t('setApiKey.invalid'), t('command.setApiKey'))
+      .then((value) =>
+        value === t('command.setApiKey')
+          ? vscode.commands.executeCommand('squarecloud.setApiKey')
+          : null
+      );
+      
+    return;
+  }
+
   await ctx.config.update('apiKey', apiKey, true);
   ctx.cache.refresh();
 
-  window.showInformationMessage(t('setApiKey.success'));
+  vscode.window.showInformationMessage(t('setApiKey.success'));
 });
