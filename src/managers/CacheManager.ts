@@ -59,13 +59,13 @@ export default class CacheManager extends EventEmitter {
     this.emit('refresh');
   }
 
-  handleProgress<T>(fn: () => Promise<T>): Promise<T> {
+  handleProgress<T>(fn: () => Promise<T>) {
     return <Promise<T>>vscode.window.withProgress(
       {
         location: vscode.ProgressLocation.Window,
         title: t('generic.refreshing'),
       },
-      () => fn()
+      fn
     );
   }
 
