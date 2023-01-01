@@ -248,6 +248,7 @@
     "adm-zip": "^0.5.10",
     "eslint": "^8.24.0",
     "glob": "^8.0.3",
+    "ignore": "^5.2.4",
     "mocha": "^10.0.0",
     "pretty-ms": "7.0.1",
     "ts-loader": "^9.4.1",
@@ -258,8 +259,5 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/squarecloudofc/vscode-extension"
-  },
-  "dependencies": {
-    "ignore": "^5.2.4"
   }
 }
