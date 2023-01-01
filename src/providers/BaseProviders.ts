@@ -1,7 +1,6 @@
 import CacheManager from '../managers/CacheManager';
 import { Application } from '@squarecloud/api';
 import getIconPath from '../utils/getIconPath';
-import { t } from 'vscode-ext-localisation';
 import vscode from 'vscode';
 
 export class BaseProvider<
