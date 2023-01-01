@@ -1,6 +1,7 @@
 {
   "config.apiKey.description": "Your [Square Cloud](https://squarecloud.app/) API key.",
 
+  "command.createConfig": "Create Square Cloud configuration file",
   "command.setApiKey": "Set new API key",
   "command.showLogs": "Show logs",
   "command.copyText": "Copy",
@@ -9,7 +10,6 @@
   "command.stop": "Stop",
   "command.restart": "Restart",
   "command.delete": "Delete",
-  "command.createConfig": "Create a Square Cloud configuration file",
 
   "view.user.title": "User",
   "view.noApiKey": "You do not have a registered API key. Please register one.",
@@ -23,22 +23,19 @@
     "storage": "Storage",
     "wait": "Please wait a moment before making new requests.",
     "refreshing": "Refreshing...",
-    "done": "Done!"
+    "done": "Done!",
+    "type": "Type here...",
+    "paste": "Paste here...",
+    "choose": "Choose an option..."
   },
 
   "setApiKey": {
-    "hasKey": {
-      "title": "Do you have your API key already?",
-      "placeHolder": "Choose an option..."
-    },
     "tutorial": {
       "label": "First open the \"SquareCloud Dashboard\", then go to \"My Account\" and finally click \"Regenerate API/CLI KEY\".",
       "button": "Open Dashboard"
     },
-    "apiKey": {
-      "title": "Enter your API key.",
-      "placeHolder": "Paste here..."
-    },
+    "hasKey": "Do you have your API key already?",
+    "apiKey": "Enter your API key.",
     "testing": "Verifying the provided API key.",
     "invalid": "The provided API key is not valid.",
     "success": "Your API key has been successfuly registered!"
@@ -78,5 +75,34 @@
     "loaded": "Committed files successfuly.",
     "select": "Select folder to commit",
     "useGitIgnore": "No squarecloud.ignore file found. Ignore .gitignore listed files instead?"
+  },
+
+  "createConfig": {
+    "botOrSite": "Is your application a Bot or a Website?",
+    "nothingHere": "You must type something here.",
+    "optional": "Do you want to set {{FIELD}} for your application?",
+    "prompt": {
+      "displayName": "Type a display name for your application.",
+      "avatar": {
+        "subs": "an avatar",
+        "title": "Paste your avatar URL below.",
+        "invalid": "Please paste a valid image URL."
+      },
+      "description": {
+        "subs": "a description",
+        "title": "Write the description for your application."
+      },
+      "main": "What's the main file of your application?",
+      "memory": {
+        "title": "How much RAM memory will your application use? {{MAX}}",
+        "validate": "Please type a number bigger than {{MIN_VALUE}} and smaller than your available memory."
+      },
+      "version": "What version would you like to use for this application?",
+      "subdomain": "Type a subdomain for your website.",
+      "start": {
+        "subs": "a start command",
+        "title": "Type the start command for your application."
+      }
+    }
   }
 }

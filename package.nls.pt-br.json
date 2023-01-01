@@ -1,6 +1,7 @@
 {
   "config.apiKey.description": "Sua chave de API da [Square Cloud](https://squarecloud.app/).",
 
+  "command.createConfig": "Criar arquivo de configuração Square Cloud",
   "command.setApiKey": "Definir nova chave de API",
   "command.showLogs": "Exibir logs",
   "command.copyText": "Copiar",
@@ -9,7 +10,6 @@
   "command.stop": "Parar",
   "command.restart": "Reiniciar",
   "command.delete": "Excluir",
-  "command.createConfig": "Criar arquivo de configuração Square Cloud",
 
   "view.user.title": "Usuário",
   "view.noApiKey": "Você não possui uma chave de API registrada. Por favor, registre uma.",
@@ -23,22 +23,19 @@
     "storage": "Armazenamento",
     "wait": "Por favor, aguarde um momento antes de fazer novas solicitações.",
     "refreshing": "Atualizando...",
-    "done": "Feito!"
+    "done": "Feito!",
+    "type": "Digite aqui...",
+    "paste": "Cole aqui...",
+    "choose": "Escolha uma opção..."
   },
 
   "setApiKey": {
-    "hasKey": {
-      "title": "Você já possui sua chave de API?",
-      "placeHolder": "Escolha uma opção..."
-    },
     "tutorial": {
       "label": "Primeiro abra o \"Dashboard da SquareCloud\", depois vá para \"Minha conta\" e finalmente clique em \"Regenerar chave de API/CLI\".",
       "button": "Abrir Dashboard"
     },
-    "apiKey": {
-      "title": "Insira sua chave de API.",
-      "placeHolder": "Cole aqui..."
-    },
+    "hasKey": "Você já possui sua chave de API?",
+    "apiKey": "Insira sua chave de API.",
     "testing": "Validando a chave de API fornecida.",
     "invalid": "A chave de API fornecida não é válida.",
     "success": "Sua chave de API foi registrada com sucesso!"
@@ -78,5 +75,34 @@
     "loaded": "Commit realizado com sucesso.",
     "select": "Selecione uma pasta para o commit",
     "useGitIgnore": "Nenhum arquivo squarecloud.ignore encontrado. Ignorar arquivos listados em .gitignore?"
+  },
+
+  "createConfig": {
+    "botOrSite": "Sua aplicação é um Bot ou um Site?",
+    "nothingHere": "Você precisa digitar algo aqui.",
+    "optional": "Você gostaria de definir {{FIELD}} para a sua aplicação?",
+    "prompt": {
+      "displayName": "Insira um apelido para a sua aplicação.",
+      "avatar": {
+        "subs": "um avatar",
+        "title": "Cole o URL de seu avatar abaixo.",
+        "invalid": "Por favor insira um URL de imagem válido."
+      },
+      "description": {
+        "subs": "uma descrição",
+        "title": "Insira a descrição de sua aplicação."
+      },
+      "main": "Qual o arquivo principal de sua aplicação?",
+      "memory": {
+        "title": "Quanto de memória RAM sua aplicação usará? {{MAX}}",
+        "invalid": "Por favor insira um número maior que {{MIN_VALUE}} e menor que a sua memória disponível."
+      },
+      "version": "Qual versão deseja utilizar em sua aplicação?",
+      "subdomain": "Insira um subdomínio para o seu site.",
+      "start": {
+        "subs": "um comando de inicialização",
+        "title": "Insira o comando de inicialização da sua aplicação."
+      }
+    }
   }
 }

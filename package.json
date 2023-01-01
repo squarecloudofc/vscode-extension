@@ -52,6 +52,10 @@
         {
           "command": "squarecloud.commitEntry",
           "when": "false"
+        },
+        {
+          "command": "squarecloud.createConfig",
+          "when": "workspaceFolderCount == 1"
         }
       ],
       "view/title": [
@@ -105,7 +109,8 @@
       "editor/context": [
         {
           "command": "squarecloud.createConfig",
-          "when": "resourceFilename == squarecloud.app || resourceFilename == squarecloud.config"
+          "when": "resourceFilename == squarecloud.app || resourceFilename == squarecloud.config",
+          "group": ""
         }
       ]
     },
