@@ -46,4 +46,10 @@ Esta extensão vai contar com apenas uma configuração:
 
 ---
 
-## _Feito com ❤️ por [bluey#0012](https://github.com/bluee-js/)_
+## **Contribuições**
+
+_O nosso repositório no GitHub está sempre aberto a sugestões e contribuições._ Basta você abrir uma issue ou enviar um pull request. 
+
+Estamos ansiosos para ouvir suas ideias e trabalhar juntos para tornar o projeto ainda melhor!
+
+### _Feito com ❤️ por [bluey#0012](https://github.com/bluee-js/)_
