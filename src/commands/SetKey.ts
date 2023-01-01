@@ -7,8 +7,8 @@ export default new Command('setApiKey', async (ctx) => {
   const hasKey = await vscode.window.showQuickPick(
     [t('generic.yes'), t('generic.no')],
     {
-      title: t('setApiKey.hasKey.title'),
-      placeHolder: t('setApiKey.hasKey.placeHolder'),
+      title: t('setApiKey.hasKey'),
+      placeHolder: t('generic.choose'),
     }
   );
 
@@ -32,8 +32,8 @@ export default new Command('setApiKey', async (ctx) => {
   }
 
   const apiKey = await vscode.window.showInputBox({
-    title: t('setApiKey.apiKey.title'),
-    placeHolder: t('setApiKey.apiKey.placeHolder'),
+    title: t('setApiKey.apiKey'),
+    placeHolder: t('generic.paste'),
   });
 
   if (!apiKey) {
