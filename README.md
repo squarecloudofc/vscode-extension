@@ -13,13 +13,13 @@ Essa extensão pode gerenciar e receber informações de todas as suas aplicaç�
 
 ### **Iniciar, parar e reiniciar**
 
-![Iniciando aplicação](resources/readme/start.gif)
+![Iniciando aplicação](https://i.imgur.com/ZqxsX9I.gif)
 
 ### **Realizando commit**
 
 - **Importante!** Envie a pasta de sua aplicação (sem estar compactada) e utilize o arquivo `squarecloud.ignore` para não enviar arquivos indesejados.
 
-![Realizando commit](resources/readme/commit.gif)
+![Realizando commit](https://i.imgur.com/4c0aoTY.gif)
 
 ### **Verificando status & logs**
 
@@ -28,13 +28,13 @@ _\* Ícones acessíveis._
 - 🟢 **Ícone verde:** aplicação online.
 - ⚪ **Ícone cinza:** aplicação offline.
 
-![Status e Logs](resources/readme/status-logs.gif)
+![Status e Logs](https://i.imgur.com/MphAmPC.gif)
 
 ## **Outras funções**
 
 ### **Criando arquivo de configuração**
 
-![Criando arquivo de configuração](resources/readme/config.gif)
+![Criando arquivo de configuração](https://i.imgur.com/yUcIz1P.gif)
 
 ---
 
