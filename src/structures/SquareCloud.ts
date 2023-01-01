@@ -35,8 +35,8 @@ export class SquareCloud {
 
       const disposable = vscode.commands.registerCommand(
         command.name,
-        (arg) => {
-          command.execute(this, arg);
+        (...args) => {
+          command.execute(this, ...args);
         }
       );
 
