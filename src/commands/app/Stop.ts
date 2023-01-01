@@ -1,7 +1,7 @@
 import { Command } from '../../structures/Command';
 import { ApplicationItem } from '../../providers';
 import { t } from 'vscode-ext-localisation';
-import vscode from 'vscode';
+import * as vscode from 'vscode';
 
 export default new Command('stopEntry', (ctx, { app }: ApplicationItem) => {
   if (ctx.cache.blocked) {

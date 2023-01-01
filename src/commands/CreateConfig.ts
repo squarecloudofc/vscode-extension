@@ -2,7 +2,7 @@
 import { Command } from '../structures/Command';
 import { t } from 'vscode-ext-localisation';
 import { writeFileSync } from 'fs';
-import vscode from 'vscode';
+import * as vscode from 'vscode';
 
 export default new Command('createConfig', async (ctx, arg) => {
   const path = arg

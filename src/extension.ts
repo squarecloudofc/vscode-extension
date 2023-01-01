@@ -1,5 +1,5 @@
 import { SquareCloud } from './structures/SquareCloud';
-import vscode from 'vscode';
+import * as vscode from 'vscode';
 
 process.on('uncaughtException', console.error);
 process.on('unhandledRejection', console.error);

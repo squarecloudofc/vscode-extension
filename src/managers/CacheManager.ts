@@ -3,7 +3,7 @@ import { SquareCloud } from '../structures/SquareCloud';
 import { t } from 'vscode-ext-localisation';
 import { EventEmitter } from 'events';
 import APIManager from './APIManager';
-import vscode from 'vscode';
+import * as vscode from 'vscode';
 
 export default class CacheManager extends EventEmitter {
   public applications: Application[] = [];

@@ -7,7 +7,7 @@ import {
 
 import CacheManager from '../managers/CacheManager';
 import { t } from 'vscode-ext-localisation';
-import pretty from 'pretty-ms';
+import * as pretty from 'pretty-ms';
 
 export class AppsProvider extends BaseProvider<TreeItem> {
   protected websiteOnly?: boolean;
