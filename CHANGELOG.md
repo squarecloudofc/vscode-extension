@@ -1,9 +1,27 @@
-# Change Log
+# Changelog
 
-All notable changes to the "squarecloud" extension will be documented in this file.
-
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
-- Initial release
+### Added 
+
+- Applications
+  - Upload
+
+## 1.0.0
+
+### Added
+
+- General
+  - User information view
+  - Bots & Sites management views
+  - Create configuration file
+- Applications
+  - Start
+  - Stop
+  - Restart
+  - Delete
+  - Commit
+  - Logs
+  - Status

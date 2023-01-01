@@ -1,11 +1,15 @@
 {
   "name": "squarecloud",
   "displayName": "SquareCloud",
-  "icon": "resources/squarecloud.logo",
+  "icon": "resources/squarecloud.png",
   "description": "An extension to easily interact with the SquareCloud API.",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.74.0"
+  },
+  "publisher": "squarecloud",
+  "sponsor": {
+    "url": "https://squarecloud.app"
   },
   "categories": [
     "Other"

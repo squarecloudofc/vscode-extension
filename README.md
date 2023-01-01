@@ -1,71 +1,49 @@
-# squarecloud README
+# **Square Cloud** está no VS Code!
 
-This is the README for your extension "squarecloud". After writing up a brief description, we recommend including the following sections.
+Essa extensão pode gerenciar e receber informações de todas as suas aplicações hospedadas na [Square Cloud](https://squarecloud.app/).
 
-## Features
+### **Requisitos**
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
-
-For example if there is an image subfolder under your extension project workspace:
-
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
-
-## Requirements
-
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
-
-## Extension Settings
-
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
+- Para utilizar a extensão em sua melhor versão você precisa de uma **chave de API**.
+  - Para isso faça login no site oficial e resgate sua chave [aqui](https://squarecloud.app/dashboard/me/).
 
 ---
 
-## Following extension guidelines
+## **Aplicações**
 
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
+### **Iniciar, parar e reiniciar**
 
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
+![Iniciando aplicação](resources/readme/start.gif)
 
-## Working with Markdown
+### **Realizando commit**
 
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
+- **Importante!** Envie a pasta de sua aplicação (sem estar compactada) e utilize o arquivo `squarecloud.ignore` para não enviar arquivos indesejados.
 
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
+![Realizando commit](resources/readme/commit.gif)
 
-## For more information
+### **Verificando status & logs**
 
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
+_\* Ícones acessíveis._
 
-**Enjoy!**
+- 🟢 **Ícone verde:** aplicação online.
+- ⚪ **Ícone cinza:** aplicação offline.
+
+![Status e Logs](resources/readme/status-logs.gif)
+
+## **Outras funções**
+
+### **Criando arquivo de configuração**
+
+![Criando arquivo de configuração](resources/readme/config.gif)
+
+---
+
+### **Configurações da extensão**
+
+Esta extensão vai contar com apenas uma configuração:
+
+- `squarecloud.apiKey`: Sua chave de API da Square Cloud.
+
+---
+
+## _Feito com ❤️ por [bluey#0012](https://github.com/bluee-js/)_
