@@ -16,8 +16,6 @@ export function activate(context: vscode.ExtensionContext) {
     ) {
       return;
     }
-
-
   });
 
   new SquareCloud(context);
