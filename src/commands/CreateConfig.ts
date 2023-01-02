@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { Command } from '../structures/Command';
-import { t } from 'vscode-ext-localisation';
 import { writeFileSync } from 'fs';
 import * as vscode from 'vscode';
+import { t } from 'vscode-ext-localisation';
+import { Command } from '../structures/Command';
 
 export default new Command('createConfig', async (ctx, arg) => {
   const path = arg

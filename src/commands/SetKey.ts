@@ -1,7 +1,7 @@
-import { Command } from '../structures/Command';
 import SquareCloudAPI from '@squarecloud/api';
-import { t } from 'vscode-ext-localisation';
 import * as vscode from 'vscode';
+import { t } from 'vscode-ext-localisation';
+import { Command } from '../structures/Command';
 
 export default new Command('setApiKey', async (ctx) => {
   const apiKey = await vscode.window.showInputBox({

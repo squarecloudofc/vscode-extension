@@ -1,12 +1,9 @@
-import CacheManager from '../managers/CacheManager';
-import { t } from 'vscode-ext-localisation';
 import * as pretty from 'pretty-ms';
+import { t } from 'vscode-ext-localisation';
+import CacheManager from '../managers/CacheManager';
 
 import {
-  ApplicationItem,
-  GenericTreeItem,
-  BaseProvider,
-  TreeItem,
+  ApplicationItem, BaseProvider, GenericTreeItem, TreeItem
 } from './BaseProviders';
 
 export class AppsProvider extends BaseProvider<TreeItem> {

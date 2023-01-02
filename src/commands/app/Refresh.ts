@@ -1,5 +1,5 @@
-import { Command } from '../../structures/Command';
 import { ApplicationItem } from '../../providers';
+import { Command } from '../../structures/Command';
 
 export default new Command('refreshEntry', (ctx, { app }: ApplicationItem) => {
   if (ctx.cache.blocked) {

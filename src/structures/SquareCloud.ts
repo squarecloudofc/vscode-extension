@@ -1,10 +1,10 @@
+import { join } from 'path';
+import * as vscode from 'vscode';
 import { getVscodeLang, loadTranslations } from 'vscode-ext-localisation';
-import { BotsProvider, SitesProvider, UserProvider } from '../providers';
 import CacheManager from '../managers/CacheManager';
+import { BotsProvider, SitesProvider, UserProvider } from '../providers';
 import getAllFiles from '../utils/getAllFiles';
 import { Command } from './Command';
-import * as vscode from 'vscode';
-import { join } from 'path';
 
 export class SquareCloud {
   public cache = new CacheManager(this);

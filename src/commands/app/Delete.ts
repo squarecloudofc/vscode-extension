@@ -1,7 +1,7 @@
-import { Command } from '../../structures/Command';
-import { ApplicationItem } from '../../providers';
-import { t } from 'vscode-ext-localisation';
 import * as vscode from 'vscode';
+import { t } from 'vscode-ext-localisation';
+import { ApplicationItem } from '../../providers';
+import { Command } from '../../structures/Command';
 
 export default new Command(
   'deleteEntry',

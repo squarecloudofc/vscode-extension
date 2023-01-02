@@ -1,7 +1,7 @@
-import CacheManager from '../managers/CacheManager';
 import { Application } from '@squarecloud/api';
-import getIconPath from '../utils/getIconPath';
 import * as vscode from 'vscode';
+import CacheManager from '../managers/CacheManager';
+import getIconPath from '../utils/getIconPath';
 
 export class BaseProvider<
   TreeItemType extends vscode.TreeItem = vscode.TreeItem

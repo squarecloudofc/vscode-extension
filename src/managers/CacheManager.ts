@@ -1,9 +1,9 @@
 import { Application, FullUser } from '@squarecloud/api';
-import { SquareCloud } from '../structures/SquareCloud';
-import { t } from 'vscode-ext-localisation';
 import { EventEmitter } from 'events';
-import APIManager from './APIManager';
 import * as vscode from 'vscode';
+import { t } from 'vscode-ext-localisation';
+import { SquareCloud } from '../structures/SquareCloud';
+import APIManager from './APIManager';
 
 export default class CacheManager extends EventEmitter {
   public applications: Application[] = [];

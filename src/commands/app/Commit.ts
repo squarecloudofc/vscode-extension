@@ -1,10 +1,10 @@
-import { Command } from '../../structures/Command';
-import { ApplicationItem } from '../../providers';
-import { existsSync, readFileSync } from 'fs';
-import { t } from 'vscode-ext-localisation';
 import * as AdmZip from 'adm-zip';
-import * as vscode from 'vscode'; 
+import { existsSync, readFileSync } from 'fs';
 import ignore from 'ignore';
+import * as vscode from 'vscode';
+import { t } from 'vscode-ext-localisation';
+import { ApplicationItem } from '../../providers';
+import { Command } from '../../structures/Command';
 
 export default new Command(
   'commitEntry',
