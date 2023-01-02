@@ -24,6 +24,10 @@ export default class CacheManager extends EventEmitter {
     return new APIManager(this.context.apiKey);
   }
 
+  apiExists() {
+    return Boolean(this.context.apiKey);
+  }
+
   async refreshStatus(appId: string, bypass?: boolean) {
     if (!bypass && this.blocked) {
       vscode.window.showErrorMessage(t('generic.wait'));

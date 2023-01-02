@@ -1,13 +1,13 @@
+import CacheManager from '../managers/CacheManager';
+import { t } from 'vscode-ext-localisation';
+import * as pretty from 'pretty-ms';
+
 import {
   ApplicationItem,
   GenericTreeItem,
   BaseProvider,
   TreeItem,
 } from './BaseProviders';
-
-import CacheManager from '../managers/CacheManager';
-import { t } from 'vscode-ext-localisation';
-import * as pretty from 'pretty-ms';
 
 export class AppsProvider extends BaseProvider<TreeItem> {
   protected websiteOnly?: boolean;
@@ -54,7 +54,7 @@ export class AppsProvider extends BaseProvider<TreeItem> {
     let { applications } = this.cache;
 
     if (!applications?.length) {
-      if (!this.cache.api) {
+      if (!this.cache.apiExists()) {
         return [];
       }
 

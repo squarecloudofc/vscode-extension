@@ -11,7 +11,7 @@ export class UserProvider extends BaseProvider<GenericTreeItem> {
     const { user } = this.cache;
 
     if (!user) {
-      if (!this.cache.api) {
+      if (!this.cache.apiExists()) {
         return [];
       }
 

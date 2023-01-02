@@ -4,36 +4,10 @@ import { t } from 'vscode-ext-localisation';
 import * as vscode from 'vscode';
 
 export default new Command('setApiKey', async (ctx) => {
-  const hasKey = await vscode.window.showQuickPick(
-    [t('generic.yes'), t('generic.no')],
-    {
-      title: t('setApiKey.hasKey'),
-      placeHolder: t('generic.choose'),
-    }
-  );
-
-  if (!hasKey) {
-    return;
-  }
-
-  if (hasKey === t('generic.no')) {
-    const tutorialButton = await vscode.window.showInformationMessage(
-      t('setApiKey.tutorial.label'),
-      t('setApiKey.tutorial.button')
-    );
-
-    if (tutorialButton === t('setApiKey.tutorial.button')) {
-      vscode.env.openExternal(
-        vscode.Uri.parse('https://squarecloud.app/dashboard/me')
-      );
-    }
-
-    return;
-  }
-
   const apiKey = await vscode.window.showInputBox({
     title: t('setApiKey.apiKey'),
     placeHolder: t('generic.paste'),
+    ignoreFocusOut: true,
   });
 
   if (!apiKey) {
