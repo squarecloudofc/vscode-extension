@@ -32,20 +32,10 @@ export default new Command(
           .showInformationMessage(t('logs.loaded'), t('logs.button'))
           .then((showLogs) => {
             if (showLogs === t('logs.button')) {
-              const panel = vscode.window.createWebviewPanel(
-                'logs-view',
-                `Logs - ${app.tag}`,
-                vscode.ViewColumn.One,
-                {
-                  enableScripts: true,
-                }
-              );
+              const outputChannel = vscode.window.createOutputChannel(app.tag);
 
-              panel.webview.html = `
-                <body><pre><code>${logs}</code></pre></body>
-              `;
-
-              panel.reveal();
+              outputChannel.append(logs);
+              outputChannel.show();
             }
           });
       }
