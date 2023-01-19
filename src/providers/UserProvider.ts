@@ -32,7 +32,7 @@ export class UserProvider extends BaseProvider<GenericTreeItem> {
       new GenericTreeItem(
         capitalize(user.plan.name),
         'plan',
-        user.plan.duration.formatted
+        user.plan.duration
       ),
     ];
   }
