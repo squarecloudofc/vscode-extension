@@ -333,6 +333,9 @@
           "dark": "resources/dark/squarecloud.svg",
           "light": "resources/light/squarecloud.svg"
         },
+        "aliases": [
+          "Square Cloud Config"
+        ],
         "filenames": [
           "squarecloud.config",
           "squarecloud.app"
