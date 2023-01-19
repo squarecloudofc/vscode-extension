@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import * as AdmZip from 'adm-zip';
 import { existsSync, readFileSync } from 'fs';
 import ignore from 'ignore';
@@ -14,34 +15,32 @@ export default new Command(
       return;
     }
 
-    const dialog = await vscode.window.showOpenDialog({
-      canSelectFolders: true,
-      openLabel: t('commit.select'),
-      title: `Commit - ${app.tag}`,
-    });
+    const fileOrFolder = await vscode.window.showQuickPick(
+      [t('generic.file'), t('generic.folder')],
+      {
+        title: t('commit.fileOrFolder'),
+        placeHolder: t('generic.choose'),
+      }
+    );
 
-    if (!dialog) {
+    if (!fileOrFolder) {
       return;
     }
 
-    let [{ path: folder }] = dialog;
-    folder = folder.slice(1, folder.length);
+    const files = await vscode.window.showOpenDialog({
+      canSelectMany: fileOrFolder === t('generic.file'),
+      canSelectFiles: fileOrFolder === t('generic.file'),
+      canSelectFolders: fileOrFolder === t('generic.folder'),
+      openLabel: t('commit.select', { TYPE: fileOrFolder.toLowerCase() }),
+      title: `Commit - ${app.tag}`,
+    });
+
+    if (!files) {
+      return;
+    }
 
     const ig = ignore().add(read(__dirname + '/../../../defaults.ignore'));
-
-    if (existsSync(folder + '/squarecloud.ignore')) {
-      ig.add(read(folder + '/squarecloud.ignore'));
-    } else if (existsSync(folder + '/.gitignore')) {
-      const canIgnore = await vscode.window.showInformationMessage(
-        t('commit.useGitIgnore'),
-        t('generic.yes'),
-        t('generic.no')
-      );
-
-      if (canIgnore === t('generic.yes')) {
-        ig.add(read(folder + '/.gitignore'));
-      }
-    }
+    const zipFile = new AdmZip();
 
     vscode.window.withProgress(
       {
@@ -49,13 +48,40 @@ export default new Command(
         title: t('commit.loading'),
       },
       async (progress) => {
-        const zipFile = new AdmZip();
+        if (fileOrFolder === t('generic.file')) {
+          for (let { path } of files) {
+            path = path.slice(1);
 
-        await zipFile.addLocalFolderPromise(folder, {
-          filter: (filename) => !ig.ignores(filename),
-        });
+            zipFile.addLocalFile(path);
+          }
+        } else {
+          let [{ path }] = files;
+          path = path.slice(1);
+
+          if (existsSync(path + '/squarecloud.ignore')) {
+            ig.add(read(path + '/squarecloud.ignore'));
+          } else if (existsSync(path + '/.gitignore')) {
+            const canIgnore = await vscode.window.showInformationMessage(
+              t('commit.useGitIgnore'),
+              t('generic.yes'),
+              t('generic.no')
+            );
+
+            if (canIgnore === t('generic.yes')) {
+              ig.add(read(path + '/.gitignore'));
+            }
+          }
+
+          await zipFile.addLocalFolderPromise(path, {
+            zipPath: path.split('/').pop() + '/',
+            filter: (filename) => !ig.ignores(filename),
+          });
+        }
 
         await app.commit(zipFile.toBuffer(), `${app.id}.zip`);
+        await app.restart();
+
+        setTimeout(() => ctx.cache.refreshStatus(app.id), 7000);
 
         progress.report({ increment: 100 });
         vscode.window.showInformationMessage(t('commit.loaded'));
