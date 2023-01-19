@@ -5,16 +5,19 @@ import CacheManager from '../managers/CacheManager';
 import { BotsProvider, SitesProvider, UserProvider } from '../providers';
 import getAllFiles from '../utils/getAllFiles';
 import { Command } from './Command';
+import { UtilBarItem } from './UtilBarItem';
 
 export class SquareCloud {
   public cache = new CacheManager(this);
   public userView = new UserProvider(this.cache);
   public botsView = new BotsProvider(this.cache);
   public sitesView = new SitesProvider(this.cache);
+  public utilBarItem: UtilBarItem = undefined!;
 
   constructor(public context: vscode.ExtensionContext) {
     this.loadTranslations();
     this.loadTreeViews();
+    this.loadBarItem();
     this.loadCommands();
 
     this.cache.refresh(true);
@@ -63,6 +66,16 @@ export class SquareCloud {
 
       console.log('refreshStatus');
     });
+  }
+
+  loadBarItem() {
+    const statusBarItem = vscode.window.createStatusBarItem(
+      vscode.StatusBarAlignment.Left,
+      100
+    );
+
+    this.utilBarItem = new UtilBarItem(this, statusBarItem);
+    this.context.subscriptions.push(statusBarItem);
   }
 
   loadTranslations() {
