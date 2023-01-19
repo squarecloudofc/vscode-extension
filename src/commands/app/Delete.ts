@@ -29,7 +29,7 @@ export default new Command(
       async (progress) => {
         await ctx.cache.blockUntil(() => app.delete());
 
-        setTimeout(() => ctx.cache.refresh(), 2000);
+        setTimeout(() => ctx.cache.refresh(), 7000);
 
         vscode.window.showInformationMessage(t('delete.loaded'));
         progress.report({ increment: 100 });

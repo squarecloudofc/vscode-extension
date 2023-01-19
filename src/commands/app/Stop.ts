@@ -17,7 +17,7 @@ export default new Command('stopEntry', (ctx, { app }: ApplicationItem) => {
     async (progress) => {
       await ctx.cache.blockUntil(() => app.stop());
 
-      setTimeout(() => ctx.cache.refreshStatus(app.id), 2000);
+      setTimeout(() => ctx.cache.refreshStatus(app.id), 7000);
 
       vscode.window.showInformationMessage(t('stop.loaded'));
       progress.report({ increment: 100 });

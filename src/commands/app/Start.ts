@@ -17,7 +17,7 @@ export default new Command('startEntry', (ctx, { app }: ApplicationItem) => {
     async (progress) => {
       await ctx.cache.blockUntil(() => app.start());
 
-      setTimeout(() => ctx.cache.refreshStatus(app.id), 5000);
+      setTimeout(() => ctx.cache.refreshStatus(app.id), 7000);
 
       vscode.window.showInformationMessage(t('start.loaded'));
       progress.report({ increment: 100 });

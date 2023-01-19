@@ -17,7 +17,7 @@ export default new Command('restartEntry', (ctx, { app }: ApplicationItem) => {
     async (progress) => {
       await ctx.cache.blockUntil(() => app.restart());
 
-      setTimeout(() => ctx.cache.refreshStatus(app.id), 5000);
+      setTimeout(() => ctx.cache.refreshStatus(app.id), 7000);
 
       vscode.window.showInformationMessage(t('restart.loaded'));
       progress.report({ increment: 100 });
