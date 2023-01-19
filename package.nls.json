@@ -8,6 +8,7 @@
   "command.refresh": "Refresh",
   "command.start": "Start",
   "command.stop": "Stop",
+  "command.copyId": "Copy ID",
   "command.restart": "Restart",
   "command.delete": "Delete",
 
@@ -26,7 +27,9 @@
     "done": "Done!",
     "type": "Type here...",
     "paste": "Paste here...",
-    "choose": "Choose an option..."
+    "choose": "Choose an option...",
+    "file": "File",
+    "folder": "Folder"
   },
 
   "setApiKey": {
@@ -46,6 +49,10 @@
     "loaded": "Logs have been successfully loaded.",
     "null": "No logs were found.",
     "button": "Show logs"
+  },
+
+  "copyId": {
+    "copied": "Application ID copied to clipboard."
   },
 
   "start": {
@@ -73,14 +80,22 @@
   "commit": {
     "loading": "Committing files...",
     "loaded": "Committed files successfuly.",
-    "select": "Select folder to commit",
+    "error": "An error ocurred when trying to commit.",
+    "fileOrFolder": "What do you want to commit?",
+    "select": "Select {{TYPE}} to commit",
     "useGitIgnore": "No squarecloud.ignore file found. Ignore .gitignore listed files instead?"
+  },
+
+  "backup": {
+    "loading": "Downloading backup...",
+    "loaded": "Backup downloaded successfuly.",
+    "save": "Save here"
   },
 
   "createConfig": {
     "botOrSite": "Is your application a Bot or a Website?",
     "nothingHere": "You must type something here.",
-    "optional": "Do you want to set {{FIELD}} for your application?",
+    "optional": "Do you want to set {{field}} for your application?",
     "prompt": {
       "displayName": "Type a display name for your application.",
       "avatar": {
@@ -92,17 +107,51 @@
         "subs": "a description",
         "title": "Write the description for your application."
       },
-      "main": "What's the main file of your application?",
+      "main": {
+        "title": "What's the main file of your application?",
+        "invalid": "This file does not exists in the current folder."
+      },
       "memory": {
-        "title": "How much RAM memory will your application use? {{MAX}}",
-        "validate": "Please type a number bigger than {{MIN_VALUE}} and smaller than your available memory."
+        "title": "How much RAM memory will your application use? {{max}}",
+        "validate": "Please type a number bigger than {{minValue}} and smaller than your available memory."
       },
       "version": "What version would you like to use for this application?",
-      "subdomain": "Type a subdomain for your website.",
+      "subdomain": {
+        "title": "Type a subdomain for your website.",
+        "invalid": "Please provide a valid subdomain. Must finish with \".squareweb.app\"."
+      },
       "start": {
         "subs": "a start command",
         "title": "Type the start command for your application."
       }
     }
+  },
+
+  "utilBarItem": {
+    "noApp": "Config Application",
+    "commit": "Commit Application"
+  },
+
+  "setWorkspaceApp": {
+    "newApp": "New Application",
+    "uploadText": "Upload to Square Cloud",
+    "yourApps": "Your Applications",
+    "choose": "Choose an application to the current workspace.",
+    "success": "Workspace application set successfuly."
+  },
+
+  "commitWorkspace": {
+    "confirm": "Do you want to proceed with the commit?",
+    "canceled": "Commit has been canceled.",
+    "saveConfirm": "Do you want to remember your choice for future commits?"
+  },
+
+  "uploadWorkspace": {
+    "confirm": "Do you want to proceed with the upload?",
+    "canceled": "Upload has been canceled.",
+    "loading": "Uploading your files. Hold on...",
+    "loaded": "Application uploaded successfuly. Please wait while we configure your workspace.",
+    "error": "An error ocurred when trying to upload.",
+    "configured": "Workspace is ready to use!"
   }
 }

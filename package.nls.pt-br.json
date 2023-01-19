@@ -8,6 +8,7 @@
   "command.refresh": "Atualizar",
   "command.start": "Iniciar",
   "command.stop": "Parar",
+  "command.copyId": "Copiar ID",
   "command.restart": "Reiniciar",
   "command.delete": "Excluir",
 
@@ -26,7 +27,9 @@
     "done": "Feito!",
     "type": "Digite aqui...",
     "paste": "Cole aqui...",
-    "choose": "Escolha uma opção..."
+    "choose": "Escolha uma opção...",
+    "file": "Arquivo",
+    "folder": "Pasta"
   },
 
   "setApiKey": {
@@ -46,6 +49,10 @@
     "loaded": "Os logs foram carregados com sucesso.",
     "null": "Nenhum log foi encontrado.",
     "button": "Exibir logs"
+  },
+
+  "copyId": {
+    "copied": "ID da aplicação copiado para a área de transferência."
   },
 
   "start": {
@@ -73,36 +80,78 @@
   "commit": {
     "loading": "Realizando commit dos arquivos...",
     "loaded": "Commit realizado com sucesso.",
-    "select": "Selecione uma pasta para o commit",
+    "error": "Um erro ocorreu ao tentar realizar o commit.",
+    "fileOrFolder": "O que você deseja enviar no commit?",
+    "select": "Selecione um(a) {{TYPE}} para o commit",
     "useGitIgnore": "Nenhum arquivo squarecloud.ignore encontrado. Ignorar arquivos listados em .gitignore?"
+  },
+
+  "backup": {
+    "loading": "Baixando backup...",
+    "loaded": "Backup salvo com sucesso.",
+    "save": "Salvar aqui"
   },
 
   "createConfig": {
     "botOrSite": "Sua aplicação é um Bot ou um Site?",
     "nothingHere": "Você precisa digitar algo aqui.",
-    "optional": "Você gostaria de definir {{FIELD}} para a sua aplicação?",
+    "optional": "Você gostaria de definir {{field}} para a sua aplicação?",
     "prompt": {
       "displayName": "Insira um apelido para a sua aplicação.",
       "avatar": {
         "subs": "um avatar",
         "title": "Cole o URL de seu avatar abaixo.",
-        "invalid": "Por favor insira um URL de imagem válido."
+        "invalid": "Por favor, insira um URL de imagem válido."
       },
       "description": {
         "subs": "uma descrição",
         "title": "Insira a descrição de sua aplicação."
       },
-      "main": "Qual o arquivo principal de sua aplicação?",
+      "main": {
+        "title": "Qual o arquivo principal de sua aplicação?",
+        "invalid": "O arquivo não existe no diretório atual."
+      },
       "memory": {
-        "title": "Quanto de memória RAM sua aplicação usará? {{MAX}}",
-        "invalid": "Por favor insira um número maior que {{MIN_VALUE}} e menor que a sua memória disponível."
+        "title": "Quanto de memória RAM sua aplicação usará? {{max}}",
+        "invalid": "Por favor, insira um número maior que {{minValue}} e menor que a sua memória disponível."
       },
       "version": "Qual versão deseja utilizar em sua aplicação?",
-      "subdomain": "Insira um subdomínio para o seu site.",
+      "subdomain": {
+        "title": "Insira um subdomínio para o seu site.",
+        "invalid": "Por favor, insira um subdomínio válido. É necessário terminar com \".squareweb.app\"."
+      },
       "start": {
         "subs": "um comando de inicialização",
         "title": "Insira o comando de inicialização da sua aplicação."
       }
     }
+  },
+
+  "utilBarItem": {
+    "noApp": "Configurar Aplicação",
+    "commit": "Realizar Commit"
+  },
+
+  "setWorkspaceApp": {
+    "newApp": "Nova Aplicação",
+    "uploadText": "Upload para a Square Cloud",
+    "yourApps": "Suas Aplicações",
+    "choose": "Escolha uma aplicação para a área de trabalho atual.",
+    "success": "Aplicação da área de trabalho definida com sucesso."
+  },
+
+  "commitWorkspace": {
+    "confirm": "Deseja prosseguir com o commit?",
+    "canceled": "Commit foi cancelado.",
+    "saveConfirm": "Deseja lembrar de sua escolha para futuros commits?"
+  },
+
+  "uploadWorkspace": {
+    "confirm": "Deseja prosseguir com o upload?",
+    "canceled": "Upload foi cancelado.",
+    "loading": "Enviando seus arquivos. Aguarde...",
+    "loaded": "Aplicação enviada com sucesso. Aguarde enquanto configuramos sua área de trabalho.",
+    "error": "Um erro ocorreu ao tentar realizar o upload.",
+    "configured": "A área de trabalho está pronta para ser utilizada!"
   }
 }
