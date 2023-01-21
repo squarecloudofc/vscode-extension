@@ -1,5 +1,5 @@
 import AdmZip = require('adm-zip');
-import { existsSync, readFileSync, symlink } from 'fs';
+import { existsSync, readFileSync } from 'fs';
 import ignore from 'ignore';
 import * as vscode from 'vscode';
 import { t } from 'vscode-ext-localisation';
