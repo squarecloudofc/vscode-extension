@@ -27,11 +27,20 @@ export default new Command(
         title: t('delete.loading'),
       },
       async (progress) => {
+        const backupURL = await ctx.cache.blockUntil(() => app.backup());
+
         await ctx.cache.blockUntil(() => app.delete());
 
         setTimeout(() => ctx.cache.refresh(), 7000);
 
-        vscode.window.showInformationMessage(t('delete.loaded'));
+        vscode.window
+          .showInformationMessage(t('delete.loaded'), 'Download Backup')
+          .then((value) => {
+            if (value === 'Download Backup') {
+              vscode.env.openExternal(vscode.Uri.parse(backupURL));
+            }
+          });
+
         progress.report({ increment: 100 });
 
         return;
