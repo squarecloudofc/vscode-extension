@@ -89,28 +89,28 @@ export default new Command('setWorkspaceApp', async (ctx, arg) => {
     const currentCommand = ctx.utilBarItem.barItem.command;
     ctx.utilBarItem.setCommand();
 
+    const ig = ignore().add(read(__dirname + '/../../defaults.ignore'));
+
+    if (existsSync(path + '/squarecloud.ignore')) {
+      ig.add(read(path + '/squarecloud.ignore'));
+    } else if (existsSync(path + '/.gitignore')) {
+      const canIgnore = await vscode.window.showInformationMessage(
+        t('commit.useGitIgnore'),
+        t('generic.yes'),
+        t('generic.no')
+      );
+
+      if (canIgnore === t('generic.yes')) {
+        ig.add(read(path + '/.gitignore'));
+      }
+    }
+
     vscode.window.withProgress(
       {
         location: vscode.ProgressLocation.Notification,
         title: t('uploadWorkspace.loading'),
       },
       async (progress) => {
-        const ig = ignore().add(read(__dirname + '/../../defaults.ignore'));
-
-        if (existsSync(path + '/squarecloud.ignore')) {
-          ig.add(read(path + '/squarecloud.ignore'));
-        } else if (existsSync(path + '/.gitignore')) {
-          const canIgnore = await vscode.window.showInformationMessage(
-            t('commit.useGitIgnore'),
-            t('generic.yes'),
-            t('generic.no')
-          );
-
-          if (canIgnore === t('generic.yes')) {
-            ig.add(read(path + '/.gitignore'));
-          }
-        }
-
         const zipFile = new AdmZip();
 
         await zipFile.addLocalFolderPromise(workspace.uri.fsPath, {
