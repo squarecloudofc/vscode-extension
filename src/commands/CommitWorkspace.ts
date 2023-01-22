@@ -6,6 +6,11 @@ import { t } from 'vscode-ext-localisation';
 import { Command } from '../structures/Command';
 
 export default new Command('commitWorkspace', async (ctx, arg) => {
+  if (ctx.cache.blocked) {
+    ctx.cache.throwBlockError();
+    return;
+  }
+
   const workspace = vscode.workspace.workspaceFolders?.[0];
 
   if (!workspace) {
@@ -45,7 +50,8 @@ export default new Command('commitWorkspace', async (ctx, arg) => {
       await ctx.config.update('bypassCommitConfirm', true, true);
     }
   }
-  
+
+  const currentCommand = ctx.utilBarItem.barItem.command;
   ctx.utilBarItem.setCommand();
 
   vscode.window.withProgress(
@@ -54,7 +60,6 @@ export default new Command('commitWorkspace', async (ctx, arg) => {
       title: t('commit.loading'),
     },
     async (progress) => {
-
       const path = workspace.uri.fsPath.slice(1);
       const ig = ignore().add(read(__dirname + '/../../defaults.ignore'));
 
@@ -83,6 +88,12 @@ export default new Command('commitWorkspace', async (ctx, arg) => {
         .catch(() => 'err');
 
       progress.report({ increment: 100 });
+
+      ctx.utilBarItem.setCommand(
+        typeof currentCommand === 'string'
+          ? currentCommand
+          : currentCommand?.command
+      );
 
       if (success === 'err') {
         vscode.window.showErrorMessage(t('commit.error'));
