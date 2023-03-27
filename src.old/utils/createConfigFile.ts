@@ -110,15 +110,6 @@ export default async function createConfigFile(path: string, ctx: SquareCloud) {
             title: t('createConfig.prompt.subdomain.title'),
             placeHolder:
               t('generic.type') + ' (ex.: customdomain.squareweb.app)',
-            validateInput: (value) => {
-              return /^([a-z]+\.squareweb\.app)/i.test(value) &&
-                value.endsWith('.squareweb.app')
-                ? undefined
-                : {
-                    message: t('createConfig.prompt.subdomain.invalid'),
-                    severity: vscode.InputBoxValidationSeverity.Error,
-                  };
-            },
           },
           {
             type: 'optional',

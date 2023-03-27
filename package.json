@@ -340,6 +340,19 @@
           "squarecloud.config",
           "squarecloud.app"
         ]
+      },
+      {
+        "id": "squareignore",
+        "icon": {
+          "dark": "resources/dark/squareignore.svg",
+          "light": "resources/light/squareignore.svg"
+        },
+        "aliases": [
+          "Square Cloud Ignore"
+        ],
+        "filenames": [
+          "squarecloud.ignore"
+        ]
       }
     ],
     "grammars": [

@@ -34,6 +34,11 @@ export class UserProvider extends BaseProvider<GenericTreeItem> {
         'plan',
         user.plan.duration
       ),
+      new GenericTreeItem(
+        'RAM',
+        'ram',
+        `${user.plan.memory.used}/${user.plan.memory.limit}MB`
+      ),
     ];
   }
 }
