@@ -14,16 +14,20 @@ export type UserResponseData =
       applications: never[];
     };
 
-export interface FullUserData extends RestrictedUser {
-  email: string;
-}
-
-export interface RestrictedUser {
+export interface BaseUserData {
   id: string;
   tag: string;
   locale: string;
   plan: UserPlanData;
   blocklist: boolean;
+}
+
+export interface FullUserData extends BaseUserData {
+  email: string;
+}
+
+export interface RestrictedUser extends BaseUserData {
+  email: null;
 }
 
 export interface UserPlanData {
@@ -48,7 +52,7 @@ export interface ApplicationData {
   avatar: string;
 }
 
-type ApplicationStatus =
+export type ApplicationStatus =
   | 'exited'
   | 'created'
   | 'starting'
