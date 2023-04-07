@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
-import type { Command } from '../structures/command';
 import { getDirectoryFiles } from '../helpers/files.helper';
 import { SquareCloud } from '../squarecloud';
+import { Command } from '../structures/command';
 
 class CommandManager {
   private commands: Command[] = [];
