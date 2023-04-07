@@ -2,7 +2,9 @@ import { AxiosRequestConfig, default as axios } from 'axios';
 import { ResponseCodes, Routes } from '../helpers/constants.helper';
 import {
   ApiResponse,
+  ApplicationData,
   CommonSuccess,
+  FullUserData,
   UploadedApplicatioData,
   UserResponseData,
 } from '../interfaces/api';
@@ -70,6 +72,12 @@ class ApiService {
       success: code === ResponseCodes.Success,
       data: { id: app?.id, tag: app?.tag, ram: app?.ram },
     };
+  }
+
+  hasAccess(
+    value: UserResponseData
+  ): value is { user: FullUserData; applications: ApplicationData[] } {
+    return Boolean(value.user.email) && value.user.email !== 'Access denied';
   }
 
   setApiKey(apiKey: string) {
