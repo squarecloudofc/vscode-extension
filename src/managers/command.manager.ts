@@ -16,7 +16,7 @@ class CommandManager {
 
     for (const { name, execute } of this.commands) {
       const disposable = vscode.commands.registerCommand(name, (...args) => {
-        execute(instance, ...args);
+        execute(...args);
       });
       instance.context.subscriptions.push(disposable);
     }

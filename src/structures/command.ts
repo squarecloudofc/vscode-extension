@@ -1,7 +1,6 @@
 import commandManager from '../managers/command.manager';
-import { SquareCloud } from '../squarecloud';
 
-export type ExecuteCommand = (ctx: SquareCloud, ...args: any[]) => any;
+export type ExecuteCommand = (...args: any[]) => any;
 
 export class Command {
   public name: string;
