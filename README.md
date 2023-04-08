@@ -1,8 +1,8 @@
-# **Square Cloud** está no VS Code!
+# A **Square Cloud** está no VS Code!
 
 Essa extensão pode gerenciar e receber informações de todas as suas aplicações hospedadas na [Square Cloud](https://squarecloud.app/).
 
-### **Requisitos**
+## **Requisitos**
 
 - Para utilizar a extensão em sua melhor versão você precisa de uma **chave de API**.
   - Para isso faça login no site oficial e resgate sua chave [aqui](https://squarecloud.app/dashboard/me/).
@@ -48,7 +48,7 @@ Esta extensão vai contar com apenas uma configuração:
 
 ## **Contribuições**
 
-_O nosso repositório no GitHub está sempre aberto a sugestões e contribuições._ Basta você abrir uma issue ou enviar um pull request. 
+_O nosso repositório no GitHub está sempre aberto a sugestões e contribuições._ Basta você abrir uma issue ou enviar um pull request.
 
 Estamos ansiosos para ouvir suas ideias e trabalhar juntos para tornar o projeto ainda melhor!
 

@@ -24,14 +24,21 @@ class ApiService {
   application(
     path: string,
     id: string,
-    data?: FormData
+    options?: AxiosRequestConfig | FormData | boolean
   ): Promise<ApiResponse | undefined> {
-    const options = data
-      ? {
-          data,
-          headers: data.getHeaders(),
-        }
-      : undefined;
+    if (options instanceof FormData) {
+      options = {
+        method: 'POST',
+        data: options,
+        headers: options.getHeaders(),
+      };
+    }
+
+    if (typeof options === 'boolean') {
+      options = {
+        method: options ? 'POST' : undefined,
+      };
+    }
 
     return this.fetch(`${path}/${id}`, options);
   }
@@ -49,10 +56,9 @@ class ApiService {
       authorization: configManager.apiKey,
     };
 
-    const res = await axios({
-      ...options,
-      url: `${this.baseUrl}${path}`,
-    }).catch(errorManager.handleError);
+    const res = await axios(`${this.baseUrl}${path}`, options).catch((err) =>
+      errorManager.handleError(err)
+    );
 
     return res?.data;
   }

@@ -2,10 +2,10 @@ import { existsSync, readdirSync } from 'fs';
 import { join } from 'path';
 
 export function getDirectoryFiles(
-  path: string,
+  dir: string,
   fileExtensions = ['.ts', '.js']
 ) {
-  path = join(__dirname, '..', path);
+  const path = join(__dirname, '..', dir);
 
   if (!existsSync(path)) {
     return [];
@@ -18,7 +18,7 @@ export function getDirectoryFiles(
     if (file.isDirectory()) {
       files = [
         ...files,
-        ...getDirectoryFiles(join(path, file.name), fileExtensions),
+        ...getDirectoryFiles(join(dir, file.name), fileExtensions),
       ];
     }
 

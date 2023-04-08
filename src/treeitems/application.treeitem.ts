@@ -5,6 +5,7 @@ import { Application } from '../structures/application';
 
 export default class ApplicationTreeItem extends vscode.TreeItem {
   contextValue = this.application.isWebsite ? 'square-site' : 'square-bot';
+  tooltip = this.application.id;
   collapsibleState = this.status
     ? vscode.TreeItemCollapsibleState.Collapsed
     : vscode.TreeItemCollapsibleState.None;
@@ -18,8 +19,6 @@ export default class ApplicationTreeItem extends vscode.TreeItem {
 
   constructor(public readonly application: Application) {
     super(application.tag);
-
-    this.tooltip = application.id;
 
     if (!this.status) {
       cacheManager.refreshStatus(application.id, true);

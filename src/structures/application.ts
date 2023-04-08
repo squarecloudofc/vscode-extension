@@ -58,7 +58,7 @@ export class Application {
   }
 
   async delete(): Promise<CommonSuccess> {
-    const data = await apiService.application(Routes.Delete, this.id);
+    const data = await apiService.application(Routes.Delete, this.id, true);
 
     return { success: data?.code === ResponseCodes.AppDeleted };
   }
@@ -77,19 +77,19 @@ export class Application {
   }
 
   async start() {
-    const data = await apiService.application(Routes.Start, this.id);
+    const data = await apiService.application(Routes.Start, this.id, true);
 
     return { success: data?.code === ResponseCodes.AppStarted };
   }
 
   async stop() {
-    const data = await apiService.application(Routes.Stop, this.id);
+    const data = await apiService.application(Routes.Stop, this.id, true);
 
     return { success: data?.code === ResponseCodes.AppStopped };
   }
 
   async restart() {
-    const data = await apiService.application(Routes.Restart, this.id);
+    const data = await apiService.application(Routes.Restart, this.id, true);
 
     return { success: data?.code === ResponseCodes.AppRestarted };
   }
