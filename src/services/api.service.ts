@@ -1,4 +1,4 @@
-import { AxiosRequestConfig, default as axios } from 'axios';
+import { AxiosRequestConfig, AxiosStatic } from 'axios';
 import { ResponseCodes, Routes } from '../helpers/constants.helper';
 import {
   ApiResponse,
@@ -10,10 +10,12 @@ import {
 } from '../interfaces/api';
 import errorManager from '../managers/error.manager';
 import FormData = require('form-data');
+import configManager from '../managers/config.manager';
+
+const axios: AxiosStatic = require('axios');
 
 class ApiService {
   private readonly baseUrl = 'https://api.squarecloud.app/v1/public/';
-  public readonly apiKey?: string;
 
   user(userId?: string): Promise<ApiResponse<UserResponseData> | undefined> {
     return this.fetch(`user${userId ? `/${userId}` : ''}`);
@@ -38,18 +40,19 @@ class ApiService {
     path: string,
     options: AxiosRequestConfig = {}
   ): Promise<ApiResponse | undefined> {
-    if (!this.apiKey) {
+    if (!configManager.apiKey) {
       return;
     }
 
     options.headers = {
       ...(options.headers || {}),
-      authorization: this.apiKey,
+      authorization: configManager.apiKey,
     };
 
-    const res = await axios(`${this.baseUrl}${path}`, options).catch(
-      errorManager.handleError
-    );
+    const res = await axios({
+      ...options,
+      url: `${this.baseUrl}${path}`,
+    }).catch(errorManager.handleError);
 
     return res?.data;
   }
@@ -78,11 +81,6 @@ class ApiService {
     value: UserResponseData
   ): value is { user: FullUserData; applications: ApplicationData[] } {
     return Boolean(value.user.email) && value.user.email !== 'Access denied';
-  }
-
-  setApiKey(apiKey: string) {
-    Reflect.set(this, 'apiKey', apiKey);
-    return this;
   }
 }
 

@@ -1,20 +1,20 @@
 import * as vscode from 'vscode';
-import apiService from '../services/api.service';
+import cacheManager from './cache.manager';
 
 class ConfigManager {
   private readonly defaultConfig =
     vscode.workspace.getConfiguration('squarecloud');
 
   constructor() {
-    this.onChangeApiKey();
+    this.listenApiKeyChange();
   }
 
-  onChangeApiKey() {
+  listenApiKeyChange() {
     vscode.workspace.onDidChangeConfiguration((event) => {
       if (!event.affectsConfiguration('squarecloud.apiKey') || !this.apiKey) {
         return;
       }
-      apiService.setApiKey(this.apiKey);
+      cacheManager.refreshData(true);
     });
   }
 
@@ -23,4 +23,4 @@ class ConfigManager {
   }
 }
 
-export default ConfigManager;
+export default new ConfigManager();

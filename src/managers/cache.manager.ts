@@ -1,10 +1,10 @@
 import EventEmitter = require('events');
 import { setTimeout } from 'timers/promises';
 import * as vscode from 'vscode';
-import { ApplicationStatusData, FullUserData } from '../interfaces/api';
-import { Application } from '../structures/application';
 import { t } from 'vscode-ext-localisation';
+import { ApplicationStatusData, FullUserData } from '../interfaces/api';
 import apiService from '../services/api.service';
+import { Application } from '../structures/application';
 
 class CacheManager extends EventEmitter {
   public applications: Application[] = [];

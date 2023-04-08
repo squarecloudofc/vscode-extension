@@ -32,6 +32,7 @@ export interface RestrictedUser extends BaseUserData {
 
 export interface UserPlanData {
   name: string;
+  memory: { limit: number; available: number; used: number };
   duration: { formatted: string; raw: number };
 }
 
