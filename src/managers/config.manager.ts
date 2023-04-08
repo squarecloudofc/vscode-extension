@@ -18,6 +18,10 @@ class ConfigManager {
     });
   }
 
+  setApiKey(key: string) {
+    return this.defaultConfig.update('apiKey', key, true);
+  }
+
   get apiKey() {
     return <string | undefined>this.defaultConfig.get('apiKey');
   }
