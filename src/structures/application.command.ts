@@ -1,6 +1,6 @@
 import commandManager from '../managers/command.manager';
 import { SquareCloud } from '../squarecloud';
-import { ApplicationTreeItem } from '../treeitems';
+import { ApplicationTreeItem } from '../items';
 
 export type ExecuteApplicationCommand = (
   ctx: SquareCloud,

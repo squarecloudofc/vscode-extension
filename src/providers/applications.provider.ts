@@ -1,8 +1,4 @@
-import {
-  ApplicationTreeItem,
-  GenericTreeItem,
-  SquareTreeItem,
-} from '../treeitems';
+import { ApplicationTreeItem, GenericTreeItem, SquareTreeItem } from '../items';
 import BaseProvider from './base.provider';
 import cacheManager from '../managers/cache.manager';
 import prettyMilliseconds = require('pretty-ms');

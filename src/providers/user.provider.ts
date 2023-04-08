@@ -1,6 +1,6 @@
 import { t } from 'vscode-ext-localisation';
 import cacheManager from '../managers/cache.manager';
-import { GenericTreeItem } from '../treeitems';
+import { GenericTreeItem } from '../items';
 import BaseProvider from './base.provider';
 import configManager from '../managers/config.manager';
 
