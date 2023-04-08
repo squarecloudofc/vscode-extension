@@ -44,7 +44,7 @@ export class Application {
 
   async logs(full?: boolean): Promise<ApplicationLogsData | undefined> {
     const data = await apiService.application(
-      `${full && 'full-'}logs`,
+      `${full ? 'full-' : ''}logs`,
       this.id
     );
 
