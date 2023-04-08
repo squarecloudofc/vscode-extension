@@ -121,5 +121,29 @@
         "title": "Escribe el comando de inicio para tu aplicación."
       }
     }
+  },
+
+  "statusBarItem": {
+    "title": "Square Cloud - Selecciona una acción",
+    "commit": "Realizar commit de los archivos",
+    "upload": "Enviar nueva aplicación",
+    "setApp": "Definir aplicación del escritorio",
+    "createConfig": "Crear archivo de configuración"
+  },
+
+  "setWorkspaceApp": {
+    "select": "Selecciona una aplicación:",
+    "success": "¡Aplicación del espacio de trabajo actualizada con éxito!"
+  },
+
+  "uploadWorkspace": {
+    "createFile": "Para subir tu aplicación, primero crea un archivo de configuración.",
+    "loading": "Enviando archivos a Square Cloud...",
+    "loaded": "¡Aplicación subida con éxito!"
+  },
+
+  "commitWorkspace": {
+    "loading": "Enviando archivos a Square Cloud...",
+    "loaded": "¡Aplicación actualizada con éxito!"
   }
 }

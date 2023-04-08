@@ -7,7 +7,7 @@ class BarItemManager {
       100
     );
 
-    statusBarItem.text = '$(cloud-upload) Square Cloud';
+    statusBarItem.text = '$(chrome-restore) Square Cloud';
     statusBarItem.command = 'squarecloud.statusBarItem';
 
     if (this.available) {

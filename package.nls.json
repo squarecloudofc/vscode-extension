@@ -123,5 +123,29 @@
         "title": "Type the start command for your application."
       }
     }
+  },
+
+  "statusBarItem": {
+    "title": "Square Cloud - Select an action:",
+    "commit": "Commit files",
+    "upload": "Upload a new application",
+    "setApp": "Set the workspace application",
+    "createConfig": "Create configuration file"
+  },
+
+  "setWorkspaceApp": {
+    "select": "Select an application:",
+    "success": "Workspace application updated successfuly!"
+  },
+
+  "uploadWorkspace": {
+    "createFile": "To upload your application, first create a configuration file.",
+    "loading": "Sending files to Square Cloud...",
+    "loaded": "Application successfuly uploaded!"
+  },
+
+  "commitWorkspace": {
+    "loading": "Sending files to Square Cloud...",
+    "loaded": "Application successfuly updated!"
   }
 }

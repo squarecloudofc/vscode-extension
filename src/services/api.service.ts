@@ -8,9 +8,9 @@ import {
   UploadedApplicatioData,
   UserResponseData,
 } from '../interfaces/api';
+import configManager from '../managers/config.manager';
 import errorManager from '../managers/error.manager';
 import FormData = require('form-data');
-import configManager from '../managers/config.manager';
 
 const axios: AxiosStatic = require('axios');
 
@@ -67,7 +67,10 @@ class ApiService {
     file: Buffer
   ): Promise<CommonSuccess<UploadedApplicatioData> | undefined> {
     const formData = new FormData();
-    formData.append('file', file, { filename: 'app.zip' });
+    formData.append('file', file, {
+      filename: 'app.zip',
+      contentType: 'application/zip',
+    });
 
     const data = (await this.fetch(Routes.Upload, {
       method: 'POST',

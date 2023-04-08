@@ -2,9 +2,6 @@ import * as vscode from 'vscode';
 import cacheManager from './cache.manager';
 
 class ConfigManager {
-  public readonly defaultConfig =
-    vscode.workspace.getConfiguration('squarecloud');
-
   constructor() {
     this.listenApiKeyChange();
   }
@@ -20,6 +17,10 @@ class ConfigManager {
 
   setApiKey(key: string) {
     return this.defaultConfig.update('apiKey', key, true);
+  }
+
+  get defaultConfig() {
+    return vscode.workspace.getConfiguration('squarecloud');
   }
 
   get apiKey() {
