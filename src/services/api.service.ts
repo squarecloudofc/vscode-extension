@@ -83,6 +83,12 @@ class ApiService {
     };
   }
 
+  testKey(key: string) {
+    return axios.get(`${this.baseUrl}user`, {
+      headers: { authorization: key },
+    });
+  }
+
   hasAccess(
     value: UserResponseData
   ): value is { user: FullUserData; applications: ApplicationData[] } {
