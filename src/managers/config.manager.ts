@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 import cacheManager from './cache.manager';
 
 class ConfigManager {
-  private readonly defaultConfig =
+  public readonly defaultConfig =
     vscode.workspace.getConfiguration('squarecloud');
 
   constructor() {
