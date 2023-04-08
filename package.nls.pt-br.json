@@ -51,8 +51,9 @@
     "button": "Exibir logs"
   },
 
-  "copyId": {
-    "copied": "ID da aplicação copiado para a área de transferência."
+  "copy": {
+    "copiedId": "ID da aplicação copiado para a área de transferência.",
+    "copiedText": "{{TYPE}} copiado para a área de transferência."
   },
 
   "start": {

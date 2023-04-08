@@ -51,8 +51,9 @@
     "button": "Mostrar registros"
   },
 
-  "copyId": {
-    "copied": "ID de aplicación copiado al portapapeles."
+  "copy": {
+    "copiedId": "ID de aplicación copiado al portapapeles.",
+    "copiedText": "{{TYPE}} copiado al portapapeles."
   },
 
   "start": {

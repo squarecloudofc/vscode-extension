@@ -51,8 +51,9 @@
     "button": "Show logs"
   },
 
-  "copyId": {
-    "copied": "Application ID copied to clipboard."
+  "copy": {
+    "copiedId": "Application ID copied to clipboard.",
+    "copiedText": "{{TYPE}} copied to clipboard."
   },
 
   "start": {
