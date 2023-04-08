@@ -3,7 +3,7 @@ import { ApplicationCommand } from '../../structures/application.command';
 import cacheManager from '../../managers/cache.manager';
 import { t } from 'vscode-ext-localisation';
 
-new ApplicationCommand('showLogs', async ({ application }) => {
+new ApplicationCommand('showLogs', ({ application }) => {
   if (cacheManager.paused) {
     cacheManager.throwPausedError();
     return;
