@@ -20,6 +20,7 @@
     "yes": "Yes",
     "no": "No",
     "loading": "Loading...",
+    "error": "An unknown error has ocurred.",
     "network": "Network",
     "storage": "Storage",
     "wait": "Please wait a moment before making new requests.",
@@ -101,8 +102,7 @@
       "displayName": "Type a display name for your application.",
       "avatar": {
         "subs": "an avatar",
-        "title": "Paste your avatar URL below.",
-        "invalid": "Please paste a valid image URL."
+        "title": "Paste your avatar URL below."
       },
       "description": {
         "subs": "a description",
@@ -117,42 +117,11 @@
         "validate": "Please type a number bigger than {{minValue}} and smaller than your available memory."
       },
       "version": "What version would you like to use for this application?",
-      "subdomain": {
-        "title": "Type a subdomain for your website.",
-        "invalid": "Please provide a valid subdomain. Must finish with \".squareweb.app\"."
-      },
+      "subdomain": "Type a subdomain for your website.",
       "start": {
         "subs": "a start command",
         "title": "Type the start command for your application."
       }
     }
-  },
-
-  "utilBarItem": {
-    "noApp": "Config Application",
-    "commit": "Commit Application"
-  },
-
-  "setWorkspaceApp": {
-    "newApp": "New Application",
-    "uploadText": "Upload to Square Cloud",
-    "yourApps": "Your Applications",
-    "choose": "Choose an application to the current workspace.",
-    "success": "Workspace application set successfuly."
-  },
-
-  "commitWorkspace": {
-    "confirm": "Do you want to proceed with the commit?",
-    "canceled": "Commit has been canceled.",
-    "saveConfirm": "Do you want to remember your choice for future commits?"
-  },
-
-  "uploadWorkspace": {
-    "confirm": "Do you want to proceed with the upload?",
-    "canceled": "Upload has been canceled.",
-    "loading": "Uploading your files. Hold on...",
-    "loaded": "Application uploaded successfuly. Please wait while we configure your workspace.",
-    "error": "An error ocurred when trying to upload.",
-    "configured": "Workspace is ready to use!"
   }
 }
