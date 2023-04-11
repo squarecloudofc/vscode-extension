@@ -1,9 +1,11 @@
 import * as vscode from 'vscode';
+import { set } from '../helpers/config.helper';
 import cacheManager from './cache.manager';
 
 class ConfigManager {
-  constructor() {
+  setUpListeners() {
     this.listenApiKeyChange();
+    this.listenWorkspaceAppChange();
   }
 
   listenApiKeyChange() {
@@ -12,6 +14,23 @@ class ConfigManager {
         return;
       }
       cacheManager.refreshData(true);
+    });
+  }
+
+  listenWorkspaceAppChange() {
+    vscode.workspace.onDidChangeConfiguration(async (event) => {
+      if (!event.affectsConfiguration('squarecloud.workspaceAppId')) {
+        return;
+      }
+
+      const path = vscode.workspace.workspaceFolders?.[0].uri.fsPath;
+      if (!path) {
+        return;
+      }
+
+      const appId = this.defaultConfig.get('workspaceAppId');
+
+      set(path, { ID: appId });
     });
   }
 
