@@ -1,7 +1,6 @@
-import { existsSync, readFileSync } from 'fs';
-import ignore from 'ignore';
 import * as vscode from 'vscode';
 import { t } from 'vscode-ext-localisation';
+import getIgnoreFile from '../../helpers/ignores.helper';
 import cacheManager from '../../managers/cache.manager';
 import configManager from '../../managers/config.manager';
 import { Command } from '../../structures/command';
@@ -23,22 +22,8 @@ new Command('commitWorkspace', async () => {
     return;
   }
 
-  const ig = ignore().add(read(__dirname + '/../../../defaults.ignore'));
+  const ig = await getIgnoreFile(path);
   const zipFile = new AdmZip();
-
-  if (existsSync(path + '/squarecloud.ignore')) {
-    ig.add(read(path + '/squarecloud.ignore'));
-  } else if (existsSync(path + '/.gitignore')) {
-    const canIgnore = await vscode.window.showInformationMessage(
-      t('commit.useGitIgnore'),
-      t('generic.yes'),
-      t('generic.no')
-    );
-
-    if (canIgnore === t('generic.yes')) {
-      ig.add(read(path + '/.gitignore'));
-    }
-  }
 
   vscode.window.withProgress(
     {
@@ -62,7 +47,3 @@ new Command('commitWorkspace', async () => {
     }
   );
 });
-
-function read(path: string) {
-  return readFileSync(path).toString('utf8');
-}
