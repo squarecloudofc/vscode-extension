@@ -15,6 +15,7 @@
   "command.unfavorite": "Desfavoritar",
 
   "view.user.title": "Usuario",
+  "view.apps.title": "Aplicaciones",
   "view.noApiKey": "No tiene una clave de API registrada. Por favor, regístre una.",
   "view.welcome": "No hay clave de API registrada.\n[Establecer clave de API](command:squarecloud.setApiKey)",
 

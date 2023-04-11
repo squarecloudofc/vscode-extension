@@ -59,10 +59,6 @@ export default class ApplicationsProvider extends BaseProvider<SquareTreeItem> {
       ];
     }
 
-    const filteredApplications = applications
-      // .filter((app) => !cacheManager.isFavorited(app))
-      .filter((app) => (this.websiteOnly ? app.isWebsite : !app.isWebsite));
-
-    return filteredApplications.map((app) => new ApplicationTreeItem(app));
+    return applications.map((app) => new ApplicationTreeItem(app));
   }
 }

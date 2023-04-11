@@ -137,12 +137,12 @@
       "view/title": [
         {
           "command": "squarecloud.refreshCache",
-          "when": "view == bots-view || view == sites-view || view == user-view",
+          "when": "view == apps-view || view == user-view",
           "group": "navigation"
         },
         {
           "command": "squarecloud.setApiKey",
-          "when": "view == bots-view || view == sites-view || view == user-view"
+          "when": "view == apps-view || view == user-view"
         }
       ],
       "view/item/context": [
@@ -215,7 +215,7 @@
     },
     "viewsWelcome": [
       {
-        "view": "bots-view",
+        "view": "apps-view",
         "contents": "%view.welcome%",
         "enablement": "!config.squarecloud.apiKey",
         "when": "!config.squarecloud.apiKey"
@@ -336,12 +336,8 @@
     "views": {
       "squarecloud-container": [
         {
-          "id": "bots-view",
-          "name": "Bots"
-        },
-        {
-          "id": "sites-view",
-          "name": "Websites"
+          "id": "apps-view",
+          "name": "%view.apps.title%"
         },
         {
           "id": "user-view",
@@ -352,7 +348,7 @@
       "explorer": [
         {
           "id": "favapp-view",
-          "name": "Square Cloud Apps"
+          "name": "Square Cloud"
         }
       ]
     },

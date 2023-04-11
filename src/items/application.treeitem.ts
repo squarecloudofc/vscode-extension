@@ -10,7 +10,7 @@ export default class ApplicationTreeItem extends vscode.TreeItem {
     ? 'square-site'
     : 'square-bot';
   tooltip = this.application.id;
-  collapsibleState = this.status
+  collapsibleState = this.status?.running
     ? vscode.TreeItemCollapsibleState.Collapsed
     : vscode.TreeItemCollapsibleState.None;
   iconPath = getIconPaths(
