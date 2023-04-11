@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-
 export enum ResponseCodes {
   Success = 'SUCCESS',
   AppDeleted = 'APP_DELETED',

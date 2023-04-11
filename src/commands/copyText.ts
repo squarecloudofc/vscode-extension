@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-
 import * as vscode from 'vscode';
 import { t } from 'vscode-ext-localisation';
 import { Command } from '../structures/command';

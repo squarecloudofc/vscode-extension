@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-
 import * as AdmZip from 'adm-zip';
 import { existsSync, readFileSync } from 'fs';
 import ignore from 'ignore';
