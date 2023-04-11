@@ -137,6 +137,7 @@
   },
 
   "setWorkspaceApp": {
+    "none": "None",
     "select": "Select an application:",
     "success": "Workspace application updated successfuly!"
   },

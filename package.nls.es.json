@@ -135,6 +135,7 @@
   },
 
   "setWorkspaceApp": {
+    "none": "Sin",
     "select": "Selecciona una aplicación:",
     "success": "¡Aplicación del espacio de trabajo actualizada con éxito!"
   },
