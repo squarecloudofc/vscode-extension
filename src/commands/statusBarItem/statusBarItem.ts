@@ -14,32 +14,51 @@ new Command('statusBarItem', async () => {
   );
 
   const options = {
-    commit: [`$(git-branch) ${t('statusBarItem.commit')}`, 'commitWorkspace'],
-    upload: [`$(cloud-upload) ${t('statusBarItem.upload')}`, 'uploadWorkspace'],
-    setApp: [`$(code) ${t('statusBarItem.setApp')}`, 'setWorkspaceApp'],
-    createConfig: [
-      `$(gear) ${t('statusBarItem.createConfig')}`,
-      'createConfig',
-    ],
-    restartApp: [
-      `$(debug-restart) ${t('command.restart')}`,
-      'restartWorkspaceApp',
-    ],
-    startApp: [`$(debug-start) ${t('command.start')}`, 'startWorkspaceApp'],
-    stopApp: [`$(debug-stop) ${t('command.stop')}`, 'stopWorkspaceApp'],
+    commit: {
+      label: `$(git-branch) ${t('statusBarItem.commit')}`,
+      command: 'commitWorkspace',
+    },
+    upload: {
+      label: `$(cloud-upload) ${t('statusBarItem.upload')}`,
+      command: 'uploadWorkspace',
+    },
+    setApp: {
+      label: `$(code) ${t('statusBarItem.setApp')}`,
+      command: 'setWorkspaceApp',
+    },
+    createConfig: {
+      label: `$(gear) ${t('statusBarItem.createConfig')}`,
+      command: 'createConfig',
+    },
+    restartApp: {
+      label: `$(debug-restart) ${t('command.restart')}`,
+      command: 'restartEntry',
+    },
+    startApp: {
+      label: `$(debug-start) ${t('command.start')}`,
+      command: 'startEntry',
+    },
+    stopApp: {
+      label: `$(debug-stop) ${t('command.stop')}`,
+      command: 'stopEntry',
+    },
   };
 
   const status = await application?.status();
 
-  const selectedOption = await vscode.window.showQuickPick(
+  const selected = await vscode.window.showQuickPick(
     [
-      application ? options.commit[0] : options.upload[0],
-      options.setApp[0],
-      options.createConfig[0],
+      application ? options.commit : options.upload,
+      options.setApp,
+      options.createConfig,
       ...(application
         ? [
-            status?.running ? options.stopApp[0] : options.startApp[0],
-            options.restartApp[0],
+            {
+              label: application.tag,
+              kind: vscode.QuickPickItemKind.Separator,
+            },
+            status?.running ? options.stopApp : options.startApp,
+            options.restartApp,
           ]
         : []),
     ],
@@ -50,13 +69,13 @@ new Command('statusBarItem', async () => {
     }
   );
 
-  if (!selectedOption) {
+  if (!selected) {
     return;
   }
 
-  const commandName = Object.values(options).find(
-    (el) => el[0] === selectedOption
-  )![1];
+  const { command } = Object.values(options).find(
+    ({ label }) => label === selected.label
+  )!;
 
-  vscode.commands.executeCommand('squarecloud.' + commandName, application);
+  vscode.commands.executeCommand(`squarecloud.${command}`, { application });
 });
