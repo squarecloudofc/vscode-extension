@@ -11,7 +11,7 @@
   "command.copyId": "Copiar ID",
   "command.restart": "Reiniciar",
   "command.delete": "Eliminar",
-  "command.favorite": "Favoritar",
+  "command.favorite": "Favorito",
   "command.unfavorite": "Desfavoritar",
 
   "view.user.title": "Usuario",

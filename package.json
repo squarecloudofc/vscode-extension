@@ -59,6 +59,7 @@
   "dependencies": {
     "adm-zip": "^0.5.10",
     "axios": "1.1.3",
+    "envfile": "^6.18.0",
     "form-data": "^4.0.0",
     "ignore": "^5.2.4",
     "node-fetch": "^3.3.1",
@@ -126,18 +127,6 @@
         },
         {
           "command": "squarecloud.uploadWorkspace",
-          "when": "false"
-        },
-        {
-          "command": "squarecloud.startWorkspace",
-          "when": "false"
-        },
-        {
-          "command": "squarecloud.stopWorkspace",
-          "when": "false"
-        },
-        {
-          "command": "squarecloud.restartWorkspace",
           "when": "false"
         },
         {
@@ -280,7 +269,7 @@
       },
       {
         "command": "squarecloud.unfavoriteEntry",
-        "title": "%command.unfavorite%",
+        "title": "%command.favorite%",
         "icon": {
           "light": "resources/light/star-fill.svg",
           "dark": "resources/dark/star-fill.svg"
@@ -329,18 +318,6 @@
       {
         "command": "squarecloud.commitWorkspace",
         "title": "Commit Workspace"
-      },
-      {
-        "command": "squarecloud.startWorkspace",
-        "title": "Start Workspace App"
-      },
-      {
-        "command": "squarecloud.stopWorkspace",
-        "title": "Stop Workspace App"
-      },
-      {
-        "command": "squarecloud.restartWorkspace",
-        "title": "Restart Workspace App"
       },
       {
         "command": "squarecloud.uploadWorkspace",
