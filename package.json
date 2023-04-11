@@ -129,6 +129,18 @@
           "when": "false"
         },
         {
+          "command": "squarecloud.startWorkspace",
+          "when": "false"
+        },
+        {
+          "command": "squarecloud.stopWorkspace",
+          "when": "false"
+        },
+        {
+          "command": "squarecloud.restartWorkspace",
+          "when": "false"
+        },
+        {
           "command": "squarecloud.createConfig",
           "when": "workspaceFolderCount == 1"
         }
@@ -147,41 +159,51 @@
       "view/item/context": [
         {
           "command": "squarecloud.refreshEntry",
-          "when": "viewItem == square-bot || viewItem == square-site",
+          "when": "viewItem == square-bot || viewItem == square-site || viewItem == square-favorite",
           "group": "inline"
         },
         {
           "command": "squarecloud.showLogs",
+          "when": "viewItem == square-bot || viewItem == square-site || viewItem == square-favorite",
+          "group": "inline"
+        },
+        {
+          "command": "squarecloud.favoriteEntry",
           "when": "viewItem == square-bot || viewItem == square-site",
           "group": "inline"
         },
         {
+          "command": "squarecloud.unfavoriteEntry",
+          "when": "viewItem == square-favorite",
+          "group": "inline"
+        },
+        {
           "command": "squarecloud.startEntry",
-          "when": "viewItem == square-bot || viewItem == square-site"
+          "when": "viewItem == square-bot || viewItem == square-site || viewItem == square-favorite"
         },
         {
           "command": "squarecloud.stopEntry",
-          "when": "viewItem == square-bot || viewItem == square-site"
+          "when": "viewItem == square-bot || viewItem == square-site || viewItem == square-favorite"
         },
         {
           "command": "squarecloud.restartEntry",
-          "when": "viewItem == square-bot || viewItem == square-site"
+          "when": "viewItem == square-bot || viewItem == square-site || viewItem == square-favorite"
         },
         {
           "command": "squarecloud.deleteEntry",
-          "when": "viewItem == square-bot || viewItem == square-site"
+          "when": "viewItem == square-bot || viewItem == square-site || viewItem == square-favorite"
         },
         {
           "command": "squarecloud.commitEntry",
-          "when": "viewItem == square-bot || viewItem == square-site"
+          "when": "viewItem == square-bot || viewItem == square-site || viewItem == square-favorite"
         },
         {
           "command": "squarecloud.backupEntry",
-          "when": "viewItem == square-bot || viewItem == square-site"
+          "when": "viewItem == square-bot || viewItem == square-site || viewItem == square-favorite"
         },
         {
           "command": "squarecloud.copyIdEntry",
-          "when": "viewItem == square-bot || viewItem == square-site"
+          "when": "viewItem == square-bot || viewItem == square-site || viewItem == square-favorite"
         },
         {
           "command": "squarecloud.copyText",
@@ -249,6 +271,22 @@
         }
       },
       {
+        "command": "squarecloud.favoriteEntry",
+        "title": "%command.favorite%",
+        "icon": {
+          "light": "resources/light/star.svg",
+          "dark": "resources/dark/star.svg"
+        }
+      },
+      {
+        "command": "squarecloud.unfavoriteEntry",
+        "title": "%command.unfavorite%",
+        "icon": {
+          "light": "resources/light/star-fill.svg",
+          "dark": "resources/dark/star-fill.svg"
+        }
+      },
+      {
         "command": "squarecloud.startEntry",
         "title": "%command.start%"
       },
@@ -293,6 +331,18 @@
         "title": "Commit Workspace"
       },
       {
+        "command": "squarecloud.startWorkspace",
+        "title": "Start Workspace App"
+      },
+      {
+        "command": "squarecloud.stopWorkspace",
+        "title": "Stop Workspace App"
+      },
+      {
+        "command": "squarecloud.restartWorkspace",
+        "title": "Restart Workspace App"
+      },
+      {
         "command": "squarecloud.uploadWorkspace",
         "title": "Upload Workspace"
       }
@@ -321,6 +371,12 @@
           "name": "%view.user.title%",
           "visibility": "collapsed"
         }
+      ],
+      "explorer": [
+        {
+          "id": "favapp-view",
+          "name": "Square Cloud Apps"
+        }
       ]
     },
     "configuration": [
@@ -335,6 +391,12 @@
           "squarecloud.workspaceAppId": {
             "title": "The workspace folder application ID.",
             "type": "string"
+          },
+          "squarecloud.favoritedApps": {
+            "title": "Favorited apps will show in the explorer container.",
+            "type": [
+              "string"
+            ]
           }
         }
       }

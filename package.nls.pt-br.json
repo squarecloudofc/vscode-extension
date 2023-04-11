@@ -11,6 +11,8 @@
   "command.copyId": "Copiar ID",
   "command.restart": "Reiniciar",
   "command.delete": "Excluir",
+  "command.favorite": "Favoritar",
+  "command.unfavorite": "Desfavoritar",
 
   "view.user.title": "Usuário",
   "view.noApiKey": "Você não possui uma chave de API registrada. Por favor, registre uma.",

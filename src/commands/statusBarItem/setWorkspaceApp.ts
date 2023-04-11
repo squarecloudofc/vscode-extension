@@ -1,8 +1,8 @@
 import * as vscode from 'vscode';
-import cacheManager from '../managers/cache.manager';
-import { Command } from '../structures/command';
+import cacheManager from '../../managers/cache.manager';
+import { Command } from '../../structures/command';
 import { t } from 'vscode-ext-localisation';
-import configManager from '../managers/config.manager';
+import configManager from '../../managers/config.manager';
 
 new Command('setWorkspaceApp', async () => {
   const { applications } = cacheManager;

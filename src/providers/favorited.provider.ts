@@ -5,16 +5,16 @@ import configManager from '../managers/config.manager';
 import BaseProvider from './base.provider';
 import prettyMilliseconds = require('pretty-ms');
 
-export default class ApplicationsProvider extends BaseProvider<SquareTreeItem> {
-  protected websiteOnly?: boolean;
-
+export default class FavoritedProvider extends BaseProvider<SquareTreeItem> {
   async getChildren(
     element?: SquareTreeItem | undefined
   ): Promise<SquareTreeItem[]> {
     const { contextValue } = element || {};
 
     if (
-      ['square-bot', 'square-site', 'square-favorite'].includes(contextValue!) &&
+      ['square-bot', 'square-site', 'square-favorite'].includes(
+        contextValue!
+      ) &&
       element instanceof ApplicationTreeItem
     ) {
       const status = cacheManager.status.get(element.application.id);
@@ -58,10 +58,10 @@ export default class ApplicationsProvider extends BaseProvider<SquareTreeItem> {
         ),
       ];
     }
-
-    const filteredApplications = applications
-      // .filter((app) => !cacheManager.isFavorited(app))
-      .filter((app) => (this.websiteOnly ? app.isWebsite : !app.isWebsite));
+    
+    const filteredApplications = applications.filter(
+      (app) => cacheManager.isFavorited(app)
+    );
 
     return filteredApplications.map((app) => new ApplicationTreeItem(app));
   }

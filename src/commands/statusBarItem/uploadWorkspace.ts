@@ -1,29 +1,35 @@
 import { existsSync, readFileSync } from 'fs';
 import ignore from 'ignore';
+import { join } from 'path';
 import * as vscode from 'vscode';
 import { t } from 'vscode-ext-localisation';
-import cacheManager from '../managers/cache.manager';
-import configManager from '../managers/config.manager';
-import { Command } from '../structures/command';
+import createConfigFile from '../../helpers/generatefile.helper';
+import cacheManager from '../../managers/cache.manager';
+import apiService from '../../services/api.service';
+import { Command } from '../../structures/command';
 import AdmZip = require('adm-zip');
+import configManager from '../../managers/config.manager';
 
-new Command('commitWorkspace', async () => {
+new Command('uploadWorkspace', async () => {
   const path = vscode.workspace.workspaceFolders?.[0].uri.fsPath;
 
   if (!path) {
     return;
   }
 
-  const applicationId = configManager.defaultConfig.get('workspaceAppId');
-  const application = cacheManager.applications.find(
-    (app) => app.id === applicationId
-  );
+  if (
+    !existsSync(join(path, 'squarecloud.app')) &&
+    !existsSync(join(path, 'squarecloud.config'))
+  ) {
+    const created = await createConfigFile(path);
 
-  if (!application) {
-    return;
+    if (!created) {
+      vscode.window.showErrorMessage(t('uploadWorkspace.createFile'));
+      return;
+    }
   }
 
-  const ig = ignore().add(read(__dirname + '/../../defaults.ignore'));
+  const ig = ignore().add(read(__dirname + '/../../../defaults.ignore'));
   const zipFile = new AdmZip();
 
   if (existsSync(path + '/squarecloud.ignore')) {
@@ -43,20 +49,26 @@ new Command('commitWorkspace', async () => {
   vscode.window.withProgress(
     {
       location: vscode.ProgressLocation.Notification,
-      title: t('commitWorkspace.loading'),
+      title: t('uploadWorkspace.loading'),
     },
     async (progress) => {
       await zipFile.addLocalFolderPromise(path, {
         filter: (filename) => !ig.ignores(filename),
       });
 
-      await cacheManager.pauseUntil(() =>
-        application.commit(zipFile.toBuffer(), 'app.zip', true)
+      const { data } = (await cacheManager.pauseUntil(() =>
+        apiService.upload(zipFile.toBuffer())
+      ))!;
+
+      await configManager.defaultConfig.update(
+        'workspaceAppId',
+        data?.id,
+        null
       );
 
-      setTimeout(() => cacheManager.refreshStatus(application.id), 7000);
+      await cacheManager.refreshData();
 
-      vscode.window.showInformationMessage(t('commitWorkspace.loaded'));
+      vscode.window.showInformationMessage(t('uploadWorkspace.loaded'));
       progress.report({ increment: 100 });
       return;
     }

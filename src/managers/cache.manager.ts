@@ -5,6 +5,7 @@ import { t } from 'vscode-ext-localisation';
 import { ApplicationStatusData, FullUserData } from '../interfaces/api';
 import apiService from '../services/api.service';
 import { Application } from '../structures/application';
+import configManager from './config.manager';
 
 class CacheManager extends EventEmitter {
   public applications: Application[] = [];
@@ -89,6 +90,51 @@ class CacheManager extends EventEmitter {
 
   pause(value: boolean | undefined | null = true) {
     this.paused = Boolean(value);
+  }
+
+  isFavorited(appOrId: Application | string) {
+    if (typeof appOrId !== 'string') {
+      appOrId = appOrId.id;
+    }
+
+    const favoritedApps =
+      <string[]>configManager.defaultConfig.get('favoritedApps') || [];
+
+    return favoritedApps.includes(appOrId);
+  }
+
+  async favorite(appOrId: Application | string) {
+    if (typeof appOrId !== 'string') {
+      appOrId = appOrId.id;
+    }
+
+    const favoritedApps =
+      <string[]>configManager.defaultConfig.get('favoritedApps') || [];
+
+    await configManager.defaultConfig.update(
+      'favoritedApps',
+      [...favoritedApps, appOrId],
+      true
+    );
+
+    this.emit('refreshStatus', appOrId);
+  }
+
+  async unfavorite(appOrId: Application | string) {
+    if (typeof appOrId !== 'string') {
+      appOrId = appOrId.id;
+    }
+
+    const favoritedApps =
+      <string[]>configManager.defaultConfig.get('favoritedApps') || [];
+
+    await configManager.defaultConfig.update(
+      'favoritedApps',
+      favoritedApps.filter((id) => id !== appOrId),
+      true
+    );
+
+    this.emit('refreshStatus', appOrId);
   }
 }
 
