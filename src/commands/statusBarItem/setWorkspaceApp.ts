@@ -8,10 +8,13 @@ new Command('setWorkspaceApp', async () => {
   const { applications } = cacheManager;
 
   const application = await vscode.window.showQuickPick(
-    applications.map((app) => ({
-      label: '$(symbol-function) ' + app.tag,
-      detail: app.id,
-    })),
+    [
+      { label: `$(remove) ${t('setWorkspaceApp.none')}`, detail: undefined },
+      ...applications.map((app) => ({
+        label: '$(symbol-function) ' + app.tag,
+        detail: app.id,
+      })),
+    ],
     {
       title: t('setWorkspaceApp.select'),
       placeHolder: t('generic.choose'),

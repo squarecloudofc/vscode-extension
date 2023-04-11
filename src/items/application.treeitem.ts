@@ -4,15 +4,15 @@ import cacheManager from '../managers/cache.manager';
 import { Application } from '../structures/application';
 
 export default class ApplicationTreeItem extends vscode.TreeItem {
+  tooltip = this.application.id;
+  collapsibleState = this.status?.running
+    ? vscode.TreeItemCollapsibleState.Collapsed
+    : vscode.TreeItemCollapsibleState.None;
   contextValue = cacheManager.isFavorited(this.application.id)
     ? 'square-favorite'
     : this.application.isWebsite
     ? 'square-site'
     : 'square-bot';
-  tooltip = this.application.id;
-  collapsibleState = this.status?.running
-    ? vscode.TreeItemCollapsibleState.Collapsed
-    : vscode.TreeItemCollapsibleState.None;
   iconPath = getIconPaths(
     this.status
       ? this.status.running
