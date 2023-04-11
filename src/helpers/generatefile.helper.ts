@@ -1,22 +1,13 @@
-import { existsSync, writeFileSync } from 'fs';
+import { existsSync } from 'fs';
 import * as vscode from 'vscode';
 import { t } from 'vscode-ext-localisation';
 import cacheManager from '../managers/cache.manager';
+import { set } from './config.helper';
 
 export default async function createConfigFile(path: string) {
   if (!existsSync(path)) {
     return;
   }
-
-  let fieldsString = '';
-
-  const addField = (name: string, value: string) => {
-    fieldsString += `${name}=${value.trim()}\n`;
-  };
-
-  const addFields = (...fields: [string, string | undefined][]) => {
-    fields.map(([name, value]) => (value ? addField(name, value) : null));
-  };
 
   const botOrSite = await vscode.window.showQuickPick(['Bot', 'Website'], {
     ignoreFocusOut: true,
@@ -129,20 +120,17 @@ export default async function createConfigFile(path: string) {
   const [displayName, mainFile, ramMemory, version, subDomain] = required;
   const [avatar, description, startCommand] = optional;
 
-  console.log(required, optional);
+  set(path, {
+    DISPLAY_NAME: displayName,
+    DESCRIPTION: description,
+    AVATAR: avatar,
+    MAIN: mainFile,
+    MEMORY: ramMemory,
+    VERSION: version?.toLowerCase(),
+    SUBDOMAIN: subDomain,
+    START: startCommand,
+  });
 
-  addFields(
-    ['DISPLAY_NAME', displayName],
-    ['DESCRIPTION', description],
-    ['AVATAR', avatar],
-    ['MAIN', mainFile],
-    ['MEMORY', ramMemory],
-    ['VERSION', version?.toLowerCase()],
-    ['SUBDOMAIN', subDomain],
-    ['START', startCommand]
-  );
-
-  writeFileSync(path + '/squarecloud.app', fieldsString);
   return true;
 }
 
