@@ -219,6 +219,12 @@
         "contents": "%view.welcome%",
         "enablement": "!config.squarecloud.apiKey",
         "when": "!config.squarecloud.apiKey"
+      },
+      {
+        "view": "square-ai",
+        "contents": "%view.welcome%",
+        "enablement": "!config.squarecloud.apiKey",
+        "when": "!config.squarecloud.apiKey"
       }
     ],
     "commands": [
@@ -346,8 +352,7 @@
         },
         {
           "id": "user-view",
-          "name": "%view.user.title%",
-          "visibility": "collapsed"
+          "name": "%view.user.title%"
         }
       ],
       "squarecloud-ai": [
