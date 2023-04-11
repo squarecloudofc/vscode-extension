@@ -330,6 +330,11 @@
           "id": "squarecloud-container",
           "title": "Square Cloud",
           "icon": "resources/squarecloud.svg"
+        },
+        {
+          "id": "squarecloud-ai",
+          "title": "Square Assistant",
+          "icon": "resources/squareai.png"
         }
       ]
     },
@@ -343,6 +348,13 @@
           "id": "user-view",
           "name": "%view.user.title%",
           "visibility": "collapsed"
+        }
+      ],
+      "squarecloud-ai": [
+        {
+          "id": "square-ai",
+          "name": "Square Assistant",
+          "type": "webview"
         }
       ],
       "explorer": [
