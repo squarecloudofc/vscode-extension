@@ -13,7 +13,6 @@ export async function get(
   key?: string
 ): Promise<string | Data | undefined> {
   path = getConfigFile(path);
-  console.log(path);
 
   if (!existsSync(path)) {
     return;
@@ -27,7 +26,6 @@ export async function get(
 
 export async function set(path: string, obj: { [k: string]: any }) {
   path = getConfigFile(path);
-  console.log(path);
 
   const oldContent = await get(path);
   const newContent = { ...oldContent, ...obj };
