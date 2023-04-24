@@ -1,11 +1,11 @@
-# A **Square Cloud** está no VS Code!
+# **Square Cloud Easy**
 
-Essa extensão pode gerenciar e receber informações de todas as suas aplicações hospedadas na [Square Cloud](https://squarecloud.app/).
+Com essa extensão, você pode gerenciar e verificar informações de todas as suas aplicações hospedadas na [Square Cloud](https://squarecloud.app/).
 
 ## **Requisitos**
 
 - Para utilizar a extensão em sua melhor versão você precisa de uma **chave de API**.
-  - Para isso faça login no site oficial e resgate sua chave [aqui](https://squarecloud.app/dashboard/me/).
+  Para isso faça login no site oficial e resgate sua chave [aqui](https://squarecloud.app/dashboard/me/).
 
 ---
 
@@ -13,13 +13,11 @@ Essa extensão pode gerenciar e receber informações de todas as suas aplicaç�
 
 ### **Iniciar, parar e reiniciar**
 
-![Iniciando aplicação](https://i.imgur.com/ZqxsX9I.gif)
+![Iniciando aplicação](https://i.imgur.com/pe2YDU0.gif)
 
 ### **Realizando commit**
 
-- **Importante!** Envie a pasta de sua aplicação (sem estar compactada) e utilize o arquivo `squarecloud.ignore` para não enviar arquivos indesejados.
-
-![Realizando commit](https://i.imgur.com/4c0aoTY.gif)
+![Realizando commit](https://i.imgur.com/qmSSuLw.gif)
 
 ### **Verificando status & logs**
 
@@ -28,13 +26,13 @@ _\* Ícones acessíveis._
 - 🟢 **Ícone verde:** aplicação online.
 - ⚪ **Ícone cinza:** aplicação offline.
 
-![Status e Logs](https://i.imgur.com/MphAmPC.gif)
+![Status e Logs](https://i.imgur.com/WP7nTrL.gif)
 
 ## **Outras funções**
 
 ### **Criando arquivo de configuração**
 
-![Criando arquivo de configuração](https://i.imgur.com/yUcIz1P.gif)
+![Criando arquivo de configuração](https://i.imgur.com/bE0C012.gif)
 
 ---
 
@@ -43,6 +41,8 @@ _\* Ícones acessíveis._
 Esta extensão vai contar com apenas uma configuração:
 
 - `squarecloud.apiKey`: Sua chave de API da Square Cloud.
+- `squarecloud.workspaceAppId`: A aplicação definida para a área de trabalho.
+- `squarecloud.favoritedApps`: As aplicações marcadas como favorito.
 
 ---
 
