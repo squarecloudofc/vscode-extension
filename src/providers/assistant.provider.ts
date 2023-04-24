@@ -26,8 +26,8 @@ export default class AssistantProvider implements vscode.WebviewViewProvider {
       vscode.Uri.joinPath(this._extensionUri, 'public', 'main.js')
     );
 
-    const styleResetUri = webview.asWebviewUri(
-      vscode.Uri.joinPath(this._extensionUri, 'public', 'reset.css')
+    const styleUri = webview.asWebviewUri(
+      vscode.Uri.joinPath(this._extensionUri, 'public', 'main.css')
     );
 
     const nonce = getNonce();
@@ -38,13 +38,13 @@ export default class AssistantProvider implements vscode.WebviewViewProvider {
 				<meta charset="UTF-8">
 				<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src ${webview.cspSource}; script-src 'nonce-${nonce}';">
 				<meta name="viewport" content="width=device-width, initial-scale=1.0">
-				<link href="${styleResetUri}" rel="stylesheet">
+				<link href="${styleUri}" rel="stylesheet">
 				<title>Square Assistant</title>
 			</head>
-			<body class="flex flex-col justify-between">
+			<body>
 				<ul class="messages">
-          <li>
-            <p>Teste</p>
+          <li class="message">
+            <p class="message-content">Teste</p>
           </li>
 				</ul>
 

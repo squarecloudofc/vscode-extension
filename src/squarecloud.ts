@@ -14,7 +14,6 @@ export class SquareCloud {
     translationManager.loadTranslations(context);
     baritemManager.loadBarItem(context);
     treeviewManager.loadTreeViews();
-    webviewManager.loadWebViews(context);
     cacheManager.refreshData(true);
   }
 }
