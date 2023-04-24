@@ -36,7 +36,7 @@ export interface UserPlanData {
   duration: { formatted: string; raw: number };
 }
 
-export interface UploadedApplicatioData {
+export interface UploadedApplicationData {
   id: string;
   tag: string;
   ram: number;
