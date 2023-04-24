@@ -15,7 +15,7 @@ import FormData = require('form-data');
 const axios: AxiosStatic = require('axios');
 
 class ApiService {
-  private readonly baseUrl = 'https://api.squarecloud.app/v1/public/';
+  private readonly baseUrl = 'https://api.squarecloud.app/v2';
 
   user(userId?: string): Promise<ApiResponse<UserResponseData> | undefined> {
     return this.fetch(`user${userId ? `/${userId}` : ''}`);
@@ -40,7 +40,7 @@ class ApiService {
       };
     }
 
-    return this.fetch(`${path}/${id}`, options);
+    return this.fetch(`apps/${id}/${path}`, options);
   }
 
   async fetch(
@@ -56,7 +56,7 @@ class ApiService {
       authorization: configManager.apiKey,
     };
 
-    const res = await axios(`${this.baseUrl}${path}`, options).catch((err) =>
+    const res = await axios(`${this.baseUrl}/${path}`, options).catch((err) =>
       errorManager.handleError(err)
     );
 

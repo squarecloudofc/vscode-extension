@@ -58,7 +58,9 @@ export class Application {
   }
 
   async delete(): Promise<CommonSuccess> {
-    const data = await apiService.application(Routes.Delete, this.id, true);
+    const data = await apiService.application(Routes.Delete, this.id, {
+      method: 'DELETE',
+    });
 
     return { success: data?.code === ResponseCodes.AppDeleted };
   }
