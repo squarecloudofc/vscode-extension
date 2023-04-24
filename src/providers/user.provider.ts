@@ -29,8 +29,8 @@ export default class UserProvider extends BaseProvider<GenericTreeItem> {
       ['Username', 'username', user.tag],
       ['E-mail', 'email', user.email],
       ['Id', 'id', user.id],
-      ['RAM', 'ram', `${user.plan.memory.used}/${user.plan.memory.limit}MB`],
       [capitalize(user.plan.name), 'plan', user.plan.duration.formatted],
+      ['RAM', 'ram', `${user.plan.memory.used}/${user.plan.memory.limit}MB`],
     ];
 
     return treeItemsData.map(
