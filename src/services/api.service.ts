@@ -5,7 +5,7 @@ import {
   ApplicationData,
   CommonSuccess,
   FullUserData,
-  UploadedApplicatioData,
+  UploadedApplicationData,
   UserResponseData,
 } from '../interfaces/api';
 import configManager from '../managers/config.manager';
@@ -65,24 +65,29 @@ class ApiService {
 
   async upload(
     file: Buffer
-  ): Promise<CommonSuccess<UploadedApplicatioData> | undefined> {
+  ): Promise<CommonSuccess<UploadedApplicationData> | undefined> {
     const formData = new FormData();
     formData.append('file', file, {
       filename: 'app.zip',
       contentType: 'application/zip',
     });
 
-    const data = (await this.fetch(Routes.Upload, {
+    const data = (await this.fetch(`apps/${Routes.Upload}`, {
       method: 'POST',
+      maxBodyLength: Infinity,
       data: formData,
       headers: formData.getHeaders(),
     })) as any;
 
-    const { app, code } = data || {};
+    const { response, code } = data || {};
 
     return {
       success: code === ResponseCodes.Success,
-      data: { id: app?.id, tag: app?.tag, ram: app?.ram },
+      data: {
+        id: response?.app?.id,
+        tag: response?.app?.tag,
+        ram: response?.app?.ram,
+      },
     };
   }
 
