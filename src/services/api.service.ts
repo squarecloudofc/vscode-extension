@@ -67,14 +67,10 @@ class ApiService {
     file: Buffer
   ): Promise<CommonSuccess<UploadedApplicationData> | undefined> {
     const formData = new FormData();
-    formData.append('file', file, {
-      filename: 'app.zip',
-      contentType: 'application/zip',
-    });
+    formData.append('file', file, { filename: 'app.zip' });
 
     const data = (await this.fetch(`apps/${Routes.Upload}`, {
       method: 'POST',
-      maxBodyLength: Infinity,
       data: formData,
       headers: formData.getHeaders(),
     })) as any;
