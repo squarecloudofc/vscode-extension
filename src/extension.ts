@@ -1,22 +1,11 @@
 import * as vscode from 'vscode';
-import { SquareCloud } from './structures/SquareCloud';
+import { SquareCloud } from './squarecloud';
 
 process.on('uncaughtException', console.error);
 process.on('unhandledRejection', console.error);
 
 export function activate(context: vscode.ExtensionContext) {
-  console.log('Extension loaded.');
-
-  vscode.window.onDidChangeActiveTextEditor((editor) => {
-    if (
-      !editor?.document ||
-      !['squarecloud.config', 'squarecloud.app'].includes(
-        editor.document.fileName
-      )
-    ) {
-      return;
-    }
-  });
+  console.log('[Square Cloud Easy] Extension loaded.');
 
   new SquareCloud(context);
 }

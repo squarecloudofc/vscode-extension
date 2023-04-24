@@ -11,8 +11,11 @@
   "command.copyId": "Copiar ID",
   "command.restart": "Reiniciar",
   "command.delete": "Excluir",
+  "command.favorite": "Favorito",
+  "command.unfavorite": "Desfavoritar",
 
   "view.user.title": "Usuário",
+  "view.apps.title": "Aplicações",
   "view.noApiKey": "Você não possui uma chave de API registrada. Por favor, registre uma.",
   "view.welcome": "Chave de API não registrada.\n[Definir chave de API](command:squarecloud.setApiKey)",
 
@@ -20,6 +23,7 @@
     "yes": "Sim",
     "no": "Não",
     "loading": "Carregando...",
+    "error": "Ocorreu um erro desconhecido.",
     "network": "Rede",
     "storage": "Armazenamento",
     "wait": "Por favor, aguarde um momento antes de fazer novas solicitações.",
@@ -51,8 +55,9 @@
     "button": "Exibir logs"
   },
 
-  "copyId": {
-    "copied": "ID da aplicação copiado para a área de transferência."
+  "copy": {
+    "copiedId": "ID da aplicação copiado para a área de transferência.",
+    "copiedText": "{{TYPE}} copiado para a área de transferência."
   },
 
   "start": {
@@ -100,8 +105,7 @@
       "displayName": "Insira um apelido para a sua aplicação.",
       "avatar": {
         "subs": "um avatar",
-        "title": "Cole o URL de seu avatar abaixo.",
-        "invalid": "Por favor, insira um URL de imagem válido."
+        "title": "Cole o URL de seu avatar abaixo."
       },
       "description": {
         "subs": "uma descrição",
@@ -116,10 +120,7 @@
         "invalid": "Por favor, insira um número maior que {{minValue}} e menor que a sua memória disponível."
       },
       "version": "Qual versão deseja utilizar em sua aplicação?",
-      "subdomain": {
-        "title": "Insira um subdomínio para o seu site.",
-        "invalid": "Por favor, insira um subdomínio válido. É necessário terminar com \".squareweb.app\"."
-      },
+      "subdomain": "Insira um subdomínio para o seu site.",
       "start": {
         "subs": "um comando de inicialização",
         "title": "Insira o comando de inicialização da sua aplicação."
@@ -127,31 +128,28 @@
     }
   },
 
-  "utilBarItem": {
-    "noApp": "Configurar Aplicação",
-    "commit": "Realizar Commit"
+  "statusBarItem": {
+    "title": "Square Cloud - Selecione uma ação",
+    "commit": "Realizar commit dos arquivos",
+    "upload": "Enviar nova aplicação",
+    "setApp": "Definir aplicação da área de trabalho",
+    "createConfig": "Criar arquivo de configuração"
   },
 
   "setWorkspaceApp": {
-    "newApp": "Nova Aplicação",
-    "uploadText": "Upload para a Square Cloud",
-    "yourApps": "Suas Aplicações",
-    "choose": "Escolha uma aplicação para a área de trabalho atual.",
-    "success": "Aplicação da área de trabalho definida com sucesso."
-  },
-
-  "commitWorkspace": {
-    "confirm": "Deseja prosseguir com o commit?",
-    "canceled": "Commit foi cancelado.",
-    "saveConfirm": "Deseja lembrar de sua escolha para futuros commits?"
+    "none": "Nenhuma",
+    "select": "Selecione uma aplicação:",
+    "success": "Aplicação da área de trabalho atualizada com sucesso!"
   },
 
   "uploadWorkspace": {
-    "confirm": "Deseja prosseguir com o upload?",
-    "canceled": "Upload foi cancelado.",
-    "loading": "Enviando seus arquivos. Aguarde...",
-    "loaded": "Aplicação enviada com sucesso. Aguarde enquanto configuramos sua área de trabalho.",
-    "error": "Um erro ocorreu ao tentar realizar o upload.",
-    "configured": "A área de trabalho está pronta para ser utilizada!"
+    "createFile": "Para realizar o upload, primeiro crie um arquivo de configuração.",
+    "loading": "Enviando arquivos para a Square Cloud...",
+    "loaded": "Aplicação enviada com sucesso!"
+  },
+
+  "commitWorkspace": {
+    "loading": "Enviando arquivos para a Square Cloud...",
+    "loaded": "Aplicação atualizada com sucesso!"
   }
 }
