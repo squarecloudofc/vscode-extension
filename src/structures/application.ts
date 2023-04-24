@@ -70,8 +70,8 @@ export class Application {
     formData.append('file', file, { filename });
 
     const data = await apiService.application(
-      Routes.Commit,
-      this.id + `?restart=${restart}`,
+      Routes.Commit + `?restart=${restart}`,
+      this.id,
       formData
     );
 
