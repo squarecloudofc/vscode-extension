@@ -22,8 +22,15 @@ class CacheManager extends EventEmitter {
 
     await this.handleProgress(() =>
       this.pauseUntil(async () => {
-        const data = await apiService.user();
+        const data = await apiService.user().catch(() => undefined);
         if (!data?.response || !apiService.hasAccess(data.response)) {
+          vscode.window
+            .showErrorMessage(t('view.invalidApiKey'), t('command.setApiKey'))
+            .then((e) => {
+              if (e === t('command.setApiKey')) {
+                vscode.commands.executeCommand('squarecloud.setApiKey');
+              }
+            });
           return;
         }
 

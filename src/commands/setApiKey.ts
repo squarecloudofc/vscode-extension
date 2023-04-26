@@ -39,7 +39,5 @@ new Command('setApiKey', async () => {
   }
 
   await configManager.setApiKey(apiKey);
-  cacheManager.refreshData();
-
   vscode.window.showInformationMessage(t('setApiKey.success'));
 });

@@ -16,6 +16,7 @@
 
   "view.user.title": "Usuario",
   "view.apps.title": "Aplicaciones",
+  "view.invalidApiKey": "Your provided API key is not valid, please register a new one.",
   "view.noApiKey": "No tiene una clave de API registrada. Por favor, regístre una.",
   "view.welcome": "No hay clave de API registrada.\n[Establecer clave de API](command:squarecloud.setApiKey)",
 

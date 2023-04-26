@@ -88,7 +88,7 @@ class ApiService {
   }
 
   testKey(key: string) {
-    return axios.get(`${this.baseUrl}user`, {
+    return axios.get(`${this.baseUrl}/user`, {
       headers: { authorization: key },
     });
   }
