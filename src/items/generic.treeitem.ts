@@ -7,7 +7,7 @@ export default class GenericTreeItem extends vscode.TreeItem {
     command: 'squarecloud.copyText',
     title: 'Copy',
   };
-  
+
   constructor(
     public readonly label: string,
     public readonly iconName?: string,

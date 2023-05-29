@@ -20,7 +20,7 @@ new ApplicationCommand('stopEntry', ({ application }) => {
 
       vscode.window.showInformationMessage(t('stop.loaded'));
       progress.report({ increment: 100 });
-      
+
       return;
     }
   );

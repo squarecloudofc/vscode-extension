@@ -14,7 +14,9 @@ export default class ApplicationsProvider extends BaseProvider<SquareTreeItem> {
     const { contextValue } = element || {};
 
     if (
-      ['square-bot', 'square-site', 'square-favorite'].includes(contextValue!) &&
+      ['square-bot', 'square-site', 'square-favorite'].includes(
+        contextValue!
+      ) &&
       element instanceof ApplicationTreeItem
     ) {
       const status = cacheManager.status.get(element.application.id);

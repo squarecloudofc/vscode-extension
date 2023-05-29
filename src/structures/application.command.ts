@@ -1,5 +1,5 @@
-import commandManager from '../managers/command.manager';
 import { ApplicationTreeItem } from '../items';
+import commandManager from '../managers/command.manager';
 
 export type ExecuteApplicationCommand = (
   element: ApplicationTreeItem,

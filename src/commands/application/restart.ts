@@ -20,7 +20,7 @@ new ApplicationCommand('restartEntry', ({ application }) => {
 
       vscode.window.showInformationMessage(t('restart.loaded'));
       progress.report({ increment: 100 });
-      
+
       return;
     }
   );

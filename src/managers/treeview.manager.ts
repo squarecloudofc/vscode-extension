@@ -23,12 +23,7 @@ class TreeViewManager {
     });
   }
 
-  refreshViews(
-    ...views: (
-      | UserProvider
-      | ApplicationsProvider
-    )[]
-  ) {
+  refreshViews(...views: (UserProvider | ApplicationsProvider)[]) {
     views.forEach((view) => view.refresh());
   }
 }

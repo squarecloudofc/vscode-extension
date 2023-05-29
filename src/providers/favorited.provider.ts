@@ -58,9 +58,9 @@ export default class FavoritedProvider extends BaseProvider<SquareTreeItem> {
         ),
       ];
     }
-    
-    const filteredApplications = applications.filter(
-      (app) => cacheManager.isFavorited(app)
+
+    const filteredApplications = applications.filter((app) =>
+      cacheManager.isFavorited(app)
     );
 
     return filteredApplications.map((app) => new ApplicationTreeItem(app));
