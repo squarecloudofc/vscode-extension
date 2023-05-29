@@ -87,6 +87,10 @@
           "when": "false"
         },
         {
+          "command": "squarecloud.openEntry",
+          "when": "false"
+        },
+        {
           "command": "squarecloud.startEntry",
           "when": "false"
         },
@@ -166,6 +170,10 @@
           "command": "squarecloud.unfavoriteEntry",
           "when": "viewItem == square-favorite",
           "group": "inline"
+        },
+        {
+          "command": "squarecloud.openEntry",
+          "when": "viewItem == square-bot || viewItem == square-site || viewItem == square-favorite"
         },
         {
           "command": "squarecloud.startEntry",
@@ -281,6 +289,10 @@
           "light": "resources/light/star-fill.svg",
           "dark": "resources/dark/star-fill.svg"
         }
+      },
+      {
+        "command": "squarecloud.openEntry",
+        "title": "%command.open%"
       },
       {
         "command": "squarecloud.startEntry",

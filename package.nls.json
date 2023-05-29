@@ -6,6 +6,7 @@
   "command.showLogs": "Show logs",
   "command.copyText": "Copy",
   "command.refresh": "Refresh",
+  "command.open": "View on dashboard",
   "command.start": "Start",
   "command.stop": "Stop",
   "command.copyId": "Copy ID",

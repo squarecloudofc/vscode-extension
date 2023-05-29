@@ -6,6 +6,7 @@
   "command.showLogs": "Mostrar registros",
   "command.copyText": "Copiar",
   "command.refresh": "Actualizar",
+  "command.open": "Ver en el tablero",
   "command.start": "Iniciar",
   "command.stop": "Detener",
   "command.copyId": "Copiar ID",
