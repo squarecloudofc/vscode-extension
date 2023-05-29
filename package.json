@@ -375,7 +375,8 @@
             "title": "Favorited apps will show in the explorer container.",
             "type": [
               "string"
-            ]
+            ],
+            "default": []
           }
         }
       }

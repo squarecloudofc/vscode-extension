@@ -8,6 +8,7 @@ import treeviewManager from './managers/treeview.manager';
 
 export class SquareCloud {
   constructor(public readonly context: vscode.ExtensionContext) {
+    console.log('[Square Cloud Easy] Class loaded.');
     configManager.setUpListeners();
     commandManager.loadCommands(this);
     translationManager.loadTranslations(context);
