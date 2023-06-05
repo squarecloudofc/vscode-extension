@@ -18,7 +18,7 @@ class ErrorManager {
   }
 
   throwVsCodeError(error: CommonError) {
-    vscode.window.showErrorMessage(t('generic.error', { ...error }));
+    vscode.window.showErrorMessage(t('generic.error', { ...error }), { detail: error?.message });
   }
 }
 

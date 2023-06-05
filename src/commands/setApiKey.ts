@@ -27,14 +27,6 @@ new Command('setApiKey', async () => {
   );
 
   if (!testKey) {
-    vscode.window
-      .showErrorMessage(t('setApiKey.invalid'), t('command.setApiKey'))
-      .then((value) =>
-        value === t('command.setApiKey')
-          ? vscode.commands.executeCommand('squarecloud.setApiKey')
-          : null
-      );
-
     return;
   }
 
