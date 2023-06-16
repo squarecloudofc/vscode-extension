@@ -22,10 +22,7 @@ new Command('setApiKey', async () => {
       title: t('setApiKey.testing'),
     },
     async () => {
-      return await apiService.testKey(apiKey).catch((error) => {
-        console.log(error);
-        return null;
-      });
+      return await apiService.testKey(apiKey);
     }
   );
 

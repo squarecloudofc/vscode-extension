@@ -1,5 +1,6 @@
 import { AxiosRequestConfig, AxiosStatic } from 'axios';
 import * as vscode from 'vscode';
+import { t } from 'vscode-ext-localisation';
 import { ResponseCodes, Routes } from '../helpers/constants.helper';
 import {
   ApiResponse,
@@ -12,7 +13,6 @@ import {
 import configManager from '../managers/config.manager';
 import errorManager from '../managers/error.manager';
 import FormData = require('form-data');
-import { t } from 'vscode-ext-localisation';
 
 const axios: AxiosStatic = require('axios');
 
@@ -90,18 +90,23 @@ class ApiService {
   }
 
   testKey(key: string) {
-    const isKeyValid = axios.get(`${this.baseUrl}user`, {
-      headers: { authorization: key },
-    });
+    const isKeyValid = axios
+      .get(`${this.baseUrl}user`, {
+        headers: { authorization: key },
+      })
+      .catch((error) => {
+        console.log(error);
+        return null;
+      });
 
     if (!isKeyValid) {
       vscode.window
-      .showErrorMessage(t('setApiKey.invalid'), t('command.setApiKey'))
-      .then((value) =>
-        value === t('command.setApiKey')
-          ? vscode.commands.executeCommand('squarecloud.setApiKey')
-          : null
-      );
+        .showErrorMessage(t('setApiKey.invalid'), t('command.setApiKey'))
+        .then((value) =>
+          value === t('command.setApiKey')
+            ? vscode.commands.executeCommand('squarecloud.setApiKey')
+            : null
+        );
     }
 
     return isKeyValid;
