@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 import { set } from '../helpers/config.helper';
+import apiService from '../services/api.service';
 import cacheManager from './cache.manager';
 
 class ConfigManager {
@@ -9,10 +10,11 @@ class ConfigManager {
   }
 
   listenApiKeyChange() {
-    vscode.workspace.onDidChangeConfiguration((event) => {
+    vscode.workspace.onDidChangeConfiguration(async (event) => {
       if (!event.affectsConfiguration('squarecloud.apiKey') || !this.apiKey) {
         return;
       }
+      await apiService.testKey(this.apiKey);
       cacheManager.refreshData(true);
     });
   }
