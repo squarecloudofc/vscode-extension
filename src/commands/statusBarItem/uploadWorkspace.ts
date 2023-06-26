@@ -10,7 +10,7 @@ import apiService from '../../services/api.service';
 import { Command } from '../../structures/command';
 import AdmZip = require('adm-zip');
 
-new Command('uploadWorkspace', async () => {
+export default new Command('uploadWorkspace', async () => {
   const path = vscode.workspace.workspaceFolders?.[0].uri.fsPath;
 
   if (!path) {
@@ -43,20 +43,19 @@ new Command('uploadWorkspace', async () => {
       });
 
       const { data } = (await cacheManager.pauseUntil(() =>
-        apiService.upload(zipFile.toBuffer())
+        apiService.upload(zipFile.toBuffer()),
       ))!;
 
       await configManager.defaultConfig.update(
         'workspaceAppId',
         data?.id,
-        null
+        null,
       );
 
       await cacheManager.refreshData();
 
       vscode.window.showInformationMessage(t('uploadWorkspace.loaded'));
       progress.report({ increment: 100 });
-      return;
-    }
+    },
   );
 });

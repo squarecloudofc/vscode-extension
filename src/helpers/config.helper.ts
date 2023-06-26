@@ -1,3 +1,4 @@
+/* eslint-disable no-redeclare */
 import { Data, parse, stringify } from 'envfile';
 import { existsSync } from 'fs';
 import { readFile, writeFile } from 'fs/promises';
@@ -6,11 +7,11 @@ import { join } from 'path';
 export async function get(path: string): Promise<Data | undefined>;
 export async function get(
   path: string,
-  key: string
+  key: string,
 ): Promise<string | undefined>;
 export async function get(
   path: string,
-  key?: string
+  key?: string,
 ): Promise<string | Data | undefined> {
   path = getConfigFile(path);
 
@@ -30,14 +31,14 @@ export async function set(path: string, obj: { [k: string]: any }) {
   const oldContent = await get(path);
   const newContent = { ...oldContent, ...obj };
   const parsedContent = Object.fromEntries(
-    Object.entries(newContent).filter(([_k, v]) => v)
+    Object.entries(newContent).filter(([_k, v]) => v),
   );
 
   await writeFile(path, stringify(parsedContent));
 }
 
 export function getConfigFile(path: string) {
-  let fileNames = ['squarecloud.config', 'squarecloud.app'];
+  const fileNames = ['squarecloud.config', 'squarecloud.app'];
 
   if (fileNames.some((file) => path.endsWith(file))) {
     return path;

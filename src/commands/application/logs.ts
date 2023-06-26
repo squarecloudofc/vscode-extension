@@ -1,9 +1,9 @@
 import * as vscode from 'vscode';
-import { ApplicationCommand } from '../../structures/application.command';
-import cacheManager from '../../managers/cache.manager';
 import { t } from 'vscode-ext-localisation';
+import cacheManager from '../../managers/cache.manager';
+import { ApplicationCommand } from '../../structures/application.command';
 
-new ApplicationCommand('showLogs', ({ application }) => {
+export default new ApplicationCommand('showLogs', ({ application }) => {
   if (cacheManager.paused) {
     cacheManager.throwPausedError();
     return;
@@ -17,7 +17,7 @@ new ApplicationCommand('showLogs', ({ application }) => {
     async (progress) => {
       const { logs } =
         (await cacheManager.pauseUntil(() =>
-          application.logs().catch(() => null)
+          application.logs().catch(() => null),
         )) || {};
 
       progress.report({ increment: 100, message: ` ${t('generic.done')}` });
@@ -33,13 +33,13 @@ new ApplicationCommand('showLogs', ({ application }) => {
           if (showLogs === t('logs.button')) {
             const outputChannel = vscode.window.createOutputChannel(
               application.tag,
-              'ansi'
+              'ansi',
             );
 
             outputChannel.append(logs);
             outputChannel.show();
           }
         });
-    }
+    },
   );
 });

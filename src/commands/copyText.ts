@@ -1,11 +1,11 @@
 import * as vscode from 'vscode';
 import { t } from 'vscode-ext-localisation';
-import { Command } from '../structures/command';
 import { GenericTreeItem } from '../items';
+import { Command } from '../structures/command';
 
-new Command('copyText', (arg: GenericTreeItem) => {
+export default new Command('copyText', (arg: GenericTreeItem) => {
   vscode.env.clipboard.writeText(arg.description || '');
   vscode.window.showInformationMessage(
-    t('copy.copiedText', { TYPE: arg.label })
+    t('copy.copiedText', { TYPE: arg.label }),
   );
 });

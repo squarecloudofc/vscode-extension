@@ -4,7 +4,7 @@ import { Command } from '../../structures/command';
 import { t } from 'vscode-ext-localisation';
 import configManager from '../../managers/config.manager';
 
-new Command('setWorkspaceApp', async () => {
+export default new Command('setWorkspaceApp', async () => {
   const { applications } = cacheManager;
 
   const application = await vscode.window.showQuickPick(
@@ -18,7 +18,7 @@ new Command('setWorkspaceApp', async () => {
     {
       title: t('setWorkspaceApp.select'),
       placeHolder: t('generic.choose'),
-    }
+    },
   );
 
   if (!application) {
@@ -28,7 +28,7 @@ new Command('setWorkspaceApp', async () => {
   await configManager.defaultConfig.update(
     'workspaceAppId',
     application.detail,
-    null
+    null,
   );
 
   vscode.window.showInformationMessage(t('setWorkspaceApp.success'));

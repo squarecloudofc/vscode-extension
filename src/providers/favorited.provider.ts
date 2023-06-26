@@ -7,13 +7,13 @@ import prettyMilliseconds = require('pretty-ms');
 
 export default class FavoritedProvider extends BaseProvider<SquareTreeItem> {
   async getChildren(
-    element?: SquareTreeItem | undefined
+    element?: SquareTreeItem | undefined,
   ): Promise<SquareTreeItem[]> {
     const { contextValue } = element || {};
 
     if (
       ['square-bot', 'square-site', 'square-favorite'].includes(
-        contextValue!
+        contextValue!,
       ) &&
       element instanceof ApplicationTreeItem
     ) {
@@ -38,11 +38,11 @@ export default class FavoritedProvider extends BaseProvider<SquareTreeItem> {
       ];
 
       return treeItemsData.map(
-        (treeItemData) => new GenericTreeItem(...treeItemData)
+        (treeItemData) => new GenericTreeItem(...treeItemData),
       );
     }
 
-    let { applications } = cacheManager;
+    const { applications } = cacheManager;
 
     if (!applications.length) {
       if (!configManager.apiKey) {
@@ -54,13 +54,13 @@ export default class FavoritedProvider extends BaseProvider<SquareTreeItem> {
           t('generic.loading'),
           'ripple',
           undefined,
-          'loading'
+          'loading',
         ),
       ];
     }
 
     const filteredApplications = applications.filter((app) =>
-      cacheManager.isFavorited(app)
+      cacheManager.isFavorited(app),
     );
 
     return filteredApplications.map((app) => new ApplicationTreeItem(app));

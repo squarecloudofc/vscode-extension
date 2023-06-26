@@ -7,7 +7,7 @@ process.on('unhandledRejection', console.error);
 export function activate(context: vscode.ExtensionContext) {
   console.log('[Square Cloud Easy] Extension loaded.');
 
-  new SquareCloud(context);
+  return new SquareCloud(context);
 }
 
 export function deactivate() {}

@@ -7,7 +7,7 @@ export default class CustomTreeItem extends vscode.TreeItem {
   constructor(
     public readonly label: string,
     public readonly command: vscode.Command,
-    public readonly iconName?: string
+    public readonly iconName?: string,
   ) {
     super(label);
   }

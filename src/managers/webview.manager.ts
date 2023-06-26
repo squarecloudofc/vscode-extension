@@ -9,7 +9,7 @@ class WebViewManager {
 
     const disposable = vscode.window.registerWebviewViewProvider(
       AssistantProvider.viewType,
-      this.assistantView
+      this.assistantView,
     );
     context.subscriptions.push(disposable);
   }

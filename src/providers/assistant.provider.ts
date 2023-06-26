@@ -8,8 +8,9 @@ export default class AssistantProvider implements vscode.WebviewViewProvider {
 
   resolveWebviewView(
     webviewView: vscode.WebviewView,
-    context: vscode.WebviewViewResolveContext<unknown>,
-    token: vscode.CancellationToken
+    _context: vscode.WebviewViewResolveContext<unknown>,
+    _token: vscode.CancellationToken,
+    // eslint-disable-next-line no-undef
   ): void | Thenable<void> {
     this._view = webviewView;
 
@@ -23,11 +24,11 @@ export default class AssistantProvider implements vscode.WebviewViewProvider {
 
   private _getHtmlForWebview(webview: vscode.Webview) {
     const scriptUri = webview.asWebviewUri(
-      vscode.Uri.joinPath(this._extensionUri, 'public', 'main.js')
+      vscode.Uri.joinPath(this._extensionUri, 'public', 'main.js'),
     );
 
     const styleUri = webview.asWebviewUri(
-      vscode.Uri.joinPath(this._extensionUri, 'public', 'main.css')
+      vscode.Uri.joinPath(this._extensionUri, 'public', 'main.css'),
     );
 
     const nonce = getNonce();

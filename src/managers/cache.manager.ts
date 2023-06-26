@@ -29,9 +29,9 @@ class CacheManager extends EventEmitter {
 
         this.user = data.response.user;
         this.applications = data.response.applications.map(
-          (appData) => new Application(appData)
+          (appData) => new Application(appData),
         );
-      })
+      }),
     );
 
     this.emit('refreshData');
@@ -63,7 +63,7 @@ class CacheManager extends EventEmitter {
         if (status) {
           this.status.set(appId, status);
         }
-      })
+      }),
     );
 
     this.emit('refreshStatus', appId);
@@ -75,7 +75,7 @@ class CacheManager extends EventEmitter {
         location: vscode.ProgressLocation.Window,
         title: t('generic.refreshing'),
       },
-      fn
+      fn,
     );
   }
 
@@ -114,7 +114,7 @@ class CacheManager extends EventEmitter {
     await configManager.defaultConfig.update(
       'favoritedApps',
       [...favoritedApps, appOrId],
-      true
+      true,
     );
 
     this.emit('refreshStatus', appOrId);
@@ -131,7 +131,7 @@ class CacheManager extends EventEmitter {
     await configManager.defaultConfig.update(
       'favoritedApps',
       favoritedApps.filter((id) => id !== appOrId),
-      true
+      true,
     );
 
     this.emit('refreshStatus', appOrId);

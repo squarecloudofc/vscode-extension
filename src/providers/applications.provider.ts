@@ -9,13 +9,13 @@ export default class ApplicationsProvider extends BaseProvider<SquareTreeItem> {
   protected websiteOnly?: boolean;
 
   async getChildren(
-    element?: SquareTreeItem | undefined
+    element?: SquareTreeItem | undefined,
   ): Promise<SquareTreeItem[]> {
     const { contextValue } = element || {};
 
     if (
       ['square-bot', 'square-site', 'square-favorite'].includes(
-        contextValue!
+        contextValue!,
       ) &&
       element instanceof ApplicationTreeItem
     ) {
@@ -40,11 +40,11 @@ export default class ApplicationsProvider extends BaseProvider<SquareTreeItem> {
       ];
 
       return treeItemsData.map(
-        (treeItemData) => new GenericTreeItem(...treeItemData)
+        (treeItemData) => new GenericTreeItem(...treeItemData),
       );
     }
 
-    let { applications } = cacheManager;
+    const { applications } = cacheManager;
 
     if (!applications.length) {
       if (!configManager.apiKey) {
@@ -56,7 +56,7 @@ export default class ApplicationsProvider extends BaseProvider<SquareTreeItem> {
           t('generic.loading'),
           'ripple',
           undefined,
-          'loading'
+          'loading',
         ),
       ];
     }

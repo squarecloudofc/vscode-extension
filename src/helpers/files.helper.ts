@@ -3,7 +3,7 @@ import { join } from 'path';
 
 export function getDirectoryFiles(
   dir: string,
-  fileExtensions = ['.ts', '.js']
+  fileExtensions = ['.ts', '.js'],
 ) {
   const path = join(__dirname, '..', dir);
 

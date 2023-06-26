@@ -1,10 +1,11 @@
 import { existsSync, readFileSync } from 'fs';
 import ignore from 'ignore';
+import { join } from 'path';
 import * as vscode from 'vscode';
 import { t } from 'vscode-ext-localisation';
 
 export default async function getIgnoreFile(path: string) {
-  const ig = ignore().add(read(__dirname + '/../../defaults.ignore'));
+  const ig = ignore().add(read(join(__dirname, '/../../defaults.ignore')));
 
   if (existsSync(path + '/squarecloud.ignore')) {
     ig.add(read(path + '/squarecloud.ignore'));
@@ -12,7 +13,7 @@ export default async function getIgnoreFile(path: string) {
     const canIgnore = await vscode.window.showInformationMessage(
       t('commit.useGitIgnore'),
       t('generic.yes'),
-      t('generic.no')
+      t('generic.no'),
     );
 
     if (canIgnore === t('generic.yes')) {

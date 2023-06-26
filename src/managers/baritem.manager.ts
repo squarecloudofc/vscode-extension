@@ -4,7 +4,7 @@ class BarItemManager {
   loadBarItem(context: vscode.ExtensionContext) {
     const statusBarItem = vscode.window.createStatusBarItem(
       vscode.StatusBarAlignment.Left,
-      100
+      100,
     );
 
     statusBarItem.text = '$(chrome-restore) Square Cloud';

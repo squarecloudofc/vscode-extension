@@ -26,7 +26,7 @@ class ApiService {
   application(
     path: string,
     id: string,
-    options?: AxiosRequestConfig | FormData | boolean
+    options?: AxiosRequestConfig | FormData | boolean,
   ): Promise<ApiResponse | undefined> {
     if (options instanceof FormData) {
       options = {
@@ -47,7 +47,7 @@ class ApiService {
 
   async fetch(
     path: string,
-    options: AxiosRequestConfig = {}
+    options: AxiosRequestConfig = {},
   ): Promise<ApiResponse | undefined> {
     if (!configManager.apiKey) {
       return;
@@ -59,14 +59,14 @@ class ApiService {
     };
 
     const res = await axios(`${this.baseUrl}/${path}`, options).catch((err) =>
-      errorManager.handleError(err)
+      errorManager.handleError(err),
     );
 
     return res?.data;
   }
 
   async upload(
-    file: Buffer
+    file: Buffer,
   ): Promise<CommonSuccess<UploadedApplicationData> | undefined> {
     const formData = new FormData();
     formData.append('file', file, { filename: 'app.zip' });
@@ -105,7 +105,7 @@ class ApiService {
         .then((value) =>
           value === t('command.setApiKey')
             ? vscode.commands.executeCommand('squarecloud.setApiKey')
-            : null
+            : null,
         );
     }
 
@@ -113,7 +113,7 @@ class ApiService {
   }
 
   hasAccess(
-    value: UserResponseData
+    value: UserResponseData,
   ): value is { user: FullUserData; applications: ApplicationData[] } {
     return Boolean(value.user.email) && value.user.email !== 'Access denied';
   }

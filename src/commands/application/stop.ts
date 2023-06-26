@@ -3,7 +3,7 @@ import { t } from 'vscode-ext-localisation';
 import cacheManager from '../../managers/cache.manager';
 import { ApplicationCommand } from '../../structures/application.command';
 
-new ApplicationCommand('stopEntry', ({ application }) => {
+export default new ApplicationCommand('stopEntry', ({ application }) => {
   if (cacheManager.paused) {
     cacheManager.throwPausedError();
     return;
@@ -20,8 +20,6 @@ new ApplicationCommand('stopEntry', ({ application }) => {
 
       vscode.window.showInformationMessage(t('stop.loaded'));
       progress.report({ increment: 100 });
-
-      return;
-    }
+    },
   );
 });

@@ -12,7 +12,7 @@ export default class GenericTreeItem extends vscode.TreeItem {
     public readonly label: string,
     public readonly iconName?: string,
     public readonly description?: string,
-    public readonly contextValue: string = 'generic'
+    public readonly contextValue: string = 'generic',
   ) {
     super(label);
     this.description = description;

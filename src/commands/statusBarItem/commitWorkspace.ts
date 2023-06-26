@@ -6,7 +6,7 @@ import configManager from '../../managers/config.manager';
 import { Command } from '../../structures/command';
 import AdmZip = require('adm-zip');
 
-new Command('commitWorkspace', async () => {
+export default new Command('commitWorkspace', async () => {
   const path = vscode.workspace.workspaceFolders?.[0].uri.fsPath;
 
   if (!path) {
@@ -15,7 +15,7 @@ new Command('commitWorkspace', async () => {
 
   const applicationId = configManager.defaultConfig.get('workspaceAppId');
   const application = cacheManager.applications.find(
-    (app) => app.id === applicationId
+    (app) => app.id === applicationId,
   );
 
   if (!application) {
@@ -36,14 +36,13 @@ new Command('commitWorkspace', async () => {
       });
 
       await cacheManager.pauseUntil(() =>
-        application.commit(zipFile.toBuffer(), 'app.zip', true)
+        application.commit(zipFile.toBuffer(), 'app.zip', true),
       );
 
       setTimeout(() => cacheManager.refreshStatus(application.id), 7000);
 
       vscode.window.showInformationMessage(t('commitWorkspace.loaded'));
       progress.report({ increment: 100 });
-      return;
-    }
+    },
   );
 });

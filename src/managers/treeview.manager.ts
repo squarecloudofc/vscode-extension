@@ -1,8 +1,8 @@
 import * as vscode from 'vscode';
+import ApplicationsProvider from '../providers/applications.provider';
+import FavoritedProvider from '../providers/favorited.provider';
 import UserProvider from '../providers/user.provider';
 import cacheManager from './cache.manager';
-import FavoritedProvider from '../providers/favorited.provider';
-import ApplicationsProvider from '../providers/applications.provider';
 
 class TreeViewManager {
   public userView = new UserProvider();

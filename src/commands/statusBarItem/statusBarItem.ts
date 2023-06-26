@@ -4,13 +4,13 @@ import cacheManager from '../../managers/cache.manager';
 import configManager from '../../managers/config.manager';
 import { Command } from '../../structures/command';
 
-new Command('statusBarItem', async () => {
+export default new Command('statusBarItem', async () => {
   const workspaceApp = <string>(
     configManager.defaultConfig.get('workspaceAppId')
   );
 
   const application = cacheManager.applications.find(
-    (app) => app.id === workspaceApp
+    (app) => app.id === workspaceApp,
   );
 
   const options = {
@@ -66,7 +66,7 @@ new Command('statusBarItem', async () => {
       title: t('statusBarItem.title'),
       placeHolder: t('generic.choose'),
       ignoreFocusOut: true,
-    }
+    },
   );
 
   if (!selected) {
@@ -74,7 +74,7 @@ new Command('statusBarItem', async () => {
   }
 
   const { command } = Object.values(options).find(
-    ({ label }) => label === selected.label
+    ({ label }) => label === selected.label,
   )!;
 
   vscode.commands.executeCommand(`squarecloud.${command}`, { application });

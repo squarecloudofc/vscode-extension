@@ -6,7 +6,7 @@ import configManager from '../managers/config.manager';
 
 export default class UserProvider extends BaseProvider<GenericTreeItem> {
   async getChildren(
-    _element?: GenericTreeItem | undefined
+    _element?: GenericTreeItem | undefined,
   ): Promise<GenericTreeItem[]> {
     const { user } = cacheManager;
 
@@ -20,7 +20,7 @@ export default class UserProvider extends BaseProvider<GenericTreeItem> {
           t('generic.loading'),
           'ripple',
           undefined,
-          'loading'
+          'loading',
         ),
       ];
     }
@@ -34,7 +34,7 @@ export default class UserProvider extends BaseProvider<GenericTreeItem> {
     ];
 
     return treeItemsData.map(
-      (treeItemData) => new GenericTreeItem(...treeItemData)
+      (treeItemData) => new GenericTreeItem(...treeItemData),
     );
   }
 }

@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 
 export default class BaseProvider<
-  TreeItemType extends vscode.TreeItem = vscode.TreeItem
+  TreeItemType extends vscode.TreeItem = vscode.TreeItem,
 > implements vscode.TreeDataProvider<TreeItemType>
 {
   protected _onDidChangeTreeData = new vscode.EventEmitter<
@@ -17,7 +17,7 @@ export default class BaseProvider<
   }
 
   getChildren(
-    _element?: TreeItemType | undefined
+    _element?: TreeItemType | undefined,
   ): vscode.ProviderResult<TreeItemType[]> {
     return [];
   }

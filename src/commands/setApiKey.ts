@@ -5,7 +5,7 @@ import configManager from '../managers/config.manager';
 import apiService from '../services/api.service';
 import { Command } from '../structures/command';
 
-new Command('setApiKey', async () => {
+export default new Command('setApiKey', async () => {
   const apiKey = await vscode.window.showInputBox({
     title: t('setApiKey.apiKey'),
     placeHolder: t('generic.paste'),
@@ -23,7 +23,7 @@ new Command('setApiKey', async () => {
     },
     async () => {
       return await apiService.testKey(apiKey);
-    }
+    },
   );
 
   if (!testKey) {

@@ -4,6 +4,28 @@ import { t } from 'vscode-ext-localisation';
 import cacheManager from '../managers/cache.manager';
 import { set } from './config.helper';
 
+type ValidateInput = vscode.InputBoxOptions['validateInput'];
+
+type OptionalArgs = {
+  field: string;
+  title: string;
+  placeHolder: string;
+  validateInput?: ValidateInput;
+};
+
+type InputArgs = {
+  title: string;
+  placeHolder: string;
+  validateInput?: ValidateInput;
+};
+
+type PickArgs = { title: string; placeHolder: string; items: string[] };
+
+type Prompt =
+  | (OptionalArgs & { type: 'optional' })
+  | (InputArgs & { type: 'required' })
+  | (PickArgs & { type: 'pick' });
+
 export default async function createConfigFile(path: string) {
   if (!existsSync(path)) {
     return;
@@ -47,7 +69,7 @@ export default async function createConfigFile(path: string) {
       validateInput: (value) => {
         return existsSync(path + '/' + value) &&
           ['.ts', '.js', '.jar', '.py', '.go'].some((ext) =>
-            value.endsWith(ext)
+            value.endsWith(ext),
           )
           ? undefined
           : {
@@ -133,25 +155,6 @@ export default async function createConfigFile(path: string) {
 
   return true;
 }
-
-type Prompt =
-  | (OptionalArgs & { type: 'optional' })
-  | (InputArgs & { type: 'required' })
-  | (PickArgs & { type: 'pick' });
-
-type OptionalArgs = {
-  field: string;
-  title: string;
-  placeHolder: string;
-  validateInput?: ValidateInput;
-};
-type InputArgs = {
-  title: string;
-  placeHolder: string;
-  validateInput?: ValidateInput;
-};
-type PickArgs = { title: string; placeHolder: string; items: string[] };
-type ValidateInput = vscode.InputBoxOptions['validateInput'];
 
 function askPrompt(prompt: Prompt) {
   switch (prompt.type) {
