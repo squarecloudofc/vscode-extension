@@ -1,13 +1,11 @@
-import { t } from 'vscode-ext-localisation';
-import cacheManager from '../managers/cache.manager';
-import { GenericTreeItem } from '../items';
-import BaseProvider from './base.provider';
-import configManager from '../managers/config.manager';
+import { t } from "vscode-ext-localisation";
+import cacheManager from "../managers/cache.manager";
+import { GenericTreeItem } from "../items";
+import BaseProvider from "./base.provider";
+import configManager from "../managers/config.manager";
 
 export default class UserProvider extends BaseProvider<GenericTreeItem> {
-  async getChildren(
-    _element?: GenericTreeItem | undefined,
-  ): Promise<GenericTreeItem[]> {
+  async getChildren(_element?: GenericTreeItem | undefined): Promise<GenericTreeItem[]> {
     const { user } = cacheManager;
 
     if (!user) {
@@ -15,27 +13,18 @@ export default class UserProvider extends BaseProvider<GenericTreeItem> {
         return [];
       }
 
-      return [
-        new GenericTreeItem(
-          t('generic.loading'),
-          'ripple',
-          undefined,
-          'loading',
-        ),
-      ];
+      return [new GenericTreeItem(t("generic.loading"), "ripple", undefined, "loading")];
     }
 
     const treeItemsData: [string, string, string][] = [
-      ['Username', 'username', user.tag],
-      ['E-mail', 'email', user.email],
-      ['Id', 'id', user.id],
-      [capitalize(user.plan.name), 'plan', user.plan.duration.formatted],
-      ['RAM', 'ram', `${user.plan.memory.used}/${user.plan.memory.limit}MB`],
+      ["Username", "username", user.tag],
+      ["E-mail", "email", user.email],
+      ["Id", "id", user.id],
+      [capitalize(user.plan.name), "plan", user.plan.duration.formatted],
+      ["RAM", "ram", `${user.plan.memory.used}/${user.plan.memory.limit}MB`],
     ];
 
-    return treeItemsData.map(
-      (treeItemData) => new GenericTreeItem(...treeItemData),
-    );
+    return treeItemsData.map((treeItemData) => new GenericTreeItem(...treeItemData));
   }
 }
 

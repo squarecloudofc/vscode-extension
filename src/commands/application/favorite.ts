@@ -1,6 +1,6 @@
-import cacheManager from '../../managers/cache.manager';
-import { ApplicationCommand } from '../../structures/application.command';
+import cacheManager from "../../managers/cache.manager";
+import { ApplicationCommand } from "../../structures/application.command";
 
-export default new ApplicationCommand('favoriteEntry', ({ application }) => {
+export default new ApplicationCommand("favoriteEntry", ({ application }) => {
   cacheManager.favorite(application);
 });

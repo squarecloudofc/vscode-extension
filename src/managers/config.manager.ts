@@ -1,7 +1,7 @@
-import * as vscode from 'vscode';
-import { set } from '../helpers/config.helper';
-import apiService from '../services/api.service';
-import cacheManager from './cache.manager';
+import * as vscode from "vscode";
+import { set } from "../helpers/config.helper";
+import apiService from "../services/api.service";
+import cacheManager from "./cache.manager";
 
 class ConfigManager {
   setUpListeners() {
@@ -11,7 +11,7 @@ class ConfigManager {
 
   listenApiKeyChange() {
     vscode.workspace.onDidChangeConfiguration(async (event) => {
-      if (!event.affectsConfiguration('squarecloud.apiKey') || !this.apiKey) {
+      if (!event.affectsConfiguration("squarecloud.apiKey") || !this.apiKey) {
         return;
       }
       await apiService.testKey(this.apiKey);
@@ -21,7 +21,7 @@ class ConfigManager {
 
   listenWorkspaceAppChange() {
     vscode.workspace.onDidChangeConfiguration(async (event) => {
-      if (!event.affectsConfiguration('squarecloud.workspaceAppId')) {
+      if (!event.affectsConfiguration("squarecloud.workspaceAppId")) {
         return;
       }
 
@@ -30,22 +30,22 @@ class ConfigManager {
         return;
       }
 
-      const appId = this.defaultConfig.get('workspaceAppId');
+      const appId = this.defaultConfig.get("workspaceAppId");
 
       set(path, { ID: appId });
     });
   }
 
   setApiKey(key: string) {
-    return this.defaultConfig.update('apiKey', key, true);
+    return this.defaultConfig.update("apiKey", key, true);
   }
 
   get defaultConfig() {
-    return vscode.workspace.getConfiguration('squarecloud');
+    return vscode.workspace.getConfiguration("squarecloud");
   }
 
   get apiKey() {
-    return <string | undefined>this.defaultConfig.get('apiKey');
+    return <string | undefined>this.defaultConfig.get("apiKey");
   }
 }
 

@@ -1,11 +1,11 @@
-import EventEmitter = require('events');
-import { setTimeout } from 'timers/promises';
-import * as vscode from 'vscode';
-import { t } from 'vscode-ext-localisation';
-import { ApplicationStatusData, FullUserData } from '../interfaces/api';
-import apiService from '../services/api.service';
-import { Application } from '../structures/application';
-import configManager from './config.manager';
+import EventEmitter = require("events");
+import { setTimeout } from "timers/promises";
+import * as vscode from "vscode";
+import { t } from "vscode-ext-localisation";
+import { ApplicationStatusData, FullUserData } from "../interfaces/api";
+import apiService from "../services/api.service";
+import { Application } from "../structures/application";
+import configManager from "./config.manager";
 
 class CacheManager extends EventEmitter {
   public applications: Application[] = [];
@@ -28,13 +28,11 @@ class CacheManager extends EventEmitter {
         }
 
         this.user = data.response.user;
-        this.applications = data.response.applications.map(
-          (appData) => new Application(appData),
-        );
+        this.applications = data.response.applications.map((appData) => new Application(appData));
       }),
     );
 
-    this.emit('refreshData');
+    this.emit("refreshData");
   }
 
   async refreshStatusAll() {
@@ -43,7 +41,7 @@ class CacheManager extends EventEmitter {
       await setTimeout(300);
     }
 
-    this.emit('refreshStatusAll');
+    this.emit("refreshStatusAll");
   }
 
   async refreshStatus(appId: string, bypass?: boolean) {
@@ -66,14 +64,14 @@ class CacheManager extends EventEmitter {
       }),
     );
 
-    this.emit('refreshStatus', appId);
+    this.emit("refreshStatus", appId);
   }
 
   handleProgress<T, U extends Promise<T>>(fn: () => U) {
     return <U>vscode.window.withProgress(
       {
         location: vscode.ProgressLocation.Window,
-        title: t('generic.refreshing'),
+        title: t("generic.refreshing"),
       },
       fn,
     );
@@ -85,7 +83,7 @@ class CacheManager extends EventEmitter {
   }
 
   throwPausedError() {
-    return vscode.window.showErrorMessage(t('generic.wait'));
+    return vscode.window.showErrorMessage(t("generic.wait"));
   }
 
   pause(value: boolean | undefined | null = true) {
@@ -93,48 +91,41 @@ class CacheManager extends EventEmitter {
   }
 
   isFavorited(appOrId: Application | string) {
-    if (typeof appOrId !== 'string') {
+    if (typeof appOrId !== "string") {
       appOrId = appOrId.id;
     }
 
-    const favoritedApps =
-      <string[]>configManager.defaultConfig.get('favoritedApps') || [];
+    const favoritedApps = <string[]>configManager.defaultConfig.get("favoritedApps") || [];
 
     return favoritedApps.includes(appOrId);
   }
 
   async favorite(appOrId: Application | string) {
-    if (typeof appOrId !== 'string') {
+    if (typeof appOrId !== "string") {
       appOrId = appOrId.id;
     }
 
-    const favoritedApps =
-      <string[]>configManager.defaultConfig.get('favoritedApps') || [];
+    const favoritedApps = <string[]>configManager.defaultConfig.get("favoritedApps") || [];
 
-    await configManager.defaultConfig.update(
-      'favoritedApps',
-      [...favoritedApps, appOrId],
-      true,
-    );
+    await configManager.defaultConfig.update("favoritedApps", [...favoritedApps, appOrId], true);
 
-    this.emit('refreshStatus', appOrId);
+    this.emit("refreshStatus", appOrId);
   }
 
   async unfavorite(appOrId: Application | string) {
-    if (typeof appOrId !== 'string') {
+    if (typeof appOrId !== "string") {
       appOrId = appOrId.id;
     }
 
-    const favoritedApps =
-      <string[]>configManager.defaultConfig.get('favoritedApps') || [];
+    const favoritedApps = <string[]>configManager.defaultConfig.get("favoritedApps") || [];
 
     await configManager.defaultConfig.update(
-      'favoritedApps',
+      "favoritedApps",
       favoritedApps.filter((id) => id !== appOrId),
       true,
     );
 
-    this.emit('refreshStatus', appOrId);
+    this.emit("refreshStatus", appOrId);
   }
 }
 

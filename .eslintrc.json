@@ -1,5 +1,5 @@
 {
-  "extends": ["@synclab/eslint-config/node"],
+  "extends": ["@squarecloud/eslint-config/node"],
   "root": true,
   "parserOptions": {
     "ecmaVersion": 6,

@@ -1,10 +1,10 @@
-import { existsSync } from 'fs';
-import * as vscode from 'vscode';
-import { t } from 'vscode-ext-localisation';
-import cacheManager from '../managers/cache.manager';
-import { set } from './config.helper';
+import { existsSync } from "fs";
+import * as vscode from "vscode";
+import { t } from "vscode-ext-localisation";
+import cacheManager from "../managers/cache.manager";
+import { set } from "./config.helper";
 
-type ValidateInput = vscode.InputBoxOptions['validateInput'];
+type ValidateInput = vscode.InputBoxOptions["validateInput"];
 
 type OptionalArgs = {
   field: string;
@@ -22,19 +22,19 @@ type InputArgs = {
 type PickArgs = { title: string; placeHolder: string; items: string[] };
 
 type Prompt =
-  | (OptionalArgs & { type: 'optional' })
-  | (InputArgs & { type: 'required' })
-  | (PickArgs & { type: 'pick' });
+  | (OptionalArgs & { type: "optional" })
+  | (InputArgs & { type: "required" })
+  | (PickArgs & { type: "pick" });
 
 export default async function createConfigFile(path: string) {
   if (!existsSync(path)) {
     return;
   }
 
-  const botOrSite = await vscode.window.showQuickPick(['Bot', 'Website'], {
+  const botOrSite = await vscode.window.showQuickPick(["Bot", "Website"], {
     ignoreFocusOut: true,
-    placeHolder: t('generic.choose'),
-    title: t('createConfig.botOrSite'),
+    placeHolder: t("generic.choose"),
+    title: t("createConfig.botOrSite"),
   });
 
   if (!botOrSite) {
@@ -42,57 +42,52 @@ export default async function createConfigFile(path: string) {
   }
 
   const { available } = cacheManager.user?.plan?.memory || {};
-  const isWebsite = botOrSite === 'Website';
+  const isWebsite = botOrSite === "Website";
 
   const prompts: Prompt[] = [
     {
-      type: 'required',
-      title: t('createConfig.prompt.displayName'),
-      placeHolder: t('generic.type'),
+      type: "required",
+      title: t("createConfig.prompt.displayName"),
+      placeHolder: t("generic.type"),
     },
     {
-      type: 'optional',
-      field: t('createConfig.prompt.avatar.subs'),
-      title: t('createConfig.prompt.avatar.title'),
-      placeHolder: t('generic.paste'),
+      type: "optional",
+      field: t("createConfig.prompt.avatar.subs"),
+      title: t("createConfig.prompt.avatar.title"),
+      placeHolder: t("generic.paste"),
     },
     {
-      type: 'optional',
-      field: t('createConfig.prompt.description.subs'),
-      title: t('createConfig.prompt.description.title'),
-      placeHolder: t('generic.type'),
+      type: "optional",
+      field: t("createConfig.prompt.description.subs"),
+      title: t("createConfig.prompt.description.title"),
+      placeHolder: t("generic.type"),
     },
     {
-      type: 'required',
-      title: t('createConfig.prompt.main.title'),
-      placeHolder: t('generic.type'),
+      type: "required",
+      title: t("createConfig.prompt.main.title"),
+      placeHolder: t("generic.type"),
       validateInput: (value) => {
-        return existsSync(path + '/' + value) &&
-          ['.ts', '.js', '.jar', '.py', '.go'].some((ext) =>
-            value.endsWith(ext),
-          )
+        return existsSync(path + "/" + value) && [".ts", ".js", ".jar", ".py", ".go"].some((ext) => value.endsWith(ext))
           ? undefined
           : {
-              message: t('createConfig.prompt.main.invalid'),
+              message: t("createConfig.prompt.main.invalid"),
               severity: vscode.InputBoxValidationSeverity.Warning,
             };
       },
     },
     {
-      type: 'required',
-      title: t('createConfig.prompt.memory.title', {
-        max: available ? `(Max: ${available}MB)` : '',
+      type: "required",
+      title: t("createConfig.prompt.memory.title", {
+        max: available ? `(Max: ${available}MB)` : "",
       }),
-      placeHolder: t('generic.type'),
+      placeHolder: t("generic.type"),
       validateInput: (value: string | number) => {
         const minValue = isWebsite ? 512 : 100;
         value = Number(value);
 
-        return isNaN(value) ||
-          (available && value > available) ||
-          value < ((isWebsite && 512) || 100)
+        return isNaN(value) || (available && value > available) || value < ((isWebsite && 512) || 100)
           ? {
-              message: t('createConfig.prompt.memory.invalid', {
+              message: t("createConfig.prompt.memory.invalid", {
                 minValue: `${minValue}`,
               }),
               severity: vscode.InputBoxValidationSeverity.Error,
@@ -101,24 +96,23 @@ export default async function createConfigFile(path: string) {
       },
     },
     {
-      type: 'pick',
-      title: t('createConfig.prompt.version'),
-      placeHolder: t('generic.choose'),
-      items: ['Recommended', 'Latest'],
+      type: "pick",
+      title: t("createConfig.prompt.version"),
+      placeHolder: t("generic.choose"),
+      items: ["Recommended", "Latest"],
     },
     ...(isWebsite
       ? <Prompt[]>[
           {
-            type: 'required',
-            title: t('createConfig.prompt.subdomain'),
-            placeHolder:
-              t('generic.type') + ' (ex.: customdomain.squareweb.app)',
+            type: "required",
+            title: t("createConfig.prompt.subdomain"),
+            placeHolder: t("generic.type") + " (ex.: customdomain.squareweb.app)",
           },
           {
-            type: 'optional',
-            field: t('createConfig.prompt.start.subs'),
-            title: t('createConfig.prompt.start.title'),
-            placeHolder: t('generic.type'),
+            type: "optional",
+            field: t("createConfig.prompt.start.subs"),
+            title: t("createConfig.prompt.start.title"),
+            placeHolder: t("generic.type"),
           },
         ]
       : []),
@@ -130,13 +124,11 @@ export default async function createConfigFile(path: string) {
   for (const prompt of prompts) {
     const response = await askPrompt(prompt);
 
-    if (prompt.type === 'required' && !response) {
+    if (prompt.type === "required" && !response) {
       return;
     }
 
-    prompt.type === 'required' || prompt.type === 'pick'
-      ? required.push(response)
-      : optional.push(response);
+    prompt.type === "required" || prompt.type === "pick" ? required.push(response) : optional.push(response);
   }
 
   const [displayName, mainFile, ramMemory, version, subDomain] = required;
@@ -158,11 +150,11 @@ export default async function createConfigFile(path: string) {
 
 function askPrompt(prompt: Prompt) {
   switch (prompt.type) {
-    case 'optional':
+    case "optional":
       return showOptionalInput(prompt);
-    case 'required':
+    case "required":
       return showInput(prompt);
-    case 'pick':
+    case "pick":
       return showPick(prompt);
   }
 }
@@ -174,7 +166,7 @@ function showInput({ title, placeHolder, validateInput }: InputArgs) {
       value.trim().length
         ? undefined
         : {
-            message: t('createConfig.nothingHere'),
+            message: t("createConfig.nothingHere"),
             severity: vscode.InputBoxValidationSeverity.Error,
           });
 
@@ -190,20 +182,13 @@ function showPick({ items, placeHolder, title }: PickArgs) {
   return vscode.window.showQuickPick(items, { title, placeHolder });
 }
 
-function showOptionalInput({
-  field,
-  placeHolder,
-  title,
-  validateInput,
-}: OptionalArgs) {
+function showOptionalInput({ field, placeHolder, title, validateInput }: OptionalArgs) {
   return vscode.window
-    .showQuickPick([t('generic.yes'), t('generic.no')], {
-      title: t('createConfig.optional', { field }),
-      placeHolder: t('generic.choose'),
+    .showQuickPick([t("generic.yes"), t("generic.no")], {
+      title: t("createConfig.optional", { field }),
+      placeHolder: t("generic.choose"),
     })
     .then((value) => {
-      return value === t('generic.yes')
-        ? showInput({ title, placeHolder, validateInput })
-        : undefined;
+      return value === t("generic.yes") ? showInput({ title, placeHolder, validateInput }) : undefined;
     });
 }

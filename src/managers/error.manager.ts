@@ -1,5 +1,5 @@
-import * as vscode from 'vscode';
-import { t } from 'vscode-ext-localisation';
+import * as vscode from "vscode";
+import { t } from "vscode-ext-localisation";
 
 interface CommonError {
   message: string;
@@ -10,7 +10,7 @@ class ErrorManager {
   handleError(error: CommonError, ...args: any[]) {
     console.error(error, ...args);
 
-    if ('message' in error && 'code' in error) {
+    if ("message" in error && "code" in error) {
       this.throwVsCodeError(error);
     }
 
@@ -18,7 +18,7 @@ class ErrorManager {
   }
 
   throwVsCodeError(error: CommonError) {
-    vscode.window.showErrorMessage(t('generic.error', { ...error }), {
+    vscode.window.showErrorMessage(t("generic.error", { ...error }), {
       detail: error?.message,
     });
   }

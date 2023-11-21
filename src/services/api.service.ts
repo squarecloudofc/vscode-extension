@@ -1,7 +1,7 @@
-import { AxiosRequestConfig, AxiosStatic } from 'axios';
-import * as vscode from 'vscode';
-import { t } from 'vscode-ext-localisation';
-import { ResponseCodes, Routes } from '../helpers/constants.helper';
+import { AxiosRequestConfig, AxiosStatic } from "axios";
+import * as vscode from "vscode";
+import { t } from "vscode-ext-localisation";
+import { ResponseCodes, Routes } from "../helpers/constants.helper";
 import {
   ApiResponse,
   ApplicationData,
@@ -9,18 +9,18 @@ import {
   FullUserData,
   UploadedApplicationData,
   UserResponseData,
-} from '../interfaces/api';
-import configManager from '../managers/config.manager';
-import errorManager from '../managers/error.manager';
-import FormData = require('form-data');
+} from "../interfaces/api";
+import configManager from "../managers/config.manager";
+import errorManager from "../managers/error.manager";
+import FormData = require("form-data");
 
-const axios: AxiosStatic = require('axios');
+const axios: AxiosStatic = require("axios");
 
 class ApiService {
-  private readonly baseUrl = 'https://api.squarecloud.app/v2';
+  private readonly baseUrl = "https://api.squarecloud.app/v2";
 
   user(userId?: string): Promise<ApiResponse<UserResponseData> | undefined> {
-    return this.fetch(`user${userId ? `/${userId}` : ''}`);
+    return this.fetch(`user${userId ? `/${userId}` : ""}`);
   }
 
   application(
@@ -30,25 +30,22 @@ class ApiService {
   ): Promise<ApiResponse | undefined> {
     if (options instanceof FormData) {
       options = {
-        method: 'POST',
+        method: "POST",
         data: options,
         headers: options.getHeaders(),
       };
     }
 
-    if (typeof options === 'boolean') {
+    if (typeof options === "boolean") {
       options = {
-        method: options ? 'POST' : undefined,
+        method: options ? "POST" : undefined,
       };
     }
 
     return this.fetch(`apps/${id}/${path}`, options);
   }
 
-  async fetch(
-    path: string,
-    options: AxiosRequestConfig = {},
-  ): Promise<ApiResponse | undefined> {
+  async fetch(path: string, options: AxiosRequestConfig = {}): Promise<ApiResponse | undefined> {
     if (!configManager.apiKey) {
       return;
     }
@@ -58,21 +55,17 @@ class ApiService {
       authorization: configManager.apiKey,
     };
 
-    const res = await axios(`${this.baseUrl}/${path}`, options).catch((err) =>
-      errorManager.handleError(err),
-    );
+    const res = await axios(`${this.baseUrl}/${path}`, options).catch((err) => errorManager.handleError(err));
 
     return res?.data;
   }
 
-  async upload(
-    file: Buffer,
-  ): Promise<CommonSuccess<UploadedApplicationData> | undefined> {
+  async upload(file: Buffer): Promise<CommonSuccess<UploadedApplicationData> | undefined> {
     const formData = new FormData();
-    formData.append('file', file, { filename: 'app.zip' });
+    formData.append("file", file, { filename: "app.zip" });
 
     const data = (await this.fetch(`apps/${Routes.Upload}`, {
-      method: 'POST',
+      method: "POST",
       data: formData,
       headers: formData.getHeaders(),
     })) as any;
@@ -101,21 +94,17 @@ class ApiService {
 
     if (!isKeyValid) {
       vscode.window
-        .showErrorMessage(t('setApiKey.invalid'), t('command.setApiKey'))
+        .showErrorMessage(t("setApiKey.invalid"), t("command.setApiKey"))
         .then((value) =>
-          value === t('command.setApiKey')
-            ? vscode.commands.executeCommand('squarecloud.setApiKey')
-            : null,
+          value === t("command.setApiKey") ? vscode.commands.executeCommand("squarecloud.setApiKey") : null,
         );
     }
 
     return isKeyValid;
   }
 
-  hasAccess(
-    value: UserResponseData,
-  ): value is { user: FullUserData; applications: ApplicationData[] } {
-    return Boolean(value.user.email) && value.user.email !== 'Access denied';
+  hasAccess(value: UserResponseData): value is { user: FullUserData; applications: ApplicationData[] } {
+    return Boolean(value.user.email) && value.user.email !== "Access denied";
   }
 }
 

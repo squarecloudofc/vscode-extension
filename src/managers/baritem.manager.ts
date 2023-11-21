@@ -1,14 +1,11 @@
-import * as vscode from 'vscode';
+import * as vscode from "vscode";
 
 class BarItemManager {
   loadBarItem(context: vscode.ExtensionContext) {
-    const statusBarItem = vscode.window.createStatusBarItem(
-      vscode.StatusBarAlignment.Left,
-      100,
-    );
+    const statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 100);
 
-    statusBarItem.text = '$(chrome-restore) Square Cloud';
-    statusBarItem.command = 'squarecloud.statusBarItem';
+    statusBarItem.text = "$(chrome-restore) Square Cloud";
+    statusBarItem.command = "squarecloud.statusBarItem";
 
     if (this.available) {
       statusBarItem.show();

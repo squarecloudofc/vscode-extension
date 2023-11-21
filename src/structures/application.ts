@@ -1,16 +1,16 @@
-import { ResponseCodes, Routes } from '../helpers/constants.helper';
+import { ResponseCodes, Routes } from "../helpers/constants.helper";
 import {
   ApplicationBackupData,
   ApplicationData,
   ApplicationLogsData,
   ApplicationStatusData,
   CommonSuccess,
-} from '../interfaces/api';
-import apiService from '../services/api.service';
-import FormData = require('form-data');
+} from "../interfaces/api";
+import apiService from "../services/api.service";
+import FormData = require("form-data");
 
 export class Application {
-  private readonly baseAppUrl = 'https://squarecloud.app/dashboard/app/';
+  private readonly baseAppUrl = "https://squarecloud.app/dashboard/app/";
 
   id: string;
   tag: string;
@@ -18,7 +18,7 @@ export class Application {
   avatar: string;
   cluster: string;
   ram: number;
-  type: 'free' | 'paid';
+  type: "free" | "paid";
   lang: string;
   isWebsite: boolean;
 
@@ -43,10 +43,7 @@ export class Application {
   }
 
   async logs(full?: boolean): Promise<ApplicationLogsData | undefined> {
-    const data = await apiService.application(
-      `${full ? 'full-' : ''}logs`,
-      this.id,
-    );
+    const data = await apiService.application(`${full ? "full-" : ""}logs`, this.id);
 
     return data?.response;
   }
@@ -59,7 +56,7 @@ export class Application {
 
   async delete(): Promise<CommonSuccess> {
     const data = await apiService.application(Routes.Delete, this.id, {
-      method: 'DELETE',
+      method: "DELETE",
     });
 
     return { success: data?.code === ResponseCodes.AppDeleted };
@@ -67,13 +64,9 @@ export class Application {
 
   async commit(file: Buffer, filename: string, restart: boolean = true) {
     const formData = new FormData();
-    formData.append('file', file, { filename });
+    formData.append("file", file, { filename });
 
-    const data = await apiService.application(
-      Routes.Commit + `?restart=${restart}`,
-      this.id,
-      formData,
-    );
+    const data = await apiService.application(Routes.Commit + `?restart=${restart}`, this.id, formData);
 
     return { success: data?.code === ResponseCodes.Success };
   }

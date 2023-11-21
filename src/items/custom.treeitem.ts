@@ -1,5 +1,5 @@
-import * as vscode from 'vscode';
-import { getIconPaths } from '../helpers/files.helper';
+import * as vscode from "vscode";
+import { getIconPaths } from "../helpers/files.helper";
 
 export default class CustomTreeItem extends vscode.TreeItem {
   iconPath = getIconPaths(`${this.iconName}.svg`);
