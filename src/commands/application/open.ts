@@ -1,6 +1,0 @@
-import * as vscode from "vscode";
-import { ApplicationCommand } from "../../structures/application.command";
-
-export default new ApplicationCommand("openEntry", ({ application }) => {
-  vscode.env.openExternal(vscode.Uri.parse(application.url));
-});
