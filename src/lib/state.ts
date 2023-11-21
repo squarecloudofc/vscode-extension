@@ -1,11 +1,12 @@
-import { StateOnChange } from "./state.interface";
+import { StateOnChange, StateOptions } from "./state.interface";
 
 export class State<T extends object> {
   private store: T;
-  private onChangeFunction: StateOnChange<T> = () => [];
+  private onChange?: StateOnChange<T>;
 
-  constructor(initialState: T) {
+  constructor(initialState: T, options?: StateOptions<T>) {
     this.store = initialState;
+    this.onChange = options?.onChange;
   }
 
   get(): T;
@@ -19,10 +20,6 @@ export class State<T extends object> {
     const store = this.store;
 
     this.store = Object.assign(store, payload);
-    this.onChangeFunction(this.store, store);
-  }
-
-  onChange(fn: StateOnChange<T>) {
-    this.onChangeFunction = fn;
+    this.onChange?.(this.store, store);
   }
 }

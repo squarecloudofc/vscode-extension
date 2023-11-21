@@ -6,11 +6,8 @@
     "sourceType": "module"
   },
   "rules": {
-    "@typescript-eslint/naming-convention": "off",
-    "curly": "warn",
-    "eqeqeq": "warn",
-    "no-throw-literal": "warn",
-    "no-useless-constructor": "off"
+    "no-useless-constructor": "off",
+    "no-use-before-define": "off"
   },
   "ignorePatterns": ["out", "dist", "**/*.d.ts"]
 }
