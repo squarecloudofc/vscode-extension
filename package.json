@@ -41,7 +41,8 @@
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint \"./src/**/*.ts\"",
     "test": "node ./out/test/runTest.js",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "commit": "git-cz"
   },
   "devDependencies": {
     "@squarecloud/eslint-config": "^0.1.6",
@@ -51,6 +52,7 @@
     "@types/node": "^20.3.1",
     "@types/vscode": "^1.74.0",
     "@vscode/test-electron": "^2.1.5",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.43.0",
     "glob": "^8.0.3",
     "husky": "^8.0.3",
@@ -428,5 +430,10 @@
         "path": "./syntaxes/env.tmLanguage.json"
       }
     ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
