@@ -1,1 +1,1 @@
-export function activate() {}
+export * from "./core";
