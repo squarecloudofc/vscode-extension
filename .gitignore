@@ -1,6 +1,12 @@
+# build
 out
 dist
+
+# dependencies
 node_modules
+yarn.lock
+package-lock.json
+
+# vscode
 .vscode-test/
 *.vsix
-yarn.lock
