@@ -14,9 +14,9 @@ export class ApplicationsTreeViewProvider extends BaseTreeViewProvider<SquareTre
         return [];
       }
 
-      const treeItemsData: { label: string; iconName: string; description: string }[] = [];
+      const treeItemsData: ConstructorParameters<typeof GenericTreeItem>[] = [];
 
-      return treeItemsData.map((data) => new GenericTreeItem(data.label, data.iconName, data.description));
+      return treeItemsData.map((parameters) => new GenericTreeItem(...parameters));
     }
 
     if (!applications.get().applications.length) {

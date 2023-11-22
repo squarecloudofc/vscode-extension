@@ -14,7 +14,7 @@ export interface ApplicationsStore {
   isFavorited(applicationId: string): boolean;
 }
 
-export default new Store<ApplicationsStore>(({ get, set }) => ({
+const applicationsStore = new Store<ApplicationsStore>(({ get, set }) => ({
   applications: [],
   statuses: [],
   favorited: [],
@@ -31,3 +31,5 @@ export default new Store<ApplicationsStore>(({ get, set }) => ({
   getStatus: (applicationId) => get().statuses.find((status) => status.applicationId === applicationId),
   isFavorited: (applicationId) => get().favorited.includes(applicationId),
 }));
+
+export default applicationsStore;
