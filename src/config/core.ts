@@ -1,6 +1,6 @@
 import { workspace } from "vscode";
 
-class ConfigCore {
+class CoreConfig {
   get rootConfiguration() {
     return workspace.getConfiguration("squarecloud");
   }
@@ -10,4 +10,4 @@ class ConfigCore {
   }
 }
 
-export const configCore = new ConfigCore();
+export const coreConfig = new CoreConfig();

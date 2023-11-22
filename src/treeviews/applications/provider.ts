@@ -3,7 +3,7 @@ import { ApplicationTreeItem, SquareTreeItem } from "./item";
 import { GenericTreeItem } from "../items/generic";
 import { t } from "vscode-ext-localisation";
 import applications from "../../store/applications";
-import { configCore } from "../../config/core";
+import { coreConfig } from "../../config/core";
 
 export class ApplicationsTreeViewProvider extends BaseTreeViewProvider<SquareTreeItem> {
   async getChildren(element?: SquareTreeItem | undefined): Promise<SquareTreeItem[] | null | undefined> {
@@ -20,7 +20,7 @@ export class ApplicationsTreeViewProvider extends BaseTreeViewProvider<SquareTre
     }
 
     if (!applications.get().applications.length) {
-      if (!configCore.apiKey) {
+      if (!coreConfig.apiKey) {
         return [];
       }
 
