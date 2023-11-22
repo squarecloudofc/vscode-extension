@@ -150,55 +150,55 @@
       "view/item/context": [
         {
           "command": "squarecloud.refreshEntry",
-          "when": "viewItem == square-bot || viewItem == square-site || viewItem == square-favorite",
+          "when": "viewItem == application || viewItem == application-fav",
           "group": "inline"
         },
         {
           "command": "squarecloud.showLogs",
-          "when": "viewItem == square-bot || viewItem == square-site || viewItem == square-favorite",
+          "when": "viewItem == application || viewItem == application-fav",
           "group": "inline"
         },
         {
           "command": "squarecloud.favoriteEntry",
-          "when": "viewItem == square-bot || viewItem == square-site",
+          "when": "viewItem == application",
           "group": "inline"
         },
         {
           "command": "squarecloud.unfavoriteEntry",
-          "when": "viewItem == square-favorite",
+          "when": "viewItem == application-fav",
           "group": "inline"
         },
         {
           "command": "squarecloud.openEntry",
-          "when": "viewItem == square-bot || viewItem == square-site || viewItem == square-favorite"
+          "when": "viewItem == application || viewItem == application-fav"
         },
         {
           "command": "squarecloud.startEntry",
-          "when": "viewItem == square-bot || viewItem == square-site || viewItem == square-favorite"
+          "when": "viewItem == application || viewItem == application-fav"
         },
         {
           "command": "squarecloud.stopEntry",
-          "when": "viewItem == square-bot || viewItem == square-site || viewItem == square-favorite"
+          "when": "viewItem == application || viewItem == application-fav"
         },
         {
           "command": "squarecloud.restartEntry",
-          "when": "viewItem == square-bot || viewItem == square-site || viewItem == square-favorite"
+          "when": "viewItem == application || viewItem == application-fav"
         },
         {
           "command": "squarecloud.deleteEntry",
-          "when": "viewItem == square-bot || viewItem == square-site || viewItem == square-favorite"
+          "when": "viewItem == application || viewItem == application-fav"
         },
         {
           "command": "squarecloud.commitEntry",
-          "when": "viewItem == square-bot || viewItem == square-site || viewItem == square-favorite"
+          "when": "viewItem == application || viewItem == application-fav"
         },
         {
           "command": "squarecloud.backupEntry",
-          "when": "viewItem == square-bot || viewItem == square-site || viewItem == square-favorite"
+          "when": "viewItem == application || viewItem == application-fav"
         },
         {
           "command": "squarecloud.copyIdEntry",
-          "when": "viewItem == square-bot || viewItem == square-site || viewItem == square-favorite"
+          "when": "viewItem == application || viewItem == application-fav"
         },
         {
           "command": "squarecloud.copyText",
