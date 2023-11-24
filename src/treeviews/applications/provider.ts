@@ -14,7 +14,10 @@ export class ApplicationsTreeViewProvider extends BaseTreeViewProvider<SquareTre
         return [];
       }
 
-      const treeItemsData: ConstructorParameters<typeof GenericTreeItem>[] = [];
+      const treeItemsData: ConstructorParameters<typeof GenericTreeItem>[] = [
+        ["CPU", "cpu", element.status.usage.cpu],
+        ["RAM", "ram", element.status.usage.ram],
+      ];
 
       return treeItemsData.map((parameters) => new GenericTreeItem(...parameters));
     }

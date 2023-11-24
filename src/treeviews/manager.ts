@@ -7,7 +7,7 @@ export function registerTreeView(viewType: string, viewProvider: TreeDataProvide
   vscode.window.registerTreeDataProvider(viewType, viewProvider);
 }
 
-export class TreeViewsManager {
+class TreeViewsManager {
   public applicationsView = new ApplicationsTreeViewProvider();
 
   registerTreeViews() {
@@ -17,4 +17,10 @@ export class TreeViewsManager {
   refreshViews(...views: BaseTreeViewProvider<TreeItem>[]) {
     views.forEach((view) => view.refresh());
   }
+
+  refreshAll() {
+    this.refreshViews(this.applicationsView);
+  }
 }
+
+export const treeViewsManager = new TreeViewsManager();
