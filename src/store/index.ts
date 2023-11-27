@@ -31,7 +31,7 @@ export class Store<T extends Record<string, any>> {
     if (override) {
       this._store = value as T;
     } else {
-      this._store = { ...this._store, value };
+      this._store = { ...this._store, ...value };
     }
 
     this.notifyChange();
