@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import type { Application } from "@squarecloud/api";
+import type { BaseApplication } from "@squarecloud/api";
 import applications from "../../store/applications";
 import { getIcons } from "../../util/icons";
 import { CustomTreeItem } from "../items/custom";
@@ -18,8 +18,8 @@ export class ApplicationTreeItem extends vscode.TreeItem {
 
   contextValue = this.favorited ? "application-fav" : "application";
 
-  constructor(public readonly application: Application) {
-    super(application.name);
+  constructor(public readonly application: BaseApplication) {
+    super(application.tag);
   }
 
   get favorited() {
