@@ -2,7 +2,7 @@ import { join } from "path";
 
 export function getIcons(iconName: string) {
   const pathByTheme = (theme: "dark" | "light") => {
-    return join(process.cwd(), "resources", theme, iconName);
+    return join(__dirname, "..", "..", "resources", theme, iconName);
   };
 
   return {
