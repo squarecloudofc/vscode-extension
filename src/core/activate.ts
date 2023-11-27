@@ -1,15 +1,19 @@
 import { getVscodeLang, loadTranslations } from "vscode-ext-localisation";
 import { treeViewsManager } from "../treeviews/manager";
-import { registerListeners } from "../listeners/register";
 import { ExtensionContext } from "vscode";
+import applicationsStore from "../store/applications";
+import { listenersManager } from "../listeners/manager";
 
-export function setUpExtension(context: ExtensionContext, lang: string) {
+export async function setUpExtension(context: ExtensionContext, lang: string) {
+  console.log("[Square Cloud Easy] Starting!");
+
   loadTranslations(lang, context.extensionPath);
-  registerListeners(context);
+  listenersManager.register(context);
+  treeViewsManager.register();
 
-  treeViewsManager.registerTreeViews();
+  applicationsStore.subscribe(() => treeViewsManager.refreshAll());
 }
 
-export function activate(context: ExtensionContext): void {
-  setUpExtension(context, getVscodeLang(process.env.VSCODE_NLS_CONFIG));
+export async function activate(context: ExtensionContext): Promise<void> {
+  await setUpExtension(context, getVscodeLang(process.env.VSCODE_NLS_CONFIG));
 }
