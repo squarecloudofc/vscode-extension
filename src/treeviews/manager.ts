@@ -1,25 +1,23 @@
-import type { TreeDataProvider, TreeItem } from "vscode";
-import * as vscode from "vscode";
+import { window } from "vscode";
 import { ApplicationsTreeViewProvider } from "./applications/provider";
-import { BaseTreeViewProvider } from "./base";
 
-export function registerTreeView(viewType: string, viewProvider: TreeDataProvider<TreeItem>) {
-  vscode.window.registerTreeDataProvider(viewType, viewProvider);
-}
+type TreeViewsKey = keyof TreeViewsManager["views"];
 
 class TreeViewsManager {
-  public applicationsView = new ApplicationsTreeViewProvider();
+  public views = {
+    applications: new ApplicationsTreeViewProvider(),
+  };
 
-  registerTreeViews() {
-    vscode.window.registerTreeDataProvider("apps-view", this.applicationsView);
+  register() {
+    window.registerTreeDataProvider("apps-view", this.views.applications);
   }
 
-  refreshViews(...views: BaseTreeViewProvider<TreeItem>[]) {
-    views.forEach((view) => view.refresh());
+  refreshViews(...views: TreeViewsKey[]) {
+    views.forEach((view) => this.views[view].refresh());
   }
 
   refreshAll() {
-    this.refreshViews(this.applicationsView);
+    this.refreshViews(...(Object.keys(this.views) as TreeViewsKey[]));
   }
 }
 
