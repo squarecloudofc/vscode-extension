@@ -5,6 +5,8 @@ import { t } from "vscode-ext-localisation";
 import applications from "../../store/applications";
 import { coreConfig } from "../../config/core";
 
+export type GenericTreeItemData = ConstructorParameters<typeof GenericTreeItem>;
+
 export class ApplicationsTreeViewProvider extends BaseTreeViewProvider<SquareTreeItem> {
   async getChildren(element?: SquareTreeItem | undefined): Promise<SquareTreeItem[] | null | undefined> {
     const contextValue = element && "contextValue" in element ? element.contextValue : undefined;
@@ -14,7 +16,7 @@ export class ApplicationsTreeViewProvider extends BaseTreeViewProvider<SquareTre
         return [];
       }
 
-      const treeItemsData: ConstructorParameters<typeof GenericTreeItem>[] = [
+      const treeItemsData: GenericTreeItemData[] = [
         ["CPU", "cpu", element.status.usage.cpu],
         ["RAM", "ram", element.status.usage.ram],
       ];
