@@ -1,427 +1,407 @@
 {
-  "version": "2.0.0",
-  "name": "squarecloud",
-  "displayName": "Square Cloud Easy",
-  "publisher": "squarecloud",
-  "icon": "resources/squarecloud.png",
-  "description": "An extension to easily interact with the SquareCloud API.",
-  "homepage": "https://github.com/squarecloudofc/vscode-extension/",
-  "engines": {
-    "vscode": "^1.74.0"
-  },
-  "author": {
-    "name": "bluey#0012",
-    "url": "https://github.com/bluee-js/"
-  },
-  "sponsor": {
-    "url": "https://squarecloud.app/"
-  },
-  "categories": [
-    "Other"
-  ],
-  "activationEvents": [
-    "*"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/squarecloudofc/vscode-extension"
-  },
-  "keywords": [
-    "squarecloud",
-    "square cloud",
-    "host",
-    "bot",
-    "website"
-  ],
-  "main": "./out/extension.js",
-  "scripts": {
-    "vscode:prepublish": "npm run compile",
-    "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./",
-    "pretest": "npm run compile && npm run lint",
-    "lint": "eslint \"./src/**/*.ts\"",
-    "test": "node ./out/test/runTest.js",
-    "prepare": "husky install",
-    "commit": "git-cz"
-  },
-  "devDependencies": {
-    "@squarecloud/eslint-config": "^0.1.6",
-    "@types/adm-zip": "^0.5.0",
-    "@types/mocha": "^10.0.0",
-    "@types/node": "^20.3.1",
-    "@types/vscode": "^1.74.0",
-    "@vscode/test-electron": "^2.1.5",
-    "cz-conventional-changelog": "^3.3.0",
-    "eslint": "^8.43.0",
-    "husky": "^8.0.3",
-    "mocha": "^10.0.0",
-    "typescript": "^5.1.3"
-  },
-  "dependencies": {
-    "@squarecloud/api": "^3.3.1",
-    "adm-zip": "^0.5.10",
-    "form-data": "^4.0.0",
-    "ignore": "^5.2.4",
-    "vscode-ext-localisation": "^1.0.1"
-  },
-  "contributes": {
-    "menus": {
-      "commandPalette": [
-        {
-          "command": "squarecloud.refreshCache",
-          "when": "false"
-        },
-        {
-          "command": "squarecloud.refreshEntry",
-          "when": "false"
-        },
-        {
-          "command": "squarecloud.showLogs",
-          "when": "false"
-        },
-        {
-          "command": "squarecloud.copyText",
-          "when": "false"
-        },
-        {
-          "command": "squarecloud.openEntry",
-          "when": "false"
-        },
-        {
-          "command": "squarecloud.startEntry",
-          "when": "false"
-        },
-        {
-          "command": "squarecloud.stopEntry",
-          "when": "false"
-        },
-        {
-          "command": "squarecloud.restartEntry",
-          "when": "false"
-        },
-        {
-          "command": "squarecloud.deleteEntry",
-          "when": "false"
-        },
-        {
-          "command": "squarecloud.commitEntry",
-          "when": "false"
-        },
-        {
-          "command": "squarecloud.backupEntry",
-          "when": "false"
-        },
-        {
-          "command": "squarecloud.copyIdEntry",
-          "when": "false"
-        },
-        {
-          "command": "squarecloud.statusBarItem",
-          "when": "false"
-        },
-        {
-          "command": "squarecloud.setWorkspaceApp",
-          "when": "false"
-        },
-        {
-          "command": "squarecloud.commitWorkspace",
-          "when": "false"
-        },
-        {
-          "command": "squarecloud.uploadWorkspace",
-          "when": "false"
-        },
-        {
-          "command": "squarecloud.createConfig",
-          "when": "workspaceFolderCount == 1"
-        }
-      ],
-      "view/title": [
-        {
-          "command": "squarecloud.refreshCache",
-          "when": "view == apps-view || view == user-view",
-          "group": "navigation"
-        },
-        {
-          "command": "squarecloud.setApiKey",
-          "when": "view == apps-view || view == user-view"
-        }
-      ],
-      "view/item/context": [
-        {
-          "command": "squarecloud.refreshEntry",
-          "when": "viewItem == application || viewItem == application-fav",
-          "group": "inline"
-        },
-        {
-          "command": "squarecloud.showLogs",
-          "when": "viewItem == application || viewItem == application-fav",
-          "group": "inline"
-        },
-        {
-          "command": "squarecloud.favoriteEntry",
-          "when": "viewItem == application",
-          "group": "inline"
-        },
-        {
-          "command": "squarecloud.unfavoriteEntry",
-          "when": "viewItem == application-fav",
-          "group": "inline"
-        },
-        {
-          "command": "squarecloud.openEntry",
-          "when": "viewItem == application || viewItem == application-fav"
-        },
-        {
-          "command": "squarecloud.startEntry",
-          "when": "viewItem == application || viewItem == application-fav"
-        },
-        {
-          "command": "squarecloud.stopEntry",
-          "when": "viewItem == application || viewItem == application-fav"
-        },
-        {
-          "command": "squarecloud.restartEntry",
-          "when": "viewItem == application || viewItem == application-fav"
-        },
-        {
-          "command": "squarecloud.deleteEntry",
-          "when": "viewItem == application || viewItem == application-fav"
-        },
-        {
-          "command": "squarecloud.commitEntry",
-          "when": "viewItem == application || viewItem == application-fav"
-        },
-        {
-          "command": "squarecloud.backupEntry",
-          "when": "viewItem == application || viewItem == application-fav"
-        },
-        {
-          "command": "squarecloud.copyIdEntry",
-          "when": "viewItem == application || viewItem == application-fav"
-        },
-        {
-          "command": "squarecloud.copyText",
-          "when": "viewItem == generic",
-          "group": "inline"
-        }
-      ],
-      "editor/context": [
-        {
-          "command": "squarecloud.createConfig",
-          "when": "resourceFilename == squarecloud.app || resourceFilename == squarecloud.config"
-        }
-      ],
-      "explorer/context": [
-        {
-          "command": "squarecloud.createConfig",
-          "when": "true"
-        }
-      ]
-    },
-    "viewsWelcome": [
-      {
-        "view": "apps-view",
-        "contents": "%view.welcome%",
-        "enablement": "!config.squarecloud.apiKey",
-        "when": "!config.squarecloud.apiKey"
-      }
-    ],
-    "commands": [
-      {
-        "command": "squarecloud.setApiKey",
-        "title": "%command.setApiKey%",
-        "category": "Square Cloud"
-      },
-      {
-        "command": "squarecloud.refreshCache",
-        "title": "%command.refresh%",
-        "icon": {
-          "light": "resources/light/refresh.svg",
-          "dark": "resources/dark/refresh.svg"
-        }
-      },
-      {
-        "command": "squarecloud.refreshEntry",
-        "title": "%command.refresh%",
-        "icon": {
-          "light": "resources/light/refresh.svg",
-          "dark": "resources/dark/refresh.svg"
-        }
-      },
-      {
-        "command": "squarecloud.showLogs",
-        "title": "%command.showLogs%",
-        "icon": {
-          "light": "resources/light/logs.svg",
-          "dark": "resources/dark/logs.svg"
-        }
-      },
-      {
-        "command": "squarecloud.copyText",
-        "title": "%command.copyText%",
-        "icon": {
-          "light": "resources/light/copy.svg",
-          "dark": "resources/dark/copy.svg"
-        }
-      },
-      {
-        "command": "squarecloud.favoriteEntry",
-        "title": "%command.favorite%",
-        "icon": {
-          "light": "resources/light/star.svg",
-          "dark": "resources/dark/star.svg"
-        }
-      },
-      {
-        "command": "squarecloud.unfavoriteEntry",
-        "title": "%command.favorite%",
-        "icon": {
-          "light": "resources/light/star-fill.svg",
-          "dark": "resources/dark/star-fill.svg"
-        }
-      },
-      {
-        "command": "squarecloud.openEntry",
-        "title": "%command.open%"
-      },
-      {
-        "command": "squarecloud.startEntry",
-        "title": "%command.start%"
-      },
-      {
-        "command": "squarecloud.stopEntry",
-        "title": "%command.stop%"
-      },
-      {
-        "command": "squarecloud.restartEntry",
-        "title": "%command.restart%"
-      },
-      {
-        "command": "squarecloud.deleteEntry",
-        "title": "%command.delete%"
-      },
-      {
-        "command": "squarecloud.commitEntry",
-        "title": "Commit"
-      },
-      {
-        "command": "squarecloud.backupEntry",
-        "title": "Backup"
-      },
-      {
-        "command": "squarecloud.copyIdEntry",
-        "title": "%command.copyId%"
-      },
-      {
-        "command": "squarecloud.createConfig",
-        "title": "%command.createConfig%"
-      },
-      {
-        "command": "squarecloud.statusBarItem",
-        "title": "Status Bar Item"
-      },
-      {
-        "command": "squarecloud.setWorkspaceApp",
-        "title": "Set Workspace App"
-      },
-      {
-        "command": "squarecloud.commitWorkspace",
-        "title": "Commit Workspace"
-      },
-      {
-        "command": "squarecloud.uploadWorkspace",
-        "title": "Upload Workspace"
-      }
-    ],
-    "viewsContainers": {
-      "activitybar": [
-        {
-          "id": "squarecloud-container",
-          "title": "Square Cloud",
-          "icon": "resources/squarecloud.svg"
-        }
-      ]
-    },
-    "views": {
-      "squarecloud-container": [
-        {
-          "id": "apps-view",
-          "name": "%view.apps.title%"
-        },
-        {
-          "id": "user-view",
-          "name": "%view.user.title%"
-        }
-      ],
-      "explorer": [
-        {
-          "id": "favapp-view",
-          "name": "Square Cloud"
-        }
-      ]
-    },
-    "configuration": [
-      {
-        "title": "SquareCloud",
-        "properties": {
-          "squarecloud.apiKey": {
-            "title": "SquareCloud API Key.",
-            "type": "string",
-            "markdownDescription": "%config.apiKey.description%"
-          },
-          "squarecloud.workspaceAppId": {
-            "title": "The workspace folder application ID.",
-            "type": "string"
-          },
-          "squarecloud.favoritedApps": {
-            "title": "Favorited apps will show in the explorer container.",
-            "type": "array",
-            "default": []
-          }
-        }
-      }
-    ],
-    "languages": [
-      {
-        "id": "squarecloud",
-        "icon": {
-          "dark": "resources/dark/squarecloud.svg",
-          "light": "resources/light/squarecloud.svg"
-        },
-        "aliases": [
-          "Square Cloud Config"
-        ],
-        "filenames": [
-          "squarecloud.config",
-          "squarecloud.app"
-        ]
-      },
-      {
-        "id": "squareignore",
-        "icon": {
-          "dark": "resources/dark/squareignore.svg",
-          "light": "resources/light/squareignore.svg"
-        },
-        "aliases": [
-          "Square Cloud Ignore"
-        ],
-        "filenames": [
-          "squarecloud.ignore"
-        ]
-      }
-    ],
-    "grammars": [
-      {
-        "language": "squarecloud",
-        "scopeName": "source.app",
-        "path": "./syntaxes/env.tmLanguage.json"
-      }
-    ]
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
-  }
+	"version": "2.0.0",
+	"name": "squarecloud",
+	"displayName": "Square Cloud Easy",
+	"publisher": "squarecloud",
+	"icon": "resources/squarecloud.png",
+	"description": "An extension to easily interact with the SquareCloud API.",
+	"homepage": "https://github.com/squarecloudofc/vscode-extension/",
+	"engines": {
+		"vscode": "^1.74.0"
+	},
+	"author": {
+		"name": "bluey#0012",
+		"url": "https://github.com/bluee-js/"
+	},
+	"sponsor": {
+		"url": "https://squarecloud.app/"
+	},
+	"categories": ["Other"],
+	"activationEvents": ["*"],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/squarecloudofc/vscode-extension"
+	},
+	"keywords": ["squarecloud", "square cloud", "host", "bot", "website"],
+	"main": "./out/extension.js",
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"pretest": "npm run compile && npm run lint",
+		"lint": "biome check --apply .",
+		"test": "node ./out/test/runTest.js",
+		"prepare": "husky install",
+		"commit": "git-cz"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^1.6.1",
+		"@types/adm-zip": "^0.5.0",
+		"@types/mocha": "^10.0.0",
+		"@types/node": "^20.3.1",
+		"@types/vscode": "^1.74.0",
+		"@vscode/test-electron": "^2.1.5",
+		"cz-conventional-changelog": "^3.3.0",
+		"husky": "^8.0.3",
+		"mocha": "^10.0.0",
+		"typescript": "^5.1.3"
+	},
+	"dependencies": {
+		"@squarecloud/api": "^3.3.1",
+		"adm-zip": "^0.5.10",
+		"form-data": "^4.0.0",
+		"ignore": "^5.2.4",
+		"vscode-ext-localisation": "^1.0.1"
+	},
+	"contributes": {
+		"menus": {
+			"commandPalette": [
+				{
+					"command": "squarecloud.refreshCache",
+					"when": "false"
+				},
+				{
+					"command": "squarecloud.refreshEntry",
+					"when": "false"
+				},
+				{
+					"command": "squarecloud.showLogs",
+					"when": "false"
+				},
+				{
+					"command": "squarecloud.copyText",
+					"when": "false"
+				},
+				{
+					"command": "squarecloud.openEntry",
+					"when": "false"
+				},
+				{
+					"command": "squarecloud.startEntry",
+					"when": "false"
+				},
+				{
+					"command": "squarecloud.stopEntry",
+					"when": "false"
+				},
+				{
+					"command": "squarecloud.restartEntry",
+					"when": "false"
+				},
+				{
+					"command": "squarecloud.deleteEntry",
+					"when": "false"
+				},
+				{
+					"command": "squarecloud.commitEntry",
+					"when": "false"
+				},
+				{
+					"command": "squarecloud.backupEntry",
+					"when": "false"
+				},
+				{
+					"command": "squarecloud.copyIdEntry",
+					"when": "false"
+				},
+				{
+					"command": "squarecloud.statusBarItem",
+					"when": "false"
+				},
+				{
+					"command": "squarecloud.setWorkspaceApp",
+					"when": "false"
+				},
+				{
+					"command": "squarecloud.commitWorkspace",
+					"when": "false"
+				},
+				{
+					"command": "squarecloud.uploadWorkspace",
+					"when": "false"
+				},
+				{
+					"command": "squarecloud.createConfig",
+					"when": "workspaceFolderCount == 1"
+				}
+			],
+			"view/title": [
+				{
+					"command": "squarecloud.refreshCache",
+					"when": "view == apps-view || view == user-view",
+					"group": "navigation"
+				},
+				{
+					"command": "squarecloud.setApiKey",
+					"when": "view == apps-view || view == user-view"
+				}
+			],
+			"view/item/context": [
+				{
+					"command": "squarecloud.refreshEntry",
+					"when": "viewItem == application || viewItem == application-fav",
+					"group": "inline"
+				},
+				{
+					"command": "squarecloud.showLogs",
+					"when": "viewItem == application || viewItem == application-fav",
+					"group": "inline"
+				},
+				{
+					"command": "squarecloud.favoriteEntry",
+					"when": "viewItem == application",
+					"group": "inline"
+				},
+				{
+					"command": "squarecloud.unfavoriteEntry",
+					"when": "viewItem == application-fav",
+					"group": "inline"
+				},
+				{
+					"command": "squarecloud.openEntry",
+					"when": "viewItem == application || viewItem == application-fav"
+				},
+				{
+					"command": "squarecloud.startEntry",
+					"when": "viewItem == application || viewItem == application-fav"
+				},
+				{
+					"command": "squarecloud.stopEntry",
+					"when": "viewItem == application || viewItem == application-fav"
+				},
+				{
+					"command": "squarecloud.restartEntry",
+					"when": "viewItem == application || viewItem == application-fav"
+				},
+				{
+					"command": "squarecloud.deleteEntry",
+					"when": "viewItem == application || viewItem == application-fav"
+				},
+				{
+					"command": "squarecloud.commitEntry",
+					"when": "viewItem == application || viewItem == application-fav"
+				},
+				{
+					"command": "squarecloud.backupEntry",
+					"when": "viewItem == application || viewItem == application-fav"
+				},
+				{
+					"command": "squarecloud.copyIdEntry",
+					"when": "viewItem == application || viewItem == application-fav"
+				},
+				{
+					"command": "squarecloud.copyText",
+					"when": "viewItem == generic",
+					"group": "inline"
+				}
+			],
+			"editor/context": [
+				{
+					"command": "squarecloud.createConfig",
+					"when": "resourceFilename == squarecloud.app || resourceFilename == squarecloud.config"
+				}
+			],
+			"explorer/context": [
+				{
+					"command": "squarecloud.createConfig",
+					"when": "true"
+				}
+			]
+		},
+		"viewsWelcome": [
+			{
+				"view": "apps-view",
+				"contents": "%view.welcome%",
+				"enablement": "!config.squarecloud.apiKey",
+				"when": "!config.squarecloud.apiKey"
+			}
+		],
+		"commands": [
+			{
+				"command": "squarecloud.setApiKey",
+				"title": "%command.setApiKey%",
+				"category": "Square Cloud"
+			},
+			{
+				"command": "squarecloud.refreshCache",
+				"title": "%command.refresh%",
+				"icon": {
+					"light": "resources/light/refresh.svg",
+					"dark": "resources/dark/refresh.svg"
+				}
+			},
+			{
+				"command": "squarecloud.refreshEntry",
+				"title": "%command.refresh%",
+				"icon": {
+					"light": "resources/light/refresh.svg",
+					"dark": "resources/dark/refresh.svg"
+				}
+			},
+			{
+				"command": "squarecloud.showLogs",
+				"title": "%command.showLogs%",
+				"icon": {
+					"light": "resources/light/logs.svg",
+					"dark": "resources/dark/logs.svg"
+				}
+			},
+			{
+				"command": "squarecloud.copyText",
+				"title": "%command.copyText%",
+				"icon": {
+					"light": "resources/light/copy.svg",
+					"dark": "resources/dark/copy.svg"
+				}
+			},
+			{
+				"command": "squarecloud.favoriteEntry",
+				"title": "%command.favorite%",
+				"icon": {
+					"light": "resources/light/star.svg",
+					"dark": "resources/dark/star.svg"
+				}
+			},
+			{
+				"command": "squarecloud.unfavoriteEntry",
+				"title": "%command.favorite%",
+				"icon": {
+					"light": "resources/light/star-fill.svg",
+					"dark": "resources/dark/star-fill.svg"
+				}
+			},
+			{
+				"command": "squarecloud.openEntry",
+				"title": "%command.open%"
+			},
+			{
+				"command": "squarecloud.startEntry",
+				"title": "%command.start%"
+			},
+			{
+				"command": "squarecloud.stopEntry",
+				"title": "%command.stop%"
+			},
+			{
+				"command": "squarecloud.restartEntry",
+				"title": "%command.restart%"
+			},
+			{
+				"command": "squarecloud.deleteEntry",
+				"title": "%command.delete%"
+			},
+			{
+				"command": "squarecloud.commitEntry",
+				"title": "Commit"
+			},
+			{
+				"command": "squarecloud.backupEntry",
+				"title": "Backup"
+			},
+			{
+				"command": "squarecloud.copyIdEntry",
+				"title": "%command.copyId%"
+			},
+			{
+				"command": "squarecloud.createConfig",
+				"title": "%command.createConfig%"
+			},
+			{
+				"command": "squarecloud.statusBarItem",
+				"title": "Status Bar Item"
+			},
+			{
+				"command": "squarecloud.setWorkspaceApp",
+				"title": "Set Workspace App"
+			},
+			{
+				"command": "squarecloud.commitWorkspace",
+				"title": "Commit Workspace"
+			},
+			{
+				"command": "squarecloud.uploadWorkspace",
+				"title": "Upload Workspace"
+			}
+		],
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "squarecloud-container",
+					"title": "Square Cloud",
+					"icon": "resources/squarecloud.svg"
+				}
+			]
+		},
+		"views": {
+			"squarecloud-container": [
+				{
+					"id": "apps-view",
+					"name": "%view.apps.title%"
+				},
+				{
+					"id": "user-view",
+					"name": "%view.user.title%"
+				}
+			],
+			"explorer": [
+				{
+					"id": "favapp-view",
+					"name": "Square Cloud"
+				}
+			]
+		},
+		"configuration": [
+			{
+				"title": "SquareCloud",
+				"properties": {
+					"squarecloud.apiKey": {
+						"title": "SquareCloud API Key.",
+						"type": "string",
+						"markdownDescription": "%config.apiKey.description%"
+					},
+					"squarecloud.workspaceAppId": {
+						"title": "The workspace folder application ID.",
+						"type": "string"
+					},
+					"squarecloud.favoritedApps": {
+						"title": "Favorited apps will show in the explorer container.",
+						"type": "array",
+						"default": []
+					}
+				}
+			}
+		],
+		"languages": [
+			{
+				"id": "squarecloud",
+				"icon": {
+					"dark": "resources/dark/squarecloud.svg",
+					"light": "resources/light/squarecloud.svg"
+				},
+				"aliases": ["Square Cloud Config"],
+				"filenames": ["squarecloud.config", "squarecloud.app"]
+			},
+			{
+				"id": "squareignore",
+				"icon": {
+					"dark": "resources/dark/squareignore.svg",
+					"light": "resources/light/squareignore.svg"
+				},
+				"aliases": ["Square Cloud Ignore"],
+				"filenames": ["squarecloud.ignore"]
+			}
+		],
+		"grammars": [
+			{
+				"language": "squarecloud",
+				"scopeName": "source.app",
+				"path": "./syntaxes/env.tmLanguage.json"
+			}
+		]
+	},
+	"config": {
+		"commitizen": {
+			"path": "./node_modules/cz-conventional-changelog"
+		}
+	}
 }

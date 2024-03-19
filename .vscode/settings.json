@@ -1,23 +1,35 @@
 {
-  "files.exclude": {
-    "out": false
-  },
-  "search.exclude": {
-    "out": true
-  },
-  "typescript.tsc.autoDetect": "off",
-  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
-  "editor.formatOnSave": true,
-  "eslint.format.enable": true,
-  "editor.codeActionsOnSave": {
-    "source.organizeImports": "never",
-    "source.fixAll.eslint": "explicit",
-    "source.fixAll": "explicit"
-  },
-  "[json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[jsonc]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+	// Exclude
+
+	"files.exclude": {
+		"out": false
+	},
+
+	"search.exclude": {
+		"out": true
+	},
+
+	// Tsc
+
+	"typescript.tsc.autoDetect": "off",
+
+	// Linting and formatting
+
+	"editor.defaultFormatter": "biomejs.biome",
+	"editor.formatOnSave": true,
+
+	"editor.codeActionsOnSave": {
+		"quickfix.biome": "always",
+		"source.fixAll.eslint": "always",
+		"source.addMissingImports": "always",
+		"source.organizeImports": "always"
+	},
+
+	"[json]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+
+	"[jsonc]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	}
 }

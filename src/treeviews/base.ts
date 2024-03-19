@@ -1,22 +1,28 @@
 import * as vscode from "vscode";
 
-export class BaseTreeViewProvider<TreeItemType extends vscode.TreeItem = vscode.TreeItem>
-  implements vscode.TreeDataProvider<TreeItemType>
+export class BaseTreeViewProvider<
+	TreeItemType extends vscode.TreeItem = vscode.TreeItem,
+> implements vscode.TreeDataProvider<TreeItemType>
 {
-  protected _onDidChangeTreeData = new vscode.EventEmitter<TreeItemType | undefined | void>();
+	protected _onDidChangeTreeData = new vscode.EventEmitter<
+		// biome-ignore lint/suspicious/noConfusingVoidType: This is a valid type for the event emitter
+		TreeItemType | undefined | void
+	>();
 
-  public readonly onDidChangeTreeData: vscode.Event<void | TreeItemType | TreeItemType[] | null | undefined> =
-    this._onDidChangeTreeData.event;
+	public readonly onDidChangeTreeData: vscode.Event<
+		// biome-ignore lint/suspicious/noConfusingVoidType: This is a valid type for the event emitter
+		TreeItemType | TreeItemType[] | null | undefined | void
+	> = this._onDidChangeTreeData.event;
 
-  refresh(): void {
-    this._onDidChangeTreeData.fire();
-  }
+	refresh(): void {
+		this._onDidChangeTreeData.fire();
+	}
 
-  getChildren(): vscode.ProviderResult<TreeItemType[]> {
-    return [];
-  }
+	getChildren(): vscode.ProviderResult<TreeItemType[]> {
+		return [];
+	}
 
-  getTreeItem(element: TreeItemType): TreeItemType {
-    return element;
-  }
+	getTreeItem(element: TreeItemType): TreeItemType {
+		return element;
+	}
 }

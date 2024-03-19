@@ -4,21 +4,23 @@ import { ApplicationsTreeViewProvider } from "./applications/provider";
 type TreeViewsKey = keyof TreeViewsManager["views"];
 
 class TreeViewsManager {
-  public views = {
-    applications: new ApplicationsTreeViewProvider(),
-  };
+	public views = {
+		applications: new ApplicationsTreeViewProvider(),
+	};
 
-  register() {
-    window.registerTreeDataProvider("apps-view", this.views.applications);
-  }
+	register() {
+		window.registerTreeDataProvider("apps-view", this.views.applications);
+	}
 
-  refreshViews(...views: TreeViewsKey[]) {
-    views.forEach((view) => this.views[view].refresh());
-  }
+	refreshViews(...views: TreeViewsKey[]) {
+		for (const view of views) {
+			this.views[view].refresh();
+		}
+	}
 
-  refreshAll() {
-    this.refreshViews(...(Object.keys(this.views) as TreeViewsKey[]));
-  }
+	refreshAll() {
+		this.refreshViews(...(Object.keys(this.views) as TreeViewsKey[]));
+	}
 }
 
 export const treeViewsManager = new TreeViewsManager();

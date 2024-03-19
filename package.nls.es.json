@@ -1,154 +1,154 @@
 {
-  "config.apiKey.description": "Su clave de API de [Square Cloud](https://squarecloud.app/).",
+	"config.apiKey.description": "Su clave de API de [Square Cloud](https://squarecloud.app/).",
 
-  "command.createConfig": "Crear archivo de configuración de Square Cloud",
-  "command.setApiKey": "Establecer nueva clave de API",
-  "command.showLogs": "Mostrar registros",
-  "command.copyText": "Copiar",
-  "command.refresh": "Actualizar",
-  "command.open": "Ver en el tablero",
-  "command.start": "Iniciar",
-  "command.stop": "Detener",
-  "command.copyId": "Copiar ID",
-  "command.restart": "Reiniciar",
-  "command.delete": "Eliminar",
-  "command.favorite": "Favorito",
-  "command.unfavorite": "Desfavoritar",
+	"command.createConfig": "Crear archivo de configuración de Square Cloud",
+	"command.setApiKey": "Establecer nueva clave de API",
+	"command.showLogs": "Mostrar registros",
+	"command.copyText": "Copiar",
+	"command.refresh": "Actualizar",
+	"command.open": "Ver en el tablero",
+	"command.start": "Iniciar",
+	"command.stop": "Detener",
+	"command.copyId": "Copiar ID",
+	"command.restart": "Reiniciar",
+	"command.delete": "Eliminar",
+	"command.favorite": "Favorito",
+	"command.unfavorite": "Desfavoritar",
 
-  "view.user.title": "Usuario",
-  "view.apps.title": "Aplicaciones",
-  "view.noApiKey": "No tiene una clave de API registrada. Por favor, regístre una.",
-  "view.welcome": "No hay clave de API registrada.\n[Establecer clave de API](command:squarecloud.setApiKey)",
+	"view.user.title": "Usuario",
+	"view.apps.title": "Aplicaciones",
+	"view.noApiKey": "No tiene una clave de API registrada. Por favor, regístre una.",
+	"view.welcome": "No hay clave de API registrada.\n[Establecer clave de API](command:squarecloud.setApiKey)",
 
-  "generic": {
-    "yes": "Sí",
-    "no": "No",
-    "loading": "Cargando...",
-    "error": "Ha ocurrido un error desconocido.",
-    "network": "Red",
-    "storage": "Almacenamiento",
-    "wait": "Por favor espere un momento antes de hacer nuevas solicitudes.",
-    "refreshing": "Actualizando...",
-    "done": "¡Hecho!",
-    "type": "Escribe aquí...",
-    "paste": "Pegar aquí...",
-    "choose": "Elige una opción...",
-    "file": "Archivo",
-    "folder": "Carpeta"
-  },
+	"generic": {
+		"yes": "Sí",
+		"no": "No",
+		"loading": "Cargando...",
+		"error": "Ha ocurrido un error desconocido.",
+		"network": "Red",
+		"storage": "Almacenamiento",
+		"wait": "Por favor espere un momento antes de hacer nuevas solicitudes.",
+		"refreshing": "Actualizando...",
+		"done": "¡Hecho!",
+		"type": "Escribe aquí...",
+		"paste": "Pegar aquí...",
+		"choose": "Elige una opción...",
+		"file": "Archivo",
+		"folder": "Carpeta"
+	},
 
-  "setApiKey": {
-    "tutorial": {
-      "label": "Primero abra el panel de control de \"SquareCloud\", luego vaya a \"Mi cuenta\" y finalmente haga clic en \"Regenerar clave de API/CLI\".",
-      "button": "Abrir panel de control"
-    },
-    "hasKey": "¿Ya tiene su clave de API?",
-    "apiKey": "Ingrese su clave de API.",
-    "testing": "Verificando la clave de API proporcionada.",
-    "invalid": "La clave de API proporcionada no es válida.",
-    "success": "¡Su clave de API se ha registrado con éxito!"
-  },
+	"setApiKey": {
+		"tutorial": {
+			"label": "Primero abra el panel de control de \"SquareCloud\", luego vaya a \"Mi cuenta\" y finalmente haga clic en \"Regenerar clave de API/CLI\".",
+			"button": "Abrir panel de control"
+		},
+		"hasKey": "¿Ya tiene su clave de API?",
+		"apiKey": "Ingrese su clave de API.",
+		"testing": "Verificando la clave de API proporcionada.",
+		"invalid": "La clave de API proporcionada no es válida.",
+		"success": "¡Su clave de API se ha registrado con éxito!"
+	},
 
-  "logs": {
-    "loading": "Obteniendo registros.",
-    "loaded": "Los registros se han cargado con éxito.",
-    "null": "No se encontraron registros.",
-    "button": "Mostrar registros"
-  },
+	"logs": {
+		"loading": "Obteniendo registros.",
+		"loaded": "Los registros se han cargado con éxito.",
+		"null": "No se encontraron registros.",
+		"button": "Mostrar registros"
+	},
 
-  "copy": {
-    "copiedId": "ID de aplicación copiado al portapapeles.",
-    "copiedText": "{{TYPE}} copiado al portapapeles."
-  },
+	"copy": {
+		"copiedId": "ID de aplicación copiado al portapapeles.",
+		"copiedText": "{{TYPE}} copiado al portapapeles."
+	},
 
-  "start": {
-    "loading": "Iniciando aplicación...",
-    "loaded": "La aplicación se está ejecutando ahora."
-  },
+	"start": {
+		"loading": "Iniciando aplicación...",
+		"loaded": "La aplicación se está ejecutando ahora."
+	},
 
-  "stop": {
-    "loading": "Apagando la aplicación...",
-    "loaded": "La aplicación ya no se está ejecutando."
-  },
+	"stop": {
+		"loading": "Apagando la aplicación...",
+		"loaded": "La aplicación ya no se está ejecutando."
+	},
 
-  "restart": {
-    "loading": "Reiniciando la aplicación...",
-    "loaded": "La aplicación se ha reiniciado."
-  },
+	"restart": {
+		"loading": "Reiniciando la aplicación...",
+		"loaded": "La aplicación se ha reiniciado."
+	},
 
-  "delete": {
-    "loading": "Eliminando la aplicación...",
-    "loaded": "La aplicación se ha eliminado.",
-    "cancelled": "El proceso de eliminación se ha cancelado.",
-    "confirm": "Ingrese el nombre de la aplicación para confirmar que desea eliminarla."
-  },
+	"delete": {
+		"loading": "Eliminando la aplicación...",
+		"loaded": "La aplicación se ha eliminado.",
+		"cancelled": "El proceso de eliminación se ha cancelado.",
+		"confirm": "Ingrese el nombre de la aplicación para confirmar que desea eliminarla."
+	},
 
-  "commit": {
-    "loading": "Enviando archivos...",
-    "loaded": "Los archivos se han enviado con éxito.",
-    "select": "Seleccione la carpeta para enviar",
-    "useGitIgnore": "No se ha encontrado el archivo squarecloud.ignore. ¿Ignorar los archivos listados en .gitignore en su lugar?"
-  },
+	"commit": {
+		"loading": "Enviando archivos...",
+		"loaded": "Los archivos se han enviado con éxito.",
+		"select": "Seleccione la carpeta para enviar",
+		"useGitIgnore": "No se ha encontrado el archivo squarecloud.ignore. ¿Ignorar los archivos listados en .gitignore en su lugar?"
+	},
 
-  "backup": {
-    "loading": "Descargando respaldo...",
-    "loaded": "Respaldo guardado con éxito.",
-    "save": "Guardar aquí"
-  },
+	"backup": {
+		"loading": "Descargando respaldo...",
+		"loaded": "Respaldo guardado con éxito.",
+		"save": "Guardar aquí"
+	},
 
-  "createConfig": {
-    "botOrSite": "¿Es tu aplicación un Bot o un Sitio web?",
-    "nothingHere": "Debes escribir algo aquí.",
-    "optional": "¿Quieres establecer {{field}} para tu aplicación?",
-    "prompt": {
-      "displayName": "Escribe un nombre para mostrar para tu aplicación.",
-      "avatar": {
-        "subs": "un avatar",
-        "title": "Pega la URL de tu avatar a continuación."
-      },
-      "description": {
-        "subs": "una descripción",
-        "title": "Escribe la descripción de tu aplicación."
-      },
-      "main": {
-        "title": "¿Cuál es el archivo principal de tu aplicación?",
-        "invalid": "Este archivo no existe en la carpeta actual."
-      },
-      "memory": {
-        "title": "¿Cuánta memoria RAM usará tu aplicación? {{max}}",
-        "validate": "Por favor, escribe un número mayor que {{minValue}} y menor que tu memoria disponible."
-      },
-      "version": "¿Qué versión te gustaría usar para esta aplicación?",
-      "subdomain": "Escribe un subdominio para tu sitio web.",
-      "start": {
-        "subs": "un comando de inicio",
-        "title": "Escribe el comando de inicio para tu aplicación."
-      }
-    }
-  },
+	"createConfig": {
+		"botOrSite": "¿Es tu aplicación un Bot o un Sitio web?",
+		"nothingHere": "Debes escribir algo aquí.",
+		"optional": "¿Quieres establecer {{field}} para tu aplicación?",
+		"prompt": {
+			"displayName": "Escribe un nombre para mostrar para tu aplicación.",
+			"avatar": {
+				"subs": "un avatar",
+				"title": "Pega la URL de tu avatar a continuación."
+			},
+			"description": {
+				"subs": "una descripción",
+				"title": "Escribe la descripción de tu aplicación."
+			},
+			"main": {
+				"title": "¿Cuál es el archivo principal de tu aplicación?",
+				"invalid": "Este archivo no existe en la carpeta actual."
+			},
+			"memory": {
+				"title": "¿Cuánta memoria RAM usará tu aplicación? {{max}}",
+				"validate": "Por favor, escribe un número mayor que {{minValue}} y menor que tu memoria disponible."
+			},
+			"version": "¿Qué versión te gustaría usar para esta aplicación?",
+			"subdomain": "Escribe un subdominio para tu sitio web.",
+			"start": {
+				"subs": "un comando de inicio",
+				"title": "Escribe el comando de inicio para tu aplicación."
+			}
+		}
+	},
 
-  "statusBarItem": {
-    "title": "Square Cloud - Selecciona una acción",
-    "commit": "Realizar commit de los archivos",
-    "upload": "Enviar nueva aplicación",
-    "setApp": "Definir aplicación del escritorio",
-    "createConfig": "Crear archivo de configuración"
-  },
+	"statusBarItem": {
+		"title": "Square Cloud - Selecciona una acción",
+		"commit": "Realizar commit de los archivos",
+		"upload": "Enviar nueva aplicación",
+		"setApp": "Definir aplicación del escritorio",
+		"createConfig": "Crear archivo de configuración"
+	},
 
-  "setWorkspaceApp": {
-    "none": "Sin",
-    "select": "Selecciona una aplicación:",
-    "success": "¡Aplicación del espacio de trabajo actualizada con éxito!"
-  },
+	"setWorkspaceApp": {
+		"none": "Sin",
+		"select": "Selecciona una aplicación:",
+		"success": "¡Aplicación del espacio de trabajo actualizada con éxito!"
+	},
 
-  "uploadWorkspace": {
-    "createFile": "Para subir tu aplicación, primero crea un archivo de configuración.",
-    "loading": "Enviando archivos a Square Cloud...",
-    "loaded": "¡Aplicación subida con éxito!"
-  },
+	"uploadWorkspace": {
+		"createFile": "Para subir tu aplicación, primero crea un archivo de configuración.",
+		"loading": "Enviando archivos a Square Cloud...",
+		"loaded": "¡Aplicación subida con éxito!"
+	},
 
-  "commitWorkspace": {
-    "loading": "Enviando archivos a Square Cloud...",
-    "loaded": "¡Aplicación actualizada con éxito!"
-  }
+	"commitWorkspace": {
+		"loading": "Enviando archivos a Square Cloud...",
+		"loaded": "¡Aplicación actualizada con éxito!"
+	}
 }
