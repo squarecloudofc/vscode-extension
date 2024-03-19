@@ -10,7 +10,6 @@
 		"enabled": true,
 		"rules": {
 			"recommended": true,
-			"complexity": { "noUselessConstructor": "off" },
 			"suspicious": { "noExplicitAny": "off" },
 			"style": { "noParameterAssign": "off" }
 		}
