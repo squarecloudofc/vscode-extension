@@ -1,5 +1,5 @@
 import { SquareCloudAPI } from "@squarecloud/api";
-import { type SecretStorage, workspace } from "vscode";
+import { type SecretStorage, commands, workspace } from "vscode";
 
 class CoreConfig {
 	private secrets?: SecretStorage;
@@ -14,6 +14,7 @@ class CoreConfig {
 
 	async getApiKey() {
 		const apiKey = await this.secrets?.get("apiKey");
+		commands.executeCommand("setContext", "squarecloud.apiKey", !!apiKey);
 
 		return apiKey;
 	}

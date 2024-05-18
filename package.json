@@ -213,8 +213,8 @@
 			{
 				"view": "apps-view",
 				"contents": "%view.welcome%",
-				"enablement": "!config.squarecloud.apiKey",
-				"when": "!config.squarecloud.apiKey"
+				"enablement": "!squarecloud.apiKey",
+				"when": "!squarecloud.apiKey"
 			}
 		],
 		"commands": [
