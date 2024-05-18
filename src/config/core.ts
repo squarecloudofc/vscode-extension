@@ -1,24 +1,36 @@
 import { SquareCloudAPI } from "@squarecloud/api";
-import { workspace } from "vscode";
+import { type SecretStorage, workspace } from "vscode";
 
 class CoreConfig {
+	private secrets?: SecretStorage;
+
+	setSecretStorage(secrets: SecretStorage) {
+		this.secrets = secrets;
+	}
+
 	get rootConfiguration() {
 		return workspace.getConfiguration("squarecloud");
 	}
 
-	get apiKey() {
-		return this.rootConfiguration.get<string | undefined>("apiKey");
+	async getApiKey() {
+		const apiKey = await this.secrets?.get("apiKey");
+
+		return apiKey;
 	}
 
-	setApiKey(value?: string) {
-		this.rootConfiguration.update("apiKey", value, true);
+	async setApiKey(value?: string) {
+		if (!value) {
+			await this.secrets?.delete("apiKey");
+			return;
+		}
+		await this.secrets?.store("apiKey", value);
 	}
 
 	async testApiKey() {
-		const apiKey = this.apiKey;
+		const apiKey = await this.getApiKey();
 
 		if (!apiKey) {
-			return this.setApiKey(undefined);
+			return this.setApiKey();
 		}
 
 		const api = new SquareCloudAPI(apiKey);
@@ -26,7 +38,7 @@ class CoreConfig {
 		return api.users
 			.get()
 			.then(() => apiKey)
-			.catch(() => this.setApiKey(undefined));
+			.catch(() => this.setApiKey());
 	}
 }
 
