@@ -23,14 +23,14 @@
 		"url": "https://github.com/squarecloudofc/vscode-extension"
 	},
 	"keywords": ["squarecloud", "square cloud", "host", "bot", "website"],
-	"main": "./out/extension.js",
+	"main": "./dist/extension.js",
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
 		"compile": "tsc -p ./",
 		"watch": "tsc -watch -p ./",
 		"pretest": "npm run compile && npm run lint",
 		"lint": "biome check --apply .",
-		"test": "node ./out/test/runTest.js",
+		"test": "node ./dist/test/runTest.js",
 		"prepare": "husky install",
 		"commit": "git-cz"
 	},
@@ -39,6 +39,7 @@
 		"adm-zip": "^0.5.12",
 		"form-data": "^4.0.0",
 		"ignore": "^5.3.1",
+		"ms": "^3.0.0-canary.1",
 		"vscode-ext-localisation": "^1.1.0"
 	},
 	"devDependencies": {
