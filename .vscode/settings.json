@@ -1,14 +1,4 @@
 {
-	// Exclude
-
-	"files.exclude": {
-		"out": false
-	},
-
-	"search.exclude": {
-		"out": true
-	},
-
 	// Tsc
 
 	"typescript.tsc.autoDetect": "off",
