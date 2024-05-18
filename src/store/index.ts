@@ -1,23 +1,56 @@
+import type { ExtensionContext } from "vscode";
+
 export type StoreInitial<T extends Record<string, any>> = (
-	store: Store<T>,
+	store: [set: Store<T>["set"], get: Store<T>["get"]],
 ) => T;
 
 export type StoreOnChange<T extends Record<string, any>> = (
 	store: Store<T>,
 ) => void;
 
+export type StorePersistConfig = {
+	name: string;
+	storage?: "global" | "workspace";
+	context: ExtensionContext;
+};
+
 export class Store<T extends Record<string, any>> {
 	private _store: T;
 	private _onChange?: StoreOnChange<T>;
+	private _persist?: StorePersistConfig;
 
-	constructor(initial: StoreInitial<T>) {
-		this._store = initial(this);
+	constructor(initial: StoreInitial<T>, persist?: StorePersistConfig) {
+		this._persist = persist;
+		this._store = initial([this.set.bind(this), this.get.bind(this)]);
 	}
 
-	private notifyChange() {
+	private async emitChange() {
+		await this.updatePersistedData();
+
 		if (this._onChange) {
 			this._onChange(this);
 		}
+	}
+
+	private async updatePersistedData() {
+		if (!this._persist) {
+			return;
+		}
+
+		const { name, storage, context } = this._persist;
+		const key = `${name}-store`;
+		const state =
+			storage === "workspace" ? context.workspaceState : context.globalState;
+		const value = Object.fromEntries(
+			Object.entries(this._store).filter(([_, v]) => typeof v !== "function"),
+		);
+
+		await state.update(key, value);
+	}
+
+	persist(persist: StorePersistConfig) {
+		this._persist = persist;
+		this.updatePersistedData();
 	}
 
 	subscribe(fn: StoreOnChange<T>) {
@@ -40,7 +73,7 @@ export class Store<T extends Record<string, any>> {
 			this._store = { ...this._store, ...value };
 		}
 
-		this.notifyChange();
+		this.emitChange();
 	}
 
 	get(): T;
