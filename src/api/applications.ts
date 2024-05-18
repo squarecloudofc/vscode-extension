@@ -5,7 +5,7 @@ import applicationsStore from "../store/applications";
 class ApplicationsManager {
 	constructor() {
 		this.refresh();
-		setInterval(() => this.refresh(), 20000);
+		setInterval(() => this.refresh(), 10000);
 	}
 
 	async refresh() {
@@ -22,11 +22,27 @@ class ApplicationsManager {
 		const applications = await api.applications.get();
 		const statuses = await api.applications.status();
 
+		const storedFullStatuses = applicationsStore.get().fullStatuses;
+		const fullStatuses = await Promise.all(
+			applications
+				.filter((app) =>
+					storedFullStatuses.find((full) => full.applicationId === app.id),
+				)
+				.map(async (app) => {
+					const application = await app.fetch();
+					return application.getStatus();
+				}),
+		);
+
 		console.log(
 			`[Square Cloud Easy] Found ${applications.size} applications and ${statuses.length} statuses.`,
 		);
 
-		applicationsStore.set({ applications: applications.toJSON(), statuses });
+		applicationsStore.set({
+			applications: applications.toJSON(),
+			fullStatuses,
+			statuses,
+		});
 	}
 }
 

@@ -19,7 +19,9 @@ class TreeViewsManager {
 	}
 
 	refreshAll() {
-		this.refreshViews(...(Object.keys(this.views) as TreeViewsKey[]));
+		for (const view of Object.values(this.views)) {
+			view.refresh();
+		}
 	}
 }
 

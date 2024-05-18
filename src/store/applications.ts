@@ -1,41 +1,65 @@
 import type {
+	ApplicationStatus,
 	BaseApplication,
 	SimpleApplicationStatus,
 } from "@squarecloud/api";
 import { Store } from ".";
 
 export interface ApplicationsStore {
-	statuses: SimpleApplicationStatus[];
 	applications: BaseApplication[];
+	statuses: SimpleApplicationStatus[];
+	fullStatuses: ApplicationStatus[];
 	favorited: string[];
 
 	setApplications(applications: BaseApplication[]): void;
+	addFullStatus(fullStatus: ApplicationStatus): void;
 	setStatuses(statuses: SimpleApplicationStatus[]): void;
 	toggleFavorite(applicationId: string): void;
 
+	getFullStatus(applicationId: string): ApplicationStatus | undefined;
 	getStatus(applicationId: string): SimpleApplicationStatus | undefined;
 	isFavorited(applicationId: string): boolean;
 }
 
-const applicationsStore = new Store<ApplicationsStore>((store) => ({
+const applicationsStore = new Store<ApplicationsStore>(([set, get]) => ({
 	applications: [],
+	fullStatuses: [],
 	statuses: [],
 	favorited: [],
 
-	setApplications: (applications) => store.set({ applications }),
-	setStatuses: (statuses) => store.set({ statuses }),
-	toggleFavorite: (applicationId) =>
-		store.set({
-			favorited: store.get().favorited.includes(applicationId)
-				? store.get().favorited.filter((id) => id !== applicationId)
-				: [...store.get().favorited, applicationId],
-		}),
+	setApplications: (applications) => {
+		set({ applications });
+	},
+	addFullStatus: (fullStatus) => {
+		const previous = get().fullStatuses.filter(
+			(status) => status.applicationId !== fullStatus.applicationId,
+		);
+		set({ fullStatuses: [...previous, fullStatus] });
+	},
+	setStatuses: (statuses) => {
+		set({ statuses });
+	},
+	toggleFavorite: (applicationId) => {
+		set({
+			favorited: get().favorited.includes(applicationId)
+				? get().favorited.filter((id) => id !== applicationId)
+				: [...get().favorited, applicationId],
+		});
+	},
 
-	getStatus: (applicationId) =>
-		store
-			.get()
-			.statuses.find((status) => status.applicationId === applicationId),
-	isFavorited: (applicationId) => store.get().favorited.includes(applicationId),
+	getFullStatus: (applicationId) => {
+		return get().fullStatuses.find(
+			(status) => status.applicationId === applicationId,
+		);
+	},
+	getStatus: (applicationId) => {
+		return get().statuses.find(
+			(status) => status.applicationId === applicationId,
+		);
+	},
+	isFavorited: (applicationId) => {
+		return get().favorited.includes(applicationId);
+	},
 }));
 
 export default applicationsStore;
