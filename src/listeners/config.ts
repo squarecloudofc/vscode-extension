@@ -6,7 +6,7 @@ import { CONFIG_API_KEY } from "../constants/config";
 export function listenForApiKey() {
 	return workspace.onDidChangeConfiguration(async (event) => {
 		if (
-			event.affectsConfiguration(CONFIG_API_KEY) &&
+			event.affectsConfiguration(CONFIG_API_KEY.toString()) &&
 			(await coreConfig.testApiKey())
 		) {
 			await applicationsManager.refresh();
