@@ -1,7 +1,7 @@
+import { CONFIG_API_KEY } from "@/constants/config";
+import { EXTENSION_ID } from "@/constants/core";
 import { SquareCloudAPI } from "@squarecloud/api";
 import { type SecretStorage, commands, workspace } from "vscode";
-import { CONFIG_API_KEY } from "../constants/config";
-import { EXTENSION_ID } from "../constants/core";
 
 class CoreConfig {
 	private secrets?: SecretStorage;

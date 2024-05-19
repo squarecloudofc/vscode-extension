@@ -1,9 +1,9 @@
+import { Store } from "@/structures/store";
 import type {
 	ApplicationStatus,
 	BaseApplication,
 	SimpleApplicationStatus,
 } from "@squarecloud/api";
-import { Store } from "../structures/store";
 
 export interface ApplicationsStore {
 	applications: BaseApplication[];

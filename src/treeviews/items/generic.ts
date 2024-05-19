@@ -1,7 +1,7 @@
-import * as vscode from "vscode";
-import { getIcons } from "../../util/icons";
+import { getIcons } from "@/util/icons";
+import { TreeItem } from "vscode";
 
-export class GenericTreeItem extends vscode.TreeItem {
+export class GenericTreeItem extends TreeItem {
 	iconPath = this.iconName ? getIcons(`${this.iconName}.svg`) : undefined;
 
 	constructor(

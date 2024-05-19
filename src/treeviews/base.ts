@@ -1,15 +1,20 @@
-import * as vscode from "vscode";
+import {
+	type Event,
+	EventEmitter,
+	type ProviderResult,
+	type TreeDataProvider,
+	type TreeItem,
+} from "vscode";
 
-export class BaseTreeViewProvider<
-	TreeItemType extends vscode.TreeItem = vscode.TreeItem,
-> implements vscode.TreeDataProvider<TreeItemType>
+export class BaseTreeViewProvider<TreeItemType extends TreeItem = TreeItem>
+	implements TreeDataProvider<TreeItemType>
 {
-	protected _onDidChangeTreeData = new vscode.EventEmitter<
+	protected _onDidChangeTreeData = new EventEmitter<
 		// biome-ignore lint/suspicious/noConfusingVoidType: This is a valid type for the event emitter
 		TreeItemType | undefined | void
 	>();
 
-	public readonly onDidChangeTreeData: vscode.Event<
+	public readonly onDidChangeTreeData: Event<
 		// biome-ignore lint/suspicious/noConfusingVoidType: This is a valid type for the event emitter
 		TreeItemType | TreeItemType[] | null | undefined | void
 	> = this._onDidChangeTreeData.event;
@@ -18,7 +23,7 @@ export class BaseTreeViewProvider<
 		this._onDidChangeTreeData.fire();
 	}
 
-	getChildren(): vscode.ProviderResult<TreeItemType[]> {
+	getChildren(): ProviderResult<TreeItemType[]> {
 		return [];
 	}
 
