@@ -91,7 +91,7 @@ export class Store<T extends Record<string, any>> {
 		}
 
 		if (typeof keyOrFn === "function") {
-			return keyOrFn(this._store);
+			return keyOrFn({ ...this._store });
 		}
 
 		return { ...this._store };
