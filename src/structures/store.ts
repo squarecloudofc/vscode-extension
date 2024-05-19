@@ -19,6 +19,12 @@ export class Store<T extends Record<string, any>> {
 	private _onChange?: StoreOnChange<T>;
 	private _persist?: StorePersistConfig;
 
+	/**
+	 * Constructs a new Store instance.
+	 *
+	 * @param initial - The initial value for the store.
+	 * @param persist - The configuration for persisting the store.
+	 */
 	constructor(initial: StoreInitial<T>, persist?: StorePersistConfig) {
 		this._persist = persist;
 		this._store = initial([this.set.bind(this), this.get.bind(this)]);
@@ -78,10 +84,16 @@ export class Store<T extends Record<string, any>> {
 
 	get(): T;
 	get<K extends keyof T>(key: K): T[K];
-	get<K extends keyof T>(key?: K): T[K] | T {
-		if (key) {
-			return this._store[key];
+	get<K extends keyof T, U>(fn: (store: T) => U): U;
+	get<K extends keyof T, U>(keyOrFn?: K | ((store: T) => U)): T[K] | T | U {
+		if (typeof keyOrFn === "string") {
+			return this._store[keyOrFn];
 		}
+
+		if (typeof keyOrFn === "function") {
+			return keyOrFn(this._store);
+		}
+
 		return { ...this._store };
 	}
 }

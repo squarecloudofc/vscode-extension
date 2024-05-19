@@ -1,7 +1,7 @@
+import applications from "@/stores/applications";
+import { getIcons } from "@/util/icons";
 import type { BaseApplication } from "@squarecloud/api";
-import * as vscode from "vscode";
-import applications from "../../store/applications";
-import { getIcons } from "../../util/icons";
+import { TreeItem, TreeItemCollapsibleState } from "vscode";
 import type { CustomTreeItem } from "../items/custom";
 import type { GenericTreeItem } from "../items/generic";
 
@@ -10,12 +10,12 @@ export type SquareTreeItem =
 	| CustomTreeItem
 	| GenericTreeItem;
 
-export class ApplicationTreeItem extends vscode.TreeItem {
+export class ApplicationTreeItem extends TreeItem {
 	tooltip = this.application.id;
 
 	collapsibleState = this.status?.running
-		? vscode.TreeItemCollapsibleState.Collapsed
-		: vscode.TreeItemCollapsibleState.None;
+		? TreeItemCollapsibleState.Collapsed
+		: TreeItemCollapsibleState.None;
 
 	iconPath = getIcons(
 		this.status
@@ -32,10 +32,10 @@ export class ApplicationTreeItem extends vscode.TreeItem {
 	}
 
 	get favorited() {
-		return applications.get().isFavorited(this.application.id);
+		return applications.get((store) => store.isFavorited(this.application.id));
 	}
 
 	get status() {
-		return applications.get().getStatus(this.application.id);
+		return applications.get((store) => store.getStatus(this.application.id));
 	}
 }

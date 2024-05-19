@@ -1,6 +1,6 @@
 import { SquareCloudAPI } from "@squarecloud/api";
 import { coreConfig } from "../config/core";
-import applicationsStore from "../store/applications";
+import applicationsStore from "../stores/applications";
 
 class ApplicationsManager {
 	constructor() {

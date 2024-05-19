@@ -1,7 +1,7 @@
 import ms from "ms";
 import { t } from "vscode-ext-localisation";
 import { coreConfig } from "../../config/core";
-import applications from "../../store/applications";
+import applications from "../../stores/applications";
 import { BaseTreeViewProvider } from "../base";
 import { GenericTreeItem } from "../items/generic";
 import { ApplicationTreeItem, type SquareTreeItem } from "./item";
