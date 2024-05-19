@@ -1,28 +1,28 @@
 {
 	"version": "2.0.0",
 	"name": "squarecloud",
-	"displayName": "Square Cloud Easy",
 	"publisher": "squarecloud",
-	"icon": "resources/squarecloud.png",
+	"displayName": "Square Cloud Easy",
 	"description": "An extension to easily interact with the SquareCloud API.",
+	"categories": ["Other"],
+	"icon": "resources/squarecloud.png",
+	"keywords": ["squarecloud", "square cloud", "host", "bot", "website"],
 	"homepage": "https://github.com/squarecloudofc/vscode-extension/",
-	"engines": {
-		"vscode": "^1.74.0"
-	},
 	"author": {
-		"name": "bluey#0012",
-		"url": "https://github.com/bluee-js/"
+		"name": "João Gabriel Tonaco",
+		"url": "https://github.com/joaotonaco/"
 	},
 	"sponsor": {
 		"url": "https://squarecloud.app/"
 	},
-	"categories": ["Other"],
-	"activationEvents": ["*"],
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/squarecloudofc/vscode-extension"
 	},
-	"keywords": ["squarecloud", "square cloud", "host", "bot", "website"],
+	"engines": {
+		"vscode": "^1.74.0"
+	},
+	"activationEvents": ["*"],
 	"main": "./dist/extension.js",
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
