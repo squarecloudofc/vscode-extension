@@ -3,6 +3,7 @@ import { Logger } from "@/structures/logger";
 import type { ExtensionContext } from "vscode";
 import { getVscodeLang, loadTranslations } from "vscode-ext-localisation";
 import { APIManager } from "./api";
+import { CommandsManager } from "./commands";
 import { ConfigManager } from "./config";
 import { ListenersManager } from "./listeners";
 import { TreeViewsManager } from "./treeviews";
@@ -13,6 +14,7 @@ export class SquareEasyExtension {
 	public readonly config = new ConfigManager(this.context.secrets);
 	public readonly treeViews = new TreeViewsManager(this.config);
 	public readonly listeners = new ListenersManager(this);
+	public readonly commands = new CommandsManager(this);
 	public readonly api = new APIManager(this.config);
 
 	constructor(public readonly context: ExtensionContext) {
