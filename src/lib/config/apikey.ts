@@ -1,11 +1,12 @@
 import { Config } from "@/lib/constants";
-import { config } from "@/managers/config";
 import { SquareCloudAPI } from "@squarecloud/api";
-import { commands } from "vscode";
+import { type SecretStorage, commands } from "vscode";
 
 export class ConfigAPIKey {
+	constructor(private readonly secrets: SecretStorage) {}
+
 	async get() {
-		const apiKey = await config.secrets?.get(Config.APIKey.name);
+		const apiKey = await this.secrets.get(Config.APIKey.name);
 		commands.executeCommand("setContext", `${Config.APIKey}`, !!apiKey);
 
 		return apiKey;
@@ -13,10 +14,10 @@ export class ConfigAPIKey {
 
 	async set(value: string | undefined) {
 		if (!value) {
-			await config.secrets?.delete(Config.APIKey.name);
+			await this.secrets.delete(Config.APIKey.name);
 			return;
 		}
-		await config.secrets?.store(Config.APIKey.name, value);
+		await this.secrets.store(Config.APIKey.name, value);
 	}
 
 	async test() {
@@ -36,5 +37,3 @@ export class ConfigAPIKey {
 		return apiKey;
 	}
 }
-
-export const configAPIKey = new ConfigAPIKey();

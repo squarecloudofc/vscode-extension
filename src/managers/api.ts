@@ -1,22 +1,25 @@
-import { configAPIKey } from "@/lib/config/apikey";
 import applicationsStore from "@/lib/stores/applications";
+import type { ConfigManager } from "@/managers/config";
+import { Logger } from "@/structures/logger";
 import { SquareCloudAPI } from "@squarecloud/api";
 
-class ApplicationsManager {
-	constructor() {
+export class APIManager {
+	private readonly logger = new Logger("Square Cloud Easy");
+
+	constructor(private readonly config: ConfigManager) {
 		this.refresh();
 		setInterval(() => this.refresh(), 10000);
 	}
 
 	async refresh() {
-		const apiKey = await configAPIKey.test();
+		const apiKey = await this.config.apiKey.test();
 
 		if (!apiKey) {
-			console.log("[Square Cloud Easy] API key not found.");
+			this.logger.log("API key not found.");
 			return;
 		}
 
-		console.log(`[Square Cloud Easy] API key \`${apiKey}\`.`);
+		this.logger.log(`API key \`${apiKey}\`.`);
 
 		const api = new SquareCloudAPI(apiKey);
 		const applications = await api.applications.get();
@@ -34,8 +37,8 @@ class ApplicationsManager {
 				}),
 		);
 
-		console.log(
-			`[Square Cloud Easy] Found ${applications.size} applications and ${statuses.length} statuses.`,
+		this.logger.log(
+			`Found ${applications.size} applications and ${statuses.length} statuses.`,
 		);
 
 		applicationsStore.set({
@@ -45,5 +48,3 @@ class ApplicationsManager {
 		});
 	}
 }
-
-export const applicationsManager = new ApplicationsManager();

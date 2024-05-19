@@ -1,10 +1,20 @@
-import type { ExtensionContext } from "vscode";
-import { onChangeAPIKey } from "../lib/listeners/config";
+import { Config } from "@/lib/constants";
+import { workspace } from "vscode";
+import type { SquareEasyExtension } from "./extension";
 
 export class ListenersManager {
-	register(context: ExtensionContext) {
-		context.subscriptions.push(onChangeAPIKey());
+	constructor(private readonly extension: SquareEasyExtension) {
+		extension.context.subscriptions.push(this.onChangeAPIKey());
+	}
+
+	onChangeAPIKey() {
+		return workspace.onDidChangeConfiguration(async (event) => {
+			if (
+				event.affectsConfiguration(Config.APIKey.toString()) &&
+				(await this.extension.config.apiKey.test())
+			) {
+				await this.extension.api.refresh();
+			}
+		});
 	}
 }
-
-export const listeners = new ListenersManager();

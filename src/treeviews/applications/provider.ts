@@ -1,5 +1,5 @@
-import { configAPIKey } from "@/lib/config/apikey";
 import applications from "@/lib/stores/applications";
+import type { ConfigManager } from "@/managers/config";
 import ms from "ms";
 import { t } from "vscode-ext-localisation";
 import { BaseTreeViewProvider } from "../base";
@@ -9,6 +9,10 @@ import { ApplicationTreeItem, type SquareTreeItem } from "./item";
 export type GenericTreeItemData = ConstructorParameters<typeof GenericTreeItem>;
 
 export class ApplicationsTreeViewProvider extends BaseTreeViewProvider<SquareTreeItem> {
+	constructor(private readonly config: ConfigManager) {
+		super();
+	}
+
 	async getChildren(
 		element?: SquareTreeItem | undefined,
 	): Promise<SquareTreeItem[] | null | undefined> {
@@ -59,8 +63,8 @@ export class ApplicationsTreeViewProvider extends BaseTreeViewProvider<SquareTre
 			);
 		}
 
-		if (!applications.get().applications.length) {
-			const apiKey = await configAPIKey.get();
+		if (!applications.get("applications").length) {
+			const apiKey = await this.config.apiKey.get();
 
 			if (!apiKey) {
 				return [];

@@ -1,14 +1,15 @@
 import { ApplicationsTreeViewProvider } from "@/treeviews/applications/provider";
 import { window } from "vscode";
+import type { ConfigManager } from "./config";
 
 type TreeViewsKey = keyof TreeViewsManager["views"];
 
 export class TreeViewsManager {
 	public views = {
-		applications: new ApplicationsTreeViewProvider(),
+		applications: new ApplicationsTreeViewProvider(this.config),
 	};
 
-	register() {
+	constructor(private readonly config: ConfigManager) {
 		window.registerTreeDataProvider("apps-view", this.views.applications);
 	}
 
@@ -24,5 +25,3 @@ export class TreeViewsManager {
 		}
 	}
 }
-
-export const treeViews = new TreeViewsManager();
