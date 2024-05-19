@@ -1,5 +1,5 @@
-import { coreConfig } from "@/config/core";
-import applicationsStore from "@/stores/applications";
+import { configAPIKey } from "@/lib/config/apikey";
+import applicationsStore from "@/lib/stores/applications";
 import { SquareCloudAPI } from "@squarecloud/api";
 
 class ApplicationsManager {
@@ -9,7 +9,7 @@ class ApplicationsManager {
 	}
 
 	async refresh() {
-		const apiKey = await coreConfig.testApiKey();
+		const apiKey = await configAPIKey.test();
 
 		if (!apiKey) {
 			console.log("[Square Cloud Easy] API key not found.");

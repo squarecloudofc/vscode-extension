@@ -1,9 +1,9 @@
+import { ApplicationsTreeViewProvider } from "@/treeviews/applications/provider";
 import { window } from "vscode";
-import { ApplicationsTreeViewProvider } from "./applications/provider";
 
 type TreeViewsKey = keyof TreeViewsManager["views"];
 
-class TreeViewsManager {
+export class TreeViewsManager {
 	public views = {
 		applications: new ApplicationsTreeViewProvider(),
 	};
@@ -25,4 +25,4 @@ class TreeViewsManager {
 	}
 }
 
-export const treeViewsManager = new TreeViewsManager();
+export const treeViews = new TreeViewsManager();

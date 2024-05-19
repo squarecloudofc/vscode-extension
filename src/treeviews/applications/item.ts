@@ -1,5 +1,5 @@
-import applications from "@/stores/applications";
-import { getIcons } from "@/utils/icons";
+import applications from "@/lib/stores/applications";
+import { getIcons } from "@/lib/utils/icons";
 import type { BaseApplication } from "@squarecloud/api";
 import { TreeItem, TreeItemCollapsibleState } from "vscode";
 import type { CustomTreeItem } from "../items/custom";

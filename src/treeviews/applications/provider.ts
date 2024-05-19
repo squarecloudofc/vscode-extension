@@ -1,5 +1,5 @@
-import { coreConfig } from "@/config/core";
-import applications from "@/stores/applications";
+import { configAPIKey } from "@/lib/config/apikey";
+import applications from "@/lib/stores/applications";
 import ms from "ms";
 import { t } from "vscode-ext-localisation";
 import { BaseTreeViewProvider } from "../base";
@@ -60,7 +60,7 @@ export class ApplicationsTreeViewProvider extends BaseTreeViewProvider<SquareTre
 		}
 
 		if (!applications.get().applications.length) {
-			const apiKey = await coreConfig.getApiKey();
+			const apiKey = await configAPIKey.get();
 
 			if (!apiKey) {
 				return [];

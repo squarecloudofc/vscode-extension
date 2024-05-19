@@ -1,5 +1,6 @@
 import { Constant } from "@/structures/constant";
-import { ExtensionID } from ".";
+
+export const ExtensionID = "squarecloud";
 
 export const Config = {
 	APIKey: new Constant("apiKey", ExtensionID),

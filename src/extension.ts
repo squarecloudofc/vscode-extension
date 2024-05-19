@@ -1,1 +1,2 @@
-export * from "./core";
+export * from "./core/activate";
+export * from "./core/deactivate";
