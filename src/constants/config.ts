@@ -1,6 +1,7 @@
 import { Constant } from "@/structures/constant";
-import { EXTENSION_ID } from ".";
+import { ExtensionID } from ".";
 
-export const CONFIG_API_KEY = new Constant("apiKey", EXTENSION_ID);
-
-export const CONFIG_FAVORITED_APPS = new Constant("favApps", EXTENSION_ID);
+export const Config = {
+	APIKey: new Constant("apiKey", ExtensionID),
+	FavoritedApps: new Constant("favApps", ExtensionID),
+};

@@ -1,1 +1,1 @@
-export const EXTENSION_ID = "squarecloud";
+export const ExtensionID = "squarecloud";

@@ -1,5 +1,5 @@
-import { EXTENSION_ID } from "@/constants";
-import { CONFIG_API_KEY } from "@/constants/config";
+import { ExtensionID } from "@/constants";
+import { Config } from "@/constants/config";
 import { SquareCloudAPI } from "@squarecloud/api";
 import { type SecretStorage, commands, workspace } from "vscode";
 
@@ -11,22 +11,22 @@ class CoreConfig {
 	}
 
 	get rootConfiguration() {
-		return workspace.getConfiguration(EXTENSION_ID);
+		return workspace.getConfiguration(ExtensionID);
 	}
 
 	async getApiKey() {
-		const apiKey = await this.secrets?.get(CONFIG_API_KEY.name);
-		commands.executeCommand("setContext", CONFIG_API_KEY, !!apiKey);
+		const apiKey = await this.secrets?.get(Config.APIKey.name);
+		commands.executeCommand("setContext", Config.APIKey, !!apiKey);
 
 		return apiKey;
 	}
 
 	async setApiKey(value?: string) {
 		if (!value) {
-			await this.secrets?.delete(CONFIG_API_KEY.name);
+			await this.secrets?.delete(Config.APIKey.name);
 			return;
 		}
-		await this.secrets?.store(CONFIG_API_KEY.name, value);
+		await this.secrets?.store(Config.APIKey.name, value);
 	}
 
 	async testApiKey() {
