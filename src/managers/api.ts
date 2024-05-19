@@ -1,4 +1,4 @@
-import applicationsStore from "@/lib/stores/applications";
+import { applicationsStore } from "@/lib/stores/applications";
 import type { ConfigManager } from "@/managers/config";
 import { Logger } from "@/structures/logger";
 import { SquareCloudAPI } from "@squarecloud/api";
@@ -28,9 +28,7 @@ export class APIManager {
 		const storedFullStatuses = applicationsStore.get().fullStatuses;
 		const fullStatuses = await Promise.all(
 			applications
-				.filter((app) =>
-					storedFullStatuses.find((full) => full.applicationId === app.id),
-				)
+				.filter((app) => storedFullStatuses.get(app.id))
 				.map(async (app) => {
 					const application = await app.fetch();
 					return application.getStatus();
@@ -41,10 +39,9 @@ export class APIManager {
 			`Found ${applications.size} applications and ${statuses.length} statuses.`,
 		);
 
-		applicationsStore.set({
-			applications: applications.toJSON(),
-			fullStatuses,
-			statuses,
-		});
+		const store = applicationsStore.get();
+		store.setApplications(applications.toJSON());
+		store.setFullStatuses(fullStatuses);
+		store.setStatuses(statuses);
 	}
 }

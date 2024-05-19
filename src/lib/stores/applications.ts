@@ -1,17 +1,18 @@
-import { Store } from "@/structures/store";
 import type {
 	ApplicationStatus,
 	BaseApplication,
 	SimpleApplicationStatus,
 } from "@squarecloud/api";
+import { createStore } from "zustand/vanilla";
 
 export interface ApplicationsStore {
-	applications: BaseApplication[];
-	statuses: SimpleApplicationStatus[];
-	fullStatuses: ApplicationStatus[];
-	favorited: string[];
+	applications: Map<string, BaseApplication>;
+	statuses: Map<string, SimpleApplicationStatus>;
+	fullStatuses: Map<string, ApplicationStatus>;
+	favorited: Set<string>;
 
 	setApplications(applications: BaseApplication[]): void;
+	setFullStatuses(fullStatuses: ApplicationStatus[]): void;
 	addFullStatus(fullStatus: ApplicationStatus): void;
 	setStatuses(statuses: SimpleApplicationStatus[]): void;
 	toggleFavorite(applicationId: string): void;
@@ -21,45 +22,62 @@ export interface ApplicationsStore {
 	isFavorited(applicationId: string): boolean;
 }
 
-const applicationsStore = new Store<ApplicationsStore>(([set, get]) => ({
-	applications: [],
-	fullStatuses: [],
-	statuses: [],
-	favorited: [],
+const {
+	getState: get,
+	setState: set,
+	subscribe,
+} = createStore<ApplicationsStore>((set, get) => ({
+	applications: new Map(),
+	fullStatuses: new Map(),
+	statuses: new Map(),
+	favorited: new Set<string>(),
 
 	setApplications: (applications) => {
-		set({ applications });
+		const map = new Map(applications.map((app) => [app.id, app]));
+
+		set({ applications: map });
+	},
+	setFullStatuses: (fullStatuses) => {
+		const map = new Map(
+			fullStatuses.map((fullStatus) => [fullStatus.applicationId, fullStatus]),
+		);
+
+		set({ fullStatuses: map });
 	},
 	addFullStatus: (fullStatus) => {
-		const previous = get().fullStatuses.filter(
-			(status) => status.applicationId !== fullStatus.applicationId,
-		);
-		set({ fullStatuses: [...previous, fullStatus] });
+		const map = get().fullStatuses.set(fullStatus.applicationId, fullStatus);
+
+		set({ fullStatuses: map });
 	},
 	setStatuses: (statuses) => {
-		set({ statuses });
+		const map = new Map(
+			statuses.map((status) => [status.applicationId, status]),
+		);
+
+		set({ statuses: map });
 	},
 	toggleFavorite: (applicationId) => {
-		set({
-			favorited: get().favorited.includes(applicationId)
-				? get().favorited.filter((id) => id !== applicationId)
-				: [...get().favorited, applicationId],
-		});
+		const favorited = get().favorited;
+		const isFavorited = favorited.has(applicationId);
+
+		if (isFavorited) {
+			favorited.delete(applicationId);
+		} else {
+			favorited.add(applicationId);
+		}
+
+		set({ favorited });
 	},
 
 	getFullStatus: (applicationId) => {
-		return get().fullStatuses.find(
-			(status) => status.applicationId === applicationId,
-		);
+		return get().fullStatuses.get(applicationId);
 	},
 	getStatus: (applicationId) => {
-		return get().statuses.find(
-			(status) => status.applicationId === applicationId,
-		);
+		return get().statuses.get(applicationId);
 	},
 	isFavorited: (applicationId) => {
-		return get().favorited.includes(applicationId);
+		return get().favorited.has(applicationId);
 	},
 }));
 
-export default applicationsStore;
+export const applicationsStore = { get, set, subscribe };

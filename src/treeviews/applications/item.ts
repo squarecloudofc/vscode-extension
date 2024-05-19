@@ -1,4 +1,4 @@
-import applications from "@/lib/stores/applications";
+import { applicationsStore } from "@/lib/stores/applications";
 import { getIcons } from "@/lib/utils/icons";
 import type { BaseApplication } from "@squarecloud/api";
 import { TreeItem, TreeItemCollapsibleState } from "vscode";
@@ -32,10 +32,10 @@ export class ApplicationTreeItem extends TreeItem {
 	}
 
 	get favorited() {
-		return applications.get((store) => store.isFavorited(this.application.id));
+		return applicationsStore.get().isFavorited(this.application.id);
 	}
 
 	get status() {
-		return applications.get((store) => store.getStatus(this.application.id));
+		return applicationsStore.get().getStatus(this.application.id);
 	}
 }

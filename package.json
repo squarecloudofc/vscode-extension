@@ -40,7 +40,8 @@
 		"form-data": "^4.0.0",
 		"ignore": "^5.3.1",
 		"ms": "^3.0.0-canary.1",
-		"vscode-ext-localisation": "^1.1.0"
+		"vscode-ext-localisation": "^1.1.0",
+		"zustand": "^4.5.2"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.7.3",

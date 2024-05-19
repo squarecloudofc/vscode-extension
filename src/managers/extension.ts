@@ -1,11 +1,10 @@
-import applicationsStore from "@/lib/stores/applications";
+import { applicationsStore } from "@/lib/stores/applications";
 import { Logger } from "@/structures/logger";
 import type { ExtensionContext } from "vscode";
 import { getVscodeLang, loadTranslations } from "vscode-ext-localisation";
 import { APIManager } from "./api";
 import { CommandsManager } from "./commands";
 import { ConfigManager } from "./config";
-import { ListenersManager } from "./listeners";
 import { TreeViewsManager } from "./treeviews";
 
 export class SquareEasyExtension {
@@ -13,7 +12,6 @@ export class SquareEasyExtension {
 
 	public readonly config = new ConfigManager(this.context.secrets);
 	public readonly treeViews = new TreeViewsManager(this.config);
-	public readonly listeners = new ListenersManager(this);
 	public readonly commands = new CommandsManager(this);
 	public readonly api = new APIManager(this.config);
 
@@ -37,7 +35,6 @@ export class SquareEasyExtension {
 
 	initializeStores() {
 		applicationsStore.subscribe(() => this.treeViews.refreshAll());
-		applicationsStore.persist({ name: "applications", context: this.context });
 
 		this.logger.log("Stores initialized!");
 	}

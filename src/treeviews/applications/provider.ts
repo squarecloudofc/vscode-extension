@@ -1,4 +1,4 @@
-import applications from "@/lib/stores/applications";
+import { applicationsStore } from "@/lib/stores/applications";
 import type { ConfigManager } from "@/managers/config";
 import ms from "ms";
 import { t } from "vscode-ext-localisation";
@@ -27,7 +27,7 @@ export class ApplicationsTreeViewProvider extends BaseTreeViewProvider<SquareTre
 				return [];
 			}
 
-			const fullStatus = applications
+			const fullStatus = applicationsStore
 				.get()
 				.getFullStatus(element.application.id);
 
@@ -36,7 +36,7 @@ export class ApplicationsTreeViewProvider extends BaseTreeViewProvider<SquareTre
 					.fetch()
 					.then((app) => app.getStatus())
 					.then((fullStatus) => {
-						applications.get().addFullStatus(fullStatus);
+						applicationsStore.get().addFullStatus(fullStatus);
 					});
 			}
 
@@ -50,6 +50,7 @@ export class ApplicationsTreeViewProvider extends BaseTreeViewProvider<SquareTre
 				const uptime = fullStatus?.uptimeTimestamp
 					? ms(Date.now() - fullStatus.uptimeTimestamp)
 					: "Offline";
+
 				treeItemsData.pop();
 				treeItemsData.push(
 					["Uptime", "uptime", uptime],
@@ -63,7 +64,7 @@ export class ApplicationsTreeViewProvider extends BaseTreeViewProvider<SquareTre
 			);
 		}
 
-		if (!applications.get("applications").length) {
+		if (!applicationsStore.get().applications.size) {
 			const apiKey = await this.config.apiKey.get();
 
 			if (!apiKey) {
@@ -80,8 +81,8 @@ export class ApplicationsTreeViewProvider extends BaseTreeViewProvider<SquareTre
 			];
 		}
 
-		return applications
-			.get()
-			.applications.map((app) => new ApplicationTreeItem(app));
+		return Array.from(applicationsStore.get().applications.values()).map(
+			(app) => new ApplicationTreeItem(app),
+		);
 	}
 }
