@@ -357,16 +357,11 @@
 			{
 				"title": "SquareCloud",
 				"properties": {
-					"squarecloud.apiKey": {
-						"title": "SquareCloud API Key.",
-						"type": "string",
-						"markdownDescription": "%config.apiKey.description%"
-					},
 					"squarecloud.workspaceAppId": {
 						"title": "The workspace folder application ID.",
 						"type": "string"
 					},
-					"squarecloud.favoritedApps": {
+					"squarecloud.favApps": {
 						"title": "Favorited apps will show in the explorer container.",
 						"type": "array",
 						"default": []
