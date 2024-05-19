@@ -27,7 +27,7 @@
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
 		"compile": "tsc && tsc-alias",
-		"watch": "tsc && (concurrently \"tsc -w\" \"tsc-alias -w\")",
+		"watch": "concurrently --raw \"tsc -w\" \"tsc-alias -w\"",
 		"pretest": "npm run compile && npm run lint",
 		"lint": "biome check --apply .",
 		"test": "node ./dist/test/runTest.js",
