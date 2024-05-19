@@ -1,4 +1,4 @@
-import { getIcons } from "@/util/icons";
+import { getIcons } from "@/utils/icons";
 import { type Command, TreeItem } from "vscode";
 
 export class CustomTreeItem extends TreeItem {
