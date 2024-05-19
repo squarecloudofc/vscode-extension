@@ -6,6 +6,9 @@
 		"lib": ["ESNext", "DOM"],
 		"sourceMap": true,
 		"rootDir": "src",
-		"strict": true
+		"strict": true,
+		"paths": {
+			"@/*": ["./src/*"]
+		}
 	}
 }

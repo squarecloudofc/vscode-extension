@@ -26,8 +26,8 @@
 	"main": "./dist/extension.js",
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
-		"compile": "tsc -p ./",
-		"watch": "tsc -watch -p ./",
+		"compile": "tsc && tsc-alias",
+		"watch": "tsc && (concurrently \"tsc -w\" \"tsc-alias -w\")",
 		"pretest": "npm run compile && npm run lint",
 		"lint": "biome check --apply .",
 		"test": "node ./dist/test/runTest.js",
@@ -49,9 +49,11 @@
 		"@types/node": "^20.11.29",
 		"@types/vscode": "^1.87.0",
 		"@vscode/test-electron": "^2.3.9",
+		"concurrently": "^8.2.2",
 		"cz-conventional-changelog": "^3.3.0",
 		"husky": "^8.0.3",
 		"mocha": "^10.3.0",
+		"tsc-alias": "^1.8.10",
 		"typescript": "^5.4.2"
 	},
 	"contributes": {
