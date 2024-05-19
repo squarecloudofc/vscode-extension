@@ -19,9 +19,11 @@ export class CommandsManager {
 			const command: Command = (await import(file)).default;
 			if (!command) continue;
 
-			this.extension.context.subscriptions.push(
-				commands.registerCommand(command.name, command.execute),
+			const disposable = commands.registerCommand(command.name, (...args) =>
+				command.execute(this.extension, ...args),
 			);
+
+			this.extension.context.subscriptions.push(disposable);
 			commandCounter++;
 		}
 

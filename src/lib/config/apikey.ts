@@ -20,8 +20,8 @@ export class ConfigAPIKey {
 		await this.secrets.store(Config.APIKey.name, value);
 	}
 
-	async test() {
-		const apiKey = await this.get();
+	async test(apiKey?: string) {
+		apiKey = apiKey || (await this.get());
 
 		if (!apiKey) {
 			return this.set(undefined);
