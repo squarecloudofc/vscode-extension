@@ -1,12 +1,14 @@
 import { ExtensionID } from "@/lib/constants";
 import type { SquareEasyExtension } from "@/managers/extension";
+import type { ApplicationTreeItem } from "@/treeviews/applications/item";
 
 export type CommandExecute = (
 	extension: SquareEasyExtension,
+	treeItem: ApplicationTreeItem,
 	...args: any[]
 ) => void;
 
-export class Command {
+export class ApplicationCommand {
 	/**
 	 * Constructs a new instance of the class.
 	 *
