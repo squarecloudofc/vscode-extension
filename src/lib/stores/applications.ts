@@ -1,24 +1,18 @@
-import type {
-	ApplicationStatus,
-	BaseApplication,
-	SimpleApplicationStatus,
-} from "@squarecloud/api";
+import type { ApplicationStatus } from "@/structures/application/status";
+import { type BaseApplication, Collection } from "@squarecloud/api";
 import { createStore } from "zustand/vanilla";
 
 export interface ApplicationsStore {
-	applications: Map<string, BaseApplication>;
-	statuses: Map<string, SimpleApplicationStatus>;
-	fullStatuses: Map<string, ApplicationStatus>;
+	applications: Collection<string, BaseApplication>;
+	statuses: Collection<string, ApplicationStatus>;
 	favorited: Set<string>;
 
 	setApplications(applications: BaseApplication[]): void;
-	setFullStatuses(fullStatuses: ApplicationStatus[]): void;
-	addFullStatus(fullStatus: ApplicationStatus): void;
-	setStatuses(statuses: SimpleApplicationStatus[]): void;
+	setStatuses(statuses: ApplicationStatus[]): void;
+	setStatus(status: ApplicationStatus): void;
 	toggleFavorite(applicationId: string): void;
 
-	getFullStatus(applicationId: string): ApplicationStatus | undefined;
-	getStatus(applicationId: string): SimpleApplicationStatus | undefined;
+	getStatus(applicationId: string): ApplicationStatus | undefined;
 	isFavorited(applicationId: string): boolean;
 }
 
@@ -27,30 +21,22 @@ const {
 	setState: set,
 	subscribe,
 } = createStore<ApplicationsStore>((set, get) => ({
-	applications: new Map(),
-	fullStatuses: new Map(),
-	statuses: new Map(),
+	applications: new Collection(),
+	statuses: new Collection(),
 	favorited: new Set<string>(),
 
 	setApplications: (applications) => {
-		const map = new Map(applications.map((app) => [app.id, app]));
+		const map = new Collection(applications.map((app) => [app.id, app]));
 
 		set({ applications: map });
 	},
-	setFullStatuses: (fullStatuses) => {
-		const map = new Map(
-			fullStatuses.map((fullStatus) => [fullStatus.applicationId, fullStatus]),
-		);
+	setStatus: (status) => {
+		const map = get().statuses.set(status.applicationId, status);
 
-		set({ fullStatuses: map });
-	},
-	addFullStatus: (fullStatus) => {
-		const map = get().fullStatuses.set(fullStatus.applicationId, fullStatus);
-
-		set({ fullStatuses: map });
+		set({ statuses: map });
 	},
 	setStatuses: (statuses) => {
-		const map = new Map(
+		const map = new Collection(
 			statuses.map((status) => [status.applicationId, status]),
 		);
 
@@ -69,9 +55,6 @@ const {
 		set({ favorited });
 	},
 
-	getFullStatus: (applicationId) => {
-		return get().fullStatuses.get(applicationId);
-	},
 	getStatus: (applicationId) => {
 		return get().statuses.get(applicationId);
 	},
