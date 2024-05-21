@@ -1,5 +1,6 @@
 import { applicationsStore } from "@/lib/stores/applications";
 import type { ConfigManager } from "@/managers/config";
+import { ApplicationStatus } from "@/structures/application/status";
 import ms from "ms";
 import { t } from "vscode-ext-localisation";
 import { BaseTreeViewProvider } from "../base";
@@ -27,16 +28,14 @@ export class ApplicationsTreeViewProvider extends BaseTreeViewProvider<SquareTre
 				return [];
 			}
 
-			const fullStatus = applicationsStore
-				.get()
-				.getFullStatus(element.application.id);
+			const status = applicationsStore.get().getStatus(element.application.id);
 
-			if (!fullStatus) {
+			if (!status) {
 				element.application
 					.fetch()
 					.then((app) => app.getStatus())
-					.then((fullStatus) => {
-						applicationsStore.get().addFullStatus(fullStatus);
+					.then((status) => {
+						applicationsStore.get().setStatus(new ApplicationStatus(status));
 					});
 			}
 
@@ -46,8 +45,9 @@ export class ApplicationsTreeViewProvider extends BaseTreeViewProvider<SquareTre
 				[t("generic.loading"), "loading"],
 			];
 
-			if (fullStatus) {
-				const uptime = fullStatus?.uptimeTimestamp
+			if (status?.isFull()) {
+				const fullStatus = status as ApplicationStatus<true>;
+				const uptime = fullStatus.uptimeTimestamp
 					? ms(Date.now() - fullStatus.uptimeTimestamp)
 					: "Offline";
 

@@ -1,10 +1,13 @@
 import { applicationsStore } from "@/lib/stores/applications";
 import type { ConfigManager } from "@/managers/config";
+import { ApplicationStatus } from "@/structures/application/status";
 import { Logger } from "@/structures/logger";
 import { SquareCloudAPI } from "@squarecloud/api";
 
 export class APIManager {
 	private readonly logger = new Logger("Square Cloud Easy");
+
+	public paused = false;
 
 	constructor(private readonly config: ConfigManager) {
 		this.refresh();
@@ -12,6 +15,11 @@ export class APIManager {
 	}
 
 	async refresh() {
+		if (this.paused) {
+			return;
+		}
+		this.pause(true);
+
 		const apiKey = await this.config.apiKey.test();
 
 		if (!apiKey) {
@@ -25,15 +33,19 @@ export class APIManager {
 		const applications = await api.applications.get();
 		const statuses = await api.applications.status();
 
-		const storedFullStatuses = applicationsStore.get().fullStatuses;
-		const fullStatuses = await Promise.all(
+		const storedStatuses = applicationsStore.get().statuses;
+
+		await Promise.all(
 			applications
-				.filter((app) => storedFullStatuses.get(app.id))
+				.filter((app) => storedStatuses.get(app.id)?.isFull())
 				.map(async (app) => {
 					const application = await app.fetch();
-					return application.getStatus();
+					const status = await application.getStatus();
+					storedStatuses.set(app.id, new ApplicationStatus(status));
 				}),
 		);
+
+		this.pause(false);
 
 		this.logger.log(
 			`Found ${applications.size} applications and ${statuses.length} statuses.`,
@@ -41,7 +53,37 @@ export class APIManager {
 
 		const store = applicationsStore.get();
 		store.setApplications(applications.toJSON());
-		store.setFullStatuses(fullStatuses);
-		store.setStatuses(statuses);
+		store.setStatuses(Array.from(storedStatuses.values()));
+	}
+
+	async refreshStatus(appId: string) {
+		if (this.paused) {
+			return;
+		}
+		this.pause(true);
+
+		const apiKey = await this.config.apiKey.test();
+
+		if (!apiKey) {
+			this.logger.log("API key not found.");
+			return;
+		}
+
+		const api = new SquareCloudAPI(apiKey);
+		const application = await api.applications.get(appId);
+		const status = await application.getStatus();
+
+		this.pause(false);
+
+		applicationsStore.get().setStatus(new ApplicationStatus(status));
+	}
+
+	async pauseUntil<T>(fn: () => Promise<T>) {
+		this.pause(true);
+		return fn().finally(() => this.pause(false));
+	}
+
+	private pause(value?: boolean) {
+		this.paused = value || !this.paused;
 	}
 }
