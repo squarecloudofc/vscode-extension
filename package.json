@@ -31,8 +31,7 @@
 		"pretest": "npm run compile && npm run lint",
 		"lint": "biome check --apply .",
 		"test": "node ./dist/test/runTest.js",
-		"prepare": "husky install",
-		"commit": "git-cz"
+		"prepare": "husky install"
 	},
 	"dependencies": {
 		"@squarecloud/api": "^3.4.3",
@@ -51,7 +50,6 @@
 		"@types/vscode": "^1.89.0",
 		"@vscode/test-electron": "^2.3.10",
 		"concurrently": "^8.2.2",
-		"cz-conventional-changelog": "^3.3.0",
 		"husky": "^8.0.3",
 		"mocha": "^10.4.0",
 		"tsc-alias": "^1.8.10",
@@ -397,10 +395,5 @@
 				"path": "./syntaxes/env.tmLanguage.json"
 			}
 		]
-	},
-	"config": {
-		"commitizen": {
-			"path": "./node_modules/cz-conventional-changelog"
-		}
 	}
 }
