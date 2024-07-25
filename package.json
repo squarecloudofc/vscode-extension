@@ -20,7 +20,7 @@
 		"url": "https://github.com/squarecloudofc/vscode-extension"
 	},
 	"engines": {
-		"vscode": "^1.74.0"
+		"vscode": "^1.91.1"
 	},
 	"activationEvents": ["*"],
 	"main": "./dist/extension.js",
@@ -34,26 +34,26 @@
 		"prepare": "husky install"
 	},
 	"dependencies": {
-		"@squarecloud/api": "^3.4.3",
-		"adm-zip": "^0.5.12",
+		"@squarecloud/api": "^3.6.1",
+		"adm-zip": "^0.5.14",
 		"form-data": "^4.0.0",
 		"ignore": "^5.3.1",
 		"ms": "^3.0.0-canary.1",
 		"vscode-ext-localisation": "^1.1.0",
-		"zustand": "^4.5.2"
+		"zustand": "^4.5.4"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "^1.7.3",
+		"@biomejs/biome": "^1.8.3",
 		"@types/adm-zip": "^0.5.5",
-		"@types/mocha": "^10.0.6",
-		"@types/node": "^20.12.12",
-		"@types/vscode": "^1.89.0",
-		"@vscode/test-electron": "^2.3.10",
+		"@types/mocha": "^10.0.7",
+		"@types/node": "^20.14.12",
+		"@types/vscode": "^1.91.0",
+		"@vscode/test-electron": "^2.4.1",
 		"concurrently": "^8.2.2",
 		"husky": "^8.0.3",
-		"mocha": "^10.4.0",
+		"mocha": "^10.7.0",
 		"tsc-alias": "^1.8.10",
-		"typescript": "^5.4.5"
+		"typescript": "^5.5.4"
 	},
 	"contributes": {
 		"menus": {
