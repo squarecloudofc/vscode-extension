@@ -20,7 +20,7 @@
 		"url": "https://github.com/squarecloudofc/vscode-extension"
 	},
 	"engines": {
-		"vscode": "^1.91.1"
+		"vscode": "^1.91.0"
 	},
 	"activationEvents": ["*"],
 	"main": "./dist/extension.js",
@@ -31,7 +31,7 @@
 		"pretest": "npm run compile && npm run lint",
 		"lint": "biome check --apply .",
 		"test": "node ./dist/test/runTest.js",
-		"prepare": "husky install"
+		"prepare": "husky"
 	},
 	"dependencies": {
 		"@squarecloud/api": "^3.6.1",
@@ -50,7 +50,7 @@
 		"@types/vscode": "^1.91.0",
 		"@vscode/test-electron": "^2.4.1",
 		"concurrently": "^8.2.2",
-		"husky": "^8.0.3",
+		"husky": "^9.1.2",
 		"mocha": "^10.7.0",
 		"tsc-alias": "^1.8.10",
 		"typescript": "^5.5.4"
