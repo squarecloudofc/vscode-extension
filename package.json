@@ -354,12 +354,8 @@
 		},
 		"configuration": [
 			{
-				"title": "SquareCloud",
+				"title": "Square Cloud Easy",
 				"properties": {
-					"squarecloud.workspaceAppId": {
-						"title": "The workspace folder application ID.",
-						"type": "string"
-					},
 					"squarecloud.favApps": {
 						"title": "Favorited apps will show in the explorer container.",
 						"type": "array",
