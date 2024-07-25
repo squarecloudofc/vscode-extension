@@ -28,7 +28,7 @@ export class ApplicationTreeItem extends TreeItem {
 	contextValue = this.favorited ? "application-fav" : "application";
 
 	constructor(public readonly application: BaseApplication) {
-		super(application.tag);
+		super(application.name);
 	}
 
 	get favorited() {

@@ -31,7 +31,7 @@ export class APIManager {
 
 		const api = new SquareCloudAPI(apiKey);
 		const applications = await api.applications.get();
-		const statuses = await api.applications.status();
+		const statuses = await api.applications.statusAll();
 
 		const storedStatuses = applicationsStore.get().statuses;
 
