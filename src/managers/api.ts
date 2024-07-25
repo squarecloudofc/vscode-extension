@@ -1,17 +1,16 @@
-import { applicationsStore } from "@/lib/stores/applications";
-import type { ConfigManager } from "@/managers/config";
 import { ApplicationStatus } from "@/structures/application/status";
 import { Logger } from "@/structures/logger";
 import { SquareCloudAPI } from "@squarecloud/api";
+import type { SquareEasyExtension } from "./extension";
 
 export class APIManager {
 	private readonly logger = new Logger("Square Cloud Easy");
 
 	public paused = false;
 
-	constructor(private readonly config: ConfigManager) {
+	constructor(private readonly extension: SquareEasyExtension) {
 		this.refresh();
-		setInterval(() => this.refresh(), 10000);
+		setInterval(() => this.refresh(), 30000);
 	}
 
 	async refresh() {
@@ -20,7 +19,7 @@ export class APIManager {
 		}
 		this.pause(true);
 
-		const apiKey = await this.config.apiKey.test();
+		const apiKey = await this.extension.config.apiKey.test();
 
 		if (!apiKey) {
 			this.logger.log("API key not found.");
@@ -33,17 +32,11 @@ export class APIManager {
 		const applications = await api.applications.get();
 		const statuses = await api.applications.statusAll();
 
-		const storedStatuses = applicationsStore.get().statuses;
+		const storedStatuses = this.extension.store.getState().statuses;
 
-		await Promise.all(
-			applications
-				.filter((app) => storedStatuses.get(app.id)?.isFull())
-				.map(async (app) => {
-					const application = await app.fetch();
-					const status = await application.getStatus();
-					storedStatuses.set(app.id, new ApplicationStatus(status));
-				}),
-		);
+		for (const status of statuses) {
+			storedStatuses.set(status.applicationId, new ApplicationStatus(status));
+		}
 
 		this.pause(false);
 
@@ -51,7 +44,7 @@ export class APIManager {
 			`Found ${applications.size} applications and ${statuses.length} statuses.`,
 		);
 
-		const store = applicationsStore.get();
+		const store = this.extension.store.getState();
 		store.setApplications(applications.toJSON());
 		store.setStatuses(Array.from(storedStatuses.values()));
 	}
@@ -62,7 +55,7 @@ export class APIManager {
 		}
 		this.pause(true);
 
-		const apiKey = await this.config.apiKey.test();
+		const apiKey = await this.extension.config.apiKey.test();
 
 		if (!apiKey) {
 			this.logger.log("API key not found.");
@@ -75,7 +68,7 @@ export class APIManager {
 
 		this.pause(false);
 
-		applicationsStore.get().setStatus(new ApplicationStatus(status));
+		this.extension.store.getState().setStatus(new ApplicationStatus(status));
 	}
 
 	async pauseUntil<T>(fn: () => Promise<T>) {

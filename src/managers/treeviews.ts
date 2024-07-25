@@ -1,15 +1,15 @@
 import { ApplicationsTreeViewProvider } from "@/treeviews/applications/provider";
 import { window } from "vscode";
-import type { ConfigManager } from "./config";
+import type { SquareEasyExtension } from "./extension";
 
 type TreeViewsKey = keyof TreeViewsManager["views"];
 
 export class TreeViewsManager {
 	public views = {
-		applications: new ApplicationsTreeViewProvider(this.config),
+		applications: new ApplicationsTreeViewProvider(this.extension),
 	};
 
-	constructor(private readonly config: ConfigManager) {
+	constructor(private readonly extension: SquareEasyExtension) {
 		window.registerTreeDataProvider("apps-view", this.views.applications);
 	}
 

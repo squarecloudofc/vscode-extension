@@ -1,5 +1,4 @@
-import { applicationsStore } from "@/lib/stores/applications";
-import type { ConfigManager } from "@/managers/config";
+import type { SquareEasyExtension } from "@/managers/extension";
 import { ApplicationStatus } from "@/structures/application/status";
 import ms from "ms";
 import { t } from "vscode-ext-localisation";
@@ -10,7 +9,7 @@ import { ApplicationTreeItem, type SquareTreeItem } from "./item";
 export type GenericTreeItemData = ConstructorParameters<typeof GenericTreeItem>;
 
 export class ApplicationsTreeViewProvider extends BaseTreeViewProvider<SquareTreeItem> {
-	constructor(private readonly config: ConfigManager) {
+	constructor(private readonly extension: SquareEasyExtension) {
 		super();
 	}
 
@@ -28,14 +27,18 @@ export class ApplicationsTreeViewProvider extends BaseTreeViewProvider<SquareTre
 				return [];
 			}
 
-			const status = applicationsStore.get().getStatus(element.application.id);
+			const status = this.extension.store
+				.getState()
+				.getStatus(element.application.id);
 
-			if (!status) {
+			if (!status?.isFull()) {
 				element.application
 					.fetch()
 					.then((app) => app.getStatus())
 					.then((status) => {
-						applicationsStore.get().setStatus(new ApplicationStatus(status));
+						this.extension.store
+							.getState()
+							.setStatus(new ApplicationStatus(status));
 					});
 			}
 
@@ -64,8 +67,8 @@ export class ApplicationsTreeViewProvider extends BaseTreeViewProvider<SquareTre
 			);
 		}
 
-		if (!applicationsStore.get().applications.size) {
-			const apiKey = await this.config.apiKey.get();
+		if (!this.extension.store.getState().applications.size) {
+			const apiKey = await this.extension.config.apiKey.get();
 
 			if (!apiKey) {
 				return [];
@@ -81,8 +84,8 @@ export class ApplicationsTreeViewProvider extends BaseTreeViewProvider<SquareTre
 			];
 		}
 
-		return Array.from(applicationsStore.get().applications.values()).map(
-			(app) => new ApplicationTreeItem(app),
-		);
+		return Array.from(
+			this.extension.store.getState().applications.values(),
+		).map((app) => new ApplicationTreeItem(this.extension, app));
 	}
 }

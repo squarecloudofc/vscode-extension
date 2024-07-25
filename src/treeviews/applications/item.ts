@@ -1,5 +1,5 @@
-import { applicationsStore } from "@/lib/stores/applications";
 import { getIcons } from "@/lib/utils/icons";
+import type { SquareEasyExtension } from "@/managers/extension";
 import type { BaseApplication } from "@squarecloud/api";
 import { TreeItem, TreeItemCollapsibleState } from "vscode";
 import type { CustomTreeItem } from "../items/custom";
@@ -27,15 +27,18 @@ export class ApplicationTreeItem extends TreeItem {
 
 	contextValue = this.favorited ? "application-fav" : "application";
 
-	constructor(public readonly application: BaseApplication) {
+	constructor(
+		private readonly extension: SquareEasyExtension,
+		public readonly application: BaseApplication,
+	) {
 		super(application.name);
 	}
 
 	get favorited() {
-		return applicationsStore.get().isFavorited(this.application.id);
+		return this.extension.store.getState().isFavorited(this.application.id);
 	}
 
 	get status() {
-		return applicationsStore.get().getStatus(this.application.id);
+		return this.extension.store.getState().getStatus(this.application.id);
 	}
 }
