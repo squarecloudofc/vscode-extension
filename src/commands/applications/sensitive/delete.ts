@@ -1,5 +1,5 @@
 import { ApplicationCommand } from "@/structures/application/command";
-import * as vscode from "vscode";
+import { ProgressLocation, Uri, env, window } from "vscode";
 import { t } from "vscode-ext-localisation";
 
 export default new ApplicationCommand(
@@ -9,19 +9,19 @@ export default new ApplicationCommand(
 			return;
 		}
 
-		const confirmDelete = await vscode.window.showInputBox({
+		const confirmDelete = await window.showInputBox({
 			placeHolder: application.name,
 			title: t("delete.confirm"),
 		});
 
 		if (confirmDelete !== application.name) {
-			vscode.window.showInformationMessage(t("delete.cancelled"));
+			window.showInformationMessage(t("delete.cancelled"));
 			return;
 		}
 
-		vscode.window.withProgress(
+		window.withProgress(
 			{
-				location: vscode.ProgressLocation.Notification,
+				location: ProgressLocation.Notification,
 				title: t("delete.loading"),
 			},
 			async (progress) => {
@@ -33,11 +33,11 @@ export default new ApplicationCommand(
 
 				setTimeout(() => extension.api.refreshStatus(application.id), 7000);
 
-				vscode.window
+				window
 					.showInformationMessage(t("delete.loaded"), "Download Backup")
 					.then((value) => {
 						if (value === "Download Backup") {
-							vscode.env.openExternal(vscode.Uri.parse(backupUrl));
+							env.openExternal(Uri.parse(backupUrl));
 						}
 					});
 
