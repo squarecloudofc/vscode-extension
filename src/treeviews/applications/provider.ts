@@ -84,8 +84,12 @@ export class ApplicationsTreeViewProvider extends BaseTreeViewProvider<SquareTre
 			];
 		}
 
-		return Array.from(this.extension.store.value.applications.values()).map(
-			(app) => new ApplicationTreeItem(this.extension, app),
-		);
+		return Array.from(this.extension.store.value.applications.values())
+			.sort(
+				(a, b) =>
+					(this.extension.store.actions.isFavorited(b.id) ? 1 : 0) -
+					(this.extension.store.actions.isFavorited(a.id) ? 1 : 0),
+			)
+			.map((app) => new ApplicationTreeItem(this.extension, app));
 	}
 }
