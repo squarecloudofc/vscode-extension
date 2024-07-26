@@ -9,9 +9,9 @@
 	"editor.formatOnSave": true,
 
 	"editor.codeActionsOnSave": {
-		"quickfix.biome": "always",
-		"source.addMissingImports": "always",
-		"source.organizeImports.biome": "always"
+		"quickfix.biome": "explicit",
+		"source.organizeImports.biome": "explicit",
+		"source.addMissingImports": "explicit"
 	},
 
 	"[json]": {
