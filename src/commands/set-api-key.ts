@@ -7,6 +7,7 @@ export default new Command("setApiKey", async (extension) => {
 		title: t("setApiKey.apiKey"),
 		placeHolder: t("generic.paste"),
 		ignoreFocusOut: true,
+		password: true,
 	});
 
 	if (!apiKey) {
@@ -18,8 +19,8 @@ export default new Command("setApiKey", async (extension) => {
 			location: ProgressLocation.Notification,
 			title: t("setApiKey.testing"),
 		},
-		async () => {
-			return await extension.config.apiKey.test(apiKey);
+		() => {
+			return extension.config.apiKey.test(apiKey);
 		},
 	);
 

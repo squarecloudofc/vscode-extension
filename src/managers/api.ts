@@ -13,8 +13,8 @@ export class APIManager {
 		setInterval(() => this.refresh(), 30000);
 	}
 
-	async refresh() {
-		if (this.paused) {
+	async refresh(bypass?: boolean) {
+		if (this.paused && !bypass) {
 			return;
 		}
 		this.pause(true);
@@ -49,8 +49,8 @@ export class APIManager {
 		store.setStatuses(Array.from(storedStatuses.values()));
 	}
 
-	async refreshStatus(appId: string) {
-		if (this.paused) {
+	async refreshStatus(appId: string, bypass?: boolean) {
+		if (this.paused && !bypass) {
 			return;
 		}
 		this.pause(true);

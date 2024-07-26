@@ -24,14 +24,16 @@ export class ConfigAPIKey {
 		apiKey = apiKey || (await this.get());
 
 		if (!apiKey) {
-			return this.set(undefined);
+			await this.set(undefined);
+			return;
 		}
 
 		const api = new SquareCloudAPI(apiKey);
-		const user = await api.users.get().catch(() => undefined);
+		const user = await api.users.get().catch(() => null);
 
 		if (!user) {
-			return this.set(undefined);
+			await this.set(undefined);
+			return;
 		}
 
 		return apiKey;
