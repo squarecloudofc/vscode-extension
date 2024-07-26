@@ -26,8 +26,6 @@ export class APIManager {
 			return;
 		}
 
-		this.logger.log(`API key \`${apiKey}\`.`);
-
 		const api = new SquareCloudAPI(apiKey);
 		const user = await api.users.get();
 		const applications = user.applications;
