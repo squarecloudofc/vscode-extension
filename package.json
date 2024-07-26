@@ -106,26 +106,6 @@
 				{
 					"command": "squarecloud.copyIdEntry",
 					"when": "false"
-				},
-				{
-					"command": "squarecloud.statusBarItem",
-					"when": "false"
-				},
-				{
-					"command": "squarecloud.setWorkspaceApp",
-					"when": "false"
-				},
-				{
-					"command": "squarecloud.commitWorkspace",
-					"when": "false"
-				},
-				{
-					"command": "squarecloud.uploadWorkspace",
-					"when": "false"
-				},
-				{
-					"command": "squarecloud.createConfig",
-					"when": "workspaceFolderCount == 1"
 				}
 			],
 			"view/title": [
@@ -196,18 +176,6 @@
 					"command": "squarecloud.copyText",
 					"when": "viewItem == generic",
 					"group": "inline"
-				}
-			],
-			"editor/context": [
-				{
-					"command": "squarecloud.createConfig",
-					"when": "resourceFilename == squarecloud.app || resourceFilename == squarecloud.config"
-				}
-			],
-			"explorer/context": [
-				{
-					"command": "squarecloud.createConfig",
-					"when": "true"
 				}
 			]
 		},
@@ -304,26 +272,6 @@
 			{
 				"command": "squarecloud.copyIdEntry",
 				"title": "%command.copyId%"
-			},
-			{
-				"command": "squarecloud.createConfig",
-				"title": "%command.createConfig%"
-			},
-			{
-				"command": "squarecloud.statusBarItem",
-				"title": "Status Bar Item"
-			},
-			{
-				"command": "squarecloud.setWorkspaceApp",
-				"title": "Set Workspace App"
-			},
-			{
-				"command": "squarecloud.commitWorkspace",
-				"title": "Commit Workspace"
-			},
-			{
-				"command": "squarecloud.uploadWorkspace",
-				"title": "Upload Workspace"
 			}
 		],
 		"viewsContainers": {
@@ -343,13 +291,15 @@
 				},
 				{
 					"id": "user-view",
-					"name": "%view.user.title%"
+					"name": "%view.user.title%",
+					"visibility": "hidden"
 				}
 			],
 			"explorer": [
 				{
 					"id": "favapp-view",
-					"name": "Square Cloud"
+					"name": "Square Cloud",
+					"visibility": "hidden"
 				}
 			]
 		},
