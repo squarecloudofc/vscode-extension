@@ -13,7 +13,7 @@ To use Square Cloud Easy extension first you will need an **API key** for **Squa
 
 ---
 
-## Aplicações
+## Applications
 
 ### Start, restart and stop
 
