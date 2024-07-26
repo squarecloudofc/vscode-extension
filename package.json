@@ -26,7 +26,7 @@
 	"main": "./dist/extension.js",
 	"scripts": {
 		"vscode:prepublish": "npm run build",
-		"package": "vsce package --allow-star-activation",
+		"publish": "vsce publish --allow-star-activation",
 		"build": "tsc && tsc-alias",
 		"check-types": "tsc --noEmit",
 		"watch": "concurrently --raw \"tsc -w\" \"tsc-alias -w\"",

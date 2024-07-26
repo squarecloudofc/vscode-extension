@@ -1,4 +1,4 @@
-name: Package
+name: Publish
 
 on:
   push:
@@ -8,8 +8,8 @@ on:
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
-  package:
-    name: Package
+  publish:
+    name: Publish
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
@@ -24,13 +24,7 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-      - name: Package
-        run: npm run package
-
-      - name: Archive extension package
-        uses: actions/upload-artifact@v4
-        with:
-          name: package
-          path: squarecloud-*.vsix
-          retention-days: 7
-          if-no-files-found: warn
+      - name: Publish
+        env:
+          VSCE_PAT: ${{ secrets.VSCODE_PERSONAL_TOKEN }}
+        run: npm run publish
