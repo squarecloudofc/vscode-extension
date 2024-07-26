@@ -25,10 +25,11 @@
 	"activationEvents": ["*"],
 	"main": "./dist/extension.js",
 	"scripts": {
-		"vscode:prepublish": "npm run compile",
-		"compile": "tsc && tsc-alias",
+		"vscode:prepublish": "npm run build",
+		"build": "tsc && tsc-alias",
+		"check-types": "tsc --noEmit",
 		"watch": "concurrently --raw \"tsc -w\" \"tsc-alias -w\"",
-		"pretest": "npm run compile && npm run lint",
+		"pretest": "npm run build && npm run lint",
 		"lint": "biome check --apply .",
 		"test": "node ./dist/test/runTest.js",
 		"prepare": "husky"
