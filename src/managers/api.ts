@@ -29,7 +29,8 @@ export class APIManager {
 		this.logger.log(`API key \`${apiKey}\`.`);
 
 		const api = new SquareCloudAPI(apiKey);
-		const applications = await api.applications.get();
+		const user = await api.users.get();
+		const applications = user.applications;
 		const statuses = await api.applications.statusAll();
 
 		this.pause(false);
@@ -43,6 +44,7 @@ export class APIManager {
 
 		this.extension.store.actions.setApplications(newApplications);
 		this.extension.store.actions.setStatuses(newStatuses);
+		this.extension.store.actions.setUser(user);
 	}
 
 	async refreshStatus(appId: string, bypass?: boolean) {

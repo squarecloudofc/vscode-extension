@@ -291,8 +291,7 @@
 				},
 				{
 					"id": "user-view",
-					"name": "%view.user.title%",
-					"visibility": "hidden"
+					"name": "%view.user.title%"
 				}
 			],
 			"explorer": [
