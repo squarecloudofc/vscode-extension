@@ -3,7 +3,7 @@
 
 	"command.createConfig": "Criar arquivo de configuração Square Cloud",
 	"command.setApiKey": "Definir nova chave de API",
-	"command.showLogs": "Exibir logs",
+	"command.logsEntry": "Exibir logs",
 	"command.copyText": "Copiar",
 	"command.refresh": "Atualizar",
 	"command.open": "Ver na dashboard",

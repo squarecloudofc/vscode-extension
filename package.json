@@ -68,7 +68,7 @@
 					"when": "false"
 				},
 				{
-					"command": "squarecloud.showLogs",
+					"command": "squarecloud.logsEntry",
 					"when": "false"
 				},
 				{
@@ -146,7 +146,7 @@
 					"group": "inline"
 				},
 				{
-					"command": "squarecloud.showLogs",
+					"command": "squarecloud.logsEntry",
 					"when": "viewItem == application || viewItem == application-fav",
 					"group": "inline"
 				},
@@ -242,8 +242,8 @@
 				}
 			},
 			{
-				"command": "squarecloud.showLogs",
-				"title": "%command.showLogs%",
+				"command": "squarecloud.logsEntry",
+				"title": "%command.logsEntry%",
 				"icon": {
 					"light": "resources/light/logs.svg",
 					"dark": "resources/dark/logs.svg"
