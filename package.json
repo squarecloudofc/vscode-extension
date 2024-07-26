@@ -3,7 +3,7 @@
 	"name": "squarecloud",
 	"publisher": "squarecloud",
 	"displayName": "Square Cloud Easy",
-	"description": "An extension to easily interact with the SquareCloud API.",
+	"description": "A VSCode extension for managing your Square Cloud applications.",
 	"categories": ["Other"],
 	"icon": "resources/squarecloud.png",
 	"keywords": ["squarecloud", "square cloud", "host", "bot", "website"],
