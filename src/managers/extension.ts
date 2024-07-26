@@ -1,5 +1,5 @@
 import { Config } from "@/lib/constants";
-import { createExtensionStore } from "@/lib/store";
+import { $extensionStore } from "@/lib/store";
 import { Logger } from "@/structures/logger";
 import type { ExtensionContext } from "vscode";
 import { getVscodeLang, loadTranslations } from "vscode-ext-localisation";
@@ -16,7 +16,7 @@ export class SquareEasyExtension {
 	public readonly commands = new CommandsManager(this);
 	public readonly api = new APIManager(this);
 
-	public readonly store = createExtensionStore();
+	public readonly store = $extensionStore;
 
 	constructor(public readonly context: ExtensionContext) {
 		this.logger.log("Initializing extension...");
@@ -41,17 +41,15 @@ export class SquareEasyExtension {
 			Config.FavoritedApps.name,
 			[],
 		);
-		console.log(favoritedApps);
-		this.store.getState().setFavorited(favoritedApps);
 
-		this.store.subscribe(async (newState, prevState) => {
-			if (newState.favorited !== prevState.favorited) {
-				await this.config.root.update(
-					Config.FavoritedApps.name,
-					Array.from(newState.favorited),
-					true,
-				);
-			}
+		this.store.actions.setFavorited(favoritedApps);
+
+		this.store.subscribe((state) => {
+			this.config.root.update(
+				Config.FavoritedApps.name,
+				Array.from(state.favorited),
+				true,
+			);
 			this.treeViews.refreshAll();
 		});
 

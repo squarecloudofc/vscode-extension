@@ -27,18 +27,18 @@ export class ApplicationsTreeViewProvider extends BaseTreeViewProvider<SquareTre
 				return [];
 			}
 
-			const status = this.extension.store
-				.getState()
-				.getStatus(element.application.id);
+			const status = this.extension.store.actions.getStatus(
+				element.application.id,
+			);
 
 			if (!status?.isFull()) {
 				element.application
 					.fetch()
 					.then((app) => app.getStatus())
 					.then((status) => {
-						this.extension.store
-							.getState()
-							.setStatus(new ApplicationStatus(status));
+						this.extension.store.actions.setStatus(
+							new ApplicationStatus(status),
+						);
 					});
 			}
 
@@ -67,7 +67,7 @@ export class ApplicationsTreeViewProvider extends BaseTreeViewProvider<SquareTre
 			);
 		}
 
-		if (!this.extension.store.getState().applications.size) {
+		if (!this.extension.store.value.applications.size) {
 			const apiKey = await this.extension.config.apiKey.get();
 
 			if (!apiKey) {
@@ -84,8 +84,8 @@ export class ApplicationsTreeViewProvider extends BaseTreeViewProvider<SquareTre
 			];
 		}
 
-		return Array.from(
-			this.extension.store.getState().applications.values(),
-		).map((app) => new ApplicationTreeItem(this.extension, app));
+		return Array.from(this.extension.store.value.applications.values()).map(
+			(app) => new ApplicationTreeItem(this.extension, app),
+		);
 	}
 }

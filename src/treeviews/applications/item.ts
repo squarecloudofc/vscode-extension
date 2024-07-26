@@ -35,10 +35,10 @@ export class ApplicationTreeItem extends TreeItem {
 	}
 
 	get favorited() {
-		return this.extension.store.getState().isFavorited(this.application.id);
+		return this.extension.store.actions.isFavorited(this.application.id);
 	}
 
 	get status() {
-		return this.extension.store.getState().getStatus(this.application.id);
+		return this.extension.store.actions.getStatus(this.application.id);
 	}
 }

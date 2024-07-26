@@ -32,7 +32,7 @@ export class APIManager {
 		const applications = await api.applications.get();
 		const statuses = await api.applications.statusAll();
 
-		const storedStatuses = this.extension.store.getState().statuses;
+		const storedStatuses = this.extension.store.value.statuses;
 
 		for (const status of statuses) {
 			storedStatuses.set(status.applicationId, new ApplicationStatus(status));
@@ -44,9 +44,9 @@ export class APIManager {
 			`Found ${applications.size} applications and ${statuses.length} statuses.`,
 		);
 
-		const store = this.extension.store.getState();
-		store.setApplications(applications.toJSON());
-		store.setStatuses(Array.from(storedStatuses.values()));
+		const { actions } = this.extension.store;
+		actions.setApplications(applications.toJSON());
+		actions.setStatuses(Array.from(storedStatuses.values()));
 	}
 
 	async refreshStatus(appId: string, bypass?: boolean) {
@@ -68,7 +68,7 @@ export class APIManager {
 
 		this.pause(false);
 
-		this.extension.store.getState().setStatus(new ApplicationStatus(status));
+		this.extension.store.actions.setStatus(new ApplicationStatus(status));
 	}
 
 	async pauseUntil<T>(fn: () => Promise<T>) {

@@ -1,12 +1,14 @@
 import type { ApplicationStatus } from "@/structures/application/status";
 import { type BaseApplication, Collection } from "@squarecloud/api";
-import { createStore } from "zustand/vanilla";
+import { atom } from "xoid";
 
 export interface ExtensionStore {
 	applications: Collection<string, BaseApplication>;
 	statuses: Collection<string, ApplicationStatus>;
 	favorited: Set<string>;
+}
 
+export interface ExtensionStoreActions {
 	setApplications(applications: BaseApplication[]): void;
 	setStatuses(statuses: ApplicationStatus[]): void;
 	setStatus(status: ApplicationStatus): void;
@@ -17,47 +19,52 @@ export interface ExtensionStore {
 	isFavorited(applicationId: string): boolean;
 }
 
-export const createExtensionStore = () =>
-	createStore<ExtensionStore>((set, get) => ({
+export const $extensionStore = atom<ExtensionStore, ExtensionStoreActions>(
+	{
 		applications: new Collection(),
 		statuses: new Collection(),
 		favorited: new Set(),
-
+	},
+	(atom) => ({
 		setApplications: (applications) => {
 			const map = new Collection(applications.map((app) => [app.id, app]));
 
-			set({ applications: map });
+			atom.update((value) => ({ ...value, applications: map }));
 		},
 		setStatus: (status) => {
-			const map = get().statuses.set(status.applicationId, status);
+			const map = atom.value.statuses.set(status.applicationId, status);
 
-			set({ statuses: map });
+			atom.update((value) => ({ ...value, statuses: map }));
 		},
 		setStatuses: (statuses) => {
 			const map = new Collection(
 				statuses.map((status) => [status.applicationId, status]),
 			);
 
-			set({ statuses: map });
+			atom.update((value) => ({ ...value, statuses: map }));
 		},
 
 		setFavorited: (applicationsId) => {
-			set({ favorited: new Set(applicationsId) });
+			atom.update((value) => ({
+				...value,
+				favorited: new Set(applicationsId),
+			}));
 		},
 		toggleFavorite: (applicationId, value) => {
-			const favorited = get().favorited;
+			const favorited = atom.value.favorited;
 			const isFavorited = favorited?.has(applicationId);
 			const toFavorite = value !== undefined ? value : !isFavorited;
 
 			favorited?.[toFavorite ? "add" : "delete"](applicationId);
 
-			set({ favorited });
+			atom.update((value) => ({ ...value, favorited }));
 		},
 
 		getStatus: (applicationId) => {
-			return get().statuses.get(applicationId);
+			return atom.value.statuses.get(applicationId);
 		},
 		isFavorited: (applicationId) => {
-			return get().favorited.has(applicationId);
+			return atom.value.favorited.has(applicationId);
 		},
-	}));
+	}),
+);
