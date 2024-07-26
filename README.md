@@ -1,55 +1,53 @@
-# **Square Cloud Easy**
+<div align="center">
+  <img alt="Square Cloud Banner" src="https://cdn.squarecloud.app/png/github-readme.png">
+</div>
 
-Com essa extensão, você pode gerenciar e verificar informações de todas as suas aplicações hospedadas na [Square Cloud](https://squarecloud.app/).
+<h1 align="center">Square Cloud Easy</h1>
 
-## **Requisitos**
+<p align="center">A VSCode extension for managing your <a href="https://squarecloud.app" target="_blank">Square Cloud</a> applications.</p>
 
-- Para utilizar a extensão em sua melhor versão você precisa de uma **chave de API**.
-  Para isso faça login no site oficial e resgate sua chave [aqui](https://squarecloud.app/dashboard/me/).
+## Requirements
 
----
-
-## **Aplicações**
-
-### **Iniciar, parar e reiniciar**
-
-![Iniciando aplicação](https://i.imgur.com/pe2YDU0.gif)
-
-### **Realizando commit**
-
-![Realizando commit](https://i.imgur.com/qmSSuLw.gif)
-
-### **Verificando status & logs**
-
-_\* Ícones acessíveis._
-
-- 🟢 **Ícone verde:** aplicação online.
-- ⚪ **Ícone cinza:** aplicação offline.
-
-![Status e Logs](https://i.imgur.com/WP7nTrL.gif)
-
-## **Outras funções**
-
-### **Criando arquivo de configuração**
-
-![Criando arquivo de configuração](https://i.imgur.com/bE0C012.gif)
+To use Square Cloud Easy extension first you will need an **API key** for **Square Cloud API**.
+- You can get your API key for free at [**Square Cloud Dashboard**](https://squarecloud.app/pt-br/dashboard/settings).
 
 ---
 
-### **Configurações da extensão**
+## Aplicações
 
-Esta extensão vai contar com apenas uma configuração:
+### Start, restart and stop
 
-- `squarecloud.apiKey`: Sua chave de API da Square Cloud.
-- `squarecloud.workspaceAppId`: A aplicação definida para a área de trabalho.
-- `squarecloud.favoritedApps`: As aplicações marcadas como favorito.
+![Starting application](https://i.imgur.com/pe2YDU0.gif)
+
+### Commit
+
+![Committing](https://i.imgur.com/qmSSuLw.gif)
+
+### Checking status and logs
+
+_\* Accessible icons._
+
+- 🟢 **Green icon:** app is online.
+- ⚪ **Gray icon:** app is offline.
+
+![Status and Logs](https://i.imgur.com/WP7nTrL.gif)
 
 ---
 
-## **Contribuições**
+### Extension settings
 
-_O nosso repositório no GitHub está sempre aberto a sugestões e contribuições._ Basta você abrir uma issue ou enviar um pull request.
+- `squarecloud.favApps`: Favorited applications.
 
-Estamos ansiosos para ouvir suas ideias e trabalhar juntos para tornar o projeto ainda melhor!
+---
 
-### _Feito com ❤️ por [bluey#0012](https://github.com/bluee-js/)_
+## Contributing
+
+We are open to contributions and suggestions at our [Github Repository](https://github.com/squarecloudofc/vscode-extension).
+
+We are anxious to hear your ideas and work together to make this project even better! 🥳
+
+## Authors
+
+Made with ❤️ by:
+
+- [João Gabriel Tonaco](https://github.com/joaotonaco)
