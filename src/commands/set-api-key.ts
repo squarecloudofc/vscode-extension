@@ -32,5 +32,5 @@ export default new Command("setApiKey", async (extension) => {
 	window.showInformationMessage(t("setApiKey.success"));
 
 	await extension.config.apiKey.set(apiKey);
-	await extension.api.refresh();
+	await extension.api.refresh(true);
 });

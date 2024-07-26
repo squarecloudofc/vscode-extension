@@ -32,21 +32,17 @@ export class APIManager {
 		const applications = await api.applications.get();
 		const statuses = await api.applications.statusAll();
 
-		const storedStatuses = this.extension.store.value.statuses;
-
-		for (const status of statuses) {
-			storedStatuses.set(status.applicationId, new ApplicationStatus(status));
-		}
-
 		this.pause(false);
 
 		this.logger.log(
 			`Found ${applications.size} applications and ${statuses.length} statuses.`,
 		);
 
-		const { actions } = this.extension.store;
-		actions.setApplications(applications.toJSON());
-		actions.setStatuses(Array.from(storedStatuses.values()));
+		const newApplications = applications.toJSON();
+		const newStatuses = statuses.map((status) => new ApplicationStatus(status));
+
+		this.extension.store.actions.setApplications(newApplications);
+		this.extension.store.actions.setStatuses(newStatuses);
 	}
 
 	async refreshStatus(appId: string, bypass?: boolean) {
