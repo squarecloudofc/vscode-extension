@@ -31,7 +31,6 @@ export class UserTreeViewProvider extends BaseTreeViewProvider<GenericTreeItem> 
 
 		const expires = user.plan.expiresIn?.toLocaleDateString("pt-BR", {
 			dateStyle: "short",
-			timeStyle: "short",
 		});
 
 		const treeItemsData: [string, string, string][] = [
