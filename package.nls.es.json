@@ -86,6 +86,7 @@
 	"commit": {
 		"loading": "Enviando archivos...",
 		"loaded": "Los archivos se han enviado con éxito.",
+		"restart": "¿Desea reiniciar la aplicación?",
 		"select": "Seleccione la carpeta para enviar",
 		"useGitIgnore": "No se ha encontrado el archivo squarecloud.ignore. ¿Ignorar los archivos listados en .gitignore en su lugar?"
 	},

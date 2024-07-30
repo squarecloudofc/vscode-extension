@@ -25,6 +25,18 @@ export default new ApplicationCommand(
 			return;
 		}
 
+		const shouldRestart = await window.showQuickPick(
+			[t("generic.yes"), t("generic.no")],
+			{
+				title: t("commit.restart"),
+				placeHolder: t("generic.choose"),
+			},
+		);
+
+		if (shouldRestart === undefined) {
+			return;
+		}
+
 		const isFile = fileOrFolder === t("generic.file");
 		const isFolder = fileOrFolder === t("generic.folder");
 
@@ -96,7 +108,7 @@ export default new ApplicationCommand(
 					await application.commit(
 						zipFile.toBuffer(),
 						`${application.id}.zip`,
-						true,
+						shouldRestart === t("generic.yes"),
 					);
 
 					setTimeout(() => extension.api.refreshStatus(application.id), 7000);

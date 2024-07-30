@@ -88,6 +88,7 @@
 		"loaded": "Commit realizado com sucesso.",
 		"error": "Um erro ocorreu ao tentar realizar o commit.",
 		"fileOrFolder": "O que você deseja enviar no commit?",
+		"restart": "Deseja reiniciar a aplicação?",
 		"select": "Selecione um(a) {{TYPE}} para o commit",
 		"useGitIgnore": "Nenhum arquivo squarecloud.ignore encontrado. Ignorar arquivos listados em .gitignore?"
 	},

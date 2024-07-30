@@ -88,6 +88,7 @@
 		"loaded": "Committed files successfuly.",
 		"error": "An error ocurred when trying to commit.",
 		"fileOrFolder": "What do you want to commit?",
+		"restart": "Would you like to restart your application?",
 		"select": "Select {{TYPE}} to commit",
 		"useGitIgnore": "No squarecloud.ignore file found. Ignore .gitignore listed files instead?"
 	},
