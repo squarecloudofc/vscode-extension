@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## 3.1.2
+
+### Added
+
+- Now you can choose wheter you want to restart your application after the commit or not.
+
 ## 3.1.0
 
 ### Added
