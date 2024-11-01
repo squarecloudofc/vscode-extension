@@ -104,18 +104,18 @@ export default new ApplicationCommand(
 						zipPath: `${path.split("/").pop()}/`,
 						filter: (filename) => !ig.ignores(filename),
 					});
-
-					await application.commit(
-						zipFile.toBuffer(),
-						`${application.id}.zip`,
-						shouldRestart === t("generic.yes"),
-					);
-
-					setTimeout(() => extension.api.refreshStatus(application.id), 7000);
-
-					progress.report({ increment: 100 });
-					window.showInformationMessage(t("commit.loaded"));
 				}
+
+				await application.commit(
+					zipFile.toBuffer(),
+					`${application.id}.zip`,
+					shouldRestart === t("generic.yes"),
+				);
+
+				setTimeout(() => extension.api.refreshStatus(application.id), 7000);
+
+				progress.report({ increment: 100 });
+				window.showInformationMessage(t("commit.loaded"));
 			},
 		);
 	},
