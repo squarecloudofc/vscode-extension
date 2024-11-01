@@ -33,7 +33,10 @@ export default new ApplicationCommand(
 					application.backups.download(),
 				);
 
-				await writeFile(join(fsPath, `backup-${application.id}.zip`), buffer);
+				await writeFile(
+					join(fsPath, `backup-${application.id}.zip`),
+					new Uint8Array(buffer),
+				);
 
 				window.showInformationMessage(t("backup.loaded"));
 				progress.report({ increment: 100 });
