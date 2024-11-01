@@ -31,32 +31,32 @@
 		"check-types": "tsc --noEmit",
 		"watch": "concurrently --raw \"tsc -w\" \"tsc-alias -w\"",
 		"pretest": "npm run build && npm run lint",
-		"lint": "biome check --apply .",
+		"lint": "biome check --write .",
 		"test": "node ./dist/test/runTest.js",
 		"prepare": "husky"
 	},
 	"dependencies": {
 		"@squarecloud/api": "^3.6.4",
-		"adm-zip": "^0.5.14",
-		"form-data": "^4.0.0",
-		"ignore": "^5.3.1",
+		"adm-zip": "^0.5.16",
+		"form-data": "^4.0.1",
+		"ignore": "^6.0.2",
 		"ms": "^3.0.0-canary.1",
 		"vscode-ext-localisation": "^1.1.0",
 		"xoid": "^1.0.0-beta.12"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "^1.8.3",
-		"@types/adm-zip": "^0.5.5",
-		"@types/mocha": "^10.0.7",
-		"@types/node": "^20.14.12",
-		"@types/vscode": "^1.91.0",
+		"@biomejs/biome": "^1.9.4",
+		"@types/adm-zip": "^0.5.6",
+		"@types/mocha": "^10.0.9",
+		"@types/node": "^22.8.6",
+		"@types/vscode": "^1.95.0",
 		"@vscode/test-electron": "^2.4.1",
-		"@vscode/vsce": "^2.31.1",
-		"concurrently": "^8.2.2",
-		"husky": "^9.1.2",
-		"mocha": "^10.7.0",
+		"@vscode/vsce": "^3.2.1",
+		"concurrently": "^9.0.1",
+		"husky": "^9.1.6",
+		"mocha": "^10.8.2",
 		"tsc-alias": "^1.8.10",
-		"typescript": "^5.5.4"
+		"typescript": "^5.6.3"
 	},
 	"contributes": {
 		"menus": {
