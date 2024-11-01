@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## 3.1.3
+
+### Fixes
+
+- Fix application commit.
+- Fix application backup.
+- Duplication of logs output channels.
+
+### Tweaks
+
+- Improve RAM formatting.
+
 ## 3.1.2
 
 ### Added
