@@ -1,6 +1,8 @@
 import { ApplicationCommand } from "@/structures/application/command";
-import { ProgressLocation, window } from "vscode";
+import { type OutputChannel, ProgressLocation, window } from "vscode";
 import { t } from "vscode-ext-localisation";
+
+const outputChannels = new Map<string, OutputChannel>();
 
 export default new ApplicationCommand(
 	"logsEntry",
@@ -26,19 +28,17 @@ export default new ApplicationCommand(
 					return;
 				}
 
-				return window
-					.showInformationMessage(t("logs.loaded"), t("logs.button"))
-					.then((showLogs) => {
-						if (showLogs === t("logs.button")) {
-							const outputChannel = window.createOutputChannel(
-								application.name,
-								"ansi",
-							);
+				const outputChannel =
+					outputChannels.get(application.id) ??
+					window.createOutputChannel(
+						`Square Cloud (${application.name})`,
+						"ansi",
+					);
+				outputChannels.set(application.id, outputChannel);
 
-							outputChannel.append(logs);
-							outputChannel.show();
-						}
-					});
+				outputChannel.clear();
+				outputChannel.append(logs);
+				return outputChannel.show();
 			},
 		);
 	},
