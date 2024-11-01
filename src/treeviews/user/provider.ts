@@ -1,4 +1,5 @@
 import { capitalize } from "@/lib/utils/capitalize";
+import { formatMB } from "@/lib/utils/format";
 import type { SquareEasyExtension } from "@/managers/extension";
 import { t } from "vscode-ext-localisation";
 import { BaseTreeViewProvider } from "../base";
@@ -38,7 +39,11 @@ export class UserTreeViewProvider extends BaseTreeViewProvider<GenericTreeItem> 
 			["ID", "id", user.id],
 			["E-mail", "email", user.email],
 			[capitalize(user.plan.name).replace("-", " "), "plan", expires || "∞"],
-			["RAM", "ram", `${user.plan.memory.used}/${user.plan.memory.limit}MB`],
+			[
+				"RAM",
+				"ram",
+				`${formatMB(user.plan.memory.used, true)}/${formatMB(user.plan.memory.limit)}`,
+			],
 		];
 
 		return treeItemsData.map(
