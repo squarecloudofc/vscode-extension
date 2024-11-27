@@ -106,11 +106,11 @@ export default new ApplicationCommand(
 					});
 				}
 
-				await application.commit(
-					zipFile.toBuffer(),
-					`${application.id}.zip`,
-					shouldRestart === t("generic.yes"),
-				);
+				await application.commit(zipFile.toBuffer(), `${application.id}.zip`);
+
+				if (shouldRestart === t("generic.yes")) {
+					await application.restart();
+				}
 
 				setTimeout(() => extension.api.refreshStatus(application.id), 7000);
 
