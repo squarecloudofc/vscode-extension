@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## 3.1.4
+
+### Fixes
+
+- Fix restarting the application after a commit.
+
 ## 3.1.3
 
 ### Fixes
