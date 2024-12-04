@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## 3.1.5
+
+- Update dependencies.
+
 ## 3.1.4
 
 ### Fixes
