@@ -16,11 +16,9 @@ export const ConfigCompletionProvider: vscode.CompletionItemProvider = {
 		if (isKey) {
 			return Object.keys(ConfigFileParameters)
 				.filter((key) => !existingKeys.has(key))
-				.sort(
-					(key) =>
-						+ConfigFileParameters[key as ConfigFileAllowedParams].required,
-				)
 				.map((key) => {
+					const { required } =
+						ConfigFileParameters[key as ConfigFileAllowedParams];
 					const item = new vscode.CompletionItem(
 						key,
 						vscode.CompletionItemKind.Property,
@@ -30,6 +28,7 @@ export const ConfigCompletionProvider: vscode.CompletionItemProvider = {
 						command: "editor.action.triggerSuggest",
 						title: "Trigger Suggest",
 					};
+					item.sortText = required ? "a" : "z";
 					return item;
 				});
 		}
