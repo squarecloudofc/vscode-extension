@@ -6,12 +6,14 @@ import { getVscodeLang, loadTranslations } from "vscode-ext-localisation";
 import { APIManager } from "./api";
 import { CommandsManager } from "./commands";
 import { ConfigManager } from "./config";
+import { ConfigFileManager } from "./config-file";
 import { TreeViewsManager } from "./treeviews";
 
 export class SquareEasyExtension {
 	private readonly logger = new Logger("Square Cloud Easy");
 
 	public readonly config = new ConfigManager(this.context.secrets);
+	public readonly configFile = new ConfigFileManager(this);
 	public readonly treeViews = new TreeViewsManager(this);
 	public readonly commands = new CommandsManager(this);
 	public readonly api = new APIManager(this);
