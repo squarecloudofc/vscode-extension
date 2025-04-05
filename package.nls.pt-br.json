@@ -178,6 +178,9 @@
 				"subdomain": "Você precisa inserir um subdominio valido pra hospedar uma aplicação web (Site, api), caso não seja o seu intuito, basta remover o campo SUBDOMAIN.",
 				"start": "Você precisa inserir um comando de inicio, caso não seja o seu intuito, basta remover o campo START.",
 				"main": "Você precisa inserir um arquivo principal válido, esse é o arquivo principal da sua aplicação, por onde tudo começa!"
+			},
+			"unavailable": {
+				"memory": "Você está sem memória disponível, considere fazer um upgrade em https://squarecloud.app/pay?state=upgrade"
 			}
 		}
 	}

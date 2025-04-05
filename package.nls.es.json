@@ -176,6 +176,9 @@
 				"subdomain": "Necesitas proporcionar un subdominio válido para alojar una aplicación web (sitio, API). Si no es tu intención, simplemente elimina el campo SUBDOMAIN.",
 				"start": "Necesitas proporcionar un comando de inicio. Si no es tu intención, simplemente elimina el campo START.",
 				"main": "Necesitas proporcionar un archivo principal válido. Este es el archivo principal de tu aplicación, donde todo comienza."
+			},
+			"unavailable": {
+				"memory": "No tienes memoria disponible. Considera actualizar en https://squarecloud.app/pay?state=upgrade"
 			}
 		}
 	}

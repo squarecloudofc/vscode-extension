@@ -178,6 +178,9 @@
 				"subdomain": "You need to provide a valid subdomain to host a web application (site, API). If that's not your intention, just remove the SUBDOMAIN field.",
 				"start": "You need to provide a start command. If that's not your intention, just remove the START field.",
 				"main": "You need to provide a valid main file. This is the main file of your application, where everything starts!"
+			},
+			"unavailable": {
+				"memory": "You are out of available memory. Consider upgrading at https://squarecloud.app/pay?state=upgrade"
 			}
 		}
 	}

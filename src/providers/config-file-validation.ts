@@ -43,6 +43,7 @@ export function validateConfigFile(
 				current.line,
 				diagnostics,
 				document,
+				extension,
 			);
 		} else if (parameter.required) {
 			diagnostics.push(

@@ -11,5 +11,9 @@ export function createDiagnostic(
 		line,
 		document.lineAt(line).text.length,
 	);
-	return new vscode.Diagnostic(range, message, vscode.DiagnosticSeverity.Error);
+	return new vscode.Diagnostic(
+		range,
+		message,
+		vscode.DiagnosticSeverity.Warning,
+	);
 }
