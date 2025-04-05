@@ -18,7 +18,7 @@ export const MAIN = {
 				createDiagnostic(
 					document,
 					line,
-					t("configFile.error.invalid.main", { file: value }),
+					t("configFile.error.invalid.mainFile", { file: value }),
 				),
 			);
 		}
@@ -30,7 +30,7 @@ export const MAIN = {
 				createDiagnostic(
 					document,
 					line,
-					t("configFile.error.invalid.main", { file: value }),
+					t("configFile.error.invalid.mainFile", { file: value }),
 				),
 			);
 		}
