@@ -18,7 +18,7 @@ export function validateConfigFile(
 	const keys: ConfigFileKeys = new Map();
 
 	for (let line = 0; line < lines.length; line++) {
-		const [key, value] = lines[line].split("=").map((part) => part.trim());
+		const [key, value] = lines[line].split("=");
 
 		if (!key) continue;
 		if (!keys.has(key)) keys.set(key, { line, value });

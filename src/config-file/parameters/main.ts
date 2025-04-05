@@ -14,19 +14,15 @@ export const MAIN = {
 			? workspaceFolders[0].uri.fsPath
 			: "";
 
-		if (!workspaceRoot) {
+		const mainFilePath = resolve(workspaceRoot, value);
+
+		if (!value) {
 			diagnostics.push(
-				createDiagnostic(
-					document,
-					line,
-					t("configFile.error.invalid.mainFile", { file: value }),
-				),
+				createDiagnostic(document, line, t("configFile.error.missing.main")),
 			);
 		}
 
-		const mainFilePath = resolve(workspaceRoot, value);
-
-		if (!existsSync(mainFilePath)) {
+		if (!workspaceRoot || !value || !existsSync(mainFilePath)) {
 			diagnostics.push(
 				createDiagnostic(
 					document,

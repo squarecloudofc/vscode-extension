@@ -155,20 +155,27 @@
 
 	"configFile": {
 		"error": {
-			"duplicateKey": "Tu archivo de configuración Square Cloud tiene 2 configuraciones para \"{key}\".",
+			"duplicateKey": "Tu archivo de configuración de Square Cloud tiene 2 configuraciones \"{{key}}\".",
 			"missingKey": "La propiedad \"{{key}}\" no está presente en tu archivo de configuración, pero es obligatoria para alojar tu aplicación.",
 			"long": {
-				"displayName": "DISPLAY_NAME excede la longitud máxima de 32 caracteres.",
-				"description": "DESCRIPTION excede la longitud máxima de 280 caracteres.",
-				"subdomain": "SUBDOMAIN excede la longitud máxima de 63 caracteres.",
-				"start": "START excede la longitud máxima de 128 caracteres."
+				"displayName": "El campo DISPLAY_NAME no puede tener más de 32 caracteres.",
+				"description": "El campo DESCRIPTION no puede tener más de 280 caracteres.",
+				"subdomain": "El campo SUBDOMAIN no puede tener más de 62 caracteres.",
+				"start": "El campo START solo puede tener hasta 128 caracteres."
 			},
 			"invalid": {
-				"mainFile": "El archivo MAIN \"{file}\" no existe en tu proyecto.",
-				"memory": "El campo MEMORY debe ser un valor en MB mayor o igual a {memory}.",
+				"mainFile": "El archivo principal \"{{file}}\" no existe en tu proyecto.",
+				"memory": "El campo MEMORY debe ser un valor en MB mayor o igual a {{memory}}.",
 				"autoRestart": "El campo AUTORESTART debe ser \"true\" o \"false\".",
-				"version": "En el campo VERSION solo se permite \"recommended\" o \"latest\".",
+				"version": "El campo VERSION solo permite \"recommended\" o \"latest\".",
 				"subdomain": "SUBDOMAIN inválido. Solo se permiten caracteres alfanuméricos y guiones."
+			},
+			"missing": {
+				"displayName": "Necesitas proporcionar un DISPLAY_NAME válido con hasta 32 caracteres.",
+				"description": "Necesitas proporcionar una descripción válida con hasta 280 caracteres. Si no lo deseas, simplemente elimina el campo DESCRIPTION.",
+				"subdomain": "Necesitas proporcionar un subdominio válido para alojar una aplicación web (sitio, API). Si no es tu intención, simplemente elimina el campo SUBDOMAIN.",
+				"start": "Necesitas proporcionar un comando de inicio. Si no es tu intención, simplemente elimina el campo START.",
+				"main": "Necesitas proporcionar un archivo principal válido. Este es el archivo principal de tu aplicación, donde todo comienza."
 			}
 		}
 	}

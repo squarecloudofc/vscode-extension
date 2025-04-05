@@ -5,6 +5,16 @@ import { t } from "vscode-ext-localisation";
 export const SUBDOMAIN = {
 	required: false,
 	validation(keys, value, line, diagnostics, document) {
+		if (!value) {
+			diagnostics.push(
+				createDiagnostic(
+					document,
+					line,
+					t("configFile.error.missing.subdomain"),
+				),
+			);
+		}
+
 		if (value.length > 62) {
 			diagnostics.push(
 				createDiagnostic(document, line, t("configFile.error.long.subdomain")),

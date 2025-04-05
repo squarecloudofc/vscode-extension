@@ -160,17 +160,24 @@
 			"duplicateKey": "O seu arquivo de configuração da Square Cloud tem 2 configurações \"{{key}}\".",
 			"missingKey": "A propriedade \"{{key}}\" não está presente no seu arquivo de configuração, mas é obrigatória para hospedar sua aplicação.",
 			"long": {
-				"displayName": "DISPLAY_NAME excede o comprimento máximo de 32 caracteres.",
-				"description": "DESCRIPTION excede o comprimento máximo de 280 caracteres.",
-				"subdomain": "SUBDOMAIN excede o comprimento máximo de 63 caracteres.",
-				"start": "START excede o comprimento máximo de 128 caracteres."
+				"displayName": "O campo DISPLAY_NAME não pode ter mais de 32 caracteres.",
+				"description": "O campo DESCRIPTION não pode ter mais de 280 caracteres.",
+				"subdomain": "O campo SUBDOMAIN não pode ter mais do que 62 caracteres.",
+				"start": "O campo START só pode ter até 128 caracteres."
 			},
 			"invalid": {
-				"mainFile": "O arquivo MAIN \"{{file}}\" não existe no seu projeto.",
+				"mainFile": "O arquivo principal \"{{file}}\" não existe no seu projeto.",
 				"memory": "O campo MEMORY deve ser um valor em MB maior ou igual a {{memory}}.",
 				"autoRestart": "O campo AUTORESTART deve ser \"true\" ou \"false\".",
 				"version": "No campo VERSION só é permitido \"recommended\" ou \"latest\".",
 				"subdomain": "SUBDOMAIN inválido. Apenas caracteres alfanuméricos e hifens são permitidos."
+			},
+			"missing": {
+				"displayName": "Você precisa inserir um DISPLAY_NAME válido com até 32 caracteres.",
+				"description": "Você precisa inserir uma descrição valida com até 280 caracteres. Caso não queira, basta remover o campo DESCRIPTION.",
+				"subdomain": "Você precisa inserir um subdominio valido pra hospedar uma aplicação web (Site, api), caso não seja o seu intuito, basta remover o campo SUBDOMAIN.",
+				"start": "Você precisa inserir um comando de inicio, caso não seja o seu intuito, basta remover o campo START.",
+				"main": "Você precisa inserir um arquivo principal válido, esse é o arquivo principal da sua aplicação, por onde tudo começa!"
 			}
 		}
 	}

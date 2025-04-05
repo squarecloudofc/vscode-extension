@@ -5,6 +5,16 @@ import { t } from "vscode-ext-localisation";
 export const DISPLAY_NAME = {
 	required: true,
 	validation(keys, value, line, diagnostics, document) {
+		if (!value) {
+			diagnostics.push(
+				createDiagnostic(
+					document,
+					line,
+					t("configFile.error.missing.displayName"),
+				),
+			);
+		}
+
 		if (value.length > 32) {
 			diagnostics.push(
 				createDiagnostic(
