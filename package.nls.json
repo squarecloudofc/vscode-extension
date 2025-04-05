@@ -155,20 +155,22 @@
 		"loaded": "Application successfuly updated!"
 	},
 
-	"configFile.error": {
-		"duplicateKey": "Your configuration file has 2 configurations for \"{key}\".",
-		"long": {
-			"displayName": "DISPLAY_NAME exceeds the maximum length of 32 characters.",
-			"description": "DESCRIPTION exceeds the maximum length of 280 characters.",
-			"subdomain": "SUBDOMAIN exceeds the maximum length of 63 characters.",
-			"start": "START exceeds the maximum length of 128 characters."
-		},
-		"invalid": {
-			"mainFile": "The MAIN file \"{file}\" does not exist in your project.",
-			"memory": "The MEMORY field must be a value in MB greater than or equal to {memory}.",
-			"autoRestart": "The AUTORESTART field must be \"true\" or \"false\".",
-			"version": "The VERSION field only accepts \"recommended\" or \"latest\".",
-			"subdomain": "Invalid SUBDOMAIN. Only alphanumeric characters and hyphens are allowed."
+	"configFile": {
+		"error": {
+			"duplicateKey": "Your configuration file has 2 configurations for \"{key}\".",
+			"long": {
+				"displayName": "DISPLAY_NAME exceeds the maximum length of 32 characters.",
+				"description": "DESCRIPTION exceeds the maximum length of 280 characters.",
+				"subdomain": "SUBDOMAIN exceeds the maximum length of 63 characters.",
+				"start": "START exceeds the maximum length of 128 characters."
+			},
+			"invalid": {
+				"mainFile": "The MAIN file \"{file}\" does not exist in your project.",
+				"memory": "The MEMORY field must be a value in MB greater than or equal to {memory}.",
+				"autoRestart": "The AUTORESTART field must be \"true\" or \"false\".",
+				"version": "The VERSION field only accepts \"recommended\" or \"latest\".",
+				"subdomain": "Invalid SUBDOMAIN. Only alphanumeric characters and hyphens are allowed."
+			}
 		}
 	}
 }

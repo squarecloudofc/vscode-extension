@@ -153,20 +153,22 @@
 		"loaded": "¡Aplicación actualizada con éxito!"
 	},
 
-	"configFile.error": {
-		"duplicateKey": "Tu archivo de configuración Square Cloud tiene 2 configuraciones para \"{key}\".",
-		"long": {
-			"displayName": "DISPLAY_NAME excede la longitud máxima de 32 caracteres.",
-			"description": "DESCRIPTION excede la longitud máxima de 280 caracteres.",
-			"subdomain": "SUBDOMAIN excede la longitud máxima de 63 caracteres.",
-			"start": "START excede la longitud máxima de 128 caracteres."
-		},
-		"invalid": {
-			"mainFile": "El archivo MAIN \"{file}\" no existe en tu proyecto.",
-			"memory": "El campo MEMORY debe ser un valor en MB mayor o igual a {memory}.",
-			"autoRestart": "El campo AUTORESTART debe ser \"true\" o \"false\".",
-			"version": "En el campo VERSION solo se permite \"recommended\" o \"latest\".",
-			"subdomain": "SUBDOMAIN inválido. Solo se permiten caracteres alfanuméricos y guiones."
+	"configFile": {
+		"error": {
+			"duplicateKey": "Tu archivo de configuración Square Cloud tiene 2 configuraciones para \"{key}\".",
+			"long": {
+				"displayName": "DISPLAY_NAME excede la longitud máxima de 32 caracteres.",
+				"description": "DESCRIPTION excede la longitud máxima de 280 caracteres.",
+				"subdomain": "SUBDOMAIN excede la longitud máxima de 63 caracteres.",
+				"start": "START excede la longitud máxima de 128 caracteres."
+			},
+			"invalid": {
+				"mainFile": "El archivo MAIN \"{file}\" no existe en tu proyecto.",
+				"memory": "El campo MEMORY debe ser un valor en MB mayor o igual a {memory}.",
+				"autoRestart": "El campo AUTORESTART debe ser \"true\" o \"false\".",
+				"version": "En el campo VERSION solo se permite \"recommended\" o \"latest\".",
+				"subdomain": "SUBDOMAIN inválido. Solo se permiten caracteres alfanuméricos y guiones."
+			}
 		}
 	}
 }
