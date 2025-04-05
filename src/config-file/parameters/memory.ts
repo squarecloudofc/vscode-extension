@@ -3,6 +3,7 @@ import type { ConfigFileParameter } from "@/types/config-file";
 import { t } from "vscode-ext-localisation";
 
 export const MEMORY = {
+	required: true,
 	validation(keys, value, line, diagnostics, document) {
 		const memory = keys.has("SUBDOMAIN") ? 512 : 256;
 

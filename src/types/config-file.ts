@@ -2,6 +2,7 @@ import type * as vscode from "vscode";
 
 export type ConfigFileKeys = Map<string, { line: number; value: string }>;
 export type ConfigFileParameter = {
+	required: boolean;
 	validation?: (
 		keys: ConfigFileKeys,
 		value: string,

@@ -7,6 +7,7 @@ import { t } from "vscode-ext-localisation";
 import { AllowedExtensions } from "../../lib/config/extensions";
 
 export const MAIN = {
+	required: true,
 	validation(keys, value, line, diagnostics, document) {
 		const workspaceFolders = vscode.workspace.workspaceFolders;
 		const workspaceRoot = workspaceFolders

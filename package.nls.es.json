@@ -156,6 +156,7 @@
 	"configFile": {
 		"error": {
 			"duplicateKey": "Tu archivo de configuración Square Cloud tiene 2 configuraciones para \"{key}\".",
+			"missingKey": "La propiedad \"{{key}}\" no está presente en tu archivo de configuración, pero es obligatoria para alojar tu aplicación.",
 			"long": {
 				"displayName": "DISPLAY_NAME excede la longitud máxima de 32 caracteres.",
 				"description": "DESCRIPTION excede la longitud máxima de 280 caracteres.",

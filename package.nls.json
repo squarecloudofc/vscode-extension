@@ -158,6 +158,7 @@
 	"configFile": {
 		"error": {
 			"duplicateKey": "Your configuration file has 2 configurations for \"{key}\".",
+			"missingKey": "The property \"{{key}}\" is missing from your configuration file but is required to host your application.",
 			"long": {
 				"displayName": "DISPLAY_NAME exceeds the maximum length of 32 characters.",
 				"description": "DESCRIPTION exceeds the maximum length of 280 characters.",

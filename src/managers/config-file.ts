@@ -2,6 +2,7 @@ import { ConfigFileParameters } from "@/config-file/parameters";
 import { createDiagnostic } from "@/lib/utils/diagnostic";
 import { ConfigFileActionProvider } from "@/providers/config-file-action";
 import { ConfigCompletionProvider } from "@/providers/config-file-completion";
+import { validateConfigFile } from "@/providers/config-file-validation";
 import type { ConfigFileKeys } from "@/types/config-file";
 import * as vscode from "vscode";
 import { t } from "vscode-ext-localisation";
@@ -23,7 +24,11 @@ export class ConfigFileManager {
 				event.document.fileName.endsWith("squarecloud.app") ||
 				event.document.fileName.endsWith("squarecloud.config")
 			) {
-				this.validateConfigFile(event.document, diagnosticCollection);
+				validateConfigFile(
+					this.extension,
+					event.document,
+					diagnosticCollection,
+				);
 			}
 		});
 
@@ -32,7 +37,7 @@ export class ConfigFileManager {
 				document.fileName.endsWith("squarecloud.app") ||
 				document.fileName.endsWith("squarecloud.config")
 			) {
-				this.validateConfigFile(document, diagnosticCollection);
+				validateConfigFile(this.extension, document, diagnosticCollection);
 			}
 		});
 
@@ -54,37 +59,5 @@ export class ConfigFileManager {
 				},
 			),
 		);
-	}
-
-	private validateConfigFile(
-		document: vscode.TextDocument,
-		diagnosticCollection: vscode.DiagnosticCollection,
-	): void {
-		const diagnostics: vscode.Diagnostic[] = [];
-		const lines = document.getText().split("\n");
-		const keys: ConfigFileKeys = new Map();
-
-		for (let line = 0; line < lines.length; line++) {
-			const [key, value] = lines[line].split("=").map((part) => part.trim());
-
-			if (!key) continue;
-			if (!keys.has(key)) keys.set(key, { line, value });
-			else
-				diagnostics.push(
-					createDiagnostic(
-						document,
-						line,
-						t("configFile.error.duplicateKey", { key }),
-					),
-				);
-		}
-
-		for (const [key, { line, value }] of keys) {
-			const parameter =
-				ConfigFileParameters[key as keyof typeof ConfigFileParameters];
-			parameter?.validation(keys, value, line, diagnostics, document);
-		}
-
-		diagnosticCollection.set(document.uri, diagnostics);
 	}
 }

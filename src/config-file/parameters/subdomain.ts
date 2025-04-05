@@ -3,6 +3,7 @@ import type { ConfigFileParameter } from "@/types/config-file";
 import { t } from "vscode-ext-localisation";
 
 export const SUBDOMAIN = {
+	required: false,
 	validation(keys, value, line, diagnostics, document) {
 		if (value.length > 62) {
 			diagnostics.push(

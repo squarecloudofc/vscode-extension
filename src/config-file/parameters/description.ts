@@ -3,6 +3,7 @@ import type { ConfigFileParameter } from "@/types/config-file";
 import { t } from "vscode-ext-localisation";
 
 export const DESCRIPTION = {
+	required: false,
 	validation(keys, value, line, diagnostics, document) {
 		if (value.length > 280) {
 			diagnostics.push(

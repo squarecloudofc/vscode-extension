@@ -4,6 +4,7 @@ import * as vscode from "vscode";
 import { t } from "vscode-ext-localisation";
 
 export const AUTORESTART = {
+	required: false,
 	validation(keys, value, line, diagnostics, document) {
 		if (!["true", "false"].includes(value)) {
 			diagnostics.push(

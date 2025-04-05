@@ -4,6 +4,7 @@ import * as vscode from "vscode";
 import { t } from "vscode-ext-localisation";
 
 export const VERSION = {
+	required: false,
 	validation(keys, value, line, diagnostics, document) {
 		if (!["recommended", "latest"].includes(value)) {
 			diagnostics.push(
