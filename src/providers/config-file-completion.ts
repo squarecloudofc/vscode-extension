@@ -36,7 +36,6 @@ export const ConfigCompletionProvider: vscode.CompletionItemProvider = {
 				});
 		}
 
-		console.log({ line });
 		if (line.startsWith("MAIN=")) {
 			return ConfigFileParameters.MAIN.autocomplete(document, position);
 		}
