@@ -3,8 +3,43 @@ import type { ConfigFileParameter } from "@/types/config-file";
 import * as vscode from "vscode";
 import { t } from "vscode-ext-localisation";
 
+export const memorySuggestions = [
+	256, 512, 1024, 2048, 4096, 8192, 16384, 32768,
+];
+
+function legibleMemory(memory: number) {
+	if (memory < 1024) return `${memory}MB`;
+	if (memory < 1048576) return `${Math.floor(memory / 1024)}GB`;
+	return memory.toString();
+}
+
 export const MEMORY = {
 	required: true,
+	/**
+	 * This function is used to autocomplete the memory value in the config file.
+	 */
+	autocomplete(document, position) {
+		const content = document.getText();
+		const keys = new Set(
+			content.split("\n").map((line) => {
+				return line.split("=")[0]?.trim();
+			}),
+		);
+
+		return memorySuggestions
+			.filter((memory) => (keys.has("SUBDOMAIN") ? memory >= 512 : true))
+			.map((memory, i) => {
+				const completion = new vscode.CompletionItem(
+					`${legibleMemory(memory)}`,
+					vscode.CompletionItemKind.EnumMember,
+				);
+
+				completion.insertText = memory.toString();
+				completion.sortText = String.fromCharCode(97 + i);
+				completion.preselect = memory === 512;
+				return completion;
+			});
+	},
 	validation(keys, value, line, diagnostics, document, extension) {
 		const memory = keys.has("SUBDOMAIN") ? 512 : 256;
 		const inserted = Number(value);

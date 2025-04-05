@@ -36,6 +36,7 @@ export const ConfigCompletionProvider: vscode.CompletionItemProvider = {
 				});
 		}
 
+		console.log({ line });
 		if (line.startsWith("MAIN=")) {
 			return ConfigFileParameters.MAIN.autocomplete(document, position);
 		}
@@ -46,6 +47,10 @@ export const ConfigCompletionProvider: vscode.CompletionItemProvider = {
 
 		if (line.startsWith("AUTORESTART=")) {
 			return ConfigFileParameters.AUTORESTART.autocomplete(document, position);
+		}
+
+		if (line.startsWith("MEMORY=")) {
+			return ConfigFileParameters.MEMORY.autocomplete(document, position);
 		}
 
 		return undefined;
