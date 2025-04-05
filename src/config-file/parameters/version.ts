@@ -6,7 +6,7 @@ import { t } from "vscode-ext-localisation";
 export const VERSION = {
 	required: true,
 	validation(keys, value, line, diagnostics, document) {
-		if (!["recommended", "latest"].includes(value)) {
+		if (value !== "recommended" && value !== "latest") {
 			diagnostics.push(
 				createDiagnostic(document, line, t("configFile.error.invalid.version")),
 			);

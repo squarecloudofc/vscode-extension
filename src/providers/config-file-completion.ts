@@ -2,6 +2,9 @@ import { ConfigFileParameters } from "@/config-file/parameters";
 import type { ConfigFileAllowedParams } from "@/types/config-file";
 import * as vscode from "vscode";
 
+/**
+ * This provider is used to provide completion items for the config file.
+ */
 export const ConfigCompletionProvider: vscode.CompletionItemProvider = {
 	provideCompletionItems(document, position) {
 		const line = document.lineAt(position).text.trim();

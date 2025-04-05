@@ -13,6 +13,10 @@ export class ConfigFileManager {
 		this.initialize();
 	}
 
+	/**
+	 * Initialize the config file manager.
+	 * this create the subscriptions and event listeners for the config file.
+	 */
 	async initialize() {
 		const diagnosticCollection =
 			vscode.languages.createDiagnosticCollection("squarecloud");

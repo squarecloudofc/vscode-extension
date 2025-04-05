@@ -16,13 +16,15 @@ export const MAIN = {
 
 		const mainFilePath = resolve(workspaceRoot, value);
 
+		// Validate if there is some value on MAIN
 		if (!value) {
 			diagnostics.push(
 				createDiagnostic(document, line, t("configFile.error.missing.main")),
 			);
 		}
 
-		if (!workspaceRoot || !value || !existsSync(mainFilePath)) {
+		// Validate if the file exists
+		if (!workspaceRoot || !existsSync(mainFilePath)) {
 			diagnostics.push(
 				createDiagnostic(
 					document,
@@ -33,6 +35,10 @@ export const MAIN = {
 		}
 	},
 	autocomplete(document, position) {
+		/**
+		 * This function map all project files on project
+		 * and provide them as completion items
+		 */
 		const workspaceFolders = vscode.workspace.workspaceFolders;
 
 		if (!workspaceFolders) return;

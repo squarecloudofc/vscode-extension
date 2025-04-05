@@ -5,7 +5,8 @@ import { t } from "vscode-ext-localisation";
 export const DESCRIPTION = {
 	required: false,
 	validation(keys, value, line, diagnostics, document) {
-		if (!value) {
+		// Validate if exists some value on DESCRIPTION
+		if (!value.trim()) {
 			diagnostics.push(
 				createDiagnostic(
 					document,
@@ -15,6 +16,7 @@ export const DESCRIPTION = {
 			);
 		}
 
+		// Validate if the DESCRIPTION exceeds 280 characters
 		if (value.length > 280) {
 			diagnostics.push(
 				createDiagnostic(

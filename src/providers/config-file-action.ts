@@ -1,5 +1,8 @@
 import * as vscode from "vscode";
 
+/**
+ * This provider create the fast fix suggestions on errors
+ */
 export class ConfigFileActionProvider implements vscode.CodeActionProvider {
 	static providedCodeActionKinds = [vscode.CodeActionKind.QuickFix];
 

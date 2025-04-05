@@ -5,6 +5,7 @@ import { t } from "vscode-ext-localisation";
 export const SUBDOMAIN = {
 	required: false,
 	validation(keys, value, line, diagnostics, document) {
+		// Validate if exists some value on SUBDOMAIN
 		if (!value) {
 			diagnostics.push(
 				createDiagnostic(
@@ -15,12 +16,14 @@ export const SUBDOMAIN = {
 			);
 		}
 
+		// Validate if the SUBDOMAIN exceeds 62 characters
 		if (value.length > 62) {
 			diagnostics.push(
 				createDiagnostic(document, line, t("configFile.error.long.subdomain")),
 			);
 		}
 
+		// Validate if the SUBDOMAIN contains invalid characters
 		if (!/^[a-zA-Z0-9-]+$/.test(value)) {
 			diagnostics.push(
 				createDiagnostic(

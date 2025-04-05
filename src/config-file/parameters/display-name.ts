@@ -5,7 +5,8 @@ import { t } from "vscode-ext-localisation";
 export const DISPLAY_NAME = {
 	required: true,
 	validation(keys, value, line, diagnostics, document) {
-		if (!value) {
+		// Validate if exists some value on DISPLAY_NAME
+		if (!value.trim()) {
 			diagnostics.push(
 				createDiagnostic(
 					document,
@@ -15,6 +16,7 @@ export const DISPLAY_NAME = {
 			);
 		}
 
+		// Validate if the DISPLAY_NAME exceeds 32 characters
 		if (value.length > 32) {
 			diagnostics.push(
 				createDiagnostic(

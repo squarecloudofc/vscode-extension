@@ -8,6 +8,9 @@ import type {
 import type * as vscode from "vscode";
 import { t } from "vscode-ext-localisation";
 
+/**
+ * This function validates the config file and sets the diagnostics for the document.
+ */
 export function validateConfigFile(
 	extension: SquareEasyExtension,
 	document: vscode.TextDocument,

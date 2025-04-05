@@ -11,11 +11,14 @@ export const MEMORY = {
 		const available = extension.store.value.user?.plan.memory.available;
 
 		if (
-			// previne espaços no começo/fim
+			// Prevent spaces on the end or start
 			value !== value.trim() ||
-			// verifica se não é NaN, como "MEMORY=dasdasd"
+			// Prevent to be NaN, such as "MEMORY=dasdasd"
 			Number.isNaN(inserted) ||
-			// verifica se a memória é menor que o máximo
+			/**
+			 * Verifies if the memory exceeds the minimum limit
+			 * @see {@link memory} for the minimum limit definition
+			 */
 			memory > inserted
 		) {
 			diagnostics.push(
@@ -27,21 +30,23 @@ export const MEMORY = {
 			);
 		}
 
-		// verifica se o usuário tem memória disponivel
+		// Verifies that the user has available memory
 		if (
 			typeof available === "number" &&
 			!Number.isNaN(inserted) &&
 			inserted > available
 		) {
+			// Create diagnostic message
 			const diagnostic = createDiagnostic(
 				document,
 				line,
 				t("configFile.error.unavailable.memory"),
 			);
 
+			// Insert url to upgrade plan
 			diagnostic.code = {
-				value: "Fazer upgrade", // Replace with your desired link
-				target: vscode.Uri.parse("https://squarecloud.app/pay?state=upgrade"), // Replace with your desired link
+				value: "Fazer upgrade", // Link text
+				target: vscode.Uri.parse("https://squarecloud.app/pay?state=upgrade"), // Link to upgrade plan
 			};
 
 			diagnostics.push(diagnostic);
