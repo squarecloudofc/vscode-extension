@@ -2,6 +2,7 @@ import { ConfigFileParameters } from "@/config-file/parameters";
 import { createDiagnostic } from "@/lib/utils/diagnostic";
 import { ConfigFileActionProvider } from "@/providers/config-file-action";
 import { ConfigCompletionProvider } from "@/providers/config-file-completion";
+import type { ConfigFileKeys } from "@/types/config-file";
 import * as vscode from "vscode";
 import { t } from "vscode-ext-localisation";
 import type { SquareEasyExtension } from "./extension";
@@ -61,15 +62,13 @@ export class ConfigFileManager {
 	): void {
 		const diagnostics: vscode.Diagnostic[] = [];
 		const lines = document.getText().split("\n");
-		const keys = new Set<string>();
+		const keys: ConfigFileKeys = new Map();
 
 		for (let line = 0; line < lines.length; line++) {
 			const [key, value] = lines[line].split("=").map((part) => part.trim());
-			const parameter =
-				ConfigFileParameters[key as keyof typeof ConfigFileParameters];
 
-			if (!key || !parameter) continue;
-			if (!keys.has(key)) keys.add(key);
+			if (!key) continue;
+			if (!keys.has(key)) keys.set(key, { line, value });
 			else
 				diagnostics.push(
 					createDiagnostic(
@@ -78,8 +77,12 @@ export class ConfigFileManager {
 						t("configFile.error.duplicateKey", { key }),
 					),
 				);
+		}
 
-			parameter.validation(keys, value, line, diagnostics, document);
+		for (const [key, { line, value }] of keys) {
+			const parameter =
+				ConfigFileParameters[key as keyof typeof ConfigFileParameters];
+			parameter?.validation(keys, value, line, diagnostics, document);
 		}
 
 		diagnosticCollection.set(document.uri, diagnostics);
