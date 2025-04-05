@@ -1,7 +1,10 @@
 import { ConfigFileParameters } from "@/config-file/parameters";
 import { createDiagnostic } from "@/lib/utils/diagnostic";
 import type { SquareEasyExtension } from "@/managers/extension";
-import type { ConfigFileKeys } from "@/types/config-file";
+import type {
+	ConfigFileAllowedParams,
+	ConfigFileKeys,
+} from "@/types/config-file";
 import type * as vscode from "vscode";
 import { t } from "vscode-ext-localisation";
 
@@ -30,8 +33,7 @@ export function validateConfigFile(
 	}
 
 	for (const key in ConfigFileParameters) {
-		const parameter =
-			ConfigFileParameters[key as keyof typeof ConfigFileParameters];
+		const parameter = ConfigFileParameters[key as ConfigFileAllowedParams];
 		const current = keys.get(key);
 
 		if (current) {

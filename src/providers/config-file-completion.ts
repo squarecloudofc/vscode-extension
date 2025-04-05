@@ -1,4 +1,5 @@
 import { ConfigFileParameters } from "@/config-file/parameters";
+import type { ConfigFileAllowedParams } from "@/types/config-file";
 import * as vscode from "vscode";
 
 export const ConfigCompletionProvider: vscode.CompletionItemProvider = {
@@ -15,6 +16,10 @@ export const ConfigCompletionProvider: vscode.CompletionItemProvider = {
 		if (isKey) {
 			return Object.keys(ConfigFileParameters)
 				.filter((key) => !existingKeys.has(key))
+				.sort(
+					(key) =>
+						+ConfigFileParameters[key as ConfigFileAllowedParams].required,
+				)
 				.map((key) => {
 					const item = new vscode.CompletionItem(
 						key,
