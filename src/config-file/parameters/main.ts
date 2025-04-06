@@ -1,4 +1,4 @@
-import { existsSync } from "node:fs";
+import { existsSync, statSync } from "node:fs";
 import { dirname, relative, resolve } from "node:path";
 import { createDiagnostic } from "@/lib/utils/diagnostic";
 import type { ConfigFileParameter } from "@/types/config-file";
@@ -11,6 +11,7 @@ export const MAIN = {
 	validation(keys, value, line, diagnostics, document) {
 		const configFilePath = dirname(document.uri.fsPath);
 		const mainFilePath = resolve(configFilePath, value);
+		const stats = existsSync(mainFilePath) && statSync(mainFilePath);
 
 		// Validate if there is some value on MAIN
 		if (!value) {
@@ -20,7 +21,7 @@ export const MAIN = {
 		}
 
 		// Validate if the file exists
-		if (!existsSync(mainFilePath)) {
+		if (!stats || !stats.isFile()) {
 			diagnostics.push(
 				createDiagnostic(
 					document,
