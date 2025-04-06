@@ -1,5 +1,5 @@
 import { existsSync } from "node:fs";
-import { relative, resolve } from "node:path";
+import { dirname, relative, resolve } from "node:path";
 import { createDiagnostic } from "@/lib/utils/diagnostic";
 import type { ConfigFileParameter } from "@/types/config-file";
 import * as vscode from "vscode";
@@ -9,12 +9,8 @@ import { AllowedExtensions } from "../../lib/config/extensions";
 export const MAIN = {
 	required: true,
 	validation(keys, value, line, diagnostics, document) {
-		const workspaceFolders = vscode.workspace.workspaceFolders;
-		const workspaceRoot = workspaceFolders
-			? workspaceFolders[0].uri.fsPath
-			: "";
-
-		const mainFilePath = resolve(workspaceRoot, value);
+		const configFilePath = dirname(document.uri.fsPath);
+		const mainFilePath = resolve(configFilePath, value);
 
 		// Validate if there is some value on MAIN
 		if (!value) {
@@ -24,7 +20,18 @@ export const MAIN = {
 		}
 
 		// Validate if the file exists
-		if (!workspaceRoot || !existsSync(mainFilePath)) {
+		if (!existsSync(mainFilePath)) {
+			diagnostics.push(
+				createDiagnostic(
+					document,
+					line,
+					t("configFile.error.invalid.mainFile", { file: value }),
+				),
+			);
+		}
+
+		// Validate if the file is inside the project
+		if (!mainFilePath.startsWith(configFilePath)) {
 			diagnostics.push(
 				createDiagnostic(
 					document,
@@ -36,27 +43,28 @@ export const MAIN = {
 	},
 	autocomplete(document, position) {
 		/**
-		 * This function map all project files on project
-		 * and provide them as completion items
+		 * This function maps all project files relative to the config file
+		 * and provides them as completion items.
 		 */
-		const workspaceFolders = vscode.workspace.workspaceFolders;
-
-		if (!workspaceFolders) return;
-
-		const folder = workspaceFolders[0].uri.fsPath;
+		const configFilePath = dirname(document.uri.fsPath);
 		const files = vscode.workspace.findFiles(`**/*.{${AllowedExtensions}}`);
 
 		return files.then((uris) =>
-			uris.map((uri) => {
-				const relativePath = relative(folder, uri.fsPath);
-				const item = new vscode.CompletionItem(
-					relativePath,
-					vscode.CompletionItemKind.File,
-				);
-				item.insertText = relativePath;
-				item.range = document.getWordRangeAtPosition(position, /(?<=MAIN=).*/);
-				return item;
-			}),
+			uris
+				.filter((uri) => uri.fsPath.startsWith(configFilePath)) // Ensure files are inside the project
+				.map((uri) => {
+					const relativePath = relative(configFilePath, uri.fsPath);
+					const item = new vscode.CompletionItem(
+						relativePath,
+						vscode.CompletionItemKind.File,
+					);
+					item.insertText = relativePath;
+					item.range = document.getWordRangeAtPosition(
+						position,
+						/(?<=MAIN=).*/,
+					);
+					return item;
+				}),
 		);
 	},
 } satisfies ConfigFileParameter;
