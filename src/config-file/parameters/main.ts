@@ -20,19 +20,8 @@ export const MAIN = {
 			);
 		}
 
-		// Validate if the file exists
-		if (!stats || !stats.isFile()) {
-			diagnostics.push(
-				createDiagnostic(
-					document,
-					line,
-					t("configFile.error.invalid.mainFile", { file: value }),
-				),
-			);
-		}
-
-		// Validate if the file is inside the project
-		if (!mainFilePath.startsWith(configFilePath)) {
+		// Validate if the file exists, is a file, and is inside config file root path
+		if (!stats || !stats.isFile() || !mainFilePath.startsWith(configFilePath)) {
 			diagnostics.push(
 				createDiagnostic(
 					document,
