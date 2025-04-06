@@ -32,8 +32,7 @@
 		"watch": "concurrently --raw \"tsc -w\" \"tsc-alias -w\"",
 		"pretest": "npm run build && npm run lint",
 		"lint": "biome check --write .",
-		"test": "node ./dist/test/runTest.js",
-		"prepare": "husky"
+		"test": "node ./dist/test/runTest.js"
 	},
 	"dependencies": {
 		"@squarecloud/api": "^3.7.5",
@@ -53,7 +52,6 @@
 		"@vscode/test-electron": "^2.4.1",
 		"@vscode/vsce": "^3.3.2",
 		"concurrently": "^9.1.2",
-		"husky": "^9.1.7",
 		"mocha": "^11.1.0",
 		"tsc-alias": "^1.8.13",
 		"typescript": "^5.8.3"
