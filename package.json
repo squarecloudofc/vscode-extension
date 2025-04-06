@@ -318,7 +318,7 @@
 		],
 		"languages": [
 			{
-				"id": "squarecloud",
+				"id": "squarecloud.config",
 				"icon": {
 					"dark": "resources/dark/squarecloud.svg",
 					"light": "resources/light/squarecloud.svg"
@@ -338,9 +338,9 @@
 		],
 		"grammars": [
 			{
-				"language": "squarecloud",
-				"scopeName": "source.app",
-				"path": "./syntaxes/env.tmLanguage.json"
+				"language": "squarecloud.config",
+				"scopeName": "source.squarecloud",
+				"path": "./syntaxes/config.tmLanguage.json"
 			}
 		]
 	}

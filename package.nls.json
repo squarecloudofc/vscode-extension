@@ -153,5 +153,35 @@
 	"commitWorkspace": {
 		"loading": "Sending files to Square Cloud...",
 		"loaded": "Application successfuly updated!"
+	},
+
+	"configFile": {
+		"error": {
+			"duplicateKey": "Your Square Cloud configuration file has 2 \"{{key}}\" settings.",
+			"missingKey": "The property \"{{key}}\" is missing from your configuration file but is required to host your application.",
+			"long": {
+				"displayName": "The DISPLAY_NAME field cannot exceed 32 characters.",
+				"description": "The DESCRIPTION field cannot exceed 280 characters.",
+				"subdomain": "The SUBDOMAIN field cannot exceed 62 characters.",
+				"start": "The START field can only have up to 128 characters."
+			},
+			"invalid": {
+				"mainFile": "The MAIN file \"{{file}}\" does not exist in your project.",
+				"memory": "The MEMORY field must be a value in MB greater than or equal to {{memory}}.",
+				"autoRestart": "The AUTORESTART field must be \"true\" or \"false\".",
+				"version": "The VERSION field only allows \"recommended\" or \"latest\".",
+				"subdomain": "Invalid SUBDOMAIN. Only alphanumeric characters and hyphens are allowed."
+			},
+			"missing": {
+				"displayName": "You need to provide a valid DISPLAY_NAME with up to 32 characters.",
+				"description": "You need to provide a valid description with up to 280 characters. If you don't want to, just remove the DESCRIPTION field.",
+				"subdomain": "You need to provide a valid subdomain to host a web application (site, API). If that's not your intention, just remove the SUBDOMAIN field.",
+				"start": "You need to provide a start command. If that's not your intention, just remove the START field.",
+				"main": "You need to provide a valid main file. This is the main file of your application, where everything starts!"
+			},
+			"unavailable": {
+				"memory": "You are out of available memory. Consider upgrading at https://squarecloud.app/pay?state=upgrade"
+			}
+		}
 	}
 }
