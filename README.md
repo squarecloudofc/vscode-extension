@@ -45,9 +45,3 @@ _\* Accessible icons._
 We are open to contributions and suggestions at our [Github Repository](https://github.com/squarecloudofc/vscode-extension).
 
 We are anxious to hear your ideas and work together to make this project even better! 🥳
-
-## Authors
-
-Made with ❤️ by:
-
-- [João Gabriel Tonaco](https://github.com/joaotonaco)

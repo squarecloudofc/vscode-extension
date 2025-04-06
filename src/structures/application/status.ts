@@ -14,7 +14,6 @@ export class ApplicationStatus<Full extends boolean = boolean> {
 	>;
 	public running: boolean;
 	public status?: If<Full, string>;
-	public requests?: If<Full, number>;
 	public uptimeTimestamp?: number;
 	public uptime?: Date;
 
@@ -34,15 +33,14 @@ export class ApplicationStatus<Full extends boolean = boolean> {
 		this.running = baseStatus.running;
 		this.usage = baseStatus.usage as ApplicationStatusUsage;
 
-		if ("requests" in baseStatus) {
+		if ("status" in baseStatus) {
 			this.status = baseStatus.status;
-			this.requests = baseStatus.requests;
 			this.uptimeTimestamp = baseStatus.uptimeTimestamp;
 			this.uptime = baseStatus.uptime;
 		}
 	}
 
 	isFull(): this is ApplicationStatus<true> {
-		return "requests" in this.baseStatus;
+		return "status" in this.baseStatus;
 	}
 }

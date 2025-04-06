@@ -1,6 +1,6 @@
+import { formatTime } from "@/lib/utils/format";
 import type { SquareEasyExtension } from "@/managers/extension";
 import { ApplicationStatus } from "@/structures/application/status";
-import ms from "ms";
 import { t } from "vscode-ext-localisation";
 import { BaseTreeViewProvider } from "../base";
 import { GenericTreeItem } from "../items/generic";
@@ -51,7 +51,7 @@ export class ApplicationsTreeViewProvider extends BaseTreeViewProvider<SquareTre
 			if (status?.isFull()) {
 				const fullStatus = status as ApplicationStatus<true>;
 				const uptime = fullStatus.uptimeTimestamp
-					? ms(Date.now() - fullStatus.uptimeTimestamp)
+					? formatTime(Date.now() - fullStatus.uptimeTimestamp)
 					: "Offline";
 
 				treeItemsData.pop();
