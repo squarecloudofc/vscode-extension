@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## 3.2.0
+
+### Added
+
+- Configuration file syntax highlighting & auto completion.
+
 ## 3.1.5
 
 - Update dependencies.
