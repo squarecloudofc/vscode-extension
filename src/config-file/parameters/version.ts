@@ -13,9 +13,15 @@ export const VERSION = {
 		}
 	},
 	autocomplete(document, position) {
-		return ["recommended", "latest"].map(
-			(value) =>
-				new vscode.CompletionItem(value, vscode.CompletionItemKind.EnumMember),
-		);
+		return ["recommended", "latest"].map((value) => {
+			const item = new vscode.CompletionItem(
+				value,
+				vscode.CompletionItemKind.EnumMember,
+			);
+
+			item.range = document.getWordRangeAtPosition(position, /(?<=VERSION=).*/);
+
+			return item;
+		});
 	},
 } satisfies ConfigFileParameter;

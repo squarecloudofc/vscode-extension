@@ -37,6 +37,11 @@ export const MEMORY = {
 				completion.insertText = memory.toString();
 				completion.sortText = String.fromCharCode(97 + i);
 				completion.preselect = memory === 512;
+				completion.range = document.getWordRangeAtPosition(
+					position,
+					/(?<=MEMORY=).*/,
+				);
+
 				return completion;
 			});
 	},
