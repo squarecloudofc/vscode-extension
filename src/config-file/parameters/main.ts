@@ -51,7 +51,11 @@ export const MAIN = {
 
 		return files.then((uris) =>
 			uris
-				.filter((uri) => uri.fsPath.startsWith(configFilePath)) // Ensure files are inside the project
+				.filter(
+					(uri) =>
+						uri.fsPath.startsWith(configFilePath) &&
+						!uri.fsPath.includes("dist"),
+				)
 				.map((uri) => {
 					const relativePath = relative(configFilePath, uri.fsPath);
 					const item = new vscode.CompletionItem(
