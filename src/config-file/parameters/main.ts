@@ -21,7 +21,12 @@ export const MAIN = {
 		}
 
 		// Validate if the file exists, is a file, and is inside config file root path
-		if (!stats || !stats.isFile() || !mainFilePath.startsWith(configFilePath)) {
+		if (
+			!stats ||
+			!stats.isFile() ||
+			!mainFilePath.startsWith(configFilePath) ||
+			!mainFilePath.includes("node_modules")
+		) {
 			diagnostics.push(
 				createDiagnostic(
 					document,
@@ -44,7 +49,8 @@ export const MAIN = {
 				.filter(
 					(uri) =>
 						uri.fsPath.startsWith(configFilePath) &&
-						!uri.fsPath.includes("dist"),
+						!uri.fsPath.includes("dist") &&
+						!uri.fsPath.includes("node_modules"),
 				)
 				.map((uri) => {
 					const relativePath = relative(configFilePath, uri.fsPath);
