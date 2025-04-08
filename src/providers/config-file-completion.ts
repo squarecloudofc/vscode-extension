@@ -12,7 +12,7 @@ export const ConfigCompletionProvider: vscode.CompletionItemProvider = {
 		const existingKeys = new Set(
 			document
 				.getText()
-				.split("\n")
+				.split(/\r?\n/g)
 				.map((line) => line.split("=")[0].trim()),
 		);
 

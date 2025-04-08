@@ -21,7 +21,7 @@ export const MEMORY = {
 	autocomplete(document, position) {
 		const content = document.getText();
 		const keys = new Set(
-			content.split("\n").map((line) => {
+			content.split(/\r?\n/g).map((line) => {
 				return line.split("=")[0]?.trim();
 			}),
 		);
