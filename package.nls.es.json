@@ -165,7 +165,7 @@
 			},
 			"invalid": {
 				"mainFile": "El archivo principal \"{{file}}\" no existe en tu proyecto.",
-				"memory": "El campo MEMORY debe ser un valor en MB mayor o igual a {{memory}}.",
+				"memory": "El campo MEMORY debe ser un valor en megabytes mayor o igual a {{memory}}.",
 				"autoRestart": "El campo AUTORESTART debe ser \"true\" o \"false\".",
 				"version": "El campo VERSION solo permite \"recommended\" o \"latest\".",
 				"subdomain": "SUBDOMAIN inválido. Solo se permiten caracteres alfanuméricos y guiones."
@@ -178,7 +178,10 @@
 				"main": "Necesitas proporcionar un archivo principal válido. Este es el archivo principal de tu aplicación, donde todo comienza."
 			},
 			"unavailable": {
-				"memory": "No tienes memoria disponible. Considera actualizar en https://squarecloud.app/pay?state=upgrade"
+				"memory": {
+					"message": "Te has quedado sin memoria disponible. Considera actualizar.",
+					"code": "Actualizar"
+				}
 			}
 		}
 	}

@@ -80,12 +80,12 @@ export const MEMORY = {
 			const diagnostic = createDiagnostic(
 				document,
 				line,
-				t("configFile.error.unavailable.memory"),
+				t("configFile.error.unavailable.memory.message")
 			);
 
 			// Insert url to upgrade plan
 			diagnostic.code = {
-				value: "Fazer upgrade", // Link text
+				value: t("configFile.error.unavailable.memory.code"), // Link text
 				target: vscode.Uri.parse("https://squarecloud.app/pay?state=upgrade"), // Link to upgrade plan
 			};
 
