@@ -6,6 +6,12 @@ import * as vscode from "vscode";
 import { t } from "vscode-ext-localisation";
 import { AllowedExtensions } from "../../lib/config/extensions";
 
+const notAllowedFolders = [
+	"/node_modules",
+	"/__pycache__",
+	"/.",
+];
+
 export const MAIN = {
 	required: true,
 	validation(keys, value, line, diagnostics, document) {
@@ -25,7 +31,7 @@ export const MAIN = {
 			!stats ||
 			!stats.isFile() ||
 			!mainFilePath.startsWith(configFilePath) ||
-			!mainFilePath.includes("node_modules")
+			notAllowedFolders.some((folder) => mainFilePath.includes(folder))
 		) {
 			diagnostics.push(
 				createDiagnostic(
@@ -50,7 +56,7 @@ export const MAIN = {
 					(uri) =>
 						uri.fsPath.startsWith(configFilePath) &&
 						!uri.fsPath.includes("dist") &&
-						!uri.fsPath.includes("node_modules"),
+						!notAllowedFolders.some((folder) => uri.fsPath.includes(folder)),
 				)
 				.map((uri) => {
 					const relativePath = relative(configFilePath, uri.fsPath);
