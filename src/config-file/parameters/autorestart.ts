@@ -17,9 +17,18 @@ export const AUTORESTART = {
 		}
 	},
 	autocomplete(document, position) {
-		return ["true", "false"].map(
-			(value) =>
-				new vscode.CompletionItem(value, vscode.CompletionItemKind.EnumMember),
-		);
+		return ["true", "false"].map((value) => {
+			const item = new vscode.CompletionItem(
+				value,
+				vscode.CompletionItemKind.EnumMember,
+			);
+
+			item.range = document.getWordRangeAtPosition(
+				position,
+				/(?<=AUTORESTART=).*/,
+			);
+
+			return item;
+		});
 	},
 } satisfies ConfigFileParameter;

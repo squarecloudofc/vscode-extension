@@ -17,7 +17,7 @@ export function validateConfigFile(
 	diagnosticCollection: vscode.DiagnosticCollection,
 ): void {
 	const diagnostics: vscode.Diagnostic[] = [];
-	const lines = document.getText().split("\n");
+	const lines = document.getText().split(/\r?\n/g);
 	const keys: ConfigFileKeys = new Map();
 
 	for (let line = 0; line < lines.length; line++) {

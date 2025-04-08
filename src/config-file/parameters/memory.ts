@@ -21,7 +21,7 @@ export const MEMORY = {
 	autocomplete(document, position) {
 		const content = document.getText();
 		const keys = new Set(
-			content.split("\n").map((line) => {
+			content.split(/\r?\n/g).map((line) => {
 				return line.split("=")[0]?.trim();
 			}),
 		);
@@ -37,6 +37,11 @@ export const MEMORY = {
 				completion.insertText = memory.toString();
 				completion.sortText = String.fromCharCode(97 + i);
 				completion.preselect = memory === 512;
+				completion.range = document.getWordRangeAtPosition(
+					position,
+					/(?<=MEMORY=).*/,
+				);
+
 				return completion;
 			});
 	},
@@ -75,12 +80,12 @@ export const MEMORY = {
 			const diagnostic = createDiagnostic(
 				document,
 				line,
-				t("configFile.error.unavailable.memory"),
+				t("configFile.error.unavailable.memory.message")
 			);
 
 			// Insert url to upgrade plan
 			diagnostic.code = {
-				value: "Fazer upgrade", // Link text
+				value: t("configFile.error.unavailable.memory.code"), // Link text
 				target: vscode.Uri.parse("https://squarecloud.app/pay?state=upgrade"), // Link to upgrade plan
 			};
 

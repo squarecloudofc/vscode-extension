@@ -167,7 +167,7 @@
 			},
 			"invalid": {
 				"mainFile": "The MAIN file \"{{file}}\" does not exist in your project.",
-				"memory": "The MEMORY field must be a value in MB greater than or equal to {{memory}}.",
+				"memory": "The MEMORY field must be a value in megabytes greater than or equal to {{memory}}.",
 				"autoRestart": "The AUTORESTART field must be \"true\" or \"false\".",
 				"version": "The VERSION field only allows \"recommended\" or \"latest\".",
 				"subdomain": "Invalid SUBDOMAIN. Only alphanumeric characters and hyphens are allowed."
@@ -180,7 +180,10 @@
 				"main": "You need to provide a valid main file. This is the main file of your application, where everything starts!"
 			},
 			"unavailable": {
-				"memory": "You are out of available memory. Consider upgrading at https://squarecloud.app/pay?state=upgrade"
+				"memory": {
+					"message": "You're out of available memory. Consider upgrading.",
+					"code": "Upgrade"
+				}
 			}
 		}
 	}
