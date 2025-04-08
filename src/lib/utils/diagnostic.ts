@@ -4,7 +4,7 @@ export function createDiagnostic(
 	document: vscode.TextDocument,
 	line: number,
 	message: string,
-	severity = vscode.DiagnosticSeverity.Warning,
+	severity = vscode.DiagnosticSeverity.Error,
 ): vscode.Diagnostic {
 	const range = new vscode.Range(
 		line,
