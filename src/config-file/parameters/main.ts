@@ -6,11 +6,7 @@ import * as vscode from "vscode";
 import { t } from "vscode-ext-localisation";
 import { AllowedExtensions } from "../../lib/config/extensions";
 
-const notAllowedFolders = [
-	"/node_modules",
-	"/__pycache__",
-	"/.",
-];
+const notAllowedFolders = ["/node_modules", "/__pycache__", "/."];
 
 export const MAIN = {
 	required: true,
@@ -31,7 +27,9 @@ export const MAIN = {
 			!stats ||
 			!stats.isFile() ||
 			!mainFilePath.startsWith(configFilePath) ||
-			notAllowedFolders.some((folder) => mainFilePath.includes(folder))
+			notAllowedFolders.some((folder) =>
+				mainFilePath.replaceAll("\\", "/").includes(folder),
+			)
 		) {
 			diagnostics.push(
 				createDiagnostic(
@@ -56,7 +54,9 @@ export const MAIN = {
 					(uri) =>
 						uri.fsPath.startsWith(configFilePath) &&
 						!uri.fsPath.includes("dist") &&
-						!notAllowedFolders.some((folder) => uri.fsPath.includes(folder)),
+						!notAllowedFolders.some((folder) =>
+							uri.fsPath.replaceAll("\\", "/").includes(folder),
+						),
 				)
 				.map((uri) => {
 					const relativePath = relative(configFilePath, uri.fsPath);
@@ -64,7 +64,7 @@ export const MAIN = {
 						relativePath,
 						vscode.CompletionItemKind.File,
 					);
-					item.insertText = relativePath;
+					item.insertText = relativePath.replaceAll("\\", "/");
 					item.range = document.getWordRangeAtPosition(
 						position,
 						/(?<=MAIN=).*/,
