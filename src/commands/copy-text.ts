@@ -3,7 +3,7 @@ import type { GenericTreeItem } from "@/treeviews/items/generic";
 import { env, window } from "vscode";
 import { t } from "vscode-ext-localisation";
 
-export default new Command(
+export const copyText = new Command(
 	"copyText",
 	(_extension, treeItem: GenericTreeItem) => {
 		if (!treeItem.description) {

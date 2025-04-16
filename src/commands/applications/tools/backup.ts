@@ -4,7 +4,7 @@ import { ApplicationCommand } from "@/structures/application/command";
 import { ProgressLocation, window } from "vscode";
 import { t } from "vscode-ext-localisation";
 
-export default new ApplicationCommand(
+export const backupEntry = new ApplicationCommand(
 	"backupEntry",
 	async (extension, { application }) => {
 		if (extension.api.paused) {

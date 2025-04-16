@@ -2,7 +2,7 @@ import { Command } from "@/structures/command";
 import { ProgressLocation, window } from "vscode";
 import { t } from "vscode-ext-localisation";
 
-export default new Command("setApiKey", async (extension) => {
+export const setApiKey = new Command("setApiKey", async (extension) => {
 	const apiKey = await window.showInputBox({
 		title: t("setApiKey.apiKey"),
 		placeHolder: t("generic.paste"),

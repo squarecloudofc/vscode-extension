@@ -6,7 +6,7 @@ import { ProgressLocation, window } from "vscode";
 import { t } from "vscode-ext-localisation";
 import AdmZip = require("adm-zip");
 
-export default new ApplicationCommand(
+export const commitEntry = new ApplicationCommand(
 	"commitEntry",
 	async (extension, { application }) => {
 		if (extension.api.paused) {
@@ -53,7 +53,7 @@ export default new ApplicationCommand(
 		}
 
 		const ignoreDefaults = await readFile(
-			join(__dirname, "../../../../resources/squarecloud.ignore"),
+			join(__dirname, "..", "resources", "squarecloud.ignore"),
 		);
 
 		const ig = ignore().add(ignoreDefaults.toString("utf-8"));

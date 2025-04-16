@@ -4,7 +4,7 @@ import { t } from "vscode-ext-localisation";
 
 const outputChannels = new Map<string, OutputChannel>();
 
-export default new ApplicationCommand(
+export const logsEntry = new ApplicationCommand(
 	"logsEntry",
 	(extension, { application }) => {
 		if (extension.api.paused) {

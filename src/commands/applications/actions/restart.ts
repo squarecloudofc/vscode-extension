@@ -2,7 +2,7 @@ import { ApplicationCommand } from "@/structures/application/command";
 import { ProgressLocation, window } from "vscode";
 import { t } from "vscode-ext-localisation";
 
-export default new ApplicationCommand(
+export const restartEntry = new ApplicationCommand(
 	"restartEntry",
 	(extension, { application }) => {
 		if (extension.api.paused) {

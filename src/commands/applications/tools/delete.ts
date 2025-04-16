@@ -2,7 +2,7 @@ import { ApplicationCommand } from "@/structures/application/command";
 import { ProgressLocation, Uri, env, window } from "vscode";
 import { t } from "vscode-ext-localisation";
 
-export default new ApplicationCommand(
+export const deleteEntry = new ApplicationCommand(
 	"deleteEntry",
 	async (extension, { application }) => {
 		if (extension.api.paused) {

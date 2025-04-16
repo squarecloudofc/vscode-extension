@@ -1,6 +1,6 @@
 import { ApplicationCommand } from "@/structures/application/command";
 
-export default new ApplicationCommand(
+export const unfavoriteEntry = new ApplicationCommand(
 	"unfavoriteEntry",
 	(extension, { application }) => {
 		extension.store.actions.toggleFavorite(application.id, false);

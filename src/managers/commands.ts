@@ -1,7 +1,7 @@
-import { getAllFiles } from "@/lib/utils/files";
 import type { Command } from "@/structures/command";
 import { Logger } from "@/structures/logger";
-import { commands } from "vscode";
+import * as vscode from "vscode";
+import * as commands from "../commands";
 import type { SquareEasyExtension } from "./extension";
 
 export class CommandsManager {
@@ -12,15 +12,12 @@ export class CommandsManager {
 	}
 
 	async loadCommands() {
-		const commandFiles = getAllFiles("commands");
 		let commandCounter = 0;
 
-		for (const file of commandFiles) {
-			const command: Command = (await import(file)).default;
-			if (!command) continue;
-
-			const disposable = commands.registerCommand(command.name, (...args) =>
-				command.execute(this.extension, ...args),
+		for (const command of Object.values(commands) as Command[]) {
+			const disposable = vscode.commands.registerCommand(
+				command.name,
+				(...args) => command.execute(this.extension, ...args),
 			);
 
 			this.extension.context.subscriptions.push(disposable);

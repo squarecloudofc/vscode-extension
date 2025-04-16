@@ -1,6 +1,6 @@
 import { ApplicationCommand } from "@/structures/application/command";
 
-export default new ApplicationCommand(
+export const refreshEntry = new ApplicationCommand(
 	"refreshEntry",
 	(extension, { application }) => {
 		if (extension.api.paused) {
