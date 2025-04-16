@@ -9,7 +9,7 @@
 ## Requirements
 
 To use Square Cloud extension first you will need an **API key** for **Square Cloud API**.
-- You can get your API key for free at [**Square Cloud Dashboard**](https://squarecloud.app/pt-br/dashboard/settings).
+- You can get your API key at [**Square Cloud Dashboard**](https://squarecloud.app/account/security).
 
 ---
 
