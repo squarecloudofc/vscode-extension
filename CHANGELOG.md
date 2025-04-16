@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## 3.2.3
+
+### Fixes
+
+- Fix configuration file for Windows users.
+
 ## 3.2.0
 
 ### Added

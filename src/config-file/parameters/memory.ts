@@ -80,7 +80,7 @@ export const MEMORY = {
 			const diagnostic = createDiagnostic(
 				document,
 				line,
-				t("configFile.error.unavailable.memory.message")
+				t("configFile.error.unavailable.memory.message"),
 			);
 
 			// Insert url to upgrade plan

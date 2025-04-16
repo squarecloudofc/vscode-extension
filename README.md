@@ -2,13 +2,13 @@
   <img alt="Square Cloud Banner" src="https://cdn.squarecloud.app/png/github-readme.png">
 </div>
 
-<h1 align="center">Square Cloud Easy</h1>
+<h1 align="center">Square Cloud</h1>
 
 <p align="center">A VSCode extension for managing your <a href="https://squarecloud.app" target="_blank">Square Cloud</a> applications.</p>
 
 ## Requirements
 
-To use Square Cloud Easy extension first you will need an **API key** for **Square Cloud API**.
+To use Square Cloud extension first you will need an **API key** for **Square Cloud API**.
 - You can get your API key for free at [**Square Cloud Dashboard**](https://squarecloud.app/pt-br/dashboard/settings).
 
 ---
