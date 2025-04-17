@@ -6,7 +6,14 @@
 	"description": "A VSCode extension for managing your Square Cloud applications.",
 	"categories": ["Other"],
 	"icon": "resources/squarecloud.png",
-	"keywords": ["squarecloud", "square cloud", "host", "bot", "website"],
+	"keywords": [
+		"squarecloud",
+		"square cloud",
+		"host",
+		"bot",
+		"website",
+		"intellisense"
+	],
 	"homepage": "https://github.com/squarecloudofc/vscode-extension/",
 	"author": {
 		"name": "João Gabriel Tonaco",
@@ -304,7 +311,7 @@
 		},
 		"configuration": [
 			{
-				"title": "Square Cloud Easy",
+				"title": "Square Cloud",
 				"properties": {
 					"squarecloud.favApps": {
 						"title": "Favorited apps will show in the explorer container.",
