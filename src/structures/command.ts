@@ -1,8 +1,8 @@
 import { ExtensionID } from "@/lib/constants";
-import type { SquareEasyExtension } from "@/managers/extension";
+import type { SquareCloudExtension } from "@/managers/extension";
 
 export type CommandExecute = (
-	extension: SquareEasyExtension,
+	extension: SquareCloudExtension,
 	...args: any[]
 ) => void;
 

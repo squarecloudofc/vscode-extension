@@ -9,8 +9,8 @@ import { ConfigManager } from "./config";
 import { ConfigFileManager } from "./config-file";
 import { TreeViewsManager } from "./treeviews";
 
-export class SquareEasyExtension {
-	private readonly logger = new Logger("Square Cloud Easy");
+export class SquareCloudExtension {
+	private readonly logger = new Logger("Square Cloud");
 
 	public readonly config = new ConfigManager(this.context.secrets);
 	public readonly configFile = new ConfigFileManager(this);

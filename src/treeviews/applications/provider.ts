@@ -1,5 +1,5 @@
 import { formatTime } from "@/lib/utils/format";
-import type { SquareEasyExtension } from "@/managers/extension";
+import type { SquareCloudExtension } from "@/managers/extension";
 import { ApplicationStatus } from "@/structures/application/status";
 import { t } from "vscode-ext-localisation";
 import { BaseTreeViewProvider } from "../base";
@@ -9,7 +9,7 @@ import { ApplicationTreeItem, type SquareTreeItem } from "./item";
 export type GenericTreeItemData = ConstructorParameters<typeof GenericTreeItem>;
 
 export class ApplicationsTreeViewProvider extends BaseTreeViewProvider<SquareTreeItem> {
-	constructor(private readonly extension: SquareEasyExtension) {
+	constructor(private readonly extension: SquareCloudExtension) {
 		super();
 	}
 

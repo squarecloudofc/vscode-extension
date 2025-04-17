@@ -1,5 +1,5 @@
 import { getIcons } from "@/lib/utils/icons";
-import type { SquareEasyExtension } from "@/managers/extension";
+import type { SquareCloudExtension } from "@/managers/extension";
 import type { BaseApplication } from "@squarecloud/api";
 import { TreeItem, TreeItemCollapsibleState } from "vscode";
 import type { CustomTreeItem } from "../items/custom";
@@ -28,7 +28,7 @@ export class ApplicationTreeItem extends TreeItem {
 	contextValue = this.favorited ? "application-fav" : "application";
 
 	constructor(
-		private readonly extension: SquareEasyExtension,
+		private readonly extension: SquareCloudExtension,
 		public readonly application: BaseApplication,
 	) {
 		super(application.name);

@@ -1,6 +1,6 @@
 import { ConfigFileParameters } from "@/config-file/parameters";
 import { createDiagnostic } from "@/lib/utils/diagnostic";
-import type { SquareEasyExtension } from "@/managers/extension";
+import type { SquareCloudExtension } from "@/managers/extension";
 import type {
 	ConfigFileAllowedParams,
 	ConfigFileKeys,
@@ -12,7 +12,7 @@ import { t } from "vscode-ext-localisation";
  * This function validates the config file and sets the diagnostics for the document.
  */
 export function validateConfigFile(
-	extension: SquareEasyExtension,
+	extension: SquareCloudExtension,
 	document: vscode.TextDocument,
 	diagnosticCollection: vscode.DiagnosticCollection,
 ): void {

@@ -1,14 +1,14 @@
 import { ApplicationStatus } from "@/structures/application/status";
 import { Logger } from "@/structures/logger";
 import { SquareCloudAPI } from "@squarecloud/api";
-import type { SquareEasyExtension } from "./extension";
+import type { SquareCloudExtension } from "./extension";
 
 export class APIManager {
-	private readonly logger = new Logger("Square Cloud Easy");
+	private readonly logger = new Logger("Square Cloud");
 
 	public paused = false;
 
-	constructor(private readonly extension: SquareEasyExtension) {
+	constructor(private readonly extension: SquareCloudExtension) {
 		this.refresh();
 		setInterval(() => this.refresh(), 30000);
 	}

@@ -1,15 +1,11 @@
-import { ConfigFileParameters } from "@/config-file/parameters";
-import { createDiagnostic } from "@/lib/utils/diagnostic";
 import { ConfigFileActionProvider } from "@/providers/config-file-action";
 import { ConfigCompletionProvider } from "@/providers/config-file-completion";
 import { validateConfigFile } from "@/providers/config-file-validation";
-import type { ConfigFileKeys } from "@/types/config-file";
 import * as vscode from "vscode";
-import { t } from "vscode-ext-localisation";
-import type { SquareEasyExtension } from "./extension";
+import type { SquareCloudExtension } from "./extension";
 
 export class ConfigFileManager {
-	constructor(private readonly extension: SquareEasyExtension) {
+	constructor(private readonly extension: SquareCloudExtension) {
 		this.initialize();
 	}
 

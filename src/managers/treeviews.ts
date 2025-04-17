@@ -1,7 +1,7 @@
 import { ApplicationsTreeViewProvider } from "@/treeviews/applications/provider";
 import { UserTreeViewProvider } from "@/treeviews/user/provider";
 import { window } from "vscode";
-import type { SquareEasyExtension } from "./extension";
+import type { SquareCloudExtension } from "./extension";
 
 type TreeViewsKey = keyof TreeViewsManager["views"];
 
@@ -11,7 +11,7 @@ export class TreeViewsManager {
 		user: new UserTreeViewProvider(this.extension),
 	};
 
-	constructor(private readonly extension: SquareEasyExtension) {
+	constructor(private readonly extension: SquareCloudExtension) {
 		window.registerTreeDataProvider("apps-view", this.views.applications);
 		window.registerTreeDataProvider("user-view", this.views.user);
 	}

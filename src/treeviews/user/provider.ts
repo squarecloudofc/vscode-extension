@@ -1,12 +1,12 @@
 import { capitalize } from "@/lib/utils/capitalize";
 import { formatMB } from "@/lib/utils/format";
-import type { SquareEasyExtension } from "@/managers/extension";
+import type { SquareCloudExtension } from "@/managers/extension";
 import { t } from "vscode-ext-localisation";
 import { BaseTreeViewProvider } from "../base";
 import { GenericTreeItem } from "../items/generic";
 
 export class UserTreeViewProvider extends BaseTreeViewProvider<GenericTreeItem> {
-	constructor(private readonly extension: SquareEasyExtension) {
+	constructor(private readonly extension: SquareCloudExtension) {
 		super();
 	}
 

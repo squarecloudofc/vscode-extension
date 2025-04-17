@@ -2,12 +2,12 @@ import type { Command } from "@/structures/command";
 import { Logger } from "@/structures/logger";
 import * as vscode from "vscode";
 import * as commands from "../commands";
-import type { SquareEasyExtension } from "./extension";
+import type { SquareCloudExtension } from "./extension";
 
 export class CommandsManager {
-	private readonly logger = new Logger("Square Cloud Easy");
+	private readonly logger = new Logger("Square Cloud");
 
-	constructor(private readonly extension: SquareEasyExtension) {
+	constructor(private readonly extension: SquareCloudExtension) {
 		this.loadCommands();
 	}
 
