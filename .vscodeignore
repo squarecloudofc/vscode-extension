@@ -1,6 +1,9 @@
 .vscode
 node_modules
-out/
-src/
+out
+src
+.github
 tsconfig.json
 esbuild.js
+contributes.disabled.json
+pnpm-lock.yaml
