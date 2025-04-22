@@ -21,7 +21,8 @@
 			"label": "npm: watch:esbuild",
 			"presentation": {
 				"group": "watch",
-				"reveal": "never"
+				"reveal": "never",
+				"close": true
 			}
 		},
 		{
@@ -33,7 +34,8 @@
 			"label": "npm: watch:tsc",
 			"presentation": {
 				"group": "watch",
-				"reveal": "never"
+				"reveal": "never",
+				"close": true
 			}
 		}
 	]
