@@ -1,0 +1,8 @@
+onlyBuiltDependencies:
+  - '@biomejs/biome'
+  - '@vscode/vsce-sign'
+  - esbuild
+  - keytar
+
+patchedDependencies:
+  adm-zip: patches/adm-zip.patch
