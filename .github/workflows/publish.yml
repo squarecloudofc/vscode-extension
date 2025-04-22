@@ -32,4 +32,4 @@ jobs:
       - name: Publish
         env:
           VSCE_PAT: ${{ secrets.VSCODE_PERSONAL_TOKEN }}
-        run: pnpm publish
+        run: pnpm run publish
