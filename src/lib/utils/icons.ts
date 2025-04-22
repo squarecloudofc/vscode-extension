@@ -1,8 +1,9 @@
 import { join } from "node:path";
+import { Uri } from "vscode";
 
 export function getIcons(iconName: string) {
 	const pathByTheme = (theme: "dark" | "light") => {
-		return join(__dirname, "..", "resources", theme, iconName);
+		return Uri.file(join(__dirname, "..", "resources", theme, iconName));
 	};
 
 	return {
