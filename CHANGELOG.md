@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## 3.2.5
+
+### Fixes
+- Fix comitting folders.
+
 ## 3.2.4
 
 ### Docs
