@@ -1,0 +1,13 @@
+diff --git a/adm-zip.js b/adm-zip.js
+index 31dddf2b39c3a0956102a25c984e02a1c3e3b83b..82ad4cd945c870ce92d306928078985a3b0d08a3 100644
+--- a/adm-zip.js
++++ b/adm-zip.js
+@@ -485,7 +485,7 @@ module.exports = function (/**String*/ input, /** object */ options) {
+         addLocalFolderAsync2: function (options, callback) {
+             const self = this;
+             options = typeof options === "object" ? options : { localPath: options };
+-            localPath = pth.resolve(fixPath(options.localPath));
++            const localPath = pth.resolve(fixPath(options.localPath));
+             let { zipPath, filter, namefix } = options;
+ 
+             if (filter instanceof RegExp) {
