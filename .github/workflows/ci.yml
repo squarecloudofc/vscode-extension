@@ -13,19 +13,11 @@ jobs:
     name: CI
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v3
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
         with:
           run_install: false
-
-      - name: Setup node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: 'pnpm'
+      - uses: actions/setup-node@v5
 
       - name: Install Dependencies
         run: pnpm install
