@@ -1,23 +1,66 @@
 {
-	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
-	"files": {
-		"ignore": ["./node_modules/**", "./dist/**"]
-	},
-	"organizeImports": {
-		"enabled": true
-	},
-	"linter": {
-		"enabled": true,
-		"rules": {
-			"recommended": true,
-			"suspicious": { "noExplicitAny": "off" },
-			"style": { "noParameterAssign": "off" }
-		}
-	},
-	"formatter": {
-		"enabled": true
-	},
-	"json": {
-		"parser": { "allowComments": true }
-	}
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true,
+    "defaultBranch": "main"
+  },
+
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "suspicious": { "noExplicitAny": "off" },
+      "style": { "noParameterAssign": "off" },
+      "correctness": {
+        "noUnusedImports": { "level": "warn", "fix": "safe" },
+        "noUnusedVariables": { "level": "warn", "fix": "none" },
+        "noUnusedFunctionParameters": "warn"
+      }
+    }
+  },
+
+  "formatter": {
+    "enabled": true,
+    "formatWithErrors": false,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineEnding": "lf",
+    "lineWidth": 80,
+    "attributePosition": "auto"
+  },
+
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": {
+          "level": "on",
+          "options": {
+            "groups": [
+              {
+                "type": true,
+                "source": [
+                  ":NODE:",
+                  ":URL:",
+                  ":PACKAGE_WITH_PROTOCOL:",
+                  ":PACKAGE:"
+                ]
+              },
+              [":NODE:", ":URL:", ":PACKAGE_WITH_PROTOCOL:", ":PACKAGE:"],
+              ":BLANK_LINE:",
+              { "type": true, "source": "@/**" },
+              "@/**",
+              ":BLANK_LINE:",
+              { "type": true, "source": ":PATH:" },
+              ":PATH:"
+            ]
+          }
+        }
+      }
+    }
+  },
+
+  "json": {
+    "parser": { "allowComments": true }
+  }
 }

@@ -8,12 +8,12 @@ import { SUBDOMAIN } from "./parameters/subdomain";
 import { VERSION } from "./parameters/version";
 
 export const ConfigFileParameters = {
-	MAIN,
-	VERSION,
-	AUTORESTART,
-	SUBDOMAIN,
-	DISPLAY_NAME,
-	DESCRIPTION,
-	START,
-	MEMORY,
+  MAIN,
+  VERSION,
+  AUTORESTART,
+  SUBDOMAIN,
+  DISPLAY_NAME,
+  DESCRIPTION,
+  START,
+  MEMORY,
 };

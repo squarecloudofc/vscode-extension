@@ -1,45 +1,46 @@
-import { ApplicationCommand } from "@/structures/application/command";
 import { type OutputChannel, ProgressLocation, window } from "vscode";
 import { t } from "vscode-ext-localisation";
+
+import { ApplicationCommand } from "@/structures/application/command";
 
 const outputChannels = new Map<string, OutputChannel>();
 
 export const logsEntry = new ApplicationCommand(
-	"logsEntry",
-	(extension, { application }) => {
-		if (extension.api.paused) {
-			return;
-		}
+  "logsEntry",
+  (extension, { application }) => {
+    if (extension.api.paused) {
+      return;
+    }
 
-		window.withProgress(
-			{
-				location: ProgressLocation.Notification,
-				title: t("logs.loading"),
-			},
-			async (progress) => {
-				const logs = await extension.api.pauseUntil(() =>
-					application.getLogs().catch(() => null),
-				);
+    window.withProgress(
+      {
+        location: ProgressLocation.Notification,
+        title: t("logs.loading"),
+      },
+      async (progress) => {
+        const logs = await extension.api.pauseUntil(() =>
+          application.getLogs().catch(() => null),
+        );
 
-				progress.report({ increment: 100, message: ` ${t("generic.done")}` });
+        progress.report({ increment: 100, message: ` ${t("generic.done")}` });
 
-				if (!logs) {
-					window.showErrorMessage(t("logs.null"));
-					return;
-				}
+        if (!logs) {
+          window.showErrorMessage(t("logs.null"));
+          return;
+        }
 
-				const outputChannel =
-					outputChannels.get(application.id) ??
-					window.createOutputChannel(
-						`Square Cloud (${application.name})`,
-						"ansi",
-					);
-				outputChannels.set(application.id, outputChannel);
+        const outputChannel =
+          outputChannels.get(application.id) ??
+          window.createOutputChannel(
+            `Square Cloud (${application.name})`,
+            "ansi",
+          );
+        outputChannels.set(application.id, outputChannel);
 
-				outputChannel.clear();
-				outputChannel.append(logs);
-				return outputChannel.show();
-			},
-		);
-	},
+        outputChannel.clear();
+        outputChannel.append(logs);
+        return outputChannel.show();
+      },
+    );
+  },
 );

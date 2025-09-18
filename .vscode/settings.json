@@ -1,24 +1,38 @@
 {
-	// Tsc
+  "editor.defaultFormatter": "biomejs.biome",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.biome": "explicit",
+    "source.organizeImports.biome": "explicit",
+    "source.organizeImports": "never"
+  },
+  "editor.formatOnSave": true,
 
-	"typescript.tsc.autoDetect": "off",
+  "[css]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
 
-	// Linting and formatting
+  "[typescript]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
 
-	"editor.defaultFormatter": "biomejs.biome",
-	"editor.formatOnSave": true,
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
 
-	"editor.codeActionsOnSave": {
-		"quickfix.biome": "explicit",
-		"source.organizeImports.biome": "explicit",
-		"source.addMissingImports": "explicit"
-	},
+  "[json]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
 
-	"[json]": {
-		"editor.defaultFormatter": "biomejs.biome"
-	},
+  "[jsonc]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
 
-	"[jsonc]": {
-		"editor.defaultFormatter": "biomejs.biome"
-	}
+  "json.schemas": [
+    {
+      "fileMatch": ["biome.json"],
+      "url": "./node_modules/@biomejs/biome/configuration_schema.json"
+    }
+  ],
+
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

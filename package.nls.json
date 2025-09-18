@@ -1,190 +1,190 @@
 {
-	"config.apiKey.description": "Your [Square Cloud](https://squarecloud.app/) API key.",
+  "config.apiKey.description": "Your [Square Cloud](https://squarecloud.app/) API key.",
 
-	"command.createConfig": "Create Square Cloud configuration file",
-	"command.setApiKey": "Set new API key",
-	"command.logsEntry": "Show logs",
-	"command.copyText": "Copy",
-	"command.refresh": "Refresh",
-	"command.open": "View on dashboard",
-	"command.start": "Start",
-	"command.stop": "Stop",
-	"command.copyId": "Copy ID",
-	"command.restart": "Restart",
-	"command.delete": "Delete",
-	"command.favorite": "Favorite",
-	"command.unfavorite": "Unfavorite",
+  "command.createConfig": "Create Square Cloud configuration file",
+  "command.setApiKey": "Set new API key",
+  "command.logsEntry": "Show logs",
+  "command.copyText": "Copy",
+  "command.refresh": "Refresh",
+  "command.open": "View on dashboard",
+  "command.start": "Start",
+  "command.stop": "Stop",
+  "command.copyId": "Copy ID",
+  "command.restart": "Restart",
+  "command.delete": "Delete",
+  "command.favorite": "Favorite",
+  "command.unfavorite": "Unfavorite",
 
-	"view.user.title": "User",
-	"view.apps.title": "Applications",
-	"view.noApiKey": "You do not have a registered API key. Please register one.",
-	"view.welcome": "No API key registered.\n[Set API key](command:squarecloud.setApiKey)",
+  "view.user.title": "User",
+  "view.apps.title": "Applications",
+  "view.noApiKey": "You do not have a registered API key. Please register one.",
+  "view.welcome": "No API key registered.\n[Set API key](command:squarecloud.setApiKey)",
 
-	"generic": {
-		"yes": "Yes",
-		"no": "No",
-		"loading": "Loading...",
-		"error": "An unknown error has ocurred.",
-		"network": "Network",
-		"storage": "Storage",
-		"wait": "Please wait a moment before making new requests.",
-		"refreshing": "Refreshing...",
-		"done": "Done!",
-		"type": "Type here...",
-		"paste": "Paste here...",
-		"choose": "Choose an option...",
-		"file": "File",
-		"folder": "Folder"
-	},
+  "generic": {
+    "yes": "Yes",
+    "no": "No",
+    "loading": "Loading...",
+    "error": "An unknown error has ocurred.",
+    "network": "Network",
+    "storage": "Storage",
+    "wait": "Please wait a moment before making new requests.",
+    "refreshing": "Refreshing...",
+    "done": "Done!",
+    "type": "Type here...",
+    "paste": "Paste here...",
+    "choose": "Choose an option...",
+    "file": "File",
+    "folder": "Folder"
+  },
 
-	"setApiKey": {
-		"tutorial": {
-			"label": "First open the \"SquareCloud Dashboard\", then go to \"My Account\" and finally click \"Regenerate API/CLI KEY\".",
-			"button": "Open Dashboard"
-		},
-		"hasKey": "Do you have your API key already?",
-		"apiKey": "Enter your API key.",
-		"testing": "Verifying the provided API key.",
-		"invalid": "The provided API key is not valid.",
-		"success": "Your API key has been successfuly registered!"
-	},
+  "setApiKey": {
+    "tutorial": {
+      "label": "First open the \"SquareCloud Dashboard\", then go to \"My Account\" and finally click \"Regenerate API/CLI KEY\".",
+      "button": "Open Dashboard"
+    },
+    "hasKey": "Do you have your API key already?",
+    "apiKey": "Enter your API key.",
+    "testing": "Verifying the provided API key.",
+    "invalid": "The provided API key is not valid.",
+    "success": "Your API key has been successfuly registered!"
+  },
 
-	"logs": {
-		"loading": "Fetching logs.",
-		"loaded": "Logs have been successfully loaded.",
-		"null": "No logs were found.",
-		"button": "Show logs"
-	},
+  "logs": {
+    "loading": "Fetching logs.",
+    "loaded": "Logs have been successfully loaded.",
+    "null": "No logs were found.",
+    "button": "Show logs"
+  },
 
-	"copy": {
-		"copiedId": "Application ID copied to clipboard.",
-		"copiedText": "{{TYPE}} copied to clipboard."
-	},
+  "copy": {
+    "copiedId": "Application ID copied to clipboard.",
+    "copiedText": "{{TYPE}} copied to clipboard."
+  },
 
-	"start": {
-		"loading": "Launching application...",
-		"loaded": "Application is now running."
-	},
+  "start": {
+    "loading": "Launching application...",
+    "loaded": "Application is now running."
+  },
 
-	"stop": {
-		"loading": "Shutting down application...",
-		"loaded": "Application is no longer running."
-	},
+  "stop": {
+    "loading": "Shutting down application...",
+    "loaded": "Application is no longer running."
+  },
 
-	"restart": {
-		"loading": "Restarting application...",
-		"loaded": "Application has been restarted."
-	},
+  "restart": {
+    "loading": "Restarting application...",
+    "loaded": "Application has been restarted."
+  },
 
-	"delete": {
-		"loading": "Deleting application...",
-		"loaded": "Application has been deleted.",
-		"cancelled": "The delete process has been cancelled.",
-		"confirm": "Enter the application name to confirm that you want to delete it."
-	},
+  "delete": {
+    "loading": "Deleting application...",
+    "loaded": "Application has been deleted.",
+    "cancelled": "The delete process has been cancelled.",
+    "confirm": "Enter the application name to confirm that you want to delete it."
+  },
 
-	"commit": {
-		"loading": "Committing files...",
-		"loaded": "Committed files successfuly.",
-		"error": "An error ocurred when trying to commit.",
-		"fileOrFolder": "What do you want to commit?",
-		"restart": "Would you like to restart your application?",
-		"select": "Select {{TYPE}} to commit",
-		"useGitIgnore": "No squarecloud.ignore file found. Ignore .gitignore listed files instead?"
-	},
+  "commit": {
+    "loading": "Committing files...",
+    "loaded": "Committed files successfuly.",
+    "error": "An error ocurred when trying to commit.",
+    "fileOrFolder": "What do you want to commit?",
+    "restart": "Would you like to restart your application?",
+    "select": "Select {{TYPE}} to commit",
+    "useGitIgnore": "No squarecloud.ignore file found. Ignore .gitignore listed files instead?"
+  },
 
-	"backup": {
-		"loading": "Downloading backup...",
-		"loaded": "Backup downloaded successfuly.",
-		"save": "Save here"
-	},
+  "backup": {
+    "loading": "Downloading backup...",
+    "loaded": "Backup downloaded successfuly.",
+    "save": "Save here"
+  },
 
-	"createConfig": {
-		"botOrSite": "Is your application a Bot or a Website?",
-		"nothingHere": "You must type something here.",
-		"optional": "Do you want to set {{field}} for your application?",
-		"prompt": {
-			"displayName": "Type a display name for your application.",
-			"avatar": {
-				"subs": "an avatar",
-				"title": "Paste your avatar URL below."
-			},
-			"description": {
-				"subs": "a description",
-				"title": "Write the description for your application."
-			},
-			"main": {
-				"title": "What's the main file of your application?",
-				"invalid": "This file does not exists in the current folder."
-			},
-			"memory": {
-				"title": "How much RAM memory will your application use? {{max}}",
-				"validate": "Please type a number bigger than {{minValue}} and smaller than your available memory."
-			},
-			"version": "What version would you like to use for this application?",
-			"subdomain": "Type a subdomain for your website.",
-			"start": {
-				"subs": "a start command",
-				"title": "Type the start command for your application."
-			}
-		}
-	},
+  "createConfig": {
+    "botOrSite": "Is your application a Bot or a Website?",
+    "nothingHere": "You must type something here.",
+    "optional": "Do you want to set {{field}} for your application?",
+    "prompt": {
+      "displayName": "Type a display name for your application.",
+      "avatar": {
+        "subs": "an avatar",
+        "title": "Paste your avatar URL below."
+      },
+      "description": {
+        "subs": "a description",
+        "title": "Write the description for your application."
+      },
+      "main": {
+        "title": "What's the main file of your application?",
+        "invalid": "This file does not exists in the current folder."
+      },
+      "memory": {
+        "title": "How much RAM memory will your application use? {{max}}",
+        "validate": "Please type a number bigger than {{minValue}} and smaller than your available memory."
+      },
+      "version": "What version would you like to use for this application?",
+      "subdomain": "Type a subdomain for your website.",
+      "start": {
+        "subs": "a start command",
+        "title": "Type the start command for your application."
+      }
+    }
+  },
 
-	"statusBarItem": {
-		"title": "Square Cloud - Select an action:",
-		"commit": "Commit files",
-		"upload": "Upload a new application",
-		"setApp": "Set the workspace application",
-		"createConfig": "Create configuration file"
-	},
+  "statusBarItem": {
+    "title": "Square Cloud - Select an action:",
+    "commit": "Commit files",
+    "upload": "Upload a new application",
+    "setApp": "Set the workspace application",
+    "createConfig": "Create configuration file"
+  },
 
-	"setWorkspaceApp": {
-		"none": "None",
-		"select": "Select an application:",
-		"success": "Workspace application updated successfuly!"
-	},
+  "setWorkspaceApp": {
+    "none": "None",
+    "select": "Select an application:",
+    "success": "Workspace application updated successfuly!"
+  },
 
-	"uploadWorkspace": {
-		"createFile": "To upload your application, first create a configuration file.",
-		"loading": "Sending files to Square Cloud...",
-		"loaded": "Application successfuly uploaded!"
-	},
+  "uploadWorkspace": {
+    "createFile": "To upload your application, first create a configuration file.",
+    "loading": "Sending files to Square Cloud...",
+    "loaded": "Application successfuly uploaded!"
+  },
 
-	"commitWorkspace": {
-		"loading": "Sending files to Square Cloud...",
-		"loaded": "Application successfuly updated!"
-	},
+  "commitWorkspace": {
+    "loading": "Sending files to Square Cloud...",
+    "loaded": "Application successfuly updated!"
+  },
 
-	"configFile": {
-		"error": {
-			"duplicateKey": "Your Square Cloud configuration file has 2 \"{{key}}\" settings.",
-			"missingKey": "The property \"{{key}}\" is missing from your configuration file but is required to host your application.",
-			"long": {
-				"displayName": "The DISPLAY_NAME field cannot exceed 32 characters.",
-				"description": "The DESCRIPTION field cannot exceed 280 characters.",
-				"subdomain": "The SUBDOMAIN field cannot exceed 62 characters.",
-				"start": "The START field can only have up to 128 characters."
-			},
-			"invalid": {
-				"mainFile": "The MAIN file \"{{file}}\" does not exist in your project.",
-				"memory": "The MEMORY field must be a value in megabytes greater than or equal to {{memory}}.",
-				"autoRestart": "The AUTORESTART field must be \"true\" or \"false\".",
-				"version": "The VERSION field only allows \"recommended\" or \"latest\".",
-				"subdomain": "Invalid SUBDOMAIN. Only alphanumeric characters and hyphens are allowed."
-			},
-			"missing": {
-				"displayName": "You need to provide a valid DISPLAY_NAME with up to 32 characters.",
-				"description": "You need to provide a valid description with up to 280 characters. If you don't want to, just remove the DESCRIPTION field.",
-				"subdomain": "You need to provide a valid subdomain to host a web application (site, API). If that's not your intention, just remove the SUBDOMAIN field.",
-				"start": "You need to provide a start command. If that's not your intention, just remove the START field.",
-				"main": "You need to provide a valid main file. This is the main file of your application, where everything starts!"
-			},
-			"unavailable": {
-				"memory": {
-					"message": "You're out of available memory. Consider upgrading.",
-					"code": "Upgrade"
-				}
-			}
-		}
-	}
+  "configFile": {
+    "error": {
+      "duplicateKey": "Your Square Cloud configuration file has 2 \"{{key}}\" settings.",
+      "missingKey": "The property \"{{key}}\" is missing from your configuration file but is required to host your application.",
+      "long": {
+        "displayName": "The DISPLAY_NAME field cannot exceed 32 characters.",
+        "description": "The DESCRIPTION field cannot exceed 280 characters.",
+        "subdomain": "The SUBDOMAIN field cannot exceed 62 characters.",
+        "start": "The START field can only have up to 128 characters."
+      },
+      "invalid": {
+        "mainFile": "The MAIN file \"{{file}}\" does not exist in your project.",
+        "memory": "The MEMORY field must be a value in megabytes greater than or equal to {{memory}}.",
+        "autoRestart": "The AUTORESTART field must be \"true\" or \"false\".",
+        "version": "The VERSION field only allows \"recommended\" or \"latest\".",
+        "subdomain": "Invalid SUBDOMAIN. Only alphanumeric characters and hyphens are allowed."
+      },
+      "missing": {
+        "displayName": "You need to provide a valid DISPLAY_NAME with up to 32 characters.",
+        "description": "You need to provide a valid description with up to 280 characters. If you don't want to, just remove the DESCRIPTION field.",
+        "subdomain": "You need to provide a valid subdomain to host a web application (site, API). If that's not your intention, just remove the SUBDOMAIN field.",
+        "start": "You need to provide a start command. If that's not your intention, just remove the START field.",
+        "main": "You need to provide a valid main file. This is the main file of your application, where everything starts!"
+      },
+      "unavailable": {
+        "memory": {
+          "message": "You're out of available memory. Consider upgrading.",
+          "code": "Upgrade"
+        }
+      }
+    }
+  }
 }

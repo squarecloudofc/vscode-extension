@@ -1,60 +1,60 @@
 {
-	"menus": {
-		"commandPalette": [
-			{
-				"command": "squarecloud.statusBarItem",
-				"when": "false"
-			},
-			{
-				"command": "squarecloud.setWorkspaceApp",
-				"when": "false"
-			},
-			{
-				"command": "squarecloud.commitWorkspace",
-				"when": "false"
-			},
-			{
-				"command": "squarecloud.uploadWorkspace",
-				"when": "false"
-			},
-			{
-				"command": "squarecloud.createConfig",
-				"when": "workspaceFolderCount == 1"
-			}
-		],
-		"editor/context": [
-			{
-				"command": "squarecloud.createConfig",
-				"when": "resourceFilename == squarecloud.app || resourceFilename == squarecloud.config"
-			}
-		],
-		"explorer/context": [
-			{
-				"command": "squarecloud.createConfig",
-				"when": "true"
-			}
-		]
-	},
-	"commands": [
-		{
-			"command": "squarecloud.createConfig",
-			"title": "%command.createConfig%"
-		},
-		{
-			"command": "squarecloud.statusBarItem",
-			"title": "Status Bar Item"
-		},
-		{
-			"command": "squarecloud.setWorkspaceApp",
-			"title": "Set Workspace App"
-		},
-		{
-			"command": "squarecloud.commitWorkspace",
-			"title": "Commit Workspace"
-		},
-		{
-			"command": "squarecloud.uploadWorkspace",
-			"title": "Upload Workspace"
-		}
-	]
+  "menus": {
+    "commandPalette": [
+      {
+        "command": "squarecloud.statusBarItem",
+        "when": "false"
+      },
+      {
+        "command": "squarecloud.setWorkspaceApp",
+        "when": "false"
+      },
+      {
+        "command": "squarecloud.commitWorkspace",
+        "when": "false"
+      },
+      {
+        "command": "squarecloud.uploadWorkspace",
+        "when": "false"
+      },
+      {
+        "command": "squarecloud.createConfig",
+        "when": "workspaceFolderCount == 1"
+      }
+    ],
+    "editor/context": [
+      {
+        "command": "squarecloud.createConfig",
+        "when": "resourceFilename == squarecloud.app || resourceFilename == squarecloud.config"
+      }
+    ],
+    "explorer/context": [
+      {
+        "command": "squarecloud.createConfig",
+        "when": "true"
+      }
+    ]
+  },
+  "commands": [
+    {
+      "command": "squarecloud.createConfig",
+      "title": "%command.createConfig%"
+    },
+    {
+      "command": "squarecloud.statusBarItem",
+      "title": "Status Bar Item"
+    },
+    {
+      "command": "squarecloud.setWorkspaceApp",
+      "title": "Set Workspace App"
+    },
+    {
+      "command": "squarecloud.commitWorkspace",
+      "title": "Commit Workspace"
+    },
+    {
+      "command": "squarecloud.uploadWorkspace",
+      "title": "Upload Workspace"
+    }
+  ]
 }

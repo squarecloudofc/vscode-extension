@@ -1,16 +1,17 @@
-import { getIcons } from "@/lib/utils/icons";
 import { TreeItem } from "vscode";
 
-export class GenericTreeItem extends TreeItem {
-	iconPath = this.iconName ? getIcons(`${this.iconName}.svg`) : undefined;
+import { getIcons } from "@/lib/utils/icons";
 
-	constructor(
-		public readonly label: string,
-		public readonly iconName?: string,
-		public readonly description?: string,
-		public readonly contextValue: string = "generic",
-	) {
-		super(label);
-		this.description = description;
-	}
+export class GenericTreeItem extends TreeItem {
+  iconPath = this.iconName ? getIcons(`${this.iconName}.svg`) : undefined;
+
+  constructor(
+    public readonly label: string,
+    public readonly iconName?: string,
+    public readonly description?: string,
+    public readonly contextValue: string = "generic",
+  ) {
+    super(label);
+    this.description = description;
+  }
 }
