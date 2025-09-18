@@ -5,8 +5,8 @@ import { t } from "vscode-ext-localisation";
 
 import { ApplicationCommand } from "@/structures/application/command";
 
-export const backupEntry = new ApplicationCommand(
-  "backupEntry",
+export const snapshotEntry = new ApplicationCommand(
+  "snapshotEntry",
   async (extension, { application }) => {
     if (extension.api.paused) {
       return;
@@ -14,8 +14,8 @@ export const backupEntry = new ApplicationCommand(
 
     const dialog = await window.showOpenDialog({
       canSelectFolders: true,
-      openLabel: t("backup.save"),
-      title: `Backup - ${application.name}`,
+      openLabel: t("snapshot.save"),
+      title: `Snapshot - ${application.name}`,
     });
 
     if (!dialog) {
@@ -27,19 +27,19 @@ export const backupEntry = new ApplicationCommand(
     window.withProgress(
       {
         location: ProgressLocation.Notification,
-        title: t("backup.loading"),
+        title: t("snapshot.loading"),
       },
       async (progress) => {
         const buffer = await extension.api.pauseUntil(() =>
-          application.backups.download(),
+          application.snapshots.download(),
         );
 
         await writeFile(
-          join(fsPath, `backup-${application.id}.zip`),
+          join(fsPath, `snapshot-${application.id}.zip`),
           new Uint8Array(buffer),
         );
 
-        window.showInformationMessage(t("backup.loaded"));
+        window.showInformationMessage(t("snapshot.loaded"));
         progress.report({ increment: 100 });
       },
     );

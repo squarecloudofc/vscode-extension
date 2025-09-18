@@ -26,19 +26,19 @@ export const deleteEntry = new ApplicationCommand(
         title: t("delete.loading"),
       },
       async (progress) => {
-        const backupUrl = await extension.api.pauseUntil(async () => {
-          const backup = await application.backups.create();
+        const snapshotUrl = await extension.api.pauseUntil(async () => {
+          const snapshot = await application.snapshots.create();
           await application.delete();
-          return backup.url;
+          return snapshot.url;
         });
 
         setTimeout(() => extension.api.refreshStatus(application.id), 7000);
 
         window
-          .showInformationMessage(t("delete.loaded"), "Download Backup")
+          .showInformationMessage(t("delete.loaded"), "Download Snapshot")
           .then((value) => {
-            if (value === "Download Backup") {
-              env.openExternal(Uri.parse(backupUrl));
+            if (value === "Download Snapshot") {
+              env.openExternal(Uri.parse(snapshotUrl));
             }
           });
 

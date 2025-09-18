@@ -91,9 +91,9 @@
     "useGitIgnore": "No se ha encontrado el archivo squarecloud.ignore. ¿Ignorar los archivos listados en .gitignore en su lugar?"
   },
 
-  "backup": {
-    "loading": "Descargando respaldo...",
-    "loaded": "Respaldo guardado con éxito.",
+  "snapshot": {
+    "loading": "Descargando snapshot...",
+    "loaded": "Snapshot guardada con éxito.",
     "save": "Guardar aquí"
   },
 

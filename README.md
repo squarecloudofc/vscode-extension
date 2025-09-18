@@ -23,7 +23,7 @@ To use Square Cloud extension first you will need an **API key** for **Square Cl
 
 ![Committing](https://public-blob.squarecloud.dev/702529018410303640/commit_m9kyej7j-c887.gif)
 
-### Download backups
+### Download snapshots
 
 ![Downloading](https://public-blob.squarecloud.dev/702529018410303640/backup_m9kyepa2-f7a5.gif)
 

@@ -111,7 +111,7 @@
           "when": "false"
         },
         {
-          "command": "squarecloud.backupEntry",
+          "command": "squarecloud.snapshotEntry",
           "when": "false"
         },
         {
@@ -176,7 +176,7 @@
           "when": "viewItem == application || viewItem == application-fav"
         },
         {
-          "command": "squarecloud.backupEntry",
+          "command": "squarecloud.snapshotEntry",
           "when": "viewItem == application || viewItem == application-fav"
         },
         {
@@ -277,8 +277,8 @@
         "title": "Commit"
       },
       {
-        "command": "squarecloud.backupEntry",
-        "title": "Backup"
+        "command": "squarecloud.snapshotEntry",
+        "title": "Snapshot"
       },
       {
         "command": "squarecloud.copyIdEntry",
