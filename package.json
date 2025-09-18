@@ -45,7 +45,7 @@
     "watch:esbuild": "node esbuild.js --watch",
     "vscode:prepublish": "pnpm run build",
     "publish:vsce": "vsce publish --allow-star-activation --no-dependencies",
-    "publish:ovsx": "ovsx publish --allow-star-activation --no-dependencies",
+    "publish:ovsx": "ovsx publish --no-dependencies",
     "package": "vsce package --allow-star-activation --no-dependencies"
   },
   "dependencies": {
