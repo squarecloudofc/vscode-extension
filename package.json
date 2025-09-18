@@ -44,7 +44,8 @@
     "watch:tsc": "tsc --noEmit --watch",
     "watch:esbuild": "node esbuild.js --watch",
     "vscode:prepublish": "pnpm run build",
-    "publish": "vsce publish --allow-star-activation --no-dependencies",
+    "publish:vsce": "vsce publish --allow-star-activation --no-dependencies",
+    "publish:ovsx": "ovsx publish --allow-star-activation --no-dependencies",
     "package": "vsce package --allow-star-activation --no-dependencies"
   },
   "dependencies": {
@@ -65,6 +66,7 @@
     "concurrently": "^9.2.1",
     "esbuild": "^0.25.10",
     "mocha": "^11.7.2",
+    "ovsx": "^0.10.5",
     "typescript": "^5.9.2"
   },
   "contributes": {

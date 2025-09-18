@@ -21,7 +21,12 @@ jobs:
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Publish
+      - name: Publish to VS Code
         env:
           VSCE_PAT: ${{ secrets.VSCODE_PERSONAL_TOKEN }}
-        run: pnpm run publish
+        run: pnpm run publish:vsce
+
+      - name: Publish to Open VSX
+        env:
+          OVSX_PAT: ${{ secrets.ECLIPSE_PERSONAL_TOKEN }}
+        run: pnpm run publish:ovsx
