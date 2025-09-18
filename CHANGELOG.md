@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## 3.2.6
+
+### Changes
+
+- Backups renamed to snapshots.
+
+### Fixes
+
+- Crashes and loading issues.
+
 ## 3.2.5
 
 ### Fixes
