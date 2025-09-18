@@ -1,6 +1,6 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
-import * as ignore from "ignore";
+import ignore from "ignore";
 import { ProgressLocation, window } from "vscode";
 import { t } from "vscode-ext-localisation";
 
