@@ -65,7 +65,7 @@
     "@vscode/vsce": "^3.6.0",
     "concurrently": "^9.2.1",
     "esbuild": "^0.25.10",
-    "mocha": "^11.7.2",
+    "mocha": "^11.7.4",
     "ovsx": "^0.10.5",
     "typescript": "^5.9.2"
   },
