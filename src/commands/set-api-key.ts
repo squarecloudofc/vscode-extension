@@ -20,9 +20,7 @@ export const setApiKey = new Command("setApiKey", async (extension) => {
       location: ProgressLocation.Notification,
       title: t("setApiKey.testing"),
     },
-    () => {
-      return extension.config.apiKey.test(apiKey);
-    },
+    () => extension.config.apiKey.test(apiKey),
   );
 
   if (!isKeyValid) {

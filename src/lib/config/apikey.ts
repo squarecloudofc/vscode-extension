@@ -7,18 +7,18 @@ export class ConfigAPIKey {
   constructor(private readonly secrets: SecretStorage) {}
 
   async get() {
-    const apiKey = await this.secrets.get(Config.APIKey.name);
-    commands.executeCommand("setContext", `${Config.APIKey}`, !!apiKey);
+    const apiKey = await this.secrets.get(Config.APIKey.value);
+    commands.executeCommand("setContext", Config.APIKey.value, !!apiKey);
 
     return apiKey;
   }
 
   async set(value: string | undefined) {
     if (!value) {
-      await this.secrets.delete(Config.APIKey.name);
+      await this.secrets.delete(Config.APIKey.value);
       return;
     }
-    await this.secrets.store(Config.APIKey.name, value);
+    await this.secrets.store(Config.APIKey.value, value);
   }
 
   async test(apiKey?: string) {
@@ -30,7 +30,7 @@ export class ConfigAPIKey {
     }
 
     const api = new SquareCloudAPI(apiKey);
-    const user = await api.users.get().catch(() => null);
+    const user = await api.user.get().catch(() => null);
 
     if (!user) {
       await this.set(undefined);
