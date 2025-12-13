@@ -1,10 +1,10 @@
 import { type SecretStorage, workspace } from "vscode";
 
-import { ConfigAPIKey } from "@/lib/config/api-key";
+import { ApiKey } from "@/lib/api-key";
 import { ExtensionID } from "@/lib/constants";
 
 export class ConfigManager {
-  apiKey = new ConfigAPIKey(this.secrets);
+  apiKey = new ApiKey(this.secrets);
 
   constructor(private readonly secrets: SecretStorage) {}
 
