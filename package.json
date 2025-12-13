@@ -49,6 +49,7 @@
     "package": "vsce package --allow-star-activation --no-dependencies"
   },
   "dependencies": {
+    "@napi-rs/keyring": "^1.2.0",
     "@squarecloud/api": "^3.8.0",
     "adm-zip": "^0.5.16",
     "ignore": "^7.0.5",

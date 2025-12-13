@@ -1,24 +1,31 @@
+import type { SecretStorage } from "vscode";
+import { AsyncEntry } from "@napi-rs/keyring";
 import { SquareCloudAPI } from "@squarecloud/api";
-import { commands, type SecretStorage } from "vscode";
 
-import { Config } from "@/lib/constants";
+import { Config, ExtensionID } from "../constants";
 
 export class ConfigAPIKey {
+  private readonly entry = new AsyncEntry(ExtensionID, "api-key");
+
   constructor(private readonly secrets: SecretStorage) {}
 
   async get() {
-    const apiKey = await this.secrets.get(Config.APIKey.value);
-    commands.executeCommand("setContext", Config.APIKey.value, !!apiKey);
+    let apiKey = await this.entry.getPassword();
+
+    if (!apiKey) {
+      const secretsApiKey = await this.secrets.get(Config.APIKey.value);
+      if (secretsApiKey) {
+        await this.set(secretsApiKey);
+        apiKey = secretsApiKey;
+      }
+    }
 
     return apiKey;
   }
 
   async set(value: string | undefined) {
-    if (!value) {
-      await this.secrets.delete(Config.APIKey.value);
-      return;
-    }
-    await this.secrets.store(Config.APIKey.value, value);
+    if (!value) return void (await this.entry.deletePassword());
+    await this.entry.setPassword(value);
   }
 
   async test(apiKey?: string) {
