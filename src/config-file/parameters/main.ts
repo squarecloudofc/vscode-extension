@@ -4,9 +4,8 @@ import * as vscode from "vscode";
 import { t } from "vscode-ext-localisation";
 
 import type { ConfigFileParameter } from "@/types/config-file";
+import { AllowedExtensions } from "@/lib/constants";
 import { createDiagnostic } from "@/lib/utils/diagnostic";
-
-import { AllowedExtensions } from "../../lib/config/extensions";
 
 const notAllowedFolders = ["/node_modules", "/__pycache__", "/."];
 

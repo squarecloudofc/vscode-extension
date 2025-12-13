@@ -42,7 +42,7 @@ export class SquareCloudExtension {
 
   initializeStores() {
     const favoritedApps = this.config.root.get<string[]>(
-      Config.FavoritedApps.name,
+      Config.FavoritedApps,
       [],
     );
 
@@ -50,7 +50,7 @@ export class SquareCloudExtension {
 
     this.store.subscribe((state) => {
       this.config.root.update(
-        Config.FavoritedApps.name,
+        Config.FavoritedApps,
         Array.from(state.favorited),
         true,
       );
