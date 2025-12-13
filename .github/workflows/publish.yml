@@ -8,15 +8,22 @@ on:
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
-  vsce:
-    name: Publish to VS Code
+  publish:
+    name: Publish
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        registry: ["vsce", "ovsx"]
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
+
       - uses: pnpm/action-setup@v4
         with:
           run_install: false
-      - uses: actions/setup-node@v5
+
+      - uses: actions/setup-node@v6
+        with:
+          cache: "pnpm"
 
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
@@ -24,22 +31,5 @@ jobs:
       - name: Publish
         env:
           VSCE_PAT: ${{ secrets.VSCODE_PERSONAL_TOKEN }}
-        run: pnpm run publish:vsce
-
-  ovsx:
-    name: Publish to Open VSX
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v5
-      - uses: pnpm/action-setup@v4
-        with:
-          run_install: false
-      - uses: actions/setup-node@v5
-
-      - name: Install Dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Publish
-        env:
           OVSX_PAT: ${{ secrets.ECLIPSE_PERSONAL_TOKEN }}
-        run: pnpm run publish:ovsx
+        run: pnpm run publish:${{ matrix.registry }}
