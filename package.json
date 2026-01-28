@@ -1,5 +1,5 @@
 {
-  "version": "3.2.10",
+  "version": "3.2.11",
   "name": "squarecloud",
   "publisher": "squarecloud",
   "displayName": "Square Cloud",
@@ -8,7 +8,7 @@
     "Other"
   ],
   "icon": "resources/squarecloud.png",
-  "packageManager": "pnpm@10.25.0",
+  "packageManager": "pnpm@10.28.2",
   "keywords": [
     "squarecloud",
     "square cloud",
