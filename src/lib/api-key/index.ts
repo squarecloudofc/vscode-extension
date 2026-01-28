@@ -1,33 +1,18 @@
-import type { SecretStorage } from "vscode";
 import { SquareCloudAPI } from "@squarecloud/api";
 
-import { Config, ExtensionID } from "../constants";
 import { ApiKeyStore } from "./store";
 
 export class ApiKey {
   private readonly store = new ApiKeyStore();
 
-  constructor(private readonly secrets: SecretStorage) {}
-
   async get() {
-    let apiKey = await this.store.get();
-
-    if (!apiKey) {
-      const secretsApiKey = await this.secrets.get(
-        `${ExtensionID}.${Config.APIKey}`,
-      );
-      if (secretsApiKey) {
-        await this.set(secretsApiKey);
-        apiKey = secretsApiKey;
-      }
-    }
-
+    const apiKey = await this.store.get();
     return apiKey;
   }
 
   async set(value: string | undefined) {
     if (!value) return void (await this.store.delete());
-    await this.store.store(value);
+    await this.store.set(value);
   }
 
   async test(apiKey?: string) {

@@ -24,7 +24,7 @@ export class ApiKeyStore {
     }
   }
 
-  async store(apiKey: string): Promise<void> {
+  async set(apiKey: string): Promise<void> {
     await this.reload();
     this.apiKey = apiKey;
     await this.write(apiKey);
