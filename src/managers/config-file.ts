@@ -1,8 +1,8 @@
 import * as vscode from "vscode";
 
-import { ConfigFileActionProvider } from "@/providers/config-file-action";
-import { ConfigCompletionProvider } from "@/providers/config-file-completion";
-import { validateConfigFile } from "@/providers/config-file-validation";
+import { ConfigFileActionProvider } from "@/providers/config-file/action";
+import { ConfigCompletionProvider } from "@/providers/config-file/completion";
+import { validateConfigFile } from "@/providers/config-file/validation";
 
 import type { SquareCloudExtension } from "./extension";
 
