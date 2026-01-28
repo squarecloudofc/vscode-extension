@@ -14,7 +14,7 @@ import { TreeViewsManager } from "./treeviews";
 export class SquareCloudExtension {
   private readonly logger = new Logger("Square Cloud");
 
-  public readonly config = new ConfigManager(this.context.secrets);
+  public readonly config = new ConfigManager();
   public readonly configFile = new ConfigFileManager(this);
   public readonly treeViews = new TreeViewsManager(this);
   public readonly commands = new CommandsManager(this);
