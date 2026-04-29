@@ -82,7 +82,11 @@ export class ApplicationsTreeViewProvider extends BaseTreeViewProvider<SquareTre
       if (this.extension.store.value.appsLoaded) {
         const locale = getLocale();
         return [
-          new GenericTreeItem(t("apps.noApps.message"), "plan"),
+          new GenericTreeItem(
+            t("apps.noApps.message"),
+            "plan",
+            t("apps.noApps.description"),
+          ),
           new CustomTreeItem(
             t("apps.noApps.upgrade"),
             {

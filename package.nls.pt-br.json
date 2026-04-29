@@ -22,8 +22,9 @@
 
   "apps": {
     "noApps": {
-      "message": "Nenhuma aplicação encontrada. Você precisa de um plano ativo para hospedar aplicações.",
-      "upgrade": "Ver planos"
+      "message": "Nenhuma aplicação encontrada",
+      "description": "Você precisa de um plano ativo para hospedar aplicações.",
+      "upgrade": "Abrir preços"
     }
   },
 

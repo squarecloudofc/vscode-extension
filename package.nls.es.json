@@ -22,8 +22,9 @@
 
   "apps": {
     "noApps": {
-      "message": "No se encontraron aplicaciones. Necesita un plan activo para alojar aplicaciones.",
-      "upgrade": "Ver planes"
+      "message": "No se encontraron aplicaciones",
+      "description": "Necesita un plan activo para alojar aplicaciones.",
+      "upgrade": "Abrir precios"
     }
   },
 

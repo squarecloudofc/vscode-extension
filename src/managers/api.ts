@@ -12,7 +12,13 @@ export class APIManager {
 
   constructor(private readonly extension: SquareCloudExtension) {
     this.refresh();
-    setInterval(() => this.refresh(), 30000);
+    setInterval(() => {
+      if (!this.shouldAutoRefresh()) {
+        return;
+      }
+
+      this.refresh();
+    }, 30000);
   }
 
   async refresh(bypass?: boolean) {
@@ -26,11 +32,12 @@ export class APIManager {
     if (!apiKey) {
       this.logger.log("API key not found.");
       this.extension.store.actions.setAppsLoaded(true);
+      this.pause(false);
       return;
     }
 
     const api = new SquareCloudAPI(apiKey);
-    const user = await api.users.get();
+    const user = await api.user.get();
     const applications = user.applications;
 
     let statuses: Awaited<ReturnType<typeof api.applications.statusAll>> = [];
@@ -64,6 +71,7 @@ export class APIManager {
 
     if (!apiKey) {
       this.logger.log("API key not found.");
+      this.pause(false);
       return;
     }
 
@@ -83,5 +91,12 @@ export class APIManager {
 
   private pause(value?: boolean) {
     this.paused = value || !this.paused;
+  }
+
+  private shouldAutoRefresh() {
+    const { appsLoaded, applications } = this.extension.store.value;
+
+    // Skip polling while showing paywall/empty state; user can still refresh manually.
+    return !appsLoaded || applications.size > 0;
   }
 }

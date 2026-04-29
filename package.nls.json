@@ -22,8 +22,9 @@
 
   "apps": {
     "noApps": {
-      "message": "No applications found. You need an active plan to host applications.",
-      "upgrade": "View plans"
+      "message": "No applications found",
+      "description": "You need an active plan to host applications.",
+      "upgrade": "Open pricing"
     }
   },
 
