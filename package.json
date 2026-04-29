@@ -22,6 +22,12 @@
     "name": "João Gabriel Tonaco",
     "url": "https://github.com/joaotonaco/"
   },
+  "contributors": [
+    {
+      "name": "João Otávio Stivi",
+      "url": "https://github.com/JoaoOtavioS"
+    }
+  ],
   "sponsor": {
     "url": "https://squarecloud.app/"
   },
