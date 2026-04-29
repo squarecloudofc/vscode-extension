@@ -34,5 +34,6 @@
     }
   ],
 
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "npm.packageManager": "pnpm",
+  "js/ts.tsdks.path": "node_modules/typescript/lib"
 }
