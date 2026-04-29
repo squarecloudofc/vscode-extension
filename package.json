@@ -50,25 +50,25 @@
   },
   "dependencies": {
     "@squarecloud/api": "^3.8.0",
-    "adm-zip": "^0.5.16",
+    "adm-zip": "^0.5.17",
     "ignore": "^7.0.5",
     "vscode-ext-localisation": "^1.1.0",
     "xdg-app-paths": "^8.3.0",
     "xoid": "^1.0.1"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.3.13",
-    "@types/adm-zip": "^0.5.7",
+    "@biomejs/biome": "^2.4.13",
+    "@types/adm-zip": "^0.5.8",
     "@types/mocha": "^10.0.10",
-    "@types/node": "^25.0.10",
-    "@types/vscode": "^1.108.1",
-    "@vscode/test-electron": "^2.4.1",
-    "@vscode/vsce": "^3.7.1",
+    "@types/node": "^25.6.0",
+    "@types/vscode": "^1.116.0",
+    "@vscode/test-electron": "^2.5.2",
+    "@vscode/vsce": "^3.9.1",
     "concurrently": "^9.2.1",
-    "esbuild": "^0.27.2",
+    "esbuild": "^0.28.0",
     "mocha": "^11.7.5",
-    "ovsx": "^0.10.8",
-    "typescript": "^5.9.3"
+    "ovsx": "^0.10.11",
+    "typescript": "^6.0.3"
   },
   "contributes": {
     "menus": {
