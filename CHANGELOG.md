@@ -2,6 +2,68 @@
 
 All notable changes to this project will be documented in this file.
 
+## 3.3.0
+
+### Added
+
+- `CONTRIBUTING.md` with setup, development, lint, build, and contribution guidelines.
+- Locale helper for extension links (`pt-br`, `en`, `es`).
+
+### Changes
+
+- Added João Otávio Stivi as a contributor.
+- Updated CI workflow to use `actions/checkout@v6` and `actions/setup-node@v6`.
+- Moved `enable-pre-post-scripts` config from `.npmrc` to `pnpm-workspace.yaml`.
+- Updated `CHANGELOG.md` with all missing version entries.
+- Updated API key guidance link to `https://squarecloud.app/{locale}/account/security`.
+- Added paywall messaging in Applications view with pricing link (`https://squarecloud.app/{locale}/pricing`).
+- Improved paywall UX in Applications view with clearer copy and CTA labels.
+- Stopped automatic status polling while paywall/no-apps state is active.
+- Replaced deprecated `SquareCloudAPI.users` usage with `SquareCloudAPI.user`.
+- Removed temporary API key validation debug logs.
+
+### Fixes
+
+- Fixed extension crash when an account has no plan and/or no applications (`No Apps`).
+- Fixed Applications tree empty state by differentiating loading from loaded-without-apps.
+
+### Dependencies
+
+- Updated key dependencies and tooling, including `typescript`, `esbuild`, `@biomejs/biome`, `@types/node`, `@types/vscode`, and `@vscode/vsce`.
+
+## 3.2.11
+
+### Changes
+
+- API key storage migrated away from SecretStorage for improved compatibility.
+- Simplified API key retrieval logic.
+- Updated dependencies.
+
+## 3.2.10
+
+### Changes
+
+- API key now stored using system-standard paths via `xdg-app-paths`, replacing keyring.
+- Updated dependencies.
+
+## 3.2.9
+
+### Changes
+
+- API key storage migrated to system keyring for improved security.
+
+## 3.2.8
+
+### Changes
+
+- Internal refactoring of API key and constant handling.
+
+## 3.2.7
+
+### Added
+
+- Extension now published to the Open VSX Registry.
+
 ## 3.2.6
 
 ### Changes
@@ -15,7 +77,7 @@ All notable changes to this project will be documented in this file.
 ## 3.2.5
 
 ### Fixes
-- Fix comitting folders.
+- Fix committing folders.
 
 ## 3.2.4
 
@@ -29,6 +91,19 @@ All notable changes to this project will be documented in this file.
 ### Fixes
 
 - Fix configuration file for Windows users.
+
+## 3.2.2
+
+### Changes
+
+- Improved MAIN and VERSION parameter handling in the configuration file.
+- Updated extension icon and README.
+
+## 3.2.1
+
+### Changes
+
+- Updated extension name.
 
 ## 3.2.0
 
