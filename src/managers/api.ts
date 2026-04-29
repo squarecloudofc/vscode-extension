@@ -25,26 +25,33 @@ export class APIManager {
 
     if (!apiKey) {
       this.logger.log("API key not found.");
+      this.extension.store.actions.setAppsLoaded(true);
       return;
     }
 
     const api = new SquareCloudAPI(apiKey);
     const user = await api.users.get();
     const applications = user.applications;
-    const statuses = await api.applications.statusAll();
+
+    let statuses: Awaited<ReturnType<typeof api.applications.statusAll>> = [];
+    try {
+      statuses = await api.applications.statusAll();
+    } catch {
+      // No applications or plan - treat as empty list
+    }
 
     this.pause(false);
 
     this.logger.log(
       `Found ${applications.size} applications and ${statuses.length} statuses.`,
     );
-
     const newApplications = applications.toJSON();
     const newStatuses = statuses.map((status) => new ApplicationStatus(status));
 
     this.extension.store.actions.setApplications(newApplications);
     this.extension.store.actions.setStatuses(newStatuses);
     this.extension.store.actions.setUser(user);
+    this.extension.store.actions.setAppsLoaded(true);
   }
 
   async refreshStatus(appId: string, bypass?: boolean) {

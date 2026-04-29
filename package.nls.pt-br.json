@@ -20,6 +20,13 @@
   "view.noApiKey": "Você não possui uma chave de API registrada. Por favor, registre uma.",
   "view.welcome": "Chave de API não registrada.\n[Definir chave de API](command:squarecloud.setApiKey)",
 
+  "apps": {
+    "noApps": {
+      "message": "Nenhuma aplicação encontrada. Você precisa de um plano ativo para hospedar aplicações.",
+      "upgrade": "Ver planos"
+    }
+  },
+
   "generic": {
     "yes": "Sim",
     "no": "Não",
@@ -39,8 +46,8 @@
 
   "setApiKey": {
     "tutorial": {
-      "label": "Primeiro abra o \"Dashboard da SquareCloud\", depois vá para \"Minha conta\" e finalmente clique em \"Regenerar chave de API/CLI\".",
-      "button": "Abrir Dashboard"
+      "label": "Abra a página de segurança da sua conta Square Cloud para encontrar ou regenerar sua chave de API.",
+      "button": "Obter chave de API"
     },
     "hasKey": "Você já possui sua chave de API?",
     "apiKey": "Insira sua chave de API.",

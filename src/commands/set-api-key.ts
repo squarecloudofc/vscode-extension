@@ -2,13 +2,17 @@ import { ProgressLocation, window } from "vscode";
 import { t } from "vscode-ext-localisation";
 
 import { Command } from "@/structures/command";
+import { getLocale } from "@/lib/utils/locale";
 
 export const setApiKey = new Command("setApiKey", async (extension) => {
+  const apiKeyUrl = `https://squarecloud.app/${getLocale()}/account/security`;
+
   const apiKey = await window.showInputBox({
     title: t("setApiKey.apiKey"),
     placeHolder: t("generic.paste"),
     ignoreFocusOut: true,
     password: true,
+    prompt: `[${t("setApiKey.tutorial.button")}](${apiKeyUrl})`,
   });
 
   if (!apiKey) {

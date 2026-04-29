@@ -1,10 +1,13 @@
 import { t } from "vscode-ext-localisation";
 
+import { Uri } from "vscode";
 import type { SquareCloudExtension } from "@/managers/extension";
 import { formatTime } from "@/lib/utils/format";
+import { getLocale } from "@/lib/utils/locale";
 import { ApplicationStatus } from "@/structures/application/status";
 
 import { BaseTreeViewProvider } from "../base";
+import { CustomTreeItem } from "../items/custom";
 import { GenericTreeItem } from "../items/generic";
 import { ApplicationTreeItem, type SquareTreeItem } from "./item";
 
@@ -74,6 +77,24 @@ export class ApplicationsTreeViewProvider extends BaseTreeViewProvider<SquareTre
 
       if (!apiKey) {
         return [];
+      }
+
+      if (this.extension.store.value.appsLoaded) {
+        const locale = getLocale();
+        return [
+          new GenericTreeItem(t("apps.noApps.message"), "plan"),
+          new CustomTreeItem(
+            t("apps.noApps.upgrade"),
+            {
+              command: "vscode.open",
+              title: t("apps.noApps.upgrade"),
+              arguments: [
+                Uri.parse(`https://squarecloud.app/${locale}/pricing`),
+              ],
+            },
+            "open",
+          ),
+        ];
       }
 
       return [

@@ -20,6 +20,13 @@
   "view.noApiKey": "You do not have a registered API key. Please register one.",
   "view.welcome": "No API key registered.\n[Set API key](command:squarecloud.setApiKey)",
 
+  "apps": {
+    "noApps": {
+      "message": "No applications found. You need an active plan to host applications.",
+      "upgrade": "View plans"
+    }
+  },
+
   "generic": {
     "yes": "Yes",
     "no": "No",
@@ -39,8 +46,8 @@
 
   "setApiKey": {
     "tutorial": {
-      "label": "First open the \"SquareCloud Dashboard\", then go to \"My Account\" and finally click \"Regenerate API/CLI KEY\".",
-      "button": "Open Dashboard"
+      "label": "Open your Square Cloud account security page to find or regenerate your API key.",
+      "button": "Get API key"
     },
     "hasKey": "Do you have your API key already?",
     "apiKey": "Enter your API key.",

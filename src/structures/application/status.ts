@@ -2,9 +2,15 @@ import type {
   ApplicationStatus as BaseApplicationStatus,
   SimpleApplicationStatus as BaseSimpleApplicationStatus,
 } from "@squarecloud/api";
-import type { ApplicationStatusUsage } from "@squarecloud/api/lib/types/application";
 
 import type { If } from "@/types/helpers";
+
+interface ApplicationStatusUsage {
+  ram: string;
+  cpu: string;
+  storage: string;
+  network: { now: string; today: string };
+}
 
 export class ApplicationStatus<Full extends boolean = boolean> {
   public applicationId: string;

@@ -8,6 +8,7 @@ export interface ExtensionStore {
   statuses: Collection<string, ApplicationStatus>;
   favorited: Set<string>;
   user?: User;
+  appsLoaded: boolean;
 }
 
 export interface ExtensionStoreActions {
@@ -21,6 +22,7 @@ export interface ExtensionStoreActions {
   isFavorited(applicationId: string): boolean;
 
   setUser(user?: User): void;
+  setAppsLoaded(value: boolean): void;
 }
 
 export const $extensionStore = atom<ExtensionStore, ExtensionStoreActions>(
@@ -29,6 +31,7 @@ export const $extensionStore = atom<ExtensionStore, ExtensionStoreActions>(
     statuses: new Collection(),
     favorited: new Set(),
     user: undefined,
+    appsLoaded: false,
   },
   (atom) => ({
     setApplications: (applications) => {
@@ -74,6 +77,9 @@ export const $extensionStore = atom<ExtensionStore, ExtensionStoreActions>(
 
     setUser: (user) => {
       atom.update((value) => ({ ...value, user }));
+    },
+    setAppsLoaded: (value) => {
+      atom.update((store) => ({ ...store, appsLoaded: value }));
     },
   }),
 );
