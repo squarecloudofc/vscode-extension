@@ -1,3 +1,6 @@
+settings:
+  enablePrePostScripts: true
+
 onlyBuiltDependencies:
   - '@biomejs/biome'
   - '@vscode/vsce-sign'
