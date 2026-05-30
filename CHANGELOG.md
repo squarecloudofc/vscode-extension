@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## 5.0.1
+
+### Fixes
+
+- Resolved 6 duplicate translation keys (`workspace.created` and `database.created` each existed twice in every locale — the toast string was silently overwriting the column label). Renamed the labels to `workspace.createdAt` / `database.createdAt`.
+- Tidied 2 lint warnings flagged by Biome: optional chain in `MAIN` file existence check, unused parameter property in `ConfigFileManager` constructor.
+
 ## 5.0.0
 
 Major release: migrated to `@squarecloud/api` v4 and added first-class support for workspaces, databases, environment variables, realtime streaming, GitHub App linkage, edge analytics, and one-click application upload. The internal architecture was overhauled to a `Disposable`-based composition root with selective store subscriptions, focus-aware polling, and SDK-error-code-aware toasts.
