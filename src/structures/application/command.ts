@@ -1,24 +1,45 @@
+import { window } from "vscode";
+
 import type { SquareCloudExtension } from "@/managers/extension";
 import type { ApplicationTreeItem } from "@/treeviews/applications/item";
 import { ExtensionID } from "@/lib/constants";
+import { describeError } from "@/lib/utils/errors";
+
+import { Logger } from "../logger";
 
 export type CommandExecute = (
   extension: SquareCloudExtension,
   treeItem: ApplicationTreeItem,
   ...args: any[]
-) => void;
+) => unknown | Promise<unknown>;
 
+const logger = new Logger("AppCommand");
+
+/**
+ * Variant of `Command` for tree-item-bound actions. Identical error handling
+ * to the base command — wrapped so we never let a rejected promise become a
+ * silent failure in the UI.
+ */
 export class ApplicationCommand {
-  /**
-   * Constructs a new instance of the class.
-   *
-   * @param name - The name of the command.
-   * @param execute - The function to execute when the command is triggered.
-   */
+  public readonly name: string;
+
   constructor(
-    public name: string,
-    public execute: CommandExecute,
+    name: string,
+    private readonly handler: CommandExecute,
   ) {
-    this.name = `${ExtensionID}.${this.name}`;
+    this.name = `${ExtensionID}.${name}`;
+  }
+
+  async execute(
+    extension: SquareCloudExtension,
+    treeItem: ApplicationTreeItem,
+    ...args: any[]
+  ): Promise<void> {
+    try {
+      await this.handler(extension, treeItem, ...args);
+    } catch (error) {
+      logger.error(`Command ${this.name} failed`, error);
+      window.showErrorMessage(describeError(error));
+    }
   }
 }

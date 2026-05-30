@@ -1,11 +1,17 @@
 settings:
   enablePrePostScripts: true
 
+minimumReleaseAgeExclude:
+  - '@squarecloud/api'
+
 onlyBuiltDependencies:
   - '@biomejs/biome'
   - '@vscode/vsce-sign'
   - esbuild
   - keytar
 
-patchedDependencies:
-  adm-zip: patches/adm-zip.patch
+allowBuilds:
+  '@biomejs/biome': true
+  '@vscode/vsce-sign': true
+  esbuild: true
+  keytar: true

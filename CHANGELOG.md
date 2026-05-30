@@ -2,6 +2,70 @@
 
 All notable changes to this project will be documented in this file.
 
+## 5.0.0
+
+Major release: migrated to `@squarecloud/api` v4 and added first-class support for workspaces, databases, environment variables, realtime streaming, GitHub App linkage, edge analytics, and one-click application upload. The internal architecture was overhauled to a `Disposable`-based composition root with selective store subscriptions, focus-aware polling, and SDK-error-code-aware toasts.
+
+### Added
+
+- **Workspaces view** — create, delete, leave, generate invite codes; inline member and shared-app rendering.
+- **Databases view** — create/start/stop/delete managed databases (MongoDB, MySQL, Redis, Postgres); TLS bundle download split into `.pem`, `.crt` and `.key`.
+- **Application: Upload** — create a brand new app from any folder, with client-side `squarecloud.app`/`squarecloud.config` validation and cancellable progress.
+- **Application: Environment variables** — full CRUD over `application.envs` via QuickPick.
+- **Application: 24h metrics** — CPU/RAM/network time series rendered in a per-app output channel.
+- **Application: Realtime stream** — Server-Sent Events consumed into an output channel; toggle on/off.
+- **Application: Snapshot restore** — sorted-newest-first QuickPick over `application.snapshots.list()` with confirmation.
+- **Application: GitHub App link/unlink** — repository + branch picker.
+- **Application: Edge analytics** — errors, edge logs, performance, and selective/full cache purge (website apps only).
+- **Service status** — palette command + status bar warning when Square Cloud reports degraded health.
+- **Status bar item** — at-a-glance API key state, online/total apps, and service health; click to refresh.
+- **Config file IntelliSense — `RUNTIME` field** — autocomplete + validation against the 15 official aliases, plus quick-fix lightbulbs.
+
+### Changes
+
+- Migrated to `@squarecloud/api` v4 with parallelised refresh (`Promise.allSettled`) and shared client instance keyed by API key.
+- API key storage moved to VSCode `SecretStorage` (OS keychain); legacy `auth.json` is migrated on first run and deleted.
+- Polling now pauses while the editor is unfocused and resumes on focus, with refresh coalescing.
+- Tree views switched to selective store subscriptions (per slice) instead of a blanket `refreshAll`.
+- Commands wrapped to centralise error logging and map `SquareCloudAPIError.code` to localised toasts; removed boilerplate `paused` gate from every command.
+- `start`/`stop`/`restart` consolidated into a single parameterised builder.
+- Network analytics commands (errors/logs/performance) consolidated into a shared builder.
+- Background auto-refresh polling interval raised from 30s to 60s to reduce API pressure for idle sessions.
+- `setTimeout(refreshStatus, 7000)` magic numbers replaced by `APIManager.scheduleStatusRefresh()` with timer tracking + cleanup on dispose.
+- `activationEvents` reduced from `"*"` to `workspaceContains` only — VSCode auto-generates view/language activations.
+- Config file: `START` length limit raised to 256, `SUBDOMAIN` to 63, `MAIN` becomes optional when `START` is set.
+- Locale comparisons replaced with tagged `MessageItem.id` across all confirmation dialogs.
+- Output channels centralised via `getOutputChannel(bag, key, name)` and disposed with the extension.
+- Status updates now produce new `Collection`/`Set` references so selective subscribers actually fire.
+- `engines.vscode` bumped to `^1.120.0`.
+- `packageManager` pinned to `pnpm@11.5.0`.
+
+### Fixes
+
+- Snapshot restore now lists every snapshot (extracted `snapshotId`/`versionId` from the signed URL — previous code stripped them all as "invalid").
+- Database certificate download no longer hangs on "Downloading..." after the file is written (toast moved outside `withProgress`).
+- Application delete no longer leaves the progress notification spinning waiting for the success toast.
+- Realtime SSE sessions are aborted on extension teardown; no more dead `Disposable` entries piling up in `context.subscriptions` on repeated start/stop.
+- Phantom `disposeAllRealtimeSessions` command removed from the VSCode registry (utility was registered as a command by the barrel scan).
+- `setStatus` and `toggleFavorite` no longer mutate state in place — fixes tree views not refreshing on status updates.
+- TypeScript IntelliSense for `node:` protocol imports restored via explicit `types: ["node", "vscode"]` after TypeScript 6's default change.
+
+### Dependencies
+
+- `@squarecloud/api` 3.8.0 → **4.0.1**.
+- `adm-zip` removed in favour of **`jszip`** (dropped the local patch).
+- `xdg-app-paths` removed — replaced with VSCode `SecretStorage`.
+- `mocha`, `@types/mocha`, `@vscode/test-electron` removed (no test suite shipped).
+- `typescript` → 6.0.3, `@biomejs/biome` → 2.4.16, `@types/node` → 25.9.1, `@types/vscode` → 1.120.0, `concurrently` → 10, `ovsx` → 1.
+- `pnpm` bumped to 11.5.0 with `minimumReleaseAgeExclude: ["@squarecloud/api"]` policy.
+
+### Removed
+
+- `TODO.md` (backlog superseded by this release).
+- `contributes.disabled.json` (graveyard, never loaded by VSCode).
+- Dead translation keys across all locales (`createConfig.*`, `statusBarItem.*`, `setWorkspaceApp.*`, `uploadWorkspace.*`, `commitWorkspace.*`, `commit.error`, `view.noApiKey`, and others — 57 keys total).
+- Unused utilities: `compareSets`, `Constant`, `capitalize` (inlined in its single caller).
+
 ## 3.3.0
 
 ### Added

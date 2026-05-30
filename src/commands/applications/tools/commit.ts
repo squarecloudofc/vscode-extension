@@ -1,120 +1,87 @@
 import { readFile } from "node:fs/promises";
-import { join } from "node:path";
+import { basename, join } from "node:path";
 import ignore from "ignore";
-import { ProgressLocation, window } from "vscode";
+import JSZip from "jszip";
+import { CancellationError, ProgressLocation, type Uri, window } from "vscode";
 import { t } from "vscode-ext-localisation";
 
+import { confirm } from "@/lib/utils/dialogs";
+import { walkDir } from "@/lib/utils/walk-dir";
 import { ApplicationCommand } from "@/structures/application/command";
 
-import AdmZip = require("adm-zip");
+type CommitKind = "file" | "folder";
 
 export const commitEntry = new ApplicationCommand(
   "commitEntry",
   async (extension, { application }) => {
-    if (extension.api.paused) {
-      return;
-    }
-
-    const fileOrFolder = await window.showQuickPick(
-      [t("generic.file"), t("generic.folder")],
+    const kindLabel = await window.showQuickPick(
+      [
+        { label: t("generic.file"), id: "file" as const },
+        { label: t("generic.folder"), id: "folder" as const },
+      ],
       {
         title: t("commit.fileOrFolder"),
         placeHolder: t("generic.choose"),
       },
     );
+    if (!kindLabel) return;
+    const kind: CommitKind = kindLabel.id;
 
-    if (!fileOrFolder) {
-      return;
-    }
+    const shouldRestart = await confirm(t("commit.restart"), { modal: false });
 
-    const shouldRestart = await window.showQuickPick(
-      [t("generic.yes"), t("generic.no")],
-      {
-        title: t("commit.restart"),
-        placeHolder: t("generic.choose"),
-      },
-    );
-
-    if (shouldRestart === undefined) {
-      return;
-    }
-
-    const isFile = fileOrFolder === t("generic.file");
-    const isFolder = fileOrFolder === t("generic.folder");
-
-    const files = await window.showOpenDialog({
-      canSelectMany: isFile,
-      canSelectFiles: isFile,
-      canSelectFolders: isFolder,
-      openLabel: t("commit.select", { TYPE: fileOrFolder.toLowerCase() }),
+    const dialog = await window.showOpenDialog({
+      canSelectMany: kind === "file",
+      canSelectFiles: kind === "file",
+      canSelectFolders: kind === "folder",
+      openLabel: t("commit.select", { TYPE: kindLabel.label.toLowerCase() }),
       title: `Commit - ${application.name}`,
     });
-
-    if (!files) {
-      return;
-    }
+    if (!dialog) return;
 
     const ignoreDefaults = await readFile(
       join(__dirname, "..", "resources", "squarecloud.ignore"),
     );
-
     const ig = ignore().add(ignoreDefaults.toString("utf-8"));
-    const zipFile = new AdmZip();
+    const zip = new JSZip();
 
     await window.withProgress(
       {
         location: ProgressLocation.Notification,
         title: t("commit.loading"),
+        cancellable: true,
       },
-      async (progress) => {
-        if (isFile) {
-          for (let { path } of files) {
-            path = path.slice(1);
-            zipFile.addLocalFile(path);
+      async (progress, token) => {
+        if (kind === "file") {
+          for (const uri of dialog) {
+            if (token.isCancellationRequested) throw new CancellationError();
+            zip.file(basename(uri.fsPath), await readFile(uri.fsPath));
+          }
+        } else {
+          const rootUri = dialog[0];
+          await maybeMergeIgnore(rootUri, ig);
+          const folderName = basename(rootUri.fsPath);
+          for await (const entry of walkDir(rootUri.fsPath, ig)) {
+            if (token.isCancellationRequested) throw new CancellationError();
+            zip.file(`${folderName}/${entry.relPath}`, entry.content);
           }
         }
 
-        if (isFolder) {
-          let [{ path }] = files;
-          path = path.slice(1);
+        progress.report({ message: t("commit.zipping") });
 
-          const squarecloudIgnore = await readFile(
-            join(path, "squarecloud.ignore"),
-          ).catch(() => null);
+        const buffer = await zip.generateAsync({
+          type: "nodebuffer",
+          compression: "DEFLATE",
+          compressionOptions: { level: 6 },
+        });
 
-          if (squarecloudIgnore) {
-            ig.add(squarecloudIgnore.toString("utf-8"));
-          } else {
-            const gitIgnore = await readFile(join(path, ".gitignore")).catch(
-              () => null,
-            );
+        if (token.isCancellationRequested) throw new CancellationError();
+        progress.report({ message: t("commit.uploading") });
 
-            if (gitIgnore) {
-              const canIgnore = await window.showInformationMessage(
-                t("commit.useGitIgnore"),
-                t("generic.yes"),
-                t("generic.no"),
-              );
+        await application.commit(buffer, `${application.id}.zip`);
 
-              if (canIgnore === t("generic.yes")) {
-                ig.add(gitIgnore.toString("utf-8"));
-              }
-            }
-          }
+        if (shouldRestart) await application.restart();
 
-          await zipFile.addLocalFolderPromise(path, {
-            zipPath: `${path.split("/").pop()}/`,
-            filter: (filename) => !ig.ignores(filename),
-          });
-        }
-
-        await application.commit(zipFile.toBuffer(), `${application.id}.zip`);
-
-        if (shouldRestart === t("generic.yes")) {
-          await application.restart();
-        }
-
-        setTimeout(() => extension.api.refreshStatus(application.id), 7000);
+        extension.api.scheduleStatusRefresh(application.id);
 
         progress.report({ increment: 100 });
         window.showInformationMessage(t("commit.loaded"));
@@ -122,3 +89,26 @@ export const commitEntry = new ApplicationCommand(
     );
   },
 );
+
+async function maybeMergeIgnore(
+  rootUri: Uri,
+  ig: ReturnType<typeof ignore>,
+): Promise<void> {
+  const squarecloudIgnore = await readFile(
+    join(rootUri.fsPath, "squarecloud.ignore"),
+  ).catch(() => null);
+  if (squarecloudIgnore) {
+    ig.add(squarecloudIgnore.toString("utf-8"));
+    return;
+  }
+  const gitIgnore = await readFile(join(rootUri.fsPath, ".gitignore")).catch(
+    () => null,
+  );
+  if (!gitIgnore) return;
+
+  // Only ask the user about .gitignore when there's no squarecloud.ignore —
+  // otherwise the prompt is noise.
+  if (await confirm(t("commit.useGitIgnore"), { modal: false })) {
+    ig.add(gitIgnore.toString("utf-8"));
+  }
+}

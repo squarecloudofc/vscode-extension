@@ -7,13 +7,15 @@ import { Command } from "@/structures/command";
 export const copyText = new Command(
   "copyText",
   (_extension, treeItem: GenericTreeItem) => {
-    if (!treeItem.description) {
-      return;
-    }
+    const value = treeItem.description;
+    if (typeof value !== "string" || value.length === 0) return;
 
-    env.clipboard.writeText(treeItem.description);
-    window.showInformationMessage(
-      t("copy.copiedText", { TYPE: treeItem.label }),
-    );
+    const label =
+      typeof treeItem.label === "string"
+        ? treeItem.label
+        : treeItem.label?.label;
+
+    env.clipboard.writeText(value);
+    window.showInformationMessage(t("copy.copiedText", { TYPE: label ?? "" }));
   },
 );

@@ -7,38 +7,27 @@ import { ApplicationCommand } from "@/structures/application/command";
 
 export const snapshotEntry = new ApplicationCommand(
   "snapshotEntry",
-  async (extension, { application }) => {
-    if (extension.api.paused) {
-      return;
-    }
-
+  async (_extension, { application }) => {
     const dialog = await window.showOpenDialog({
       canSelectFolders: true,
       openLabel: t("snapshot.save"),
       title: `Snapshot - ${application.name}`,
     });
 
-    if (!dialog) {
-      return;
-    }
-
+    if (!dialog) return;
     const [{ fsPath }] = dialog;
 
-    window.withProgress(
+    await window.withProgress(
       {
         location: ProgressLocation.Notification,
         title: t("snapshot.loading"),
       },
       async (progress) => {
-        const buffer = await extension.api.pauseUntil(() =>
-          application.snapshots.download(),
-        );
-
+        const buffer = await application.snapshots.download();
         await writeFile(
           join(fsPath, `snapshot-${application.id}.zip`),
           new Uint8Array(buffer),
         );
-
         window.showInformationMessage(t("snapshot.loaded"));
         progress.report({ increment: 100 });
       },

@@ -1,8 +1,8 @@
 import { ProgressLocation, window } from "vscode";
 import { t } from "vscode-ext-localisation";
 
-import { Command } from "@/structures/command";
 import { getLocale } from "@/lib/utils/locale";
+import { Command } from "@/structures/command";
 
 export const setApiKey = new Command("setApiKey", async (extension) => {
   const apiKeyUrl = `https://squarecloud.app/${getLocale()}/account/security`;
@@ -15,9 +15,7 @@ export const setApiKey = new Command("setApiKey", async (extension) => {
     prompt: `[${t("setApiKey.tutorial.button")}](${apiKeyUrl})`,
   });
 
-  if (!apiKey) {
-    return;
-  }
+  if (!apiKey) return;
 
   const isKeyValid = await window.withProgress(
     {
@@ -32,8 +30,9 @@ export const setApiKey = new Command("setApiKey", async (extension) => {
     return;
   }
 
-  window.showInformationMessage(t("setApiKey.success"));
-
   await extension.config.apiKey.set(apiKey);
-  await extension.api.refresh(true);
+  extension.api.invalidateClient();
+  await extension.api.refresh();
+
+  window.showInformationMessage(t("setApiKey.success"));
 });

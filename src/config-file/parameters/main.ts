@@ -10,11 +10,14 @@ import { createDiagnostic } from "@/lib/utils/diagnostic";
 const notAllowedFolders = ["/node_modules", "/__pycache__", "/."];
 
 export const MAIN = {
-  required: true,
+  // The official docs state: "Não é necessário se START estiver definido."
+  // Treat MAIN as required only when START is missing — otherwise the user is
+  // using a custom start command and doesn't need to declare a main file.
+  required: (keys) => !keys.has("START"),
   validation(_keys, value, line, diagnostics, document) {
     const configFilePath = dirname(document.uri.fsPath);
     const mainFilePath = resolve(configFilePath, value);
-    const stats = existsSync(mainFilePath) && statSync(mainFilePath);
+    const stats = existsSync(mainFilePath) ? statSync(mainFilePath) : undefined;
 
     // Validate if there is some value on MAIN
     if (!value) {
@@ -25,8 +28,7 @@ export const MAIN = {
 
     // Validate if the file exists, is a file, and is inside config file root path
     if (
-      !stats ||
-      !stats.isFile() ||
+      !stats?.isFile() ||
       !mainFilePath.startsWith(configFilePath) ||
       notAllowedFolders.some((folder) =>
         mainFilePath.replaceAll("\\", "/").includes(folder),

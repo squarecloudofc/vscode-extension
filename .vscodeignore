@@ -5,5 +5,4 @@ src
 .github
 tsconfig.json
 esbuild.js
-contributes.disabled.json
 pnpm-lock.yaml

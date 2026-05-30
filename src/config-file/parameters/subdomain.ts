@@ -17,8 +17,8 @@ export const SUBDOMAIN = {
       );
     }
 
-    // Validate if the SUBDOMAIN exceeds 62 characters
-    if (value.length > 62) {
+    // Validate if the SUBDOMAIN exceeds 63 characters (DNS label limit)
+    if (value.length > 63) {
       diagnostics.push(
         createDiagnostic(document, line, t("configFile.error.long.subdomain")),
       );

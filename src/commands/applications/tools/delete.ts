@@ -1,4 +1,4 @@
-import { env, ProgressLocation, Uri, window } from "vscode";
+import { env, type MessageItem, ProgressLocation, Uri, window } from "vscode";
 import { t } from "vscode-ext-localisation";
 
 import { ApplicationCommand } from "@/structures/application/command";
@@ -6,44 +6,45 @@ import { ApplicationCommand } from "@/structures/application/command";
 export const deleteEntry = new ApplicationCommand(
   "deleteEntry",
   async (extension, { application }) => {
-    if (extension.api.paused) {
-      return;
-    }
-
-    const confirmDelete = await window.showInputBox({
+    const typed = await window.showInputBox({
       placeHolder: application.name,
       title: t("delete.confirm"),
     });
 
-    if (confirmDelete !== application.name) {
+    if (typed !== application.name) {
       window.showInformationMessage(t("delete.cancelled"));
       return;
     }
 
-    window.withProgress(
+    // Take a recovery snapshot inside withProgress so the spinner only spans
+    // the actual work, and surface the post-delete toast OUTSIDE — otherwise
+    // the progress notification would hang waiting for the user to dismiss
+    // the toast (the same bug we had on the cert download).
+    const snapshotUrl = await window.withProgress(
       {
         location: ProgressLocation.Notification,
         title: t("delete.loading"),
       },
-      async (progress) => {
-        const snapshotUrl = await extension.api.pauseUntil(async () => {
-          const snapshot = await application.snapshots.create();
-          await application.delete();
-          return snapshot.url;
-        });
-
-        setTimeout(() => extension.api.refreshStatus(application.id), 7000);
-
-        window
-          .showInformationMessage(t("delete.loaded"), "Download Snapshot")
-          .then((value) => {
-            if (value === "Download Snapshot") {
-              env.openExternal(Uri.parse(snapshotUrl));
-            }
-          });
-
-        progress.report({ increment: 100 });
+      async () => {
+        const snapshot = await application.snapshots.create();
+        await application.delete();
+        return snapshot.url;
       },
     );
+
+    setTimeout(() => void extension.api.refresh(), 7_000);
+
+    type DownloadItem = MessageItem & { id: "download" };
+    const downloadItem: DownloadItem = {
+      title: t("delete.downloadSnapshot"),
+      id: "download",
+    };
+    const choice = await window.showInformationMessage<DownloadItem>(
+      t("delete.loaded"),
+      downloadItem,
+    );
+    if (choice?.id === "download") {
+      env.openExternal(Uri.parse(snapshotUrl));
+    }
   },
 );

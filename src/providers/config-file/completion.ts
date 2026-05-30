@@ -53,6 +53,10 @@ export const ConfigCompletionProvider: vscode.CompletionItemProvider = {
       return ConfigFileParameters.MEMORY.autocomplete(document, position);
     }
 
+    if (line.startsWith("RUNTIME=")) {
+      return ConfigFileParameters.RUNTIME.autocomplete(document, position);
+    }
+
     return undefined;
   },
 };

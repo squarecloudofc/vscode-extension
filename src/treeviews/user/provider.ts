@@ -1,11 +1,14 @@
 import { t } from "vscode-ext-localisation";
 
 import type { SquareCloudExtension } from "@/managers/extension";
-import { capitalize } from "@/lib/utils/capitalize";
 import { formatMB } from "@/lib/utils/format";
 
 import { BaseTreeViewProvider } from "../base";
 import { GenericTreeItem } from "../items/generic";
+
+function planLabel(name: string): string {
+  return (name.charAt(0).toUpperCase() + name.slice(1)).replace("-", " ");
+}
 
 export class UserTreeViewProvider extends BaseTreeViewProvider<GenericTreeItem> {
   constructor(private readonly extension: SquareCloudExtension) {
@@ -40,7 +43,7 @@ export class UserTreeViewProvider extends BaseTreeViewProvider<GenericTreeItem> 
       ["Username", "username", user.name],
       ["ID", "id", user.id],
       ["E-mail", "email", user.email],
-      [capitalize(user.plan.name).replace("-", " "), "plan", expires || "∞"],
+      [planLabel(user.plan.name), "plan", expires || "∞"],
       [
         "RAM",
         "ram",

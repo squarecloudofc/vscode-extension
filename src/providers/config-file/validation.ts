@@ -8,6 +8,7 @@ import type {
 } from "@/types/config-file";
 import { ConfigFileParameters } from "@/config-file/parameters";
 import { createDiagnostic } from "@/lib/utils/diagnostic";
+import { isRequired } from "@/types/config-file";
 
 /**
  * This function validates the config file and sets the diagnostics for the document.
@@ -49,7 +50,7 @@ export function validateConfigFile(
         document,
         extension,
       );
-    } else if (parameter.required) {
+    } else if (isRequired(parameter, keys)) {
       diagnostics.push(
         createDiagnostic(
           document,

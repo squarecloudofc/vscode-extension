@@ -1,12 +1,11 @@
 {
-  "config.apiKey.description": "Su clave de API de [Square Cloud](https://squarecloud.app/).",
+  "config.apiKey.description": "Tu clave de API de [Square Cloud](https://squarecloud.app/).",
 
-  "command.createConfig": "Crear archivo de configuración de Square Cloud",
   "command.setApiKey": "Establecer nueva clave de API",
   "command.logsEntry": "Mostrar registros",
   "command.copyText": "Copiar",
   "command.refresh": "Actualizar",
-  "command.open": "Ver en el tablero",
+  "command.open": "Ver en el panel",
   "command.start": "Iniciar",
   "command.stop": "Detener",
   "command.copyId": "Copiar ID",
@@ -14,16 +13,38 @@
   "command.delete": "Eliminar",
   "command.favorite": "Favorito",
   "command.unfavorite": "Desfavoritar",
+  "command.snapshotRestore": "Restaurar snapshot",
+  "command.envs": "Variables de entorno",
+  "command.metrics": "Ver métricas de 24h",
+  "command.realtime": "Alternar stream en tiempo real",
+  "command.linkGithub": "Vincular repositorio del GitHub App",
+  "command.unlinkGithub": "Desvincular repositorio del GitHub App",
+  "command.networkErrors": "Errores del edge",
+  "command.networkLogs": "Logs del edge",
+  "command.networkPerformance": "Rendimiento del edge",
+  "command.purgeCache": "Purgar caché del edge",
+  "command.createWorkspace": "Crear workspace",
+  "command.deleteWorkspace": "Eliminar workspace",
+  "command.leaveWorkspace": "Salir del workspace",
+  "command.generateInviteCode": "Generar código de invitación del workspace",
+  "command.createDatabase": "Crear base de datos",
+  "command.startDatabase": "Iniciar base de datos",
+  "command.stopDatabase": "Detener base de datos",
+  "command.deleteDatabase": "Eliminar base de datos",
+  "command.downloadDatabaseCertificate": "Descargar certificado TLS",
+  "command.serviceStatus": "Mostrar estado del servicio",
+  "command.uploadApplication": "Subir nueva aplicación",
 
-  "view.user.title": "Usuario",
   "view.apps.title": "Aplicaciones",
-  "view.noApiKey": "No tiene una clave de API registrada. Por favor, regístre una.",
+  "view.user.title": "Usuario",
+  "view.workspaces.title": "Workspaces",
+  "view.databases.title": "Bases de datos",
   "view.welcome": "No hay clave de API registrada.\n[Establecer clave de API](command:squarecloud.setApiKey)",
 
   "apps": {
     "noApps": {
       "message": "No se encontraron aplicaciones",
-      "description": "Necesita un plan activo para alojar aplicaciones.",
+      "description": "Necesitas un plan activo para alojar aplicaciones.",
       "upgrade": "Abrir precios"
     }
   },
@@ -35,11 +56,8 @@
     "error": "Ha ocurrido un error desconocido.",
     "network": "Red",
     "storage": "Almacenamiento",
-    "wait": "Por favor espere un momento antes de hacer nuevas solicitudes.",
-    "refreshing": "Actualizando...",
     "done": "¡Hecho!",
-    "type": "Escribe aquí...",
-    "paste": "Pegar aquí...",
+    "paste": "Pega aquí...",
     "choose": "Elige una opción...",
     "file": "Archivo",
     "folder": "Carpeta"
@@ -47,21 +65,18 @@
 
   "setApiKey": {
     "tutorial": {
-      "label": "Abra la página de seguridad de su cuenta de Square Cloud para encontrar o regenerar su clave de API.",
       "button": "Obtener clave de API"
     },
-    "hasKey": "¿Ya tiene su clave de API?",
-    "apiKey": "Ingrese su clave de API.",
+    "apiKey": "Ingresa tu clave de API.",
     "testing": "Verificando la clave de API proporcionada.",
     "invalid": "La clave de API proporcionada no es válida.",
-    "success": "¡Su clave de API se ha registrado con éxito!"
+    "success": "¡Tu clave de API se ha registrado con éxito!"
   },
 
   "logs": {
     "loading": "Obteniendo registros.",
     "loaded": "Los registros se han cargado con éxito.",
-    "null": "No se encontraron registros.",
-    "button": "Mostrar registros"
+    "null": "No se encontraron registros."
   },
 
   "copy": {
@@ -88,15 +103,19 @@
     "loading": "Eliminando la aplicación...",
     "loaded": "La aplicación se ha eliminado.",
     "cancelled": "El proceso de eliminación se ha cancelado.",
-    "confirm": "Ingrese el nombre de la aplicación para confirmar que desea eliminarla."
+    "confirm": "Ingresa el nombre de la aplicación para confirmar que deseas eliminarla.",
+    "downloadSnapshot": "Descargar snapshot"
   },
 
   "commit": {
     "loading": "Enviando archivos...",
     "loaded": "Los archivos se han enviado con éxito.",
-    "restart": "¿Desea reiniciar la aplicación?",
-    "select": "Seleccione la carpeta para enviar",
-    "useGitIgnore": "No se ha encontrado el archivo squarecloud.ignore. ¿Ignorar los archivos listados en .gitignore en su lugar?"
+    "fileOrFolder": "¿Qué deseas enviar en el commit?",
+    "restart": "¿Deseas reiniciar la aplicación?",
+    "select": "Selecciona {{TYPE}} para enviar",
+    "useGitIgnore": "No se ha encontrado el archivo squarecloud.ignore. ¿Ignorar los archivos listados en .gitignore en su lugar?",
+    "zipping": "Comprimiendo archivos...",
+    "uploading": "Subiendo a Square Cloud..."
   },
 
   "snapshot": {
@@ -105,60 +124,157 @@
     "save": "Guardar aquí"
   },
 
-  "createConfig": {
-    "botOrSite": "¿Es tu aplicación un Bot o un Sitio web?",
-    "nothingHere": "Debes escribir algo aquí.",
-    "optional": "¿Quieres establecer {{field}} para tu aplicación?",
-    "prompt": {
-      "displayName": "Escribe un nombre para mostrar para tu aplicación.",
-      "avatar": {
-        "subs": "un avatar",
-        "title": "Pega la URL de tu avatar a continuación."
-      },
-      "description": {
-        "subs": "una descripción",
-        "title": "Escribe la descripción de tu aplicación."
-      },
-      "main": {
-        "title": "¿Cuál es el archivo principal de tu aplicación?",
-        "invalid": "Este archivo no existe en la carpeta actual."
-      },
-      "memory": {
-        "title": "¿Cuánta memoria RAM usará tu aplicación? {{max}}",
-        "validate": "Por favor, escribe un número mayor que {{minValue}} y menor que tu memoria disponible."
-      },
-      "version": "¿Qué versión te gustaría usar para esta aplicación?",
-      "subdomain": "Escribe un subdominio para tu sitio web.",
-      "start": {
-        "subs": "un comando de inicio",
-        "title": "Escribe el comando de inicio para tu aplicación."
-      }
-    }
+  "snapshotRestore": {
+    "select": "Elige un snapshot para restaurar",
+    "placeholder": "Más reciente primero",
+    "noSnapshots": "No hay snapshots disponibles para restaurar.",
+    "idExtractFailed": "No se pudieron leer los identificadores del snapshot. Ve a Output → Square Cloud para más detalles.",
+    "confirm": "¿Restaurar la aplicación al snapshot de {{DATE}}?",
+    "loading": "Restaurando snapshot...",
+    "loaded": "Aplicación restaurada desde el snapshot seleccionado."
   },
 
-  "statusBarItem": {
-    "title": "Square Cloud - Selecciona una acción",
-    "commit": "Realizar commit de los archivos",
-    "upload": "Enviar nueva aplicación",
-    "setApp": "Definir aplicación del escritorio",
-    "createConfig": "Crear archivo de configuración"
+  "envs": {
+    "title": "Variables de entorno",
+    "placeholder": "{{COUNT}} variable(s) configurada(s)",
+    "addNew": "Agregar nueva variable",
+    "removeAll": "Eliminar todas las variables",
+    "editValue": "Editar valor",
+    "deleteOne": "Eliminar esta variable",
+    "keyPrompt": "Ingresa el nombre de la variable (KEY)",
+    "valuePrompt": "Ingresa el valor",
+    "invalidKey": "Usa letras mayúsculas, dígitos y guiones bajos; no debe iniciar con dígito.",
+    "saving": "Guardando variable de entorno...",
+    "saved": "Variable de entorno guardada.",
+    "deleting": "Eliminando variable de entorno...",
+    "deleted": "Variable de entorno eliminada.",
+    "confirmDelete": "¿Eliminar {{KEY}}?",
+    "confirmWipe": "¿Eliminar TODAS las variables de entorno?",
+    "loadError": "No se pudieron cargar las variables de entorno."
   },
 
-  "setWorkspaceApp": {
-    "none": "Sin",
-    "select": "Selecciona una aplicación:",
-    "success": "¡Aplicación del espacio de trabajo actualizada con éxito!"
+  "metrics": {
+    "loading": "Obteniendo métricas de 24h...",
+    "null": "Sin métricas disponibles. Requiere al menos 512 MB de RAM."
   },
 
-  "uploadWorkspace": {
-    "createFile": "Para subir tu aplicación, primero crea un archivo de configuración.",
-    "loading": "Enviando archivos a Square Cloud...",
-    "loaded": "¡Aplicación subida con éxito!"
+  "realtime": {
+    "started": "Stream en tiempo real iniciado",
+    "ended": "Stream en tiempo real finalizado",
+    "stopped": "Stream en tiempo real detenido.",
+    "startError": "No se pudo iniciar el stream en tiempo real."
   },
 
-  "commitWorkspace": {
-    "loading": "Enviando archivos a Square Cloud...",
-    "loaded": "¡Aplicación actualizada con éxito!"
+  "githubApp": {
+    "linkTitle": "Vincular GitHub App",
+    "repoPrompt": "usuario/repositorio",
+    "branchPrompt": "Nombre de la rama (ej: main)",
+    "invalidRepo": "Usa el formato usuario/repositorio.",
+    "linking": "Vinculando repositorio de GitHub...",
+    "linked": "Repositorio vinculado con éxito.",
+    "linkError": "Error al vincular el repositorio: {{ERROR}}",
+    "unlinking": "Desvinculando repositorio de GitHub...",
+    "unlinked": "Repositorio desvinculado con éxito.",
+    "unlinkError": "Error al desvincular el repositorio: {{ERROR}}",
+    "confirmUnlink": "¿Desvincular el GitHub App de esta aplicación?"
+  },
+
+  "network": {
+    "pickRange": "Elige un rango de tiempo",
+    "loading": "Obteniendo datos del edge...",
+    "empty": "Sin datos disponibles para el rango seleccionado.",
+    "notWebsite": "Esta aplicación no tiene dominio. Las analíticas de edge requieren una aplicación web.",
+    "purgeConfirmAll": "¿Purgar toda la caché del edge de esta aplicación?",
+    "purging": "Purgando caché del edge...",
+    "purged": "Caché del edge purgada.",
+    "purgeError": "Error al purgar la caché del edge."
+  },
+
+  "workspace": {
+    "owner": "Propietario",
+    "createdAt": "Creado",
+    "empty": "No se encontraron workspaces",
+    "emptyHint": "Disponible en los planes Standard, Pro y Enterprise.",
+    "createTitle": "Crear workspace",
+    "namePrompt": "Nombre del workspace (1-32 caracteres)",
+    "invalidName": "Usa entre 1 y 32 caracteres.",
+    "creating": "Creando workspace...",
+    "created": "Workspace creado.",
+    "createError": "Error al crear workspace.",
+    "deleteConfirm": "Escribe {{NAME}} para confirmar la eliminación.",
+    "deleting": "Eliminando workspace...",
+    "deleted": "Workspace eliminado.",
+    "deleteError": "Error al eliminar workspace.",
+    "leaveConfirm": "¿Salir del workspace {{NAME}}?",
+    "leaving": "Saliendo del workspace...",
+    "left": "Has salido del workspace.",
+    "leaveError": "Error al salir del workspace.",
+    "inviteCopied": "Código de invitación copiado: {{CODE}} (válido por 5 min).",
+    "inviteError": "Error al generar el código de invitación."
+  },
+
+  "database": {
+    "engine": "Motor",
+    "port": "Puerto",
+    "cluster": "Cluster",
+    "createdAt": "Creado",
+    "empty": "No se encontraron bases de datos",
+    "emptyHint": "Disponible en los planes Standard, Pro y Enterprise.",
+    "createTitle": "Crear base de datos",
+    "namePrompt": "Nombre de la base (1-32 caracteres)",
+    "invalidName": "Usa entre 1 y 32 caracteres.",
+    "typePrompt": "Elige el motor de la base de datos",
+    "memoryPrompt": "Memoria asignada en MB (mín 256)",
+    "invalidMemory": "Ingresa un entero >= 256.",
+    "versionPrompt": "Versión de la base (ej: latest)",
+    "creating": "Creando base de datos...",
+    "created": "Base de datos creada.",
+    "createdWithUrl": "Base creada. URL de conexión copiada al portapapeles (se muestra una sola vez).",
+    "createError": "Error al crear la base de datos.",
+    "starting": "Iniciando base de datos...",
+    "started": "Base de datos iniciada.",
+    "stopping": "Deteniendo base de datos...",
+    "stopped": "Base de datos detenida.",
+    "actionError": "La acción de la base de datos falló.",
+    "deleteConfirm": "Escribe {{NAME}} para confirmar la eliminación.",
+    "deleting": "Eliminando base de datos...",
+    "deleted": "Base de datos eliminada.",
+    "deleteError": "Error al eliminar la base de datos.",
+    "certSave": "Guardar aquí",
+    "certDownloading": "Descargando certificado TLS...",
+    "certDownloaded": "Certificado TLS guardado ({{FILES}}).",
+    "openFolder": "Abrir carpeta",
+    "certError": "Error al obtener el certificado TLS."
+  },
+
+  "serviceStatus": {
+    "label": "Square Cloud — {{STATUS}}: {{MESSAGE}}",
+    "openPage": "Abrir página de estado",
+    "unavailable": "Estado del servicio no disponible en este momento."
+  },
+
+  "upload": {
+    "title": "Subir aplicación",
+    "select": "Selecciona la carpeta de la aplicación",
+    "missingConfig": "No se encontró ningún archivo squarecloud.app o squarecloud.config en la carpeta seleccionada. Square Cloud necesita uno para alojar la aplicación.",
+    "openDocs": "Abrir documentación",
+    "confirm": "¿Subir el contenido de\n{{PATH}}\na Square Cloud?",
+    "zipping": "Comprimiendo aplicación...",
+    "uploading": "Subiendo a Square Cloud...",
+    "emptyFolder": "La carpeta seleccionada está vacía tras aplicar las reglas de ignore.",
+    "loaded": "Aplicación '{{NAME}}' subida con éxito (ID: {{ID}})."
+  },
+
+  "apiError": {
+    "generic": "Error de la API de Square Cloud: {{CODE}}",
+    "INVALID_API_TOKEN": "Tu clave de API no es válida. Establece una nueva con `Square Cloud: Establecer nueva clave de API`.",
+    "RATE_LIMIT_EXCEEDED": "Límite de solicitudes alcanzado. Espera un momento y vuelve a intentarlo.",
+    "APP_NOT_FOUND": "Aplicación no encontrada. Puede que haya sido eliminada.",
+    "WORKSPACE_NOT_FOUND": "Workspace no encontrado.",
+    "DATABASE_NOT_FOUND": "Base de datos no encontrada.",
+    "INSUFFICIENT_PERMISSIONS": "Tu plan o rol no permite esta acción.",
+    "ALREADY_RUNNING": "La aplicación ya está en ejecución.",
+    "ALREADY_STOPPED": "La aplicación ya está detenida."
   },
 
   "configFile": {
@@ -168,15 +284,16 @@
       "long": {
         "displayName": "El campo DISPLAY_NAME no puede tener más de 32 caracteres.",
         "description": "El campo DESCRIPTION no puede tener más de 280 caracteres.",
-        "subdomain": "El campo SUBDOMAIN no puede tener más de 62 caracteres.",
-        "start": "El campo START solo puede tener hasta 128 caracteres."
+        "subdomain": "El campo SUBDOMAIN no puede tener más de 63 caracteres.",
+        "start": "El campo START solo puede tener hasta 256 caracteres."
       },
       "invalid": {
         "mainFile": "El archivo principal \"{{file}}\" no existe en tu proyecto.",
         "memory": "El campo MEMORY debe ser un valor en megabytes mayor o igual a {{memory}}.",
         "autoRestart": "El campo AUTORESTART debe ser \"true\" o \"false\".",
         "version": "El campo VERSION solo permite \"recommended\" o \"latest\".",
-        "subdomain": "SUBDOMAIN inválido. Solo se permiten caracteres alfanuméricos y guiones."
+        "subdomain": "SUBDOMAIN inválido. Solo se permiten caracteres alfanuméricos y guiones.",
+        "runtime": "RUNTIME inválido. Valores permitidos: nodejs, javascript, typescript, python, dotnet, csharp, c#, java, elixir, rust, php, go, golang, static, html."
       },
       "missing": {
         "displayName": "Necesitas proporcionar un DISPLAY_NAME válido con hasta 32 caracteres.",

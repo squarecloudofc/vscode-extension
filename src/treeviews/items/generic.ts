@@ -3,15 +3,15 @@ import { TreeItem } from "vscode";
 import { getIcons } from "@/lib/utils/icons";
 
 export class GenericTreeItem extends TreeItem {
-  iconPath = this.iconName ? getIcons(`${this.iconName}.svg`) : undefined;
-
   constructor(
-    public readonly label: string,
+    label: string,
     public readonly iconName?: string,
-    public readonly description?: string,
-    public readonly contextValue: string = "generic",
+    description?: string,
+    contextValue = "generic",
   ) {
     super(label);
-    this.description = description;
+    if (iconName) this.iconPath = getIcons(`${iconName}.svg`);
+    if (description !== undefined) this.description = description;
+    this.contextValue = contextValue;
   }
 }

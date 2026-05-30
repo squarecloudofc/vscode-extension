@@ -9,7 +9,7 @@ interface ApplicationStatusUsage {
   ram: string;
   cpu: string;
   storage: string;
-  network: { now: string; today: string };
+  network: { now: string; total: string };
 }
 
 export class ApplicationStatus<Full extends boolean = boolean> {
@@ -17,18 +17,13 @@ export class ApplicationStatus<Full extends boolean = boolean> {
   public usage: If<
     Full,
     ApplicationStatusUsage,
-    Pick<ApplicationStatusUsage, "cpu" | "ram">
+    Pick<ApplicationStatusUsage, "cpu" | "ram"> | undefined
   >;
   public running: boolean;
   public status?: If<Full, string>;
   public uptimeTimestamp?: number;
   public uptime?: Date;
 
-  /**
-   * Constructs a new instance of the class.
-   *
-   * @param baseStatus - The base status object.
-   */
   constructor(
     private readonly baseStatus: If<
       Full,
@@ -38,7 +33,11 @@ export class ApplicationStatus<Full extends boolean = boolean> {
   ) {
     this.applicationId = baseStatus.applicationId;
     this.running = baseStatus.running;
-    this.usage = baseStatus.usage as ApplicationStatusUsage;
+    this.usage = baseStatus.usage as If<
+      Full,
+      ApplicationStatusUsage,
+      Pick<ApplicationStatusUsage, "cpu" | "ram"> | undefined
+    >;
 
     if ("status" in baseStatus) {
       this.status = baseStatus.status;

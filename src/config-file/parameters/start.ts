@@ -13,8 +13,8 @@ export const START = {
       );
     }
 
-    // Validate if the START exceeds 128 characters
-    if (value.length > 128) {
+    // Validate if the START exceeds 256 characters (official docs limit)
+    if (value.length > 256) {
       diagnostics.push(
         createDiagnostic(document, line, t("configFile.error.long.start")),
       );

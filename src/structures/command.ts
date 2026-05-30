@@ -1,22 +1,43 @@
+import { window } from "vscode";
+
 import type { SquareCloudExtension } from "@/managers/extension";
 import { ExtensionID } from "@/lib/constants";
+import { describeError } from "@/lib/utils/errors";
+
+import { Logger } from "./logger";
 
 export type CommandExecute = (
   extension: SquareCloudExtension,
   ...args: any[]
-) => void;
+) => unknown | Promise<unknown>;
 
+const logger = new Logger("Command");
+
+/**
+ * Wraps the user-supplied handler so:
+ * - unhandled rejections are caught, logged, and surfaced as a friendly toast,
+ * - the command id is registered with the extension's namespace,
+ * - synchronous handlers and promise-returning handlers are both supported.
+ */
 export class Command {
-  /**
-   * Constructs a new instance of the class.
-   *
-   * @param name - The name of the command.
-   * @param execute - The function to execute when the command is triggered.
-   */
+  public readonly name: string;
+
   constructor(
-    public name: string,
-    public execute: CommandExecute,
+    name: string,
+    private readonly handler: CommandExecute,
   ) {
-    this.name = `${ExtensionID}.${this.name}`;
+    this.name = `${ExtensionID}.${name}`;
+  }
+
+  async execute(
+    extension: SquareCloudExtension,
+    ...args: any[]
+  ): Promise<void> {
+    try {
+      await this.handler(extension, ...args);
+    } catch (error) {
+      logger.error(`Command ${this.name} failed`, error);
+      window.showErrorMessage(describeError(error));
+    }
   }
 }
