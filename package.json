@@ -67,7 +67,7 @@
     "@types/node": "^25.9.1",
     "@types/vscode": "^1.120.0",
     "@vscode/vsce": "^3.9.1",
-    "concurrently": "^10.0.0",
+    "concurrently": "^10.0.3",
     "esbuild": "^0.28.0",
     "ovsx": "^1.0.0",
     "typescript": "^6.0.3"
