@@ -69,7 +69,7 @@
     "@vscode/vsce": "^3.9.1",
     "concurrently": "^10.0.0",
     "esbuild": "^0.28.0",
-    "ovsx": "^1.0.0",
+    "ovsx": "^1.0.1",
     "typescript": "^6.0.3"
   },
   "contributes": {
