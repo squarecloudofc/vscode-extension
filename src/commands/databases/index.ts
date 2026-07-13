@@ -9,6 +9,14 @@ import { Command } from "@/structures/command";
 const DATABASE_TYPES = ["mongo", "mysql", "redis", "postgres"] as const;
 type DatabaseType = (typeof DATABASE_TYPES)[number];
 
+/** Versions currently accepted by the API per engine. */
+const DATABASE_VERSIONS: Record<DatabaseType, string[]> = {
+  postgres: ["17.6"],
+  mysql: ["9.5"],
+  mongo: ["8.0.11"],
+  redis: ["7.4.5"],
+};
+
 export const createDatabase = new Command(
   "createDatabase",
   async (extension) => {
@@ -42,30 +50,45 @@ export const createDatabase = new Command(
     });
     if (!memoryStr) return;
 
-    const version = await window.showInputBox({
-      title: t("database.versionPrompt"),
-      placeHolder: "latest",
-    });
+    const version = await window.showQuickPick(
+      DATABASE_VERSIONS[type as DatabaseType],
+      { title: t("database.versionPrompt") },
+    );
     if (!version) return;
 
-    await window.withProgress(
+    const created = await window.withProgress(
       {
         location: ProgressLocation.Notification,
         title: t("database.creating"),
       },
       async () => {
-        const created = await api.databases.create({
+        const result = await api.databases.create({
           name,
           memory: Number(memoryStr),
           type: type as DatabaseType,
           version,
         });
-        // connection_url is only returned at creation — copy it once.
-        await env.clipboard.writeText(created.connection_url);
+        // connection_url embeds the password and is only returned at
+        // creation — copy it immediately, it cannot be fetched again.
+        await env.clipboard.writeText(result.connection_url);
         await extension.api.refresh();
-        window.showInformationMessage(t("database.createdWithUrl"));
+        return result;
       },
     );
+
+    type CopyPasswordItem = MessageItem & { id: "copy-password" };
+    const copyPassword: CopyPasswordItem = {
+      title: t("database.copyPassword"),
+      id: "copy-password",
+    };
+    const choice = await window.showInformationMessage<CopyPasswordItem>(
+      t("database.createdWithUrl"),
+      copyPassword,
+    );
+    if (choice?.id === "copy-password") {
+      await env.clipboard.writeText(created.password);
+      window.showInformationMessage(t("database.passwordCopied"));
+    }
   },
 );
 

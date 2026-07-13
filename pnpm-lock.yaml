@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@squarecloud/api':
-        specifier: ^4.0.1
-        version: 4.0.1
+        specifier: ^5.0.0
+        version: 5.0.0
       ignore:
         specifier: ^7.0.5
         version: 7.0.5
@@ -490,8 +490,8 @@ packages:
     resolution: {integrity: sha512-LtoMMhxAlorcGhmFYI+LhPgbPZCkgP6ra1YL604EeF6U98pLlQ3iWIGMdWSC+vWmPBWBNgmDBAhnAobLROJmwg==}
     engines: {node: '>=18'}
 
-  '@squarecloud/api@4.0.1':
-    resolution: {integrity: sha512-MH1lq+2Xs2E5p7vjRuzAwgExZKTNEXV3s7cdWdjZpzwRVFJj/e2kxqd1hkbfUXS3LUHcedjQ42EnRx+4koY/Ng==}
+  '@squarecloud/api@5.0.0':
+    resolution: {integrity: sha512-cdFNm3srur1YW9rpqbr2YYr17C5qGei9E5X+M+HzwsD/g957jsjch+9rZd69l1y+y8iaXB4hZJNw/e9ftxJq+w==}
     engines: {node: '>=20.0.0'}
 
   '@textlint/ast-node-types@15.7.1':
@@ -2067,7 +2067,7 @@ snapshots:
 
   '@sindresorhus/merge-streams@2.3.0': {}
 
-  '@squarecloud/api@4.0.1': {}
+  '@squarecloud/api@5.0.0': {}
 
   '@textlint/ast-node-types@15.7.1': {}
 

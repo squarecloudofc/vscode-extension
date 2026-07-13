@@ -162,7 +162,9 @@
     "started": "Stream em tempo real iniciado",
     "ended": "Stream em tempo real finalizado",
     "stopped": "Stream em tempo real interrompido.",
-    "startError": "Não foi possível iniciar o stream em tempo real."
+    "startError": "Não foi possível iniciar o stream em tempo real.",
+    "reconnecting": "Reconectando...",
+    "maxSessions": "Limite de conexões em tempo real atingido (5 por conta). Encerre outro stream e tente novamente."
   },
 
   "githubApp": {
@@ -226,7 +228,9 @@
     "typePrompt": "Escolha o tipo do banco",
     "memoryPrompt": "Memória alocada em MB (mín 256)",
     "invalidMemory": "Informe um inteiro >= 256.",
-    "versionPrompt": "Versão do banco (ex: latest)",
+    "versionPrompt": "Escolha uma versão",
+    "copyPassword": "Copiar senha",
+    "passwordCopied": "Senha do banco copiada para a área de transferência.",
     "creating": "Criando banco de dados...",
     "created": "Banco de dados criado.",
     "createdWithUrl": "Banco criado. URL de conexão copiada para a área de transferência (mostrada apenas uma vez).",
@@ -256,25 +260,49 @@
   "upload": {
     "title": "Enviar aplicação",
     "select": "Selecione a pasta da aplicação",
+    "browse": "Procurar...",
     "missingConfig": "Nenhum arquivo squarecloud.app ou squarecloud.config encontrado na pasta selecionada. A Square Cloud precisa de um para hospedar a aplicação.",
     "openDocs": "Abrir documentação",
     "confirm": "Enviar conteúdo de\n{{PATH}}\npara a Square Cloud?",
     "zipping": "Compactando aplicação...",
     "uploading": "Enviando para a Square Cloud...",
     "emptyFolder": "A pasta selecionada está vazia após aplicar as regras de ignore.",
-    "loaded": "Aplicação '{{NAME}}' enviada com sucesso (ID: {{ID}})."
+    "tooLarge": "A aplicação compactada excede 100 MB. Adicione artefatos de build e dependências ao squarecloud.ignore e tente novamente.",
+    "openDashboard": "Abrir painel",
+    "loaded": "Aplicação '{{NAME}}' enviada com sucesso ({{RUNTIME}})."
   },
 
   "apiError": {
     "generic": "Erro da API Square Cloud: {{CODE}}",
     "INVALID_API_TOKEN": "Sua chave de API é inválida. Defina uma nova com `Square Cloud: Definir nova chave de API`.",
+    "INVALID_ACCESS_TOKEN": "Sua chave de API é inválida. Defina uma nova com `Square Cloud: Definir nova chave de API`.",
     "RATE_LIMIT_EXCEEDED": "Limite de requisições atingido. Aguarde um momento e tente novamente.",
+    "KEEP_CALM": "Muitas requisições em pouco tempo. Aguarde alguns segundos e tente novamente.",
     "APP_NOT_FOUND": "Aplicação não encontrada. Talvez ela tenha sido excluída.",
     "WORKSPACE_NOT_FOUND": "Workspace não encontrado.",
     "DATABASE_NOT_FOUND": "Banco de dados não encontrado.",
     "INSUFFICIENT_PERMISSIONS": "Seu plano ou função não permite esta ação.",
     "ALREADY_RUNNING": "A aplicação já está em execução.",
-    "ALREADY_STOPPED": "A aplicação já está parada."
+    "ALREADY_STOPPED": "A aplicação já está parada.",
+    "UPGRADE_REQUIRED": "Este recurso exige um plano pago ativo.",
+    "INSUFFICIENT_MEMORY": "Memória insuficiente no seu plano. Libere memória ou faça um upgrade.",
+    "APPLICATIONS_LIMIT_REACHED": "Você atingiu o limite de aplicações do seu plano.",
+    "MEMBERS_LIMIT_REACHED": "Este workspace atingiu o limite de membros.",
+    "WORKSPACE_LIMIT_REACHED": "Você atingiu o limite de workspaces do seu plano.",
+    "LOAD_BALANCER_LIMIT_REACHED": "Você atingiu o limite de aplicações por domínio personalizado do seu plano.",
+    "DAILY_SNAPSHOTS_LIMIT_REACHED": "A cota diária de snapshots do seu plano foi esgotada. Tente novamente amanhã.",
+    "SNAPSHOT_PROCESSING": "Um snapshot ainda está sendo processado. Aguarde a conclusão e tente novamente.",
+    "RESTORE_IN_PROGRESS": "Já existe uma restauração em andamento para esta aplicação.",
+    "UPLOAD_ABORTED": "O envio foi cancelado.",
+    "FILE_TOO_LARGE": "O arquivo é grande demais. Envios em zip são limitados a 100 MB.",
+    "INVALID_DOMAIN": "O domínio informado não é válido.",
+    "CANNOT_SET_SUBDOMAIN": "Este tipo de aplicação não aceita subdomínio.",
+    "RESERVED_DOMAIN": "Este domínio é reservado e não pode ser usado.",
+    "DOMAIN_ALREADY_EXISTS": "Este domínio já está em uso por outra aplicação.",
+    "METRICS_NOT_SUPPORTED": "Esta aplicação não tem suporte a métricas.",
+    "REALTIME_MAX_CONNECTIONS": "Limite de conexões em tempo real atingido (5 por conta). Encerre outro stream e tente novamente.",
+    "CLUSTER_MAINTENANCE_TRY_LATER": "O cluster está em manutenção. Tente novamente em alguns minutos.",
+    "INVALID_DATABASE_VERSION": "Esta versão de banco de dados não é suportada."
   },
 
   "configFile": {

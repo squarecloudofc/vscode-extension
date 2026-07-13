@@ -162,7 +162,9 @@
     "started": "Realtime stream started",
     "ended": "Realtime stream ended",
     "stopped": "Realtime stream stopped.",
-    "startError": "Unable to start realtime stream."
+    "startError": "Unable to start realtime stream.",
+    "reconnecting": "Reconnecting...",
+    "maxSessions": "Realtime connection limit reached (5 per account). Stop another stream and try again."
   },
 
   "githubApp": {
@@ -226,7 +228,9 @@
     "typePrompt": "Choose a database engine",
     "memoryPrompt": "Allocated memory in MB (min 256)",
     "invalidMemory": "Enter an integer >= 256.",
-    "versionPrompt": "Database version (e.g. latest)",
+    "versionPrompt": "Choose a version",
+    "copyPassword": "Copy password",
+    "passwordCopied": "Database password copied to clipboard.",
     "creating": "Creating database...",
     "created": "Database created.",
     "createdWithUrl": "Database created. Connection URL copied to clipboard (shown only once).",
@@ -256,25 +260,49 @@
   "upload": {
     "title": "Upload application",
     "select": "Select application folder",
+    "browse": "Browse...",
     "missingConfig": "No squarecloud.app or squarecloud.config file found in the selected folder. Square Cloud needs one to host the application.",
     "openDocs": "Open documentation",
     "confirm": "Upload contents of\n{{PATH}}\nto Square Cloud?",
     "zipping": "Compressing application...",
     "uploading": "Uploading to Square Cloud...",
     "emptyFolder": "The selected folder is empty after applying ignore rules.",
-    "loaded": "Application '{{NAME}}' uploaded successfully (ID: {{ID}})."
+    "tooLarge": "The compressed application exceeds 100 MB. Add build artifacts and dependencies to squarecloud.ignore and try again.",
+    "openDashboard": "Open dashboard",
+    "loaded": "Application '{{NAME}}' uploaded successfully ({{RUNTIME}})."
   },
 
   "apiError": {
     "generic": "Square Cloud API error: {{CODE}}",
     "INVALID_API_TOKEN": "Your API key is invalid. Set a new one with `Square Cloud: Set new API key`.",
+    "INVALID_ACCESS_TOKEN": "Your API key is invalid. Set a new one with `Square Cloud: Set new API key`.",
     "RATE_LIMIT_EXCEEDED": "Rate limited by Square Cloud. Wait a moment and try again.",
+    "KEEP_CALM": "Too many requests in a short burst. Wait a few seconds and try again.",
     "APP_NOT_FOUND": "Application not found. It may have been deleted.",
     "WORKSPACE_NOT_FOUND": "Workspace not found.",
     "DATABASE_NOT_FOUND": "Database not found.",
     "INSUFFICIENT_PERMISSIONS": "Your plan or role does not allow this action.",
     "ALREADY_RUNNING": "The application is already running.",
-    "ALREADY_STOPPED": "The application is already stopped."
+    "ALREADY_STOPPED": "The application is already stopped.",
+    "UPGRADE_REQUIRED": "This feature requires an active paid plan.",
+    "INSUFFICIENT_MEMORY": "Not enough memory available on your plan. Free some up or upgrade.",
+    "APPLICATIONS_LIMIT_REACHED": "You reached your plan's application limit.",
+    "MEMBERS_LIMIT_REACHED": "This workspace reached its member limit.",
+    "WORKSPACE_LIMIT_REACHED": "You reached your plan's workspace limit.",
+    "LOAD_BALANCER_LIMIT_REACHED": "You reached your plan's limit of applications per custom domain.",
+    "DAILY_SNAPSHOTS_LIMIT_REACHED": "Your plan's daily snapshot quota is exhausted. Try again tomorrow.",
+    "SNAPSHOT_PROCESSING": "A snapshot is still being processed. Wait for it to finish and try again.",
+    "RESTORE_IN_PROGRESS": "A restore is already in progress for this application.",
+    "UPLOAD_ABORTED": "The upload was cancelled.",
+    "FILE_TOO_LARGE": "The file is too large. Zip uploads are limited to 100 MB.",
+    "INVALID_DOMAIN": "The provided domain is not valid.",
+    "CANNOT_SET_SUBDOMAIN": "This application type does not accept a subdomain.",
+    "RESERVED_DOMAIN": "This domain is reserved and cannot be used.",
+    "DOMAIN_ALREADY_EXISTS": "This domain is already in use by another application.",
+    "METRICS_NOT_SUPPORTED": "This application does not support metrics.",
+    "REALTIME_MAX_CONNECTIONS": "Realtime connection limit reached (5 per account). Stop another stream and try again.",
+    "CLUSTER_MAINTENANCE_TRY_LATER": "The cluster is under maintenance. Try again in a few minutes.",
+    "INVALID_DATABASE_VERSION": "This database version is not supported."
   },
 
   "configFile": {

@@ -10,6 +10,8 @@ import type { SquareCloudExtension } from "./extension";
 const REFRESH_INTERVAL_MS = 60_000;
 /** Delay used after lifecycle actions before re-fetching the app status. */
 const POST_ACTION_REFRESH_MS = 7_000;
+/** Backoff before retrying a status fetch rejected with KEEP_CALM (short 429). */
+const KEEP_CALM_BACKOFF_MS = 10_000;
 
 export class APIManager implements Disposable {
   private readonly logger = new Logger("API");
@@ -119,7 +121,7 @@ export class APIManager implements Disposable {
     this.extension.store.actions.setAppsLoaded(true);
   }
 
-  async refreshStatus(appId: string): Promise<void> {
+  async refreshStatus(appId: string, isRetry = false): Promise<void> {
     const api = await this.getClient();
     if (!api) return;
 
@@ -130,6 +132,15 @@ export class APIManager implements Disposable {
     } catch (error) {
       if (error instanceof SquareCloudAPIError) {
         this.logger.warn(`refreshStatus(${appId}) failed: ${error.code}`);
+        // KEEP_CALM is a short-lived 429 — retry once after a backoff instead
+        // of giving up (or looping). The next poll cycle covers the rest.
+        if (error.code === "KEEP_CALM" && !isRetry) {
+          const handle = setTimeout(() => {
+            this.scheduledRefreshes.delete(handle);
+            void this.refreshStatus(appId, true);
+          }, KEEP_CALM_BACKOFF_MS);
+          this.scheduledRefreshes.add(handle);
+        }
       } else {
         this.logger.error(`refreshStatus(${appId}) failed`, error);
       }
