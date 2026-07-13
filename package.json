@@ -57,20 +57,20 @@
   },
   "dependencies": {
     "@squarecloud/api": "^5.0.0",
-    "ignore": "^7.0.5",
+    "ignore": "^7.0.6",
     "jszip": "^3.10.1",
     "vscode-ext-localisation": "^1.1.0",
     "xoid": "^1.0.1"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.4.16",
-    "@types/node": "^25.9.1",
+    "@biomejs/biome": "^2.5.3",
+    "@types/node": "^26.1.1",
     "@types/vscode": "^1.120.0",
-    "@vscode/vsce": "^3.9.1",
-    "concurrently": "^10.0.0",
-    "esbuild": "^0.28.0",
-    "ovsx": "^1.0.0",
-    "typescript": "^6.0.3"
+    "@vscode/vsce": "^3.9.2",
+    "concurrently": "^10.0.3",
+    "esbuild": "^0.28.1",
+    "ovsx": "^1.0.2",
+    "typescript": "^7.0.2"
   },
   "contributes": {
     "menus": {

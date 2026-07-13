@@ -28,6 +28,14 @@ Migration to `@squarecloud/api` v5 plus a smoother upload flow and smarter rate-
 
 - README rewritten: full feature walkthroughs (upload vs commit, ignore-rule resolution, realtime limits, snapshot quotas, one-time database credentials), command reference with IDs, rate-limit behaviour, security notes and an expanded troubleshooting section.
 
+### Dependencies
+
+- `@squarecloud/api` → **5.0.0**.
+- `typescript` 6.0.3 → **7.0.2**.
+- `@biomejs/biome` → 2.5.3 (config migrated to the new `preset` field; static `resources/` assets excluded from linting).
+- `@types/node` → 26.1.1, `@vscode/vsce` → 3.9.2, `ovsx` → 1.0.2, `concurrently` → 10.0.3, `esbuild` → 0.28.1, `ignore` → 7.0.6.
+- `@types/vscode` intentionally kept at 1.120 to match `engines.vscode` — bumping it would raise the minimum supported VSCode version.
+
 ## 5.0.1
 
 ### Fixes
