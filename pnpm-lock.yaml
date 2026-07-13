@@ -4,6 +4,11 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  undici@7: ^7.28.0
+  form-data@4: ^4.0.6
+  js-yaml@4: ^4.2.0
+
 importers:
 
   .:
@@ -1027,8 +1032,8 @@ packages:
     resolution: {integrity: sha512-gIXjKqtFuWEgzFRJA9WCQeSJLZDjgJUOMCMzxtvFq/37KojM1BFGufqsCy0r4qSQmYLsZYMeyRqzIWOMup03sw==}
     engines: {node: '>=14'}
 
-  form-data@4.0.5:
-    resolution: {integrity: sha512-8RipRLol37bNs2bhoV67fiTEvdTrbMUYcFTiy3+wuuOnUog2QBHCZWXDRijWQfAkhBj2Uf5UnVaiWwA5vdd82w==}
+  form-data@4.0.6:
+    resolution: {integrity: sha512-vKatAh4SlVfgbv+YtmhiRjhEMJsYpsG1Y2rMQtR+SVSbytsSD1YGzDIcrAJmdFec88u/+VoGmxnl+80gL1tRCQ==}
     engines: {node: '>= 6'}
 
   fs-constants@1.0.0:
@@ -1213,8 +1218,8 @@ packages:
   js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
 
-  js-yaml@4.1.1:
-    resolution: {integrity: sha512-qQKT4zQxXl8lLwBtHMWwaTcGfFOZviOJet3Oy/xmGk2gZH677CJM9EvtfdSkgWcATZhj/55JZ0rmy3myCT5lsA==}
+  js-yaml@4.3.0:
+    resolution: {integrity: sha512-1td788aAnnZ5qs7V2QIRl1owjtYpbKt749Y3xauqQgwIIGF/xXWz1wMTEBx5O3LK3lXLVuqXPdPxj2BoFHaW9Q==}
     hasBin: true
 
   json-schema-traverse@1.0.0:
@@ -1718,8 +1723,8 @@ packages:
   undici-types@8.3.0:
     resolution: {integrity: sha512-j375ScV60dom+YkPFIfTLcOiPxkN/buHz5GobjLhixFuANaNs3C9l4GmrWqejgXWJ7BbJcFYpTEUkS1Ge8bpZQ==}
 
-  undici@7.26.0:
-    resolution: {integrity: sha512-3O9Tf67pGhgOv9jM35AbhkXAKi13f3oy3aE4CSgr+TckGeY+/iu97ZXN+J7DpHPzLbVApFd1IFhcnBjREYXYcg==}
+  undici@7.28.0:
+    resolution: {integrity: sha512-cRZYrTDwWznlnRiPjggAGxZXanty6M8RV1ff8Wm4LWXBp7/IG8v5DnOm74DtUBp9OONpK75YlPnIjQqX0dBDtA==}
     engines: {node: '>=20.18.1'}
 
   unicorn-magic@0.1.0:
@@ -2213,7 +2218,7 @@ snapshots:
       '@textlint/types': 15.7.1
       chalk: 4.1.2
       debug: 4.4.3
-      js-yaml: 4.1.1
+      js-yaml: 4.3.0
       lodash: 4.18.1
       pluralize: 2.0.0
       string-width: 4.2.3
@@ -2366,7 +2371,7 @@ snapshots:
       cheerio: 1.2.0
       cockatiel: 3.2.1
       commander: 12.1.0
-      form-data: 4.0.5
+      form-data: 4.0.6
       glob: 11.1.0
       hosted-git-info: 4.1.0
       jsonc-parser: 3.3.1
@@ -2402,7 +2407,7 @@ snapshots:
       cheerio: 1.2.0
       cockatiel: 3.2.1
       commander: 12.1.0
-      form-data: 4.0.5
+      form-data: 4.0.6
       glob: 13.0.6
       hosted-git-info: 4.1.0
       jsonc-parser: 3.3.1
@@ -2545,7 +2550,7 @@ snapshots:
       parse5: 7.3.0
       parse5-htmlparser2-tree-adapter: 7.1.0
       parse5-parser-stream: 7.1.2
-      undici: 7.26.0
+      undici: 7.28.0
       whatwg-mimetype: 4.0.0
 
   chownr@1.1.4:
@@ -2772,7 +2777,7 @@ snapshots:
       cross-spawn: 7.0.6
       signal-exit: 4.1.0
 
-  form-data@4.0.5:
+  form-data@4.0.6:
     dependencies:
       asynckit: 0.4.0
       combined-stream: 1.0.8
@@ -2964,7 +2969,7 @@ snapshots:
 
   js-tokens@4.0.0: {}
 
-  js-yaml@4.1.1:
+  js-yaml@4.3.0:
     dependencies:
       argparse: 2.0.1
 
@@ -3250,7 +3255,7 @@ snapshots:
   rc-config-loader@4.1.4:
     dependencies:
       debug: 4.4.3
-      js-yaml: 4.1.1
+      js-yaml: 4.3.0
       json5: 2.2.3
       require-from-string: 2.0.2
     transitivePeerDependencies:
@@ -3542,7 +3547,7 @@ snapshots:
 
   undici-types@8.3.0: {}
 
-  undici@7.26.0: {}
+  undici@7.28.0: {}
 
   unicorn-magic@0.1.0: {}
 

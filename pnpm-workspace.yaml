@@ -4,6 +4,12 @@ settings:
 minimumReleaseAgeExclude:
   - '@squarecloud/api'
 
+# Security floors for vulnerable transitive dev deps (Dependabot alerts).
+overrides:
+  'undici@7': '^7.28.0'
+  'form-data@4': '^4.0.6'
+  'js-yaml@4': '^4.2.0'
+
 onlyBuiltDependencies:
   - '@biomejs/biome'
   - '@vscode/vsce-sign'
