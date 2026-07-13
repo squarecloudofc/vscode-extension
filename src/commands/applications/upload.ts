@@ -15,9 +15,11 @@ import {
 } from "vscode";
 import { t } from "vscode-ext-localisation";
 
-import { confirm } from "@/lib/utils/dialogs";
+import { confirm, showMessageWithActions } from "@/lib/utils/dialogs";
 import { walkDir } from "@/lib/utils/walk-dir";
 import { Command } from "@/structures/command";
+
+import { copyApplicationId } from "./copy-id";
 
 const CONFIG_FILENAMES = ["squarecloud.app", "squarecloud.config"];
 /** The API rejects zips above 100 MB — fail fast before wasting the upload. */
@@ -112,22 +114,19 @@ export const uploadApplication = new Command(
     await extension.api.refresh();
 
     const runtime = `${result.language.name} ${result.language.version}`;
-    type ActionItem = MessageItem & { id: "dashboard" | "copy-id" };
-    const actions: ActionItem[] = [
-      { title: t("upload.openDashboard"), id: "dashboard" },
-      { title: t("command.copyId"), id: "copy-id" },
-    ];
-    const choice = await window.showInformationMessage<ActionItem>(
+    const choice = await showMessageWithActions(
       t("upload.loaded", { NAME: result.name, RUNTIME: runtime }),
-      ...actions,
+      [
+        { id: "dashboard", title: t("upload.openDashboard") },
+        { id: "copy-id", title: t("command.copyId") },
+      ],
     );
-    if (choice?.id === "dashboard") {
+    if (choice === "dashboard") {
       env.openExternal(
         Uri.parse(`https://squarecloud.app/dashboard/app/${result.id}`),
       );
-    } else if (choice?.id === "copy-id") {
-      await env.clipboard.writeText(result.id);
-      window.showInformationMessage(t("copy.copiedId"));
+    } else if (choice === "copy-id") {
+      await copyApplicationId(result.id);
     }
   },
 );
@@ -138,7 +137,11 @@ export const uploadApplication = new Command(
  * falls back to the OS folder dialog.
  */
 async function pickSourceFolder(): Promise<Uri | undefined> {
-  const folders = workspace.workspaceFolders ?? [];
+  // Virtual/remote folders (vscode-vfs:// etc.) have no readable fsPath for
+  // the node:fs walk — only offer real local folders.
+  const folders = (workspace.workspaceFolders ?? []).filter(
+    (folder) => folder.uri.scheme === "file",
+  );
 
   if (folders.length > 0) {
     type FolderPick = QuickPickItem & { uri?: Uri };

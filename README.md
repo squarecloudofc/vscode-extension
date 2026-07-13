@@ -110,8 +110,8 @@ The **Applications** view lists every app on your account with live online/offli
 
 **Toggle realtime stream** opens a live Server-Sent Events feed of your application into an output channel. Toggle the same command again to stop it.
 
-- Up to **5 concurrent streams** per account (a platform limit). The extension enforces the cap locally and tells you when you hit it.
-- Server-side, each connection lives about 10 minutes. When that TTL closes the stream, the extension **reconnects automatically** after a short pause — you'll see a `[Reconnecting...]` marker in the channel. Stopping the stream yourself never reconnects.
+- The platform allows up to **5 concurrent streams** per account. When the cap is reached, the refusal is surfaced as a clear message instead of a silent failure.
+- Server-side, each connection lives about 10 minutes. When that TTL closes the stream, the extension **reconnects automatically** after a short pause — you'll see a `[Reconnecting...]` marker in the channel. Stopping the stream yourself never reconnects, and streams that are refused or die immediately are not retried in a loop.
 - All streams are cleanly closed when the extension shuts down.
 
 ### Metrics
@@ -124,7 +124,7 @@ The **Applications** view lists every app on your account with live online/offli
 - **Restore snapshot** — lists your stored snapshots (newest first, with size) and restores the selected one after confirmation.
 - **Delete** — before an application is deleted, the extension automatically takes a recovery snapshot and offers a **Download snapshot** button afterwards, so a mistaken delete is never fatal.
 
-Snapshot creation is quota-limited per plan per day; when the quota is exhausted you get a clear "try again tomorrow" message rather than a cryptic error.
+Snapshot creation is quota-limited per plan per day; hitting a limit surfaces a clear rate-limit message rather than a cryptic error.
 
 ### Environment variables
 
@@ -151,7 +151,7 @@ Non-website applications get a friendly "no domain" message instead of an API er
 
 The **Databases** view lists your managed databases with engine, port, cluster and creation date. Available actions:
 
-- **Create database** — guided flow: name → engine (**MongoDB**, **MySQL**, **Redis**, **PostgreSQL**) → memory → version. The version picker only offers versions currently accepted by the platform, so creation can't fail on a stale hardcoded value.
+- **Create database** — guided flow: name → engine (**MongoDB**, **MySQL**, **Redis**, **PostgreSQL**) → memory → version. The version picker suggests the versions currently accepted by the platform, with an **Other version...** escape hatch for typing any value.
 - **One-time credentials** — the connection URL (password embedded) is copied to your clipboard immediately after creation, and a **Copy password** button is offered — these credentials are shown **only once** by the platform and cannot be retrieved later.
 - **Start / Stop** — lifecycle control from the context menu.
 - **Download TLS certificate** — saves the bundle as `.pem` (raw), plus split `.crt` and `.key` files when present.
@@ -284,9 +284,8 @@ Once active:
 
 The extension is built to stay inside the platform's request budgets, and to degrade politely when a limit is hit:
 
-- Short-burst throttles (the platform's "keep calm" responses) are retried automatically with a backoff for background status refreshes, and surfaced as a "wait a few seconds" toast for user-initiated actions — never retried in a loop.
-- Realtime streams respect the 5-connection account cap and reconnect at a measured pace after the server-side TTL.
-- Snapshot creation respects the per-plan daily quota with a specific, actionable error message.
+- Rate-limited background status refreshes are retried once with a backoff; user-initiated actions surface a clear "wait a moment" toast — never retried in a loop.
+- Realtime streams reconnect at a measured pace after the server-side TTL, and refusals (including the 5-connection account cap) stop the stream with a message instead of retrying.
 - Log fetches are on-demand only; nothing polls logs in the background.
 
 ---

@@ -36,6 +36,25 @@ export async function confirm(
   return choice?.id === "yes";
 }
 
+/**
+ * Locale-safe information toast with action buttons. Returns the tagged `id`
+ * of the clicked button (never the translated label), `undefined` when
+ * dismissed. Replaces the hand-rolled `MessageItem & { id }` pattern that was
+ * copy-pasted across commands.
+ */
+export async function showMessageWithActions<TId extends string>(
+  message: string,
+  actions: Array<{ id: TId; title: string }>,
+): Promise<TId | undefined> {
+  type ActionItem = MessageItem & { id: TId };
+  const items: ActionItem[] = actions.map((action) => ({ ...action }));
+  const choice = await window.showInformationMessage<ActionItem>(
+    message,
+    ...items,
+  );
+  return choice?.id;
+}
+
 interface QuickPickItem<TId extends string> {
   id: TId;
   label: string;

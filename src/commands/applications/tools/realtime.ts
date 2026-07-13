@@ -1,16 +1,41 @@
-import { SquareCloudAPIError } from "@squarecloud/api";
+import { type BaseApplication, SquareCloudAPIError } from "@squarecloud/api";
 import { type OutputChannel, window } from "vscode";
 import { t } from "vscode-ext-localisation";
 
+import { describeError } from "@/lib/utils/errors";
 import { getOutputChannel } from "@/lib/utils/output-channels";
 import { ApplicationCommand } from "@/structures/application/command";
 
-/** The API allows at most 5 concurrent SSE connections per user. */
-const MAX_SESSIONS = 5;
 /** Short backoff before reconnecting after the server-side TTL closes the stream. */
 const RECONNECT_DELAY_MS = 3_000;
+/**
+ * A healthy stream lives ~10 minutes (server TTL). One that dies faster than
+ * this is a refusal or a stopped app — reconnecting would just hammer the
+ * endpoint every few seconds.
+ */
+const MIN_HEALTHY_STREAM_MS = 5_000;
 
 const sessions = new Map<string, AbortController>();
+
+/**
+ * Opens the SSE stream. The SDK's `realtime()` is a raw `fetch` that resolves
+ * on HTTP errors too, so we check `ok` ourselves and surface the API error
+ * code (e.g. REALTIME_MAX_CONNECTIONS) through the shared error map.
+ */
+async function openStream(
+  application: BaseApplication,
+): Promise<ReadableStream<Uint8Array>> {
+  const response = await application.realtime();
+  if (!response.ok) {
+    const code = await response
+      .json()
+      .then((data) => data?.code)
+      .catch(() => undefined);
+    throw new SquareCloudAPIError(code ?? `UNKNOWN_ERROR_${response.status}`);
+  }
+  if (!response.body) throw new SquareCloudAPIError("EMPTY_RESPONSE");
+  return response.body;
+}
 
 function appendSseChunk(channel: OutputChannel, chunk: string) {
   // SSE events are separated by blank lines. Each line starting with `data: `
@@ -66,14 +91,31 @@ export const realtimeEntry = new ApplicationCommand(
       return;
     }
 
-    if (sessions.size >= MAX_SESSIONS) {
-      window.showErrorMessage(t("realtime.maxSessions"));
-      return;
-    }
+    // Reserve the slot BEFORE the network round-trip so a second invocation
+    // during the await toggles this session off instead of racing a duplicate
+    // stream into the same map entry.
+    const controller = new AbortController();
+    sessions.set(application.id, controller);
+    // The map entry may already belong to a newer session by the time this
+    // runs (toggle-stop deletes eagerly) — only remove what we own.
+    const releaseSlot = () => {
+      if (sessions.get(application.id) === controller) {
+        sessions.delete(application.id);
+      }
+    };
 
-    const response = await application.realtime();
-    if (!response.body) {
-      window.showErrorMessage(t("realtime.startError"));
+    let initialBody: ReadableStream<Uint8Array>;
+    try {
+      initialBody = await openStream(application);
+    } catch (error) {
+      releaseSlot();
+      throw error;
+    }
+    if (controller.signal.aborted) {
+      // Stopped (toggled) while the fetch was in flight — don't leak the
+      // freshly opened connection.
+      void initialBody.cancel().catch(() => {});
+      releaseSlot();
       return;
     }
 
@@ -82,9 +124,6 @@ export const realtimeEntry = new ApplicationCommand(
       `realtime:${application.id}`,
       `Square Cloud Realtime (${application.name})`,
     );
-
-    const controller = new AbortController();
-    sessions.set(application.id, controller);
 
     channel.show();
     channel.appendLine(`[${t("realtime.started")}]`);
@@ -99,35 +138,40 @@ export const realtimeEntry = new ApplicationCommand(
     // without a user abort we reconnect after a short delay so the session
     // survives the TTL transparently.
     void (async () => {
-      let body: ReadableStream<Uint8Array> | null = response.body;
+      let body: ReadableStream<Uint8Array> | null = initialBody;
       try {
-        while (!controller.signal.aborted) {
-          if (!body) break;
+        while (body) {
+          const startedAt = Date.now();
           await pumpStream(body, channel, controller.signal).catch(() => {});
           body = null;
           if (controller.signal.aborted) break;
+
+          // A stream that died right away is a refusal (stopped/deleted app,
+          // maintenance), not a TTL close — reconnecting would loop hard.
+          if (Date.now() - startedAt < MIN_HEALTHY_STREAM_MS) {
+            window.showErrorMessage(t("realtime.startError"));
+            break;
+          }
 
           channel.appendLine(`[${t("realtime.reconnecting")}]`);
           await new Promise((r) => setTimeout(r, RECONNECT_DELAY_MS));
           if (controller.signal.aborted) break;
 
           try {
-            body = (await application.realtime()).body;
+            body = await openStream(application);
           } catch (error) {
-            // Connection cap reached (or any other API refusal) — stop instead
-            // of hammering the endpoint in a retry loop.
-            if (error instanceof SquareCloudAPIError) {
-              window.showErrorMessage(
-                error.code === "REALTIME_MAX_CONNECTIONS"
-                  ? t("realtime.maxSessions")
-                  : t("realtime.startError"),
-              );
-            }
+            window.showErrorMessage(describeError(error));
+            break;
+          }
+          if (controller.signal.aborted) {
+            // Stopped while the reconnect fetch was in flight — cancel the
+            // fresh stream instead of abandoning a live server connection.
+            void body.cancel().catch(() => {});
             break;
           }
         }
       } finally {
-        sessions.delete(application.id);
+        releaseSlot();
         channel.appendLine(`[${t("realtime.ended")}]`);
       }
     })();

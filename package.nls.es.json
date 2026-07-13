@@ -163,8 +163,7 @@
     "ended": "Stream en tiempo real finalizado",
     "stopped": "Stream en tiempo real detenido.",
     "startError": "No se pudo iniciar el stream en tiempo real.",
-    "reconnecting": "Reconectando...",
-    "maxSessions": "Límite de conexiones en tiempo real alcanzado (5 por cuenta). Detén otro stream y vuelve a intentarlo."
+    "reconnecting": "Reconectando..."
   },
 
   "githubApp": {
@@ -229,6 +228,7 @@
     "memoryPrompt": "Memoria asignada en MB (mín 256)",
     "invalidMemory": "Ingresa un entero >= 256.",
     "versionPrompt": "Elige una versión",
+    "customVersion": "Otra versión...",
     "copyPassword": "Copiar contraseña",
     "passwordCopied": "Contraseña de la base copiada al portapapeles.",
     "creating": "Creando base de datos...",

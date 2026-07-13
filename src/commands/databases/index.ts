@@ -1,9 +1,10 @@
 import { writeFile } from "node:fs/promises";
 import { join } from "node:path";
-import { env, type MessageItem, ProgressLocation, Uri, window } from "vscode";
+import { env, ProgressLocation, Uri, window } from "vscode";
 import { t } from "vscode-ext-localisation";
 
 import type { DatabaseTreeItem } from "@/treeviews/databases/item";
+import { showMessageWithActions } from "@/lib/utils/dialogs";
 import { Command } from "@/structures/command";
 
 const DATABASE_TYPES = ["mongo", "mysql", "redis", "postgres"] as const;
@@ -50,10 +51,21 @@ export const createDatabase = new Command(
     });
     if (!memoryStr) return;
 
-    const version = await window.showQuickPick(
-      DATABASE_VERSIONS[type as DatabaseType],
+    // "Other..." keeps the command usable when the platform rotates versions
+    // faster than the extension ships updates to the hardcoded list.
+    const customVersion = t("database.customVersion");
+    const picked = await window.showQuickPick(
+      [...DATABASE_VERSIONS[type as DatabaseType], customVersion],
       { title: t("database.versionPrompt") },
     );
+    if (!picked) return;
+    const version =
+      picked === customVersion
+        ? await window.showInputBox({
+            title: t("database.versionPrompt"),
+            placeHolder: DATABASE_VERSIONS[type as DatabaseType][0],
+          })
+        : picked;
     if (!version) return;
 
     const created = await window.withProgress(
@@ -76,16 +88,10 @@ export const createDatabase = new Command(
       },
     );
 
-    type CopyPasswordItem = MessageItem & { id: "copy-password" };
-    const copyPassword: CopyPasswordItem = {
-      title: t("database.copyPassword"),
-      id: "copy-password",
-    };
-    const choice = await window.showInformationMessage<CopyPasswordItem>(
-      t("database.createdWithUrl"),
-      copyPassword,
-    );
-    if (choice?.id === "copy-password") {
+    const choice = await showMessageWithActions(t("database.createdWithUrl"), [
+      { id: "copy-password", title: t("database.copyPassword") },
+    ]);
+    if (choice === "copy-password") {
       await env.clipboard.writeText(created.password);
       window.showInformationMessage(t("database.passwordCopied"));
     }
@@ -195,16 +201,11 @@ export const downloadDatabaseCertificate = new Command(
       },
     );
 
-    type OpenItem = MessageItem & { id: "open-folder" };
-    const openItem: OpenItem = {
-      title: t("database.openFolder"),
-      id: "open-folder",
-    };
-    const choice = await window.showInformationMessage<OpenItem>(
+    const choice = await showMessageWithActions(
       t("database.certDownloaded", { FILES: written.join(", ") }),
-      openItem,
+      [{ id: "open-folder", title: t("database.openFolder") }],
     );
-    if (choice?.id === "open-folder") {
+    if (choice === "open-folder") {
       env.openExternal(Uri.file(fsPath));
     }
   },

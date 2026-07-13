@@ -12,16 +12,17 @@ Migration to `@squarecloud/api` v5 plus a smoother upload flow and smarter rate-
 - **Upload: post-upload actions** — the success toast now shows the detected runtime (language + version) and offers **Open dashboard** and **Copy ID** buttons.
 - **Upload: client-side size guard** — zips over 100 MB fail fast with a hint to extend `squarecloud.ignore`, before any bytes are uploaded.
 - **Realtime: automatic reconnection** — when the server-side connection TTL closes the stream, the extension reconnects after a short backoff (with a `[Reconnecting...]` marker) instead of silently ending. Stopping the stream yourself never reconnects.
-- **Realtime: local connection cap** — the account-wide limit of 5 concurrent streams is enforced locally with a friendly message, and respected on reconnect (no retry loops when the cap is hit).
-- **Database creation: version picker** — the free-text version prompt was replaced with a QuickPick of versions currently accepted per engine (PostgreSQL 17.6, MySQL 9.5, MongoDB 8.0.11, Redis 7.4.5).
+- **Realtime: robust error handling** — HTTP refusals from the stream endpoint (connection limit reached, deleted app) now surface a localized message and stop cleanly; streams that die immediately are treated as refusals instead of being reconnected in a loop.
+- **Database creation: version picker** — the free-text version prompt was replaced with a QuickPick of versions currently accepted per engine (PostgreSQL 17.6, MySQL 9.5, MongoDB 8.0.11, Redis 7.4.5), plus an **Other version...** escape hatch so the command keeps working when the platform rotates versions.
 - **Database creation: copy password** — alongside the connection URL (still copied automatically), a **Copy password** button is offered, since credentials are shown only once at creation.
-- **Localised messages for the standardized error codes** — rate-limit bursts, daily snapshot quota, plan limits (applications/members/workspaces/load balancers), insufficient memory, upload aborted/too large, domain validation, metrics support, realtime connection cap, snapshot processing/restore in progress, and cluster maintenance — in all three languages.
+- **Localised messages for the standardized error codes** — plan limits (applications/members/workspaces/load balancers), insufficient memory, upload aborted/too large, domain validation, metrics support, realtime connection cap, snapshot processing/restore in progress, and cluster maintenance — in all three languages.
 
 ### Changes
 
 - Migrated to `@squarecloud/api` v5 (`^4.0.1` → `^5.0.0`).
 - Unknown error codes now fall back through the SDK's canonical alias table before showing the generic message, so legacy code names still map to friendly messages during the API's naming transition.
-- Background status refreshes rejected with a short-burst throttle are retried once after a 10s backoff instead of waiting for the next poll cycle.
+- Background status refreshes rejected with a rate limit are retried once after a 10s backoff instead of waiting for the next poll cycle.
+- Post-action toasts (upload, delete, database created, certificate downloaded) share a single locale-safe action-button helper instead of per-command boilerplate.
 
 ### Docs
 

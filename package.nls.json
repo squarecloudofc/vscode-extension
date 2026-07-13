@@ -163,8 +163,7 @@
     "ended": "Realtime stream ended",
     "stopped": "Realtime stream stopped.",
     "startError": "Unable to start realtime stream.",
-    "reconnecting": "Reconnecting...",
-    "maxSessions": "Realtime connection limit reached (5 per account). Stop another stream and try again."
+    "reconnecting": "Reconnecting..."
   },
 
   "githubApp": {
@@ -229,6 +228,7 @@
     "memoryPrompt": "Allocated memory in MB (min 256)",
     "invalidMemory": "Enter an integer >= 256.",
     "versionPrompt": "Choose a version",
+    "customVersion": "Other version...",
     "copyPassword": "Copy password",
     "passwordCopied": "Database password copied to clipboard.",
     "creating": "Creating database...",

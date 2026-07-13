@@ -1,6 +1,7 @@
-import { env, type MessageItem, ProgressLocation, Uri, window } from "vscode";
+import { env, ProgressLocation, Uri, window } from "vscode";
 import { t } from "vscode-ext-localisation";
 
+import { showMessageWithActions } from "@/lib/utils/dialogs";
 import { ApplicationCommand } from "@/structures/application/command";
 
 export const deleteEntry = new ApplicationCommand(
@@ -34,16 +35,10 @@ export const deleteEntry = new ApplicationCommand(
 
     setTimeout(() => void extension.api.refresh(), 7_000);
 
-    type DownloadItem = MessageItem & { id: "download" };
-    const downloadItem: DownloadItem = {
-      title: t("delete.downloadSnapshot"),
-      id: "download",
-    };
-    const choice = await window.showInformationMessage<DownloadItem>(
-      t("delete.loaded"),
-      downloadItem,
-    );
-    if (choice?.id === "download") {
+    const choice = await showMessageWithActions(t("delete.loaded"), [
+      { id: "download", title: t("delete.downloadSnapshot") },
+    ]);
+    if (choice === "download") {
       env.openExternal(Uri.parse(snapshotUrl));
     }
   },

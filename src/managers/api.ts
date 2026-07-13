@@ -10,8 +10,8 @@ import type { SquareCloudExtension } from "./extension";
 const REFRESH_INTERVAL_MS = 60_000;
 /** Delay used after lifecycle actions before re-fetching the app status. */
 const POST_ACTION_REFRESH_MS = 7_000;
-/** Backoff before retrying a status fetch rejected with KEEP_CALM (short 429). */
-const KEEP_CALM_BACKOFF_MS = 10_000;
+/** Backoff before retrying a status fetch rejected with a 429. */
+const RATE_LIMIT_BACKOFF_MS = 10_000;
 
 export class APIManager implements Disposable {
   private readonly logger = new Logger("API");
@@ -132,14 +132,11 @@ export class APIManager implements Disposable {
     } catch (error) {
       if (error instanceof SquareCloudAPIError) {
         this.logger.warn(`refreshStatus(${appId}) failed: ${error.code}`);
-        // KEEP_CALM is a short-lived 429 — retry once after a backoff instead
-        // of giving up (or looping). The next poll cycle covers the rest.
-        if (error.code === "KEEP_CALM" && !isRetry) {
-          const handle = setTimeout(() => {
-            this.scheduledRefreshes.delete(handle);
-            void this.refreshStatus(appId, true);
-          }, KEEP_CALM_BACKOFF_MS);
-          this.scheduledRefreshes.add(handle);
+        // The SDK collapses every HTTP 429 (including short KEEP_CALM bursts)
+        // into RATE_LIMIT_EXCEEDED before reading the body — retry once after
+        // a backoff instead of giving up. The next poll cycle covers the rest.
+        if (error.code === "RATE_LIMIT_EXCEEDED" && !isRetry) {
+          this.scheduleStatusRefresh(appId, RATE_LIMIT_BACKOFF_MS, true);
         }
       } else {
         this.logger.error(`refreshStatus(${appId}) failed`, error);
@@ -169,10 +166,14 @@ export class APIManager implements Disposable {
    * actions (start/stop/restart/commit/snapshotRestore) to let the API settle
    * before polling. The timer is tracked so we can drop it on dispose.
    */
-  scheduleStatusRefresh(appId: string, delayMs = POST_ACTION_REFRESH_MS): void {
+  scheduleStatusRefresh(
+    appId: string,
+    delayMs = POST_ACTION_REFRESH_MS,
+    isRetry = false,
+  ): void {
     const handle = setTimeout(() => {
       this.scheduledRefreshes.delete(handle);
-      void this.refreshStatus(appId);
+      void this.refreshStatus(appId, isRetry);
     }, delayMs);
     this.scheduledRefreshes.add(handle);
   }
