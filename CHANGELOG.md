@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## 5.1.1
+
+### Fixes
+
+- Database version picker now offers the major version keys documented by the API (PostgreSQL 17, MySQL 9, MongoDB 8, Redis 7) instead of full point releases.
+
 ## 5.1.0
 
 Migration to `@squarecloud/api` v5 plus a smoother upload flow and smarter rate-limit handling.
@@ -13,7 +19,7 @@ Migration to `@squarecloud/api` v5 plus a smoother upload flow and smarter rate-
 - **Upload: client-side size guard** — zips over 100 MB fail fast with a hint to extend `squarecloud.ignore`, before any bytes are uploaded.
 - **Realtime: automatic reconnection** — when the server-side connection TTL closes the stream, the extension reconnects after a short backoff (with a `[Reconnecting...]` marker) instead of silently ending. Stopping the stream yourself never reconnects.
 - **Realtime: robust error handling** — HTTP refusals from the stream endpoint (connection limit reached, deleted app) now surface a localized message and stop cleanly; streams that die immediately are treated as refusals instead of being reconnected in a loop.
-- **Database creation: version picker** — the free-text version prompt was replaced with a QuickPick of versions currently accepted per engine (PostgreSQL 17.6, MySQL 9.5, MongoDB 8.0.11, Redis 7.4.5), plus an **Other version...** escape hatch so the command keeps working when the platform rotates versions.
+- **Database creation: version picker** — the free-text version prompt was replaced with a QuickPick of versions currently accepted per engine (PostgreSQL 17, MySQL 9, MongoDB 8, Redis 7), plus an **Other version...** escape hatch so the command keeps working when the platform rotates versions.
 - **Database creation: copy password** — alongside the connection URL (still copied automatically), a **Copy password** button is offered, since credentials are shown only once at creation.
 - **Localised messages for the standardized error codes** — plan limits (applications/members/workspaces/load balancers), insufficient memory, upload aborted/too large, domain validation, metrics support, realtime connection cap, snapshot processing/restore in progress, and cluster maintenance — in all three languages.
 

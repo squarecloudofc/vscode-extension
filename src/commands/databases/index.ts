@@ -10,12 +10,12 @@ import { Command } from "@/structures/command";
 const DATABASE_TYPES = ["mongo", "mysql", "redis", "postgres"] as const;
 type DatabaseType = (typeof DATABASE_TYPES)[number];
 
-/** Versions currently accepted by the API per engine. */
+/** Major version keys currently accepted by the API per engine. */
 const DATABASE_VERSIONS: Record<DatabaseType, string[]> = {
-  postgres: ["17.6"],
-  mysql: ["9.5"],
-  mongo: ["8.0.11"],
-  redis: ["7.4.5"],
+  postgres: ["17"],
+  mysql: ["9"],
+  mongo: ["8"],
+  redis: ["7"],
 };
 
 export const createDatabase = new Command(
