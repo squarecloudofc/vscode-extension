@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file.
 
+## 5.1.0
+
+Migration to `@squarecloud/api` v5 plus a smoother upload flow and smarter rate-limit handling.
+
+### Added
+
+- **Upload: workspace folder picker** — open workspace folders are offered first when uploading a new application; "Browse..." still opens the OS dialog for any other folder.
+- **Upload: post-upload actions** — the success toast now shows the detected runtime (language + version) and offers **Open dashboard** and **Copy ID** buttons.
+- **Upload: client-side size guard** — zips over 100 MB fail fast with a hint to extend `squarecloud.ignore`, before any bytes are uploaded.
+- **Realtime: automatic reconnection** — when the server-side connection TTL closes the stream, the extension reconnects after a short backoff (with a `[Reconnecting...]` marker) instead of silently ending. Stopping the stream yourself never reconnects.
+- **Realtime: local connection cap** — the account-wide limit of 5 concurrent streams is enforced locally with a friendly message, and respected on reconnect (no retry loops when the cap is hit).
+- **Database creation: version picker** — the free-text version prompt was replaced with a QuickPick of versions currently accepted per engine (PostgreSQL 17.6, MySQL 9.5, MongoDB 8.0.11, Redis 7.4.5).
+- **Database creation: copy password** — alongside the connection URL (still copied automatically), a **Copy password** button is offered, since credentials are shown only once at creation.
+- **Localised messages for the standardized error codes** — rate-limit bursts, daily snapshot quota, plan limits (applications/members/workspaces/load balancers), insufficient memory, upload aborted/too large, domain validation, metrics support, realtime connection cap, snapshot processing/restore in progress, and cluster maintenance — in all three languages.
+
+### Changes
+
+- Migrated to `@squarecloud/api` v5 (`^4.0.1` → `^5.0.0`).
+- Unknown error codes now fall back through the SDK's canonical alias table before showing the generic message, so legacy code names still map to friendly messages during the API's naming transition.
+- Background status refreshes rejected with a short-burst throttle are retried once after a 10s backoff instead of waiting for the next poll cycle.
+
+### Docs
+
+- README rewritten: full feature walkthroughs (upload vs commit, ignore-rule resolution, realtime limits, snapshot quotas, one-time database credentials), command reference with IDs, rate-limit behaviour, security notes and an expanded troubleshooting section.
+
 ## 5.0.1
 
 ### Fixes
