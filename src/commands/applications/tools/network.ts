@@ -3,10 +3,12 @@ import { ProgressLocation, window } from "vscode";
 import { t } from "vscode-ext-localisation";
 
 import type { SquareCloudExtension } from "@/managers/extension";
-import type { ApplicationTreeItem } from "@/treeviews/applications/item";
 import { confirm } from "@/lib/utils/dialogs";
 import { getOutputChannel } from "@/lib/utils/output-channels";
-import { ApplicationCommand } from "@/structures/application/command";
+import {
+  ApplicationCommand,
+  type ApplicationTarget,
+} from "@/structures/application/command";
 
 const RANGE_OPTIONS = [
   { label: "1h", ms: 60 * 60 * 1000 },
@@ -32,12 +34,12 @@ async function pickRange() {
 }
 
 /**
- * Fetches the full WebsiteApplication for the given tree item. Returns
+ * Fetches the full WebsiteApplication for the given application. Returns
  * undefined and shows an error if the app has no domain (edge analytics are
  * website-only). Centralised so individual handlers don't duplicate the
  * fetch + isWebsite check.
  */
-async function getWebsite({ application }: ApplicationTreeItem) {
+async function getWebsite({ application }: ApplicationTarget) {
   // Cheap pre-check — BaseApplication already knows whether the app has a
   // domain, so we can short-circuit before the network round-trip.
   if (application.domain === null) {

@@ -1,7 +1,7 @@
+import type { Workspace } from "@squarecloud/api";
 import { env, ProgressLocation, window } from "vscode";
 import { t } from "vscode-ext-localisation";
 
-import type { WorkspaceTreeItem } from "@/treeviews/workspaces/item";
 import { confirm } from "@/lib/utils/dialogs";
 import { Command } from "@/structures/command";
 
@@ -37,7 +37,7 @@ export const createWorkspace = new Command(
 
 export const deleteWorkspace = new Command(
   "deleteWorkspace",
-  async (extension, item: WorkspaceTreeItem) => {
+  async (extension, item: { workspace: Workspace }) => {
     const typed = await window.showInputBox({
       title: t("workspace.deleteConfirm", { NAME: item.workspace.name }),
       placeHolder: item.workspace.name,
@@ -60,7 +60,7 @@ export const deleteWorkspace = new Command(
 
 export const leaveWorkspace = new Command(
   "leaveWorkspace",
-  async (extension, item: WorkspaceTreeItem) => {
+  async (extension, item: { workspace: Workspace }) => {
     if (
       !(await confirm(
         t("workspace.leaveConfirm", { NAME: item.workspace.name }),

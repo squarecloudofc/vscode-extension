@@ -1,15 +1,23 @@
+import type { BaseApplication } from "@squarecloud/api";
 import { window } from "vscode";
 
 import type { SquareCloudExtension } from "@/managers/extension";
-import type { ApplicationTreeItem } from "@/treeviews/applications/item";
 import { ExtensionID } from "@/lib/constants";
 import { describeError } from "@/lib/utils/errors";
 
 import { Logger } from "../logger";
 
+/**
+ * All these commands ever read off their argument is the application, which is
+ * why the dashboard can drive them with a plain object.
+ */
+export interface ApplicationTarget {
+  application: BaseApplication;
+}
+
 export type CommandExecute = (
   extension: SquareCloudExtension,
-  treeItem: ApplicationTreeItem,
+  target: ApplicationTarget,
   ...args: any[]
 ) => unknown | Promise<unknown>;
 
@@ -32,11 +40,11 @@ export class ApplicationCommand {
 
   async execute(
     extension: SquareCloudExtension,
-    treeItem: ApplicationTreeItem,
+    target: ApplicationTarget,
     ...args: any[]
   ): Promise<void> {
     try {
-      await this.handler(extension, treeItem, ...args);
+      await this.handler(extension, target, ...args);
     } catch (error) {
       logger.error(`Command ${this.name} failed`, error);
       window.showErrorMessage(describeError(error));

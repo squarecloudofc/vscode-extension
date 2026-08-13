@@ -49,6 +49,10 @@ export class SquareCloudExtension implements Disposable {
 
     this.initializeStores();
 
+    // Decides which half of the sidebar renders — the sign-in view or the
+    // trees. Runs before anything can paint so nobody sees the wrong one.
+    void this.treeViews.auth.syncVisibility();
+
     this.logger.log("Extension is ready!");
   }
 

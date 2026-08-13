@@ -1,7 +1,6 @@
 export const ExtensionID = "squarecloud";
 
 export const Config = {
-  APIKey: "api-key",
   FavoritedApps: "favApps",
 };
 

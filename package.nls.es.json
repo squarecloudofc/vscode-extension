@@ -1,9 +1,6 @@
 {
-  "config.apiKey.description": "Tu clave de API de [Square Cloud](https://squarecloud.app/).",
-
-  "command.setApiKey": "Establecer nueva clave de API",
+  "command.setApiKey": "Conectar cuenta",
   "command.logsEntry": "Mostrar registros",
-  "command.copyText": "Copiar",
   "command.refresh": "Actualizar",
   "command.open": "Ver en el panel",
   "command.start": "Iniciar",
@@ -34,13 +31,11 @@
   "command.downloadDatabaseCertificate": "Descargar certificado TLS",
   "command.serviceStatus": "Mostrar estado del servicio",
   "command.uploadApplication": "Subir nueva aplicación",
-
   "view.apps.title": "Aplicaciones",
   "view.user.title": "Usuario",
   "view.workspaces.title": "Workspaces",
   "view.databases.title": "Bases de datos",
-  "view.welcome": "No hay clave de API registrada.\n[Establecer clave de API](command:squarecloud.setApiKey)",
-
+  "view.welcome": "No hay ninguna cuenta conectada.\n[Conectar cuenta](command:squarecloud.setApiKey)",
   "apps": {
     "noApps": {
       "message": "No se encontraron aplicaciones",
@@ -48,7 +43,6 @@
       "upgrade": "Abrir precios"
     }
   },
-
   "generic": {
     "yes": "Sí",
     "no": "No",
@@ -62,43 +56,59 @@
     "file": "Archivo",
     "folder": "Carpeta"
   },
-
   "setApiKey": {
     "tutorial": {
-      "button": "Obtener clave de API"
+      "button": "Abrir el panel"
     },
-    "apiKey": "Ingresa tu clave de API.",
-    "testing": "Verificando la clave de API proporcionada.",
-    "invalid": "La clave de API proporcionada no es válida.",
-    "success": "¡Tu clave de API se ha registrado con éxito!"
+    "apiKey": "Pega un token creado en el panel.",
+    "testing": "Verificando...",
+    "invalid": "Este token no es válido.",
+    "success": "¡Conectado!",
+    "connect": {
+      "label": "Conectar cuenta",
+      "detail": "Lo apruebas en el navegador. La autorización dura 90 días, por seguridad, y puedes revocarla cuando quieras.",
+      "action": "Conectar cuenta",
+      "codeDetail": "La página te lo pedirá. Aprueba solo si el código mostrado allí coincide con este.",
+      "open": "Abrir página",
+      "success": "Conectado como {{EMAIL}}",
+      "accountChanged": "Esta aprobación vino de {{NEW}}, pero {{OLD}} está conectada actualmente. ¿Reemplazarla?",
+      "browserTitle": "Cuenta conectada",
+      "browserBody": "Ya puedes cerrar esta pestaña y volver a VS Code."
+    },
+    "manual": {
+      "label": "Otras formas de entrar"
+    },
+    "panel": {
+      "subtitle": "Gestiona tus aplicaciones, bases de datos y workspaces sin salir del editor.",
+      "codeLabel": "Pega este código en la página",
+      "copyHint": "Copiado. Haz clic para copiar de nuevo.",
+      "copied": "¡Copiado!",
+      "waitingHint": "Esperando la aprobación en el navegador...",
+      "cancel": "Cancelar",
+      "retry": "Intentar de nuevo",
+      "expiresIn": "Expira en {{TIME}}"
+    }
   },
-
   "logs": {
     "loading": "Obteniendo registros.",
     "loaded": "Los registros se han cargado con éxito.",
     "null": "No se encontraron registros."
   },
-
   "copy": {
-    "copiedId": "ID de aplicación copiado al portapapeles.",
-    "copiedText": "{{TYPE}} copiado al portapapeles."
+    "copiedId": "ID de aplicación copiado al portapapeles."
   },
-
   "start": {
     "loading": "Iniciando aplicación...",
     "loaded": "La aplicación se está ejecutando ahora."
   },
-
   "stop": {
     "loading": "Apagando la aplicación...",
     "loaded": "La aplicación ya no se está ejecutando."
   },
-
   "restart": {
     "loading": "Reiniciando la aplicación...",
     "loaded": "La aplicación se ha reiniciado."
   },
-
   "delete": {
     "loading": "Eliminando la aplicación...",
     "loaded": "La aplicación se ha eliminado.",
@@ -106,7 +116,6 @@
     "confirm": "Ingresa el nombre de la aplicación para confirmar que deseas eliminarla.",
     "downloadSnapshot": "Descargar snapshot"
   },
-
   "commit": {
     "loading": "Enviando archivos...",
     "loaded": "Los archivos se han enviado con éxito.",
@@ -117,13 +126,11 @@
     "zipping": "Comprimiendo archivos...",
     "uploading": "Subiendo a Square Cloud..."
   },
-
   "snapshot": {
     "loading": "Descargando snapshot...",
     "loaded": "Snapshot guardada con éxito.",
     "save": "Guardar aquí"
   },
-
   "snapshotRestore": {
     "select": "Elige un snapshot para restaurar",
     "placeholder": "Más reciente primero",
@@ -133,7 +140,6 @@
     "loading": "Restaurando snapshot...",
     "loaded": "Aplicación restaurada desde el snapshot seleccionado."
   },
-
   "envs": {
     "title": "Variables de entorno",
     "placeholder": "{{COUNT}} variable(s) configurada(s)",
@@ -152,12 +158,10 @@
     "confirmWipe": "¿Eliminar TODAS las variables de entorno?",
     "loadError": "No se pudieron cargar las variables de entorno."
   },
-
   "metrics": {
     "loading": "Obteniendo métricas de 24h...",
     "null": "Sin métricas disponibles. Requiere al menos 512 MB de RAM."
   },
-
   "realtime": {
     "started": "Stream en tiempo real iniciado",
     "ended": "Stream en tiempo real finalizado",
@@ -165,7 +169,6 @@
     "startError": "No se pudo iniciar el stream en tiempo real.",
     "reconnecting": "Reconectando..."
   },
-
   "githubApp": {
     "linkTitle": "Vincular GitHub App",
     "repoPrompt": "usuario/repositorio",
@@ -179,7 +182,6 @@
     "unlinkError": "Error al desvincular el repositorio: {{ERROR}}",
     "confirmUnlink": "¿Desvincular el GitHub App de esta aplicación?"
   },
-
   "network": {
     "pickRange": "Elige un rango de tiempo",
     "loading": "Obteniendo datos del edge...",
@@ -190,12 +192,8 @@
     "purged": "Caché del edge purgada.",
     "purgeError": "Error al purgar la caché del edge."
   },
-
   "workspace": {
-    "owner": "Propietario",
-    "createdAt": "Creado",
     "empty": "No se encontraron workspaces",
-    "emptyHint": "Disponible en los planes Standard, Pro y Enterprise.",
     "createTitle": "Crear workspace",
     "namePrompt": "Nombre del workspace (1-32 caracteres)",
     "invalidName": "Usa entre 1 y 32 caracteres.",
@@ -213,14 +211,11 @@
     "inviteCopied": "Código de invitación copiado: {{CODE}} (válido por 5 min).",
     "inviteError": "Error al generar el código de invitación."
   },
-
   "database": {
     "engine": "Motor",
     "port": "Puerto",
     "cluster": "Cluster",
-    "createdAt": "Creado",
     "empty": "No se encontraron bases de datos",
-    "emptyHint": "Disponible en los planes Standard, Pro y Enterprise.",
     "createTitle": "Crear base de datos",
     "namePrompt": "Nombre de la base (1-32 caracteres)",
     "invalidName": "Usa entre 1 y 32 caracteres.",
@@ -250,13 +245,11 @@
     "openFolder": "Abrir carpeta",
     "certError": "Error al obtener el certificado TLS."
   },
-
   "serviceStatus": {
     "label": "Square Cloud — {{STATUS}}: {{MESSAGE}}",
     "openPage": "Abrir página de estado",
     "unavailable": "Estado del servicio no disponible en este momento."
   },
-
   "upload": {
     "title": "Subir aplicación",
     "select": "Selecciona la carpeta de la aplicación",
@@ -271,11 +264,15 @@
     "openDashboard": "Abrir panel",
     "loaded": "Aplicación '{{NAME}}' subida con éxito ({{RUNTIME}})."
   },
-
   "apiError": {
     "generic": "Error de la API de Square Cloud: {{CODE}}",
-    "INVALID_API_TOKEN": "Tu clave de API no es válida. Establece una nueva con `Square Cloud: Establecer nueva clave de API`.",
-    "INVALID_ACCESS_TOKEN": "Tu clave de API no es válida. Establece una nueva con `Square Cloud: Establecer nueva clave de API`.",
+    "INVALID_API_TOKEN": "Tu autorización ya no es válida. Conecta tu cuenta de nuevo con `Square Cloud: Conectar cuenta`.",
+    "INVALID_ACCESS_TOKEN": "Tu autorización ya no es válida. Conecta tu cuenta de nuevo con `Square Cloud: Conectar cuenta`.",
+    "APIKEY_EXPIRED": "Tu autorización expiró — dura 90 días, por seguridad. Conecta tu cuenta de nuevo.",
+    "MISSING_SCOPE": "Esta autorización no cubre esta acción. Conecta tu cuenta de nuevo para actualizar sus permisos.",
+    "RESOURCE_NOT_ALLOWED": "Esta autorización está restringida a aplicaciones específicas, y esta no está entre ellas.",
+    "AUTHORIZATION_PENDING": "La autorización aún no ha sido aprobada.",
+    "NETWORK_ERROR": "No se pudo contactar con Square Cloud. Revisa tu conexión e inténtalo de nuevo.",
     "RATE_LIMIT_EXCEEDED": "Límite de solicitudes alcanzado. Espera un momento y vuelve a intentarlo.",
     "KEEP_CALM": "Demasiadas solicitudes en poco tiempo. Espera unos segundos y vuelve a intentarlo.",
     "APP_NOT_FOUND": "Aplicación no encontrada. Puede que haya sido eliminada.",
@@ -302,9 +299,14 @@
     "METRICS_NOT_SUPPORTED": "Esta aplicación no admite métricas.",
     "REALTIME_MAX_CONNECTIONS": "Límite de conexiones en tiempo real alcanzado (5 por cuenta). Detén otro stream y vuelve a intentarlo.",
     "CLUSTER_MAINTENANCE_TRY_LATER": "El clúster está en mantenimiento. Inténtalo de nuevo en unos minutos.",
-    "INVALID_DATABASE_VERSION": "Esta versión de base de datos no es compatible."
+    "INVALID_DATABASE_VERSION": "Esta versión de base de datos no es compatible.",
+    "INVALID_GRANT": "La autorización expiró o ya fue usada. Empieza de nuevo.",
+    "APIKEY_LIMIT_REACHED": "Esta cuenta está en el límite de 5 autorizaciones. Revoca una en squarecloud.app/account/security — esta sigue válida un momento más.",
+    "INVALID_VERIFIER": "No se pudo validar la autorización. Empieza de nuevo.",
+    "INVALID_REDIRECT_URI": "No se pudo validar la autorización. Empieza de nuevo.",
+    "INVALID_REQUEST": "La solicitud de autorización estaba malformada.",
+    "RATE_LIMIT": "Demasiados intentos en esta red. Esperando un momento antes de reintentar."
   },
-
   "configFile": {
     "error": {
       "duplicateKey": "Tu archivo de configuración de Square Cloud tiene 2 configuraciones \"{{key}}\".",
@@ -337,5 +339,33 @@
         }
       }
     }
+  },
+  "dashboard": {
+    "online": "En ejecución",
+    "offline": "Detenida",
+    "unknown": "Verificando...",
+    "more": "Más acciones",
+    "ramUsed": "RAM",
+    "members": "{{COUNT}} miembros",
+    "apps": "{{COUNT}} aplicaciones",
+    "group": {
+      "app": "Aplicación",
+      "deploy": "Deploy",
+      "settings": "Configuración",
+      "monitoring": "Monitoreo",
+      "edge": "Edge",
+      "control": "Control",
+      "credentials": "Credenciales",
+      "members": "Miembros",
+      "danger": "Zona de peligro",
+      "metrics": "Métricas"
+    }
+  },
+  "command.commit": "Commit",
+  "command.snapshot": "Snapshot",
+  "command.logout": "Desconectar cuenta",
+  "logout": {
+    "confirm": "¿Desconectar esta cuenta de VS Code?",
+    "confirmAccount": "¿Desconectar {{EMAIL}} de VS Code? La autorización sigue siendo revocable en el panel."
   }
 }

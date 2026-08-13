@@ -1,9 +1,9 @@
+import type { Database } from "@squarecloud/api";
 import { writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { env, ProgressLocation, Uri, window } from "vscode";
 import { t } from "vscode-ext-localisation";
 
-import type { DatabaseTreeItem } from "@/treeviews/databases/item";
 import { showMessageWithActions } from "@/lib/utils/dialogs";
 import { Command } from "@/structures/command";
 
@@ -100,7 +100,7 @@ export const createDatabase = new Command(
 
 export const startDatabase = new Command(
   "startDatabase",
-  async (extension, item: DatabaseTreeItem) => {
+  async (extension, item: { database: Database }) => {
     await runDatabaseAction(item, "start");
     extension.api.refresh();
   },
@@ -108,7 +108,7 @@ export const startDatabase = new Command(
 
 export const stopDatabase = new Command(
   "stopDatabase",
-  async (extension, item: DatabaseTreeItem) => {
+  async (extension, item: { database: Database }) => {
     await runDatabaseAction(item, "stop");
     extension.api.refresh();
   },
@@ -116,7 +116,7 @@ export const stopDatabase = new Command(
 
 export const deleteDatabase = new Command(
   "deleteDatabase",
-  async (extension, item: DatabaseTreeItem) => {
+  async (extension, item: { database: Database }) => {
     const typed = await window.showInputBox({
       title: t("database.deleteConfirm", { NAME: item.database.name }),
       placeHolder: item.database.name,
@@ -139,7 +139,7 @@ export const deleteDatabase = new Command(
 
 export const downloadDatabaseCertificate = new Command(
   "downloadDatabaseCertificate",
-  async (_extension, item: DatabaseTreeItem) => {
+  async (_extension, item: { database: Database }) => {
     const dialog = await window.showOpenDialog({
       canSelectFolders: true,
       openLabel: t("database.certSave"),
@@ -212,7 +212,7 @@ export const downloadDatabaseCertificate = new Command(
 );
 
 async function runDatabaseAction(
-  item: DatabaseTreeItem,
+  item: { database: Database },
   action: "start" | "stop",
 ) {
   await window.withProgress(

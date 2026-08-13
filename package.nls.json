@@ -1,9 +1,6 @@
 {
-  "config.apiKey.description": "Your [Square Cloud](https://squarecloud.app/) API key.",
-
-  "command.setApiKey": "Set new API key",
+  "command.setApiKey": "Connect account",
   "command.logsEntry": "Show logs",
-  "command.copyText": "Copy",
   "command.refresh": "Refresh",
   "command.open": "View on dashboard",
   "command.start": "Start",
@@ -34,13 +31,11 @@
   "command.downloadDatabaseCertificate": "Download TLS certificate",
   "command.serviceStatus": "Show service status",
   "command.uploadApplication": "Upload new application",
-
   "view.apps.title": "Applications",
   "view.user.title": "User",
   "view.workspaces.title": "Workspaces",
   "view.databases.title": "Databases",
-  "view.welcome": "No API key registered.\n[Set API key](command:squarecloud.setApiKey)",
-
+  "view.welcome": "No account connected.\n[Connect account](command:squarecloud.setApiKey)",
   "apps": {
     "noApps": {
       "message": "No applications found",
@@ -48,7 +43,6 @@
       "upgrade": "Open pricing"
     }
   },
-
   "generic": {
     "yes": "Yes",
     "no": "No",
@@ -62,43 +56,59 @@
     "file": "File",
     "folder": "Folder"
   },
-
   "setApiKey": {
     "tutorial": {
-      "button": "Get API key"
+      "button": "Open the dashboard"
     },
-    "apiKey": "Enter your API key.",
-    "testing": "Verifying the provided API key.",
-    "invalid": "The provided API key is not valid.",
-    "success": "Your API key has been successfully registered!"
+    "apiKey": "Paste a token created in the dashboard.",
+    "testing": "Checking...",
+    "invalid": "This token is not valid.",
+    "success": "Connected!",
+    "connect": {
+      "label": "Connect account",
+      "detail": "You approve it in the browser. The authorization lasts 90 days, for safety, and you can revoke it whenever you want.",
+      "action": "Connect account",
+      "codeDetail": "The page will ask for it. Only approve if the code shown there matches this one.",
+      "open": "Open page",
+      "success": "Connected as {{EMAIL}}",
+      "accountChanged": "This approval came from {{NEW}}, but {{OLD}} is currently connected. Replace it?",
+      "browserTitle": "Account connected",
+      "browserBody": "You can close this tab and go back to VS Code."
+    },
+    "manual": {
+      "label": "Other ways to sign in"
+    },
+    "panel": {
+      "subtitle": "Manage your applications, databases and workspaces without leaving the editor.",
+      "codeLabel": "Paste this code on the page",
+      "copyHint": "Copied. Click to copy again.",
+      "copied": "Copied!",
+      "waitingHint": "Waiting for approval in the browser...",
+      "cancel": "Cancel",
+      "retry": "Try again",
+      "expiresIn": "Expires in {{TIME}}"
+    }
   },
-
   "logs": {
     "loading": "Fetching logs.",
     "loaded": "Logs have been successfully loaded.",
     "null": "No logs were found."
   },
-
   "copy": {
-    "copiedId": "Application ID copied to clipboard.",
-    "copiedText": "{{TYPE}} copied to clipboard."
+    "copiedId": "Application ID copied to clipboard."
   },
-
   "start": {
     "loading": "Launching application...",
     "loaded": "Application is now running."
   },
-
   "stop": {
     "loading": "Shutting down application...",
     "loaded": "Application is no longer running."
   },
-
   "restart": {
     "loading": "Restarting application...",
     "loaded": "Application has been restarted."
   },
-
   "delete": {
     "loading": "Deleting application...",
     "loaded": "Application has been deleted.",
@@ -106,7 +116,6 @@
     "confirm": "Enter the application name to confirm that you want to delete it.",
     "downloadSnapshot": "Download snapshot"
   },
-
   "commit": {
     "loading": "Committing files...",
     "loaded": "Files committed successfully.",
@@ -117,13 +126,11 @@
     "zipping": "Compressing files...",
     "uploading": "Uploading to Square Cloud..."
   },
-
   "snapshot": {
     "loading": "Downloading snapshot...",
     "loaded": "Snapshot downloaded successfully.",
     "save": "Save here"
   },
-
   "snapshotRestore": {
     "select": "Choose a snapshot to restore",
     "placeholder": "Most recent first",
@@ -133,7 +140,6 @@
     "loading": "Restoring snapshot...",
     "loaded": "Application has been restored from the selected snapshot."
   },
-
   "envs": {
     "title": "Environment variables",
     "placeholder": "{{COUNT}} variable(s) configured",
@@ -152,12 +158,10 @@
     "confirmWipe": "Remove ALL environment variables?",
     "loadError": "Unable to load environment variables."
   },
-
   "metrics": {
     "loading": "Fetching 24h metrics...",
     "null": "No metrics available. Requires at least 512 MB of RAM."
   },
-
   "realtime": {
     "started": "Realtime stream started",
     "ended": "Realtime stream ended",
@@ -165,7 +169,6 @@
     "startError": "Unable to start realtime stream.",
     "reconnecting": "Reconnecting..."
   },
-
   "githubApp": {
     "linkTitle": "Link GitHub App",
     "repoPrompt": "owner/repository",
@@ -179,7 +182,6 @@
     "unlinkError": "Failed to unlink repository: {{ERROR}}",
     "confirmUnlink": "Unlink the GitHub App from this application?"
   },
-
   "network": {
     "pickRange": "Choose a time range",
     "loading": "Fetching edge data...",
@@ -190,12 +192,8 @@
     "purged": "Edge cache purged.",
     "purgeError": "Failed to purge edge cache."
   },
-
   "workspace": {
-    "owner": "Owner",
-    "createdAt": "Created",
     "empty": "No workspaces found",
-    "emptyHint": "Available on Standard, Pro and Enterprise plans.",
     "createTitle": "Create workspace",
     "namePrompt": "Workspace name (1-32 chars)",
     "invalidName": "Use between 1 and 32 characters.",
@@ -213,14 +211,11 @@
     "inviteCopied": "Invite code copied: {{CODE}} (valid 5 min).",
     "inviteError": "Failed to generate invite code."
   },
-
   "database": {
     "engine": "Engine",
     "port": "Port",
     "cluster": "Cluster",
-    "createdAt": "Created",
     "empty": "No databases found",
-    "emptyHint": "Available on Standard, Pro and Enterprise plans.",
     "createTitle": "Create database",
     "namePrompt": "Database name (1-32 chars)",
     "invalidName": "Use between 1 and 32 characters.",
@@ -250,13 +245,11 @@
     "openFolder": "Open folder",
     "certError": "Failed to fetch TLS certificate."
   },
-
   "serviceStatus": {
     "label": "Square Cloud — {{STATUS}}: {{MESSAGE}}",
     "openPage": "Open status page",
     "unavailable": "Service status unavailable right now."
   },
-
   "upload": {
     "title": "Upload application",
     "select": "Select application folder",
@@ -271,11 +264,15 @@
     "openDashboard": "Open dashboard",
     "loaded": "Application '{{NAME}}' uploaded successfully ({{RUNTIME}})."
   },
-
   "apiError": {
     "generic": "Square Cloud API error: {{CODE}}",
-    "INVALID_API_TOKEN": "Your API key is invalid. Set a new one with `Square Cloud: Set new API key`.",
-    "INVALID_ACCESS_TOKEN": "Your API key is invalid. Set a new one with `Square Cloud: Set new API key`.",
+    "INVALID_API_TOKEN": "Your authorization is no longer valid. Connect your account again with `Square Cloud: Connect account`.",
+    "INVALID_ACCESS_TOKEN": "Your authorization is no longer valid. Connect your account again with `Square Cloud: Connect account`.",
+    "APIKEY_EXPIRED": "Your authorization expired — it lasts 90 days, for safety. Connect your account again.",
+    "MISSING_SCOPE": "This authorization does not cover this action. Connect your account again to refresh its permissions.",
+    "RESOURCE_NOT_ALLOWED": "This authorization is restricted to specific applications, and this one is not among them.",
+    "AUTHORIZATION_PENDING": "The authorization has not been approved yet.",
+    "NETWORK_ERROR": "Could not reach Square Cloud. Check your connection and try again.",
     "RATE_LIMIT_EXCEEDED": "Rate limited by Square Cloud. Wait a moment and try again.",
     "KEEP_CALM": "Too many requests in a short burst. Wait a few seconds and try again.",
     "APP_NOT_FOUND": "Application not found. It may have been deleted.",
@@ -302,9 +299,14 @@
     "METRICS_NOT_SUPPORTED": "This application does not support metrics.",
     "REALTIME_MAX_CONNECTIONS": "Realtime connection limit reached (5 per account). Stop another stream and try again.",
     "CLUSTER_MAINTENANCE_TRY_LATER": "The cluster is under maintenance. Try again in a few minutes.",
-    "INVALID_DATABASE_VERSION": "This database version is not supported."
+    "INVALID_DATABASE_VERSION": "This database version is not supported.",
+    "INVALID_GRANT": "The authorization expired or was already used. Start over.",
+    "APIKEY_LIMIT_REACHED": "This account is at its limit of 5 authorizations. Revoke one at squarecloud.app/account/security — this one stays valid for a moment longer.",
+    "INVALID_VERIFIER": "Could not validate the authorization. Start over.",
+    "INVALID_REDIRECT_URI": "Could not validate the authorization. Start over.",
+    "INVALID_REQUEST": "The authorization request was malformed.",
+    "RATE_LIMIT": "Too many attempts from this network. Waiting a moment before trying again."
   },
-
   "configFile": {
     "error": {
       "duplicateKey": "Your Square Cloud configuration file has 2 \"{{key}}\" settings.",
@@ -337,5 +339,33 @@
         }
       }
     }
+  },
+  "dashboard": {
+    "online": "Running",
+    "offline": "Stopped",
+    "unknown": "Checking...",
+    "more": "More actions",
+    "ramUsed": "RAM",
+    "members": "{{COUNT}} members",
+    "apps": "{{COUNT}} apps",
+    "group": {
+      "app": "Application",
+      "deploy": "Deploy",
+      "settings": "Configuration",
+      "monitoring": "Monitoring",
+      "edge": "Edge",
+      "control": "Control",
+      "credentials": "Credentials",
+      "members": "Members",
+      "danger": "Danger zone",
+      "metrics": "Metrics"
+    }
+  },
+  "command.commit": "Commit",
+  "command.snapshot": "Snapshot",
+  "command.logout": "Disconnect account",
+  "logout": {
+    "confirm": "Disconnect this account from VS Code?",
+    "confirmAccount": "Disconnect {{EMAIL}} from VS Code? The authorization stays revocable in the dashboard."
   }
 }
