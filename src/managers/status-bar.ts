@@ -7,6 +7,7 @@ import {
 } from "vscode";
 
 import { selectAndSubscribe } from "@/lib/store";
+import { isServiceHealthy } from "@/lib/utils/service-status";
 
 import type { SquareCloudExtension } from "./extension";
 
@@ -61,8 +62,9 @@ export class StatusBarManager implements Disposable {
 
     this.item.command = "squarecloud.refreshCache";
 
-    if (serviceStatus && serviceStatus.status !== "operational") {
-      this.item.text = `$(warning) Square Cloud — ${serviceStatus.status}`;
+    if (!isServiceHealthy(serviceStatus)) {
+      this.item.text = `$(warning) Square Cloud — ${serviceStatus?.status}`;
+      this.item.tooltip = serviceStatus?.message ?? this.item.tooltip;
       this.item.backgroundColor = new ThemeColor(
         "statusBarItem.warningBackground",
       );

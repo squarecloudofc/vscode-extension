@@ -11,6 +11,7 @@ import type { SquareCloudExtension } from "@/managers/extension";
 import { ExtensionID } from "@/lib/constants";
 import { type ExtensionStore, selectAndSubscribe } from "@/lib/store";
 import { type PickEntry, pickOne } from "@/lib/utils/dialogs";
+import { isServiceHealthy } from "@/lib/utils/service-status";
 
 import { renderDashboard } from "./html";
 
@@ -347,11 +348,7 @@ export class DashboardViewProvider implements WebviewViewProvider, Disposable {
       })),
       service: state.serviceStatus && {
         message: state.serviceStatus.message,
-        // The API answers a slug; anything that isn't a clean bill of health
-        // should not be painted green.
-        operational: /^(ok|operational|online|up)$/i.test(
-          state.serviceStatus.status,
-        ),
+        operational: isServiceHealthy(state.serviceStatus),
       },
       workspaces: state.workspaces.map((workspace) => ({
         id: workspace.id,

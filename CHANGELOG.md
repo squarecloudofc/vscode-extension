@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## 5.2.1
+
+### Fixes
+
+- **The status bar warned about a healthy platform.** It compared the service status against `operational` while the API reports `online`, so a green platform rendered as a yellow warning reading "Square Cloud — online". Present since 5.0.0.
+- Both surfaces that render service health — the status bar and the side bar footer — now share one predicate. The bug only became visible in 5.2.0 because the two disagreed on the same field, and two separate lists would drift again the moment the API adds a word.
+- A degraded status now puts the platform's own message in the status bar tooltip, instead of showing a warning with no explanation.
+
 ## 5.2.0
 
 Sign-in without handing over the account's master key, and a sidebar that shows
