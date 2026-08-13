@@ -41,6 +41,7 @@ the account instead of four collapsible trees.
 ### Dependencies
 
 - Biome 2.5.8, esbuild 0.28.2, `@types/node` 26.2.0, concurrently 10.0.4, ovsx 1.1.1.
+- CI: `actions/setup-node` 6 → 7.
 - `@types/vscode` intentionally kept at 1.120 to match `engines.vscode` — bumping it would raise the minimum supported VSCode version.
 
 ## 5.1.1
