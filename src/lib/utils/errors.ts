@@ -9,6 +9,11 @@ import { t } from "vscode-ext-localisation";
  * During the API's naming transition legacy codes (e.g. `FEW_MEMORY`) may
  * still arrive — `APIErrorCode` maps them to their canonical names
  * (`INSUFFICIENT_MEMORY`), so we try the alias before giving up.
+ *
+ * ponytail: `MISSING_SCOPE` can't name the scope that's missing — the SDK
+ * builds `SquareCloudAPIError` from `data.code` alone and drops the API's
+ * `message`, which is where the scope name lives. Upgrade path is in the SDK
+ * (`new SquareCloudAPIError(data.code, data.message)`), not here.
  */
 export function describeError(error: unknown): string {
   if (error instanceof SquareCloudAPIError) {
@@ -20,6 +25,11 @@ export function describeError(error: unknown): string {
   }
   if (error instanceof Error) return error.message;
   return t("generic.error");
+}
+
+/** Same lookup as `describeError`, for codes that arrive without an Error. */
+export function describeCode(code: string): string {
+  return localize(code) ?? t("apiError.generic", { CODE: code });
 }
 
 function localize(code: string | undefined): string | undefined {

@@ -6,7 +6,16 @@ import { join } from "node:path";
 import { ExtensionID } from "../constants";
 
 const SECRET_KEY = `${ExtensionID}.api-key`;
+const ACCOUNT_KEY = `${ExtensionID}.api-key.account`;
 const LEGACY_PROPERTY = "api-key";
+
+/** Who the stored key belongs to, as returned by the authorize claim. */
+export interface ApiKeyAccount {
+  id: string;
+  email: string;
+  scopes?: string[];
+  expiresAt?: string;
+}
 
 /**
  * Stores the user's API key in VSCode's SecretStorage (OS keychain).
@@ -42,8 +51,24 @@ export class ApiKeyStore {
 
   async delete(): Promise<void> {
     await this.secrets.delete(SECRET_KEY);
+    await this.setAccount(undefined);
     this.cached = undefined;
     this.cacheLoaded = true;
+  }
+
+  async getAccount(): Promise<ApiKeyAccount | undefined> {
+    const raw = await this.secrets.get(ACCOUNT_KEY);
+    if (!raw) return undefined;
+    try {
+      return JSON.parse(raw) as ApiKeyAccount;
+    } catch {
+      return undefined;
+    }
+  }
+
+  async setAccount(account: ApiKeyAccount | undefined): Promise<void> {
+    if (!account) return void (await this.secrets.delete(ACCOUNT_KEY));
+    await this.secrets.store(ACCOUNT_KEY, JSON.stringify(account));
   }
 
   /**

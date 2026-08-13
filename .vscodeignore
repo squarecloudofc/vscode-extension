@@ -2,6 +2,7 @@
 node_modules
 out
 src
+scripts
 .github
 tsconfig.json
 esbuild.js
