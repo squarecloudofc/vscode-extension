@@ -2,6 +2,37 @@
 
 All notable changes to this project will be documented in this file.
 
+## Unreleased
+
+Sign-in without handing over the account's master key, and a sidebar that shows
+the account instead of four collapsible trees.
+
+### Added
+
+- **Connect account** — the extension now gets its own scoped authorization through `/v2/account/authorize`, valid for 90 days and revocable in the dashboard, instead of asking for a pasted API key. PKCE (S256) over a loopback redirect; the approval code is shown in the sidebar and copied to the clipboard, never carried in the URL.
+- **Authorization polling** — `claim` is polled at the interval the server hands back (±15% jitter, stops at `expires_in`). The loopback redirect only shortens the wait, so the flow also completes on Remote SSH and Codespaces, where `127.0.0.1` is not the same machine as the browser. `AUTHORIZATION_PENDING` is treated as the normal state; `INVALID_VERIFIER` and friends fail immediately rather than burning the grant's five attempts.
+- **Sign-in view** — a webview replacing the input box, with the approval code, a countdown driven by the grant's own `expires_in`, and a warning line for recoverable states (account at its authorization limit, rate limit) that keeps waiting instead of giving up.
+- **Dashboard view** — the four tree views are replaced by one webview: account header with plan and RAM meter, applications with live status and inline actions, databases, workspaces, and a service-status footer. Per-row overflow (or right-click) opens a grouped menu of the same commands as before.
+- **Disconnect account** — replaces "Set API key" in the signed-in toolbar; clears the stored authorization and everything fetched with it.
+- **Two self-checks** — `check-authorize` drives the real flow against a stub API and a live loopback hit; `check-strings` asserts every translation key used in the source and the manifest resolves in all three locales. Both run in `build`.
+
+### Fixes
+
+- **A failed refresh no longer looks like a pending one.** When `user.get()` was rejected the refresh returned without marking the load as finished, so every view sat on "Loading..." forever, silently. The state is now always settled and the failure is surfaced once.
+- **A network blip no longer deletes a working authorization.** The stored key was dropped on *any* failed check; only an actual rejection from the API drops it now. Pasting a bad key no longer deletes the one already stored either.
+- **`APIKEY_EXPIRED` triggers re-authorization** rather than reporting an invalid key.
+- **Lifecycle actions follow the status** at 600ms/1.8s/4s and stop as soon as it flips, instead of a single fixed refresh seven seconds later.
+- **Impossible actions are no longer offered** — edge analytics only for applications with a domain, metrics only above 512 MB, and only the half of start/stop that applies.
+- **Favouriting works and is visible** — the star renders next to the application name; the sidebar previously never repainted on the change.
+- **Commit, Snapshot and Unfavorite had wrong or untranslated titles** in the manifest (`Unfavorite` read "Favorite"; the first two were hardcoded English with no key at all).
+- One refresh writes six store slices, which used to cause six full repaints in a row; they now collapse into one frame.
+
+### Changes
+
+- The API client is no longer validated on every call — a full `user.get()` ran per client fetch, doubling every poll and every command's request count.
+- The API key lives in `SecretStorage` alongside the account it belongs to, so a different account can be detected and confirmed before overwriting.
+- Dev dependencies bumped: Biome 2.5.8, esbuild 0.28.2, `@types/node` 26.2.0, concurrently 10.0.4, ovsx 1.1.1. `@types/vscode` stays at 1.120 to match `engines.vscode`.
+
 ## 5.1.1
 
 ### Fixes
