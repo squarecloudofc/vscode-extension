@@ -43,6 +43,7 @@ the account instead of four collapsible trees.
 - **Minimum VSCode is now 1.125** (was 1.120). `@types/vscode` and `engines.vscode` moved together — they have to, or the build would accept APIs the declared minimum does not ship. Editors older than 1.125 stay on 5.1.1 and stop receiving updates.
 - Biome 2.5.8, esbuild 0.28.2, `@types/node` 26.2.0, concurrently 10.0.4, ovsx 1.1.1.
 - CI: `actions/setup-node` 6 → 7.
+- Security floors raised for the packaging toolchain — brace-expansion, fast-uri, js-yaml, linkify-it and undici all had published fixes. `pnpm audit` is clean; none of these ever shipped in the `.vsix`.
 
 ## 5.1.1
 

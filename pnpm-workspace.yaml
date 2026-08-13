@@ -5,10 +5,17 @@ minimumReleaseAgeExclude:
   - '@squarecloud/api'
 
 # Security floors for vulnerable transitive dev deps (Dependabot alerts).
+# Everything here comes in under @vscode/vsce — packaging tooling, never
+# shipped in the .vsix — but each one has a published fix, so there is no
+# reason to sit on it. Raise the floor when `pnpm audit` names a new one.
 overrides:
-  'undici@7': '^7.28.0'
+  'undici@7': '^7.29.0'
   'form-data@4': '^4.0.6'
-  'js-yaml@4': '^4.2.0'
+  'js-yaml@4': '^4.3.1'
+  'brace-expansion@1': '^1.1.18'
+  'brace-expansion@5': '^5.0.9'
+  'fast-uri@3': '^3.1.5'
+  'linkify-it@5': '^5.0.2'
 
 onlyBuiltDependencies:
   - '@biomejs/biome'
