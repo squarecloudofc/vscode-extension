@@ -308,7 +308,7 @@ The extension is built to stay inside the platform's request budgets, and to deg
 
 ## Requirements
 
-- **VSCode 1.120** or newer.
+- **VSCode 1.125** or newer.
 - **A Square Cloud account.**
 - Some features (databases, workspaces, edge analytics, GitHub App linkage, snapshots listing) require a paid plan — the extension shows a clear, localized message when your plan doesn't allow an action.
 
