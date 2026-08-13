@@ -45,7 +45,7 @@
   "main": "./dist/extension.js",
   "scripts": {
     "lint": "biome check --write .",
-    "build": "pnpm run check-types && pnpm run check-strings && node esbuild.js --production",
+    "build": "pnpm run check-types && pnpm run check-strings && pnpm run check-realtime && node esbuild.js --production",
     "check-types": "tsc --noEmit",
     "check-authorize": "node scripts/check-authorize.mjs",
     "watch": "concurrently --raw \"pnpm:watch:*\"",
@@ -55,7 +55,8 @@
     "publish:vsce": "vsce publish --allow-star-activation --no-dependencies",
     "publish:ovsx": "ovsx publish --no-dependencies",
     "package": "vsce package --allow-star-activation --no-dependencies",
-    "check-strings": "node scripts/check-strings.mjs"
+    "check-strings": "node scripts/check-strings.mjs",
+    "check-realtime": "node scripts/check-realtime.mjs"
   },
   "dependencies": {
     "@squarecloud/api": "^5.0.0",

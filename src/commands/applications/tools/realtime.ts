@@ -37,17 +37,56 @@ async function openStream(
   return response.body;
 }
 
-function appendSseChunk(channel: OutputChannel, chunk: string) {
-  // SSE events are separated by blank lines. Each line starting with `data: `
-  // carries the payload; strip the prefix and log the rest verbatim.
+/**
+ * Frames worth printing in a console. The stream also carries `status`
+ * (cpu/ram/netIO, several times a second) and `system` protocol signals — the
+ * former buries the output it is mixed into, and the latter is already
+ * narrated by the markers this command writes itself.
+ */
+const PRINTED_EVENTS = new Set(["logs", "error"]);
+
+/**
+ * Pulls the printable lines out of a raw SSE chunk.
+ *
+ * Wire format is `event: <name>` followed by one or more `data:` lines, blocks
+ * separated by a blank line. Log payloads carry a stream-id byte up front:
+ * `\x01` for stdout, `\x02` for stderr.
+ *
+ * Exported for `scripts/check-realtime.mjs`.
+ */
+export function extractPrintableLines(chunk: string): string[] {
+  const lines: string[] = [];
+
   for (const block of chunk.split(/\r?\n\r?\n/)) {
-    const dataLines = block
-      .split(/\r?\n/)
-      .filter((l) => l.startsWith("data:"))
-      .map((l) => l.slice(5).trimStart());
-    if (dataLines.length === 0) continue;
-    channel.appendLine(dataLines.join("\n"));
+    const blockLines = block.split(/\r?\n/);
+
+    const event = blockLines
+      .find((line) => line.startsWith("event:"))
+      ?.slice(6)
+      .trim();
+
+    if (!event || !PRINTED_EVENTS.has(event)) continue;
+
+    const data = blockLines
+      .filter((line) => line.startsWith("data:"))
+      // SSE strips exactly one leading space, not all of it — a log console
+      // has to keep the indentation of stack traces.
+      .map((line) => stripStreamId(line.slice(5).replace(/^ /, "")));
+
+    if (data.length === 0) continue;
+    lines.push(data.join("\n"));
   }
+
+  return lines;
+}
+
+function stripStreamId(line: string): string {
+  const first = line.charCodeAt(0);
+  return first === 1 || first === 2 ? line.slice(1) : line;
+}
+
+function appendSseChunk(channel: OutputChannel, chunk: string) {
+  for (const line of extractPrintableLines(chunk)) channel.appendLine(line);
 }
 
 /** Reads the SSE stream to completion. Resolves when the server closes it. */

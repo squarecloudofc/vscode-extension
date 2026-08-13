@@ -14,7 +14,7 @@ the account instead of four collapsible trees.
 - **Sign-in view** — a webview replacing the input box, with the approval code, a countdown driven by the grant's own `expires_in`, and a warning line for recoverable states (account at its authorization limit, rate limit) that keeps waiting instead of giving up.
 - **Dashboard view** — the four tree views are replaced by one webview: account header with plan and RAM meter, applications with live status and inline actions, databases, workspaces, and a service-status footer. Per-row overflow (or right-click) opens a grouped menu of the same commands as before.
 - **Disconnect account** — replaces "Set API key" in the signed-in toolbar; clears the stored authorization and everything fetched with it.
-- **Two self-checks** — `check-authorize` drives the real flow against a stub API and a live loopback hit; `check-strings` asserts every translation key used in the source and the manifest resolves in all three locales. Both run in `build`.
+- **Three self-checks** — `check-authorize` drives the real flow against a stub API and a live loopback hit; `check-strings` asserts every translation key used in the source and the manifest resolves in all three locales; `check-realtime` runs the documented SSE wire format through the console parser. All run in `build`.
 
 ### Fixes
 
@@ -24,6 +24,7 @@ the account instead of four collapsible trees.
 - **Lifecycle actions follow the status** at 600ms/1.8s/4s and stop as soon as it flips, instead of a single fixed refresh seven seconds later.
 - **Impossible actions are no longer offered** — edge analytics only for applications with a domain, metrics only above 512 MB, and only the half of start/stop that applies.
 - **Favouriting works and is visible** — the star renders next to the application name; the sidebar previously never repainted on the change.
+- **The realtime console shows output again.** The stream carries `status` frames (cpu/ram/netIO, several times a second) alongside `logs`, and the SSE `event:` name was being ignored — every frame was printed, so metrics buried the application's own output. Only `logs` and `error` are printed now, the stdout/stderr prefix byte is stripped, and exactly one space is removed after `data:` so indented stack traces keep their shape.
 - **Commit, Snapshot and Unfavorite had wrong or untranslated titles** in the manifest (`Unfavorite` read "Favorite"; the first two were hardcoded English with no key at all).
 - One refresh writes six store slices, which used to cause six full repaints in a row; they now collapse into one frame.
 
