@@ -52,11 +52,13 @@
 ## Getting started
 
 1. Install **Square Cloud** from the [VS Marketplace](https://marketplace.visualstudio.com/items?itemName=squarecloud.squarecloud) or [Open VSX](https://open-vsx.org/extension/squarecloud/squarecloud).
-2. Grab your API key from the [Square Cloud dashboard](https://squarecloud.app/account/security) (**Account → Security → API/CLI**).
-3. Click the **Square Cloud** icon in the activity bar and choose **Set API key** — or run `Square Cloud: Set new API key` from the command palette (`Ctrl+Shift+P` / `Cmd+Shift+P`).
-4. The key is validated immediately. Once accepted, your applications, databases and workspaces load into the side bar.
+2. Click the **Square Cloud** icon in the activity bar and press **Connect account** — or run `Square Cloud: Connect account` from the command palette (`Ctrl+Shift+P` / `Cmd+Shift+P`).
+3. Approve it in the browser. The side bar shows an eight-character code and copies it to your clipboard; the approval page asks for it. **Only approve if the code on the page matches the one in your editor** — that check is what stops someone else's approval from linking your editor to their account.
+4. Done. The side bar confirms which account you connected as, then loads your applications, databases and workspaces.
 
-Your key is stored in the OS keychain via VSCode's `SecretStorage` — never written to disk in plaintext. If you used a previous version with the legacy `auth.json` file, it's migrated automatically on first run.
+The extension gets an authorization of its own — scoped to what it actually uses, valid for **90 days**, and revocable at any time under **Account → Security** in the dashboard. You never paste your account's master key.
+
+If you'd rather use a token created by hand in the dashboard (a machine without a browser, for instance), **Other ways to sign in** takes it. Either way the secret is stored in the OS keychain via VSCode's `SecretStorage` — never written to disk in plaintext. If you used a previous version with the legacy `auth.json` file, it's migrated automatically on first run.
 
 ---
 
@@ -96,11 +98,13 @@ If everything in the folder ends up ignored, the upload aborts with an explicit 
 
 ## Managing applications
 
-The **Applications** view lists every app on your account with live online/offline icons. Expanding a running application reveals CPU, RAM, storage, network and uptime details. Right-click for the full action menu; the most-used actions (refresh, logs, favorite) are inline icons.
+The side bar lists every app on your account with a live status dot and its current CPU and RAM. Click a row to expand its ID, memory, runtime, cluster, domain and uptime. Hovering a row reveals start/stop, restart and logs; the star marks a favourite and pins it to the top. **Right-click a row — or use its ⋯ button — for the full action menu**, grouped by purpose, with destructive actions kept apart at the bottom.
+
+Actions the extension can already tell will fail are not offered at all: edge analytics only appear for applications that serve a domain, and metrics only above 512 MB.
 
 ### Lifecycle & status
 
-**Start**, **Stop** and **Restart** from the context menu. After each action the extension waits a few seconds for the platform to settle, then re-fetches the app status — no manual refreshing needed. Statuses for all apps are polled in the background (see [Activation & performance](#activation--performance)).
+**Start**, **Stop** and **Restart** from the row itself or the action menu. After each action the extension follows the status until it actually changes — checking at 600ms, 1.8s and 4s, and stopping as soon as it flips — so a stopped application reads as stopped almost immediately. Statuses for all apps are polled in the background (see [Activation & performance](#activation--performance)).
 
 ### Logs
 
@@ -112,6 +116,7 @@ The **Applications** view lists every app on your account with live online/offli
 
 - The platform allows up to **5 concurrent streams** per account. When the cap is reached, the refusal is surfaced as a clear message instead of a silent failure.
 - Server-side, each connection lives about 10 minutes. When that TTL closes the stream, the extension **reconnects automatically** after a short pause — you'll see a `[Reconnecting...]` marker in the channel. Stopping the stream yourself never reconnects, and streams that are refused or die immediately are not retried in a loop.
+- The stream multiplexes log lines with resource metrics (cpu, ram, network, several frames a second). Only your application's own output is printed — the metrics are filtered out so they don't bury it.
 - All streams are cleanly closed when the extension shuts down.
 
 ### Metrics
@@ -149,11 +154,11 @@ Non-website applications get a friendly "no domain" message instead of an API er
 
 ## Databases
 
-The **Databases** view lists your managed databases with engine, port, cluster and creation date. Available actions:
+The **Databases** section lists your managed databases with engine and memory. Right-click one, or use its ⋯ button, for:
 
 - **Create database** — guided flow: name → engine (**MongoDB**, **MySQL**, **Redis**, **PostgreSQL**) → memory → version. The version picker suggests the versions currently accepted by the platform, with an **Other version...** escape hatch for typing any value.
 - **One-time credentials** — the connection URL (password embedded) is copied to your clipboard immediately after creation, and a **Copy password** button is offered — these credentials are shown **only once** by the platform and cannot be retrieved later.
-- **Start / Stop** — lifecycle control from the context menu.
+- **Start / Stop** — lifecycle control from the action menu.
 - **Download TLS certificate** — saves the bundle as `.pem` (raw), plus split `.crt` and `.key` files when present.
 - **Delete** — requires typing the database name to confirm.
 
@@ -163,7 +168,7 @@ Databases require a paid plan; the extension surfaces a clear upgrade message if
 
 ## Workspaces
 
-The **Workspaces** view shows every workspace you own or joined, with owner, creation date, members (and their roles) and shared applications inline.
+The **Workspaces** section shows every workspace you own or joined, with its member and application counts. Right-click one, or use its ⋯ button, for:
 
 - **Create workspace** — name prompt with validation.
 - **Generate invite code** — copies a 5-minute invite code to your clipboard.
@@ -174,8 +179,8 @@ The **Workspaces** view shows every workspace you own or joined, with owner, cre
 
 ## Service status & status bar
 
-- A **status bar item** shows at a glance: whether an API key is set, how many applications are online vs total, and a warning when Square Cloud reports degraded service health. Click it to force a refresh.
-- `Square Cloud: Show service status` fetches the current platform health with a one-click link to the [status page](https://status.squarecloud.app/).
+- Platform health sits in the **footer of the side bar**, always visible — green when everything is operational. Click it for the detail and a one-click link to the [status page](https://status.squarecloud.app/).
+- A **status bar item** shows at a glance: whether an account is connected, how many applications are online vs total, and a warning when Square Cloud reports degraded service health. Click it to force a refresh.
 
 ---
 
@@ -221,14 +226,15 @@ Palette commands (prefix **Square Cloud:**):
 
 | Command | ID | Where |
 |---|---|---|
-| Set new API key | `squarecloud.setApiKey` | Command palette, view title menus |
-| Upload new application | `squarecloud.uploadApplication` | Command palette, Applications view title bar |
-| Show service status | `squarecloud.showServiceStatus` | Command palette, view title menus |
-| Create workspace | `squarecloud.createWorkspace` | Command palette, Workspaces view title bar |
-| Generate workspace invite code | `squarecloud.generateInviteCode` | Command palette, Workspaces view title bar |
-| Create database | `squarecloud.createDatabase` | Command palette, Databases view title bar |
+| Connect account | `squarecloud.setApiKey` | Command palette, sign-in view |
+| Disconnect account | `squarecloud.logout` | Command palette, side bar title menu |
+| Upload new application | `squarecloud.uploadApplication` | Command palette, side bar title bar |
+| Show service status | `squarecloud.showServiceStatus` | Command palette, side bar footer |
+| Create workspace | `squarecloud.createWorkspace` | Command palette, side bar title menu |
+| Generate workspace invite code | `squarecloud.generateInviteCode` | Command palette, workspace action menu |
+| Create database | `squarecloud.createDatabase` | Command palette, side bar title menu |
 
-Context-menu actions on an **application**:
+Action-menu entries on an **application** (right-click or ⋯):
 
 | Group | Actions |
 |---|---|
@@ -252,7 +258,7 @@ Favorited applications also appear in a compact **Square Cloud** view inside the
 
 | Setting | Default | Description |
 |---|---|---|
-| `squarecloud.favApps` | `[]` | List of favourited application IDs. Managed by the favorite/unfavorite tree-item actions — usually you don't edit this by hand. |
+| `squarecloud.favApps` | `[]` | List of favourited application IDs. Managed by the star on each application row — usually you don't edit this by hand. |
 
 ---
 
@@ -267,7 +273,7 @@ Available in **English**, **Português (Brasil)** and **Español** — every com
 The extension activates lazily, only when one of the following is true:
 
 - A `squarecloud.app` or `squarecloud.config` file exists in the workspace.
-- You open one of the Square Cloud tree views, run a Square Cloud command, or edit a Square Cloud config file.
+- You open the Square Cloud side bar, run a Square Cloud command, or edit a Square Cloud config file.
 
 Until then there is zero background activity — no startup overhead for unrelated VSCode windows.
 
@@ -292,7 +298,9 @@ The extension is built to stay inside the platform's request budgets, and to deg
 
 ## Security & privacy
 
-- The API key lives in VSCode `SecretStorage`, which delegates to the OS keychain (Windows Credential Manager, macOS Keychain, libsecret). It is never written to settings, globalState or disk.
+- Connecting grants the extension an authorization scoped to what it actually calls, valid for 90 days and revocable in the dashboard — your account's master key never enters the editor.
+- The approval code is shown in the editor and typed into the page; it never travels in a URL, so seeing the link is not enough to approve on your behalf.
+- The credential lives in VSCode `SecretStorage`, which delegates to the OS keychain (Windows Credential Manager, macOS Keychain, libsecret). It is never written to settings, globalState or disk.
 - Database credentials shown at creation are copied to your clipboard only at your request and never persisted by the extension.
 - The extension talks exclusively to `squarecloud.app` endpoints via the official [`@squarecloud/api`](https://github.com/squarecloudofc/sdk-api-js) SDK — no telemetry, no third-party services.
 
@@ -301,18 +309,21 @@ The extension is built to stay inside the platform's request budgets, and to deg
 ## Requirements
 
 - **VSCode 1.120** or newer.
-- **A Square Cloud account** with an API key.
+- **A Square Cloud account.**
 - Some features (databases, workspaces, edge analytics, GitHub App linkage, snapshots listing) require a paid plan — the extension shows a clear, localized message when your plan doesn't allow an action.
 
 ---
 
 ## Troubleshooting
 
-**Nothing shows up in the views.**
-Check that the API key is set (`Square Cloud: Set new API key`). The Applications view shows a welcome message with a set-key shortcut when no key is registered.
+**Nothing shows up in the side bar.**
+Check that an account is connected — with none, the side bar shows the sign-in screen instead of your applications. A failed refresh now reports the reason instead of leaving the panel loading.
 
-**"Your API key is invalid."**
-Keys are revocable; generate a fresh one in the [dashboard security page](https://squarecloud.app/account/security) and set it again.
+**"Your authorization expired."**
+Authorizations last 90 days and cannot be refreshed silently; run `Square Cloud: Connect account` again. You can revoke one at any time under **Account → Security** in the dashboard.
+
+**The approval page shows a different code than the editor.**
+Do not approve it. That mismatch means the page is completing someone else's request; close it and start over.
 
 **Upload fails with a missing config error.**
 The chosen folder needs a `squarecloud.app` or `squarecloud.config` at its root. The error toast links to the [config file documentation](https://docs.squarecloud.app/getting-started/config-file); the extension's IntelliSense will validate the file as you write it.

@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## Unreleased
+## 5.2.0
 
 Sign-in without handing over the account's master key, and a sidebar that shows
 the account instead of four collapsible trees.
@@ -31,8 +31,17 @@ the account instead of four collapsible trees.
 ### Changes
 
 - The API client is no longer validated on every call — a full `user.get()` ran per client fetch, doubling every poll and every command's request count.
-- The API key lives in `SecretStorage` alongside the account it belongs to, so a different account can be detected and confirmed before overwriting.
-- Dev dependencies bumped: Biome 2.5.8, esbuild 0.28.2, `@types/node` 26.2.0, concurrently 10.0.4, ovsx 1.1.1. `@types/vscode` stays at 1.120 to match `engines.vscode`.
+- The credential lives in `SecretStorage` alongside the account it belongs to, so an approval from a different account is detected and confirmed before it overwrites the current one.
+- `src/treeviews` and the `copyText` command are gone with the views that hosted them, along with the `favapp-view` contribution no provider ever registered.
+
+### Docs
+
+- README updated for the new sign-in and side bar: connecting an account and what the 90-day authorization covers, the code-matching check on the approval page, row actions and the grouped action menu, service health in the footer, and troubleshooting entries for an expired authorization and a mismatched approval code.
+
+### Dependencies
+
+- Biome 2.5.8, esbuild 0.28.2, `@types/node` 26.2.0, concurrently 10.0.4, ovsx 1.1.1.
+- `@types/vscode` intentionally kept at 1.120 to match `engines.vscode` — bumping it would raise the minimum supported VSCode version.
 
 ## 5.1.1
 
