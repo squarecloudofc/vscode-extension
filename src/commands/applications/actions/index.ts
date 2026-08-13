@@ -19,7 +19,9 @@ function lifecycleCommand(action: "start" | "stop" | "restart") {
         },
         async () => {
           await application[action]();
-          extension.api.scheduleStatusRefresh(application.id);
+          // Follow the state until it actually changes instead of guessing a
+          // single delay — a stopped app should read "stopped" right away.
+          void extension.api.trackStatusChange(application.id);
           window.showInformationMessage(t(`${action}.loaded`));
         },
       ),
