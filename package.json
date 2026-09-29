@@ -23,13 +23,17 @@
   ],
   "homepage": "https://github.com/squarecloudofc/vscode-extension/",
   "author": {
-    "name": "João Gabriel Tonaco",
-    "url": "https://github.com/joaotonaco/"
+    "name": "Square Cloud",
+    "url": "https://squarecloud.app"
   },
   "contributors": [
     {
       "name": "João Otávio Stivi",
-      "url": "https://github.com/JoaoOtavioS"
+      "url": "https://github.com/joaootavios"
+    },
+    {
+      "name": "João Gabriel Tonaco",
+      "url": "https://github.com/joaotonaco"
     }
   ],
   "sponsor": {
