@@ -8,8 +8,8 @@ Thanks for taking the time to contribute to the **Square Cloud** VSCode extensio
 
 | Tool | Version | Notes |
 |---|---|---|
-| Node.js | **≥ 20** | Matches `@squarecloud/api` v4 minimum. |
-| pnpm | **11.5.0** | Pinned via `packageManager` in `package.json`. If you have [Corepack](https://nodejs.org/api/corepack.html) enabled (default since Node 16), it activates the right version on first command — no global install needed. |
+| Node.js | **≥ 22** | Required by the publishing tools (`@vscode/vsce` 4, `ovsx` 1.2). CI runs Node 24. |
+| pnpm | **11.28.2** | Pinned via `packageManager` in `package.json`. If you have [Corepack](https://nodejs.org/api/corepack.html) enabled (default since Node 16), it activates the right version on first command, no global install needed. |
 | VSCode | **≥ 1.125** | Matches the extension's declared engine. |
 
 ---
@@ -22,9 +22,9 @@ cd vscode-extension
 pnpm install
 ```
 
-A first install also fetches build prerequisites flagged in `pnpm-workspace.yaml` (`esbuild`, `@biomejs/biome`, `@vscode/vsce-sign`, `keytar`). pnpm 11 may ask you to approve the build scripts with `pnpm approve-builds` — accept once and you're set.
+A first install also fetches build prerequisites flagged in `pnpm-workspace.yaml` (`esbuild`, `@biomejs/biome`, `@vscode/vsce-sign`, `keytar`). pnpm 11 may ask you to approve the build scripts with `pnpm approve-builds`; accept once and you're set.
 
-> **Tip — Windows:** if `corepack enable` fails with `EPERM` opening `C:\Program Files\nodejs\pnpm`, run the terminal as Administrator once. Corepack just needs to write its shim there.
+> **Tip for Windows:** if `corepack enable` fails with `EPERM` opening `C:\Program Files\nodejs\pnpm`, run the terminal as Administrator once. Corepack just needs to write its shim there.
 
 ---
 
@@ -33,7 +33,7 @@ A first install also fetches build prerequisites flagged in `pnpm-workspace.yaml
 1. Open the project in VSCode.
 2. Press **F5** (or run the *Run Extension* launch config).
 
-This automatically starts the `watch` task (`pnpm watch`) which runs `tsc --watch` and `esbuild --watch` in parallel, then launches a new VSCode window — the **Extension Development Host** — with the extension loaded.
+This automatically starts the `watch` task (`pnpm watch`) which runs `tsc --watch` and `esbuild --watch` in parallel, then launches a new VSCode window, the **Extension Development Host**, with the extension loaded.
 
 Code edits trigger a rebuild but **do not auto-reload** the host. After a change:
 - Reload the host window: `Ctrl+R` (`Cmd+R` on macOS).
@@ -41,7 +41,7 @@ Code edits trigger a rebuild but **do not auto-reload** the host. After a change
 
 ### Debugging
 
-Breakpoints in `.ts` files inside `src/` work directly thanks to source maps (`sourcemap: !production` in `esbuild.js`). The host process writes structured logs to `View → Output → Square Cloud` — that's the same place users see logs in production, so prefer the `Logger` utility (`src/structures/logger.ts`) over `console.log`.
+Breakpoints in `.ts` files inside `src/` work directly thanks to source maps (`sourcemap: !production` in `esbuild.js`). The host process writes structured logs to `View → Output → Square Cloud`. That's the same place users see logs in production, so prefer the `Logger` utility (`src/structures/logger.ts`) over `console.log`.
 
 ---
 
@@ -52,7 +52,7 @@ Breakpoints in `.ts` files inside `src/` work directly thanks to source maps (`s
 | `pnpm watch` | Run `tsc --watch` + `esbuild --watch` in parallel (used by F5). |
 | `pnpm check-types` | One-shot TypeScript check. |
 | `pnpm lint` | Run Biome with `--write` (formats and auto-fixes). Run before committing. |
-| `pnpm build` | Production build — type-check then bundle with esbuild. The CI gate. |
+| `pnpm build` | Production build: type-check, run the self-checks, then bundle with esbuild. The CI gate. |
 | `pnpm package` | Produce a `.vsix` you can side-load with `code --install-extension`. |
 | `pnpm publish:vsce` / `pnpm publish:ovsx` | Publish to the VS Marketplace / Open VSX. Maintainers only. |
 
@@ -64,7 +64,7 @@ Breakpoints in `.ts` files inside `src/` work directly thanks to source maps (`s
 src/
 ├── core/                 activate / deactivate entry points
 ├── managers/             long-lived stateful pieces (one per responsibility)
-│   ├── extension.ts      composition root — owns the disposable graph
+│   ├── extension.ts      composition root, owns the disposable graph
 │   ├── api.ts            SDK client cache, polling, refresh coalescing
 │   ├── commands.ts       registers Command/ApplicationCommand instances with VSCode
 │   ├── treeviews.ts      registers tree data providers + selective store subscriptions
@@ -80,7 +80,7 @@ src/
 └── types/                cross-cutting type aliases
 ```
 
-The single rule worth knowing: **every long-lived resource is a `Disposable` registered with `context.subscriptions`**. The extension class itself is one, and it composes children that are also disposable. `setInterval`s, output channels, SSE streams and event listeners all get cleaned up automatically when VSCode tears the extension down — no global module state survives reloads.
+The single rule worth knowing: **every long-lived resource is a `Disposable` registered with `context.subscriptions`**. The extension class itself is one, and it composes children that are also disposable. `setInterval`s, output channels, SSE streams and event listeners all get cleaned up automatically when VSCode tears the extension down, so no global module state survives reloads.
 
 ---
 
@@ -88,7 +88,7 @@ The single rule worth knowing: **every long-lived resource is a `Disposable` reg
 
 1. Create a file under `src/commands/...` matching the existing domain folders.
 2. Export a `Command` (palette command, takes `extension` only) or `ApplicationCommand` (right-click on an app tree item, takes `extension` + `treeItem`). Both wrap the handler with error logging + locale-safe error toasts via `describeError()`.
-3. Re-export from the relevant `index.ts`. `CommandsManager` discovers exports by `instanceof` — utilities re-exported from the same barrel are skipped automatically.
+3. Re-export from the relevant `index.ts`. `CommandsManager` discovers exports by `instanceof`, so utilities re-exported from the same barrel are skipped automatically.
 4. Add the command id + title to `package.json` `contributes.commands`, then wire it into `menus.commandPalette` (and `view/title` / `view/item/context` if applicable).
 5. Add the human label to all three locale files (`package.nls.json`, `package.nls.pt-br.json`, `package.nls.es.json`). Use `%command.foo%` placeholders in `package.json`.
 
@@ -101,21 +101,17 @@ The `squarecloud.app` / `squarecloud.config` IntelliSense is data-driven. To add
 1. Create `src/config-file/parameters/<FIELD>.ts` exporting a `ConfigFileParameter` `satisfies` object with `required`, optional `validation()` and optional `autocomplete()`.
 2. Register it in `src/config-file/parameters.ts`.
 3. If the field has a small known value set, add a branch to `src/providers/config-file/completion.ts` (autocomplete trigger) and `src/providers/config-file/action.ts` (quick-fix lightbulbs).
-4. Add diagnostic messages to all three `package.nls.*.json` under `configFile.error.*`.
+4. Add diagnostic messages to every `package.nls*.json` under `configFile.error.*`.
 
-For required-when-X dependencies, return a function from `required` — e.g. `MAIN` is `(keys) => !keys.has("START")`.
+For required-when-X dependencies, return a function from `required`, e.g. `MAIN` is `(keys) => !keys.has("START")`.
 
 ---
 
 ## Localisation
 
-Three locales ship in the repo: `en` (default — `package.nls.json`), `pt-br` and `es`. Run the script below to confirm key parity after edits:
+Eight locales ship in the repo, the languages of the Square Cloud website: `en` (default, `package.nls.json`), `pt-br`, `es`, `de`, `fr`, `it`, `ja` and `zh-cn`. VS Code loads a locale's file instead of English, not on top of it, so every file must carry every key. `pnpm check-strings` (part of `pnpm build`) fails on a missing, extra or unused key, or on placeholders that differ from English.
 
-```bash
-node -e "const f=p=>{const o=require(p);const out=[];const walk=(o,p='')=>{for(const k in o){const v=o[k];const key=p?p+'.'+k:k;if(v&&typeof v==='object'&&!Array.isArray(v))walk(v,key);else out.push(key);}};walk(o);return out;};const e=f('./package.nls.json'),p=f('./package.nls.pt-br.json'),s=f('./package.nls.es.json');console.log('en',e.length,'ptbr-diff',e.filter(k=>!p.includes(k)).concat(p.filter(k=>!e.includes(k))),'es-diff',e.filter(k=>!s.includes(k)).concat(s.filter(k=>!e.includes(k))));"
-```
-
-In TypeScript, prefer `t("scope.key")` over inlining strings. Do **not** compare against translated text (`if (label === t("..."))`) — use tagged `MessageItem.id` instead. The helpers in `src/lib/utils/dialogs.ts` (`confirm()`, `pickOne()`) already do this for yes/no and QuickPick choices.
+In TypeScript, prefer `t("scope.key")` over inlining strings. Do **not** compare against translated text (`if (label === t("..."))`); use tagged `MessageItem.id` instead. The helpers in `src/lib/utils/dialogs.ts` (`confirm()`, `pickOne()`) already do this for yes/no and QuickPick choices.
 
 ---
 
@@ -171,14 +167,14 @@ Add an entry to `CHANGELOG.md` under the next version heading **as part of the s
 - Bug fix.
 ```
 
-Drop sections you don't need. Keep entries one line each — details belong in the PR body or commit message.
+Drop sections you don't need. Keep entries one line each; details belong in the PR body or commit message.
 
 ---
 
 ## Pull requests
 
 1. Branch from `main`.
-2. Run `pnpm build` locally — both `tsc --noEmit` and `esbuild --production` must pass.
+2. Run `pnpm build` locally: the type check, the self-checks and the production bundle must all pass.
 3. If you touched the UI, smoke-test in the Extension Development Host (F5). Mention in the PR which flows you exercised.
 4. Update `CHANGELOG.md`.
 5. Open the PR against `main` with a short description + screenshot/GIF when the change is visual.

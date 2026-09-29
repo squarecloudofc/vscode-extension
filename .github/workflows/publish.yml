@@ -27,6 +27,8 @@ jobs:
 
       - uses: actions/setup-node@v7
         with:
+          # @vscode/vsce 4 and ovsx 1.2 need Node 22 or later.
+          node-version: 24
           cache: "pnpm"
 
       - name: Install Dependencies

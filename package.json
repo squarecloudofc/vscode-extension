@@ -12,7 +12,7 @@
     "color": "#030405",
     "theme": "dark"
   },
-  "packageManager": "pnpm@11.5.0",
+  "packageManager": "pnpm@11.28.2",
   "keywords": [
     "squarecloud",
     "square cloud",
@@ -67,7 +67,7 @@
   "dependencies": {
     "@squarecloud/api": "^6.0.0",
     "ignore": "^7.0.10",
-    "jszip": "^3.10.1",
+    "jszip": "^3.10.2",
     "vscode-ext-localisation": "^1.1.0",
     "xoid": "^1.0.1"
   },
@@ -75,10 +75,10 @@
     "@biomejs/biome": "^2.5.14",
     "@types/node": "^26.6.3",
     "@types/vscode": "^1.125.0",
-    "@vscode/vsce": "^3.9.2",
+    "@vscode/vsce": "^4.0.0",
     "concurrently": "^10.0.5",
     "esbuild": "^0.28.2",
-    "ovsx": "^1.1.1",
+    "ovsx": "^1.2.0",
     "typescript": "^7.0.2"
   },
   "contributes": {
