@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file.
 
+## 5.3.1
+
+### Changes
+
+- **Ignore rules follow git more closely.** A `\` makes the next character literal (`\#notes.txt`, `\*`), and only trailing spaces are trimmed from a rule, never tabs. The Square Cloud CLI matches the same way.
+- **Square Cloud is the author.** The Marketplace listing names Square Cloud as the author, with João Otávio Stivi and João Gabriel Tonaco as contributors.
+
+### Docs
+
+- CONTRIBUTING lists the eight locales and `pnpm check-strings` instead of a script that compared only three, and the current Node.js and pnpm versions.
+
+### Dependencies
+
+- `jszip` 3.10.2 and `ignore` 7.0.10 in the extension itself.
+- Biome 2.5.14, `@types/node` 26.6.3, concurrently 10.0.5, `@vscode/vsce` 4.0.0, ovsx 1.2.0 and pnpm 11.28.2 for development. `@types/vscode` stays at 1.125 to match the minimum VS Code.
+- Security floors raised for `undici`, `js-yaml`, `fast-uri` and `qs` (publishing tools only, never shipped in the `.vsix`); `pnpm audit` reports nothing.
+- CI runs on Node 24, since `@vscode/vsce` 4 and ovsx 1.2 need Node 22 or later. A failed registry no longer cancels the other one mid-publish, and a publish can be retried from the Actions tab.
+
 ## 5.3.0
 
 ### Added
