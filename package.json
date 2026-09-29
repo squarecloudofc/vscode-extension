@@ -78,7 +78,7 @@
     "@vscode/vsce": "^3.9.2",
     "concurrently": "^10.0.5",
     "esbuild": "^0.28.2",
-    "ovsx": "^1.1.1",
+    "ovsx": "^1.2.0",
     "typescript": "^7.0.2"
   },
   "contributes": {
