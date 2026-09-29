@@ -4,6 +4,8 @@ on:
   push:
     tags:
       - "v*"
+  # Retry a registry that failed without tagging again.
+  workflow_dispatch:
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
@@ -12,6 +14,8 @@ jobs:
     name: Publish
     runs-on: ubuntu-latest
     strategy:
+      # One registry failing must not cancel the other mid-publish.
+      fail-fast: false
       matrix:
         registry: ["vsce", "ovsx"]
     steps:
@@ -32,4 +36,5 @@ jobs:
         env:
           VSCE_PAT: ${{ secrets.VSCODE_PERSONAL_TOKEN }}
           OVSX_PAT: ${{ secrets.ECLIPSE_PERSONAL_TOKEN }}
-        run: pnpm run publish:${{ matrix.registry }}
+        # A rerun skips the registry that already has this version.
+        run: pnpm run publish:${{ matrix.registry }} --skip-duplicate
