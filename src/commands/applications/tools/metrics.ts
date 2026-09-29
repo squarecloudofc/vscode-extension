@@ -3,18 +3,28 @@ import { t } from "vscode-ext-localisation";
 
 import { formatBytes } from "@/lib/utils/format";
 import { getOutputChannel } from "@/lib/utils/output-channels";
-import { ApplicationCommand } from "@/structures/application/command";
+import {
+  ApplicationCommand,
+  hasMetrics,
+} from "@/structures/application/command";
+
+/** Metric points carry RAM in MB (network stays in bytes). */
+const MB = 1024 * 1024;
 
 export const metricsEntry = new ApplicationCommand(
   "metricsEntry",
-  (extension, { application }) =>
+  (extension, { application }, api) =>
     window.withProgress(
       {
         location: ProgressLocation.Notification,
         title: t("metrics.loading"),
       },
       async (progress) => {
-        const metrics = await application.getMetrics().catch(() => null);
+        // The API sends newest first; the table reads top-down in time.
+        const metrics = await api.apps
+          .metrics(application.id)
+          .then((points) => points.reverse())
+          .catch(() => null);
         progress.report({ increment: 100, message: ` ${t("generic.done")}` });
 
         if (!metrics || metrics.length === 0) {
@@ -25,21 +35,21 @@ export const metricsEntry = new ApplicationCommand(
         const channel = getOutputChannel(
           extension.context.subscriptions,
           `metrics:${application.id}`,
-          `Square Cloud Metrics (${application.name})`,
+          t("metrics.channel", { NAME: application.name }),
         );
         channel.clear();
+        channel.appendLine(t("metrics.header"));
+        // Timestamps are ISO in UTC, so the column says UTC; CPU, RAM and NET
+        // read the same in every language and keep the table aligned.
         channel.appendLine(
-          `Square Cloud — last 24h metrics (${metrics.length} samples, every 5min)`,
-        );
-        channel.appendLine(
-          "timestamp                  cpu      ram         net(in+out)",
+          `${"UTC".padEnd(24)}  ${"CPU".padStart(6)}  ${"RAM".padStart(10)}  NET`,
         );
         channel.appendLine("─".repeat(72));
 
         for (const point of metrics) {
           const ts = new Date(point.date).toISOString();
           const cpu = `${point.cpu.toFixed(1)}%`.padStart(6);
-          const ram = formatBytes(point.ram).padStart(10);
+          const ram = formatBytes(point.ram * MB).padStart(10);
           const net = point.net.reduce((a, b) => a + b, 0);
           channel.appendLine(`${ts}  ${cpu}  ${ram}  ${formatBytes(net)}`);
         }
@@ -51,13 +61,20 @@ export const metricsEntry = new ApplicationCommand(
           metrics.reduce((sum, p) => sum + p.ram, 0) / metrics.length;
         channel.appendLine("─".repeat(72));
         channel.appendLine(
-          `current  cpu=${last.cpu.toFixed(1)}%  ram=${formatBytes(last.ram)}`,
+          t("metrics.latest", {
+            CPU: `${last.cpu.toFixed(1)}%`,
+            RAM: formatBytes(last.ram * MB),
+          }),
         );
         channel.appendLine(
-          `24h avg  cpu=${avgCpu.toFixed(1)}%  ram=${formatBytes(avgRam)}`,
+          t("metrics.average", {
+            CPU: `${avgCpu.toFixed(1)}%`,
+            RAM: formatBytes(avgRam * MB),
+          }),
         );
 
         channel.show();
       },
     ),
+  { accepts: hasMetrics, empty: () => t("apps.noneMetrics") },
 );

@@ -1,5 +1,5 @@
-import { type BaseApplication, SquareCloudAPIError } from "@squarecloud/api";
-import { type OutputChannel, window } from "vscode";
+import type { RealtimeEvent } from "@squarecloud/api";
+import { window } from "vscode";
 import { t } from "vscode-ext-localisation";
 
 import { describeError } from "@/lib/utils/errors";
@@ -17,111 +17,26 @@ const MIN_HEALTHY_STREAM_MS = 5_000;
 
 const sessions = new Map<string, AbortController>();
 
-/**
- * Opens the SSE stream. The SDK's `realtime()` is a raw `fetch` that resolves
- * on HTTP errors too, so we check `ok` ourselves and surface the API error
- * code (e.g. REALTIME_MAX_CONNECTIONS) through the shared error map.
- */
-async function openStream(
-  application: BaseApplication,
-): Promise<ReadableStream<Uint8Array>> {
-  const response = await application.realtime();
-  if (!response.ok) {
-    const code = await response
-      .json()
-      .then((data) => data?.code)
-      .catch(() => undefined);
-    throw new SquareCloudAPIError(code ?? `UNKNOWN_ERROR_${response.status}`);
-  }
-  if (!response.body) throw new SquareCloudAPIError("EMPTY_RESPONSE");
-  return response.body;
-}
+type EventStream = AsyncGenerator<RealtimeEvent, void, undefined>;
 
 /**
- * Frames worth printing in a console. The stream also carries `status`
+ * What a console prints of one event. The stream also carries `status`
  * (cpu/ram/netIO, several times a second) and `system` protocol signals — the
  * former buries the output it is mixed into, and the latter is already
- * narrated by the markers this command writes itself.
- */
-const PRINTED_EVENTS = new Set(["logs", "error"]);
-
-/**
- * Pulls the printable lines out of a raw SSE chunk.
- *
- * Wire format is `event: <name>` followed by one or more `data:` lines, blocks
- * separated by a blank line. Log payloads carry a stream-id byte up front:
- * `\x01` for stdout, `\x02` for stderr.
+ * narrated by the markers this command writes itself. The SDK has already
+ * split the SSE frames and stripped the stdout/stderr prefix byte.
  *
  * Exported for `scripts/check-realtime.mjs`.
  */
-export function extractPrintableLines(chunk: string): string[] {
-  const lines: string[] = [];
-
-  for (const block of chunk.split(/\r?\n\r?\n/)) {
-    const blockLines = block.split(/\r?\n/);
-
-    const event = blockLines
-      .find((line) => line.startsWith("event:"))
-      ?.slice(6)
-      .trim();
-
-    if (!event || !PRINTED_EVENTS.has(event)) continue;
-
-    const data = blockLines
-      .filter((line) => line.startsWith("data:"))
-      // SSE strips exactly one leading space, not all of it — a log console
-      // has to keep the indentation of stack traces.
-      .map((line) => stripStreamId(line.slice(5).replace(/^ /, "")));
-
-    if (data.length === 0) continue;
-    lines.push(data.join("\n"));
-  }
-
-  return lines;
-}
-
-function stripStreamId(line: string): string {
-  const first = line.charCodeAt(0);
-  return first === 1 || first === 2 ? line.slice(1) : line;
-}
-
-function appendSseChunk(channel: OutputChannel, chunk: string) {
-  for (const line of extractPrintableLines(chunk)) channel.appendLine(line);
-}
-
-/** Reads the SSE stream to completion. Resolves when the server closes it. */
-async function pumpStream(
-  body: ReadableStream<Uint8Array>,
-  channel: OutputChannel,
-  signal: AbortSignal,
-): Promise<void> {
-  const reader = body.getReader();
-  const decoder = new TextDecoder();
-  let buffer = "";
-
-  const onAbort = () => void reader.cancel().catch(() => {});
-  signal.addEventListener("abort", onAbort);
-
-  try {
-    while (true) {
-      const { value, done } = await reader.read();
-      if (done) break;
-      buffer += decoder.decode(value, { stream: true });
-      const splitAt = buffer.lastIndexOf("\n\n");
-      if (splitAt !== -1) {
-        appendSseChunk(channel, buffer.slice(0, splitAt));
-        buffer = buffer.slice(splitAt + 2);
-      }
-    }
-    if (buffer) appendSseChunk(channel, buffer);
-  } finally {
-    signal.removeEventListener("abort", onAbort);
-  }
+export function printableLine(event: RealtimeEvent): string | undefined {
+  if (event.event === "logs") return event.line;
+  if (event.event === "error") return event.data;
+  return undefined;
 }
 
 export const realtimeEntry = new ApplicationCommand(
   "realtimeEntry",
-  async (extension, { application }) => {
+  async (extension, { application }, api) => {
     const existing = sessions.get(application.id);
     if (existing) {
       existing.abort();
@@ -134,6 +49,7 @@ export const realtimeEntry = new ApplicationCommand(
     // during the await toggles this session off instead of racing a duplicate
     // stream into the same map entry.
     const controller = new AbortController();
+    const { signal } = controller;
     sessions.set(application.id, controller);
     // The map entry may already belong to a newer session by the time this
     // runs (toggle-stop deletes eagerly) — only remove what we own.
@@ -143,17 +59,23 @@ export const realtimeEntry = new ApplicationCommand(
       }
     };
 
-    let initialBody: ReadableStream<Uint8Array>;
+    const open = (): EventStream =>
+      api.apps.realtime(application.id, { signal });
+
+    // The request goes out on the first `next()`: a refusal
+    // (REALTIME_MAX_CONNECTIONS, a stopped app...) throws here, before any
+    // console opens, and the command reports it.
+    let stream = open();
+    let first: IteratorResult<RealtimeEvent, void>;
     try {
-      initialBody = await openStream(application);
+      first = await stream.next();
     } catch (error) {
       releaseSlot();
       throw error;
     }
-    if (controller.signal.aborted) {
-      // Stopped (toggled) while the fetch was in flight — don't leak the
-      // freshly opened connection.
-      void initialBody.cancel().catch(() => {});
+    // Stopped (toggled) while the request was in flight: the SDK already
+    // closed the connection on abort.
+    if (signal.aborted) {
       releaseSlot();
       return;
     }
@@ -167,23 +89,32 @@ export const realtimeEntry = new ApplicationCommand(
     channel.show();
     channel.appendLine(`[${t("realtime.started")}]`);
 
+    const print = (event: RealtimeEvent) => {
+      const line = printableLine(event);
+      if (line !== undefined) channel.appendLine(line);
+    };
+
     // The global `sessions` map is drained on extension dispose via
     // `disposeAllRealtimeSessions()` from `core/deactivate.ts`. We deliberately
     // do NOT push a per-call disposable into `context.subscriptions` — repeated
     // start/stops were accumulating no-op entries that lived for the whole
     // extension lifetime.
     //
-    // Server-side each connection lives ~10 minutes; when the stream closes
-    // without a user abort we reconnect after a short delay so the session
-    // survives the TTL transparently.
+    // The SDK reconnects dropped connections itself; a clean close is the
+    // server's ~10-minute TTL, so we open a new stream after a short delay and
+    // the session survives it transparently.
     void (async () => {
-      let body: ReadableStream<Uint8Array> | null = initialBody;
       try {
-        while (body) {
+        for (;;) {
           const startedAt = Date.now();
-          await pumpStream(body, channel, controller.signal).catch(() => {});
-          body = null;
-          if (controller.signal.aborted) break;
+          try {
+            if (!first.done) print(first.value);
+            for await (const event of stream) print(event);
+          } catch (error) {
+            if (!signal.aborted) window.showErrorMessage(describeError(error));
+            break;
+          }
+          if (signal.aborted) break;
 
           // A stream that died right away is a refusal (stopped/deleted app,
           // maintenance), not a TTL close — reconnecting would loop hard.
@@ -194,20 +125,10 @@ export const realtimeEntry = new ApplicationCommand(
 
           channel.appendLine(`[${t("realtime.reconnecting")}]`);
           await new Promise((r) => setTimeout(r, RECONNECT_DELAY_MS));
-          if (controller.signal.aborted) break;
+          if (signal.aborted) break;
 
-          try {
-            body = await openStream(application);
-          } catch (error) {
-            window.showErrorMessage(describeError(error));
-            break;
-          }
-          if (controller.signal.aborted) {
-            // Stopped while the reconnect fetch was in flight — cancel the
-            // fresh stream instead of abandoning a live server connection.
-            void body.cancel().catch(() => {});
-            break;
-          }
+          stream = open();
+          first = { done: true, value: undefined };
         }
       } finally {
         releaseSlot();

@@ -1,6 +1,7 @@
 import type { Disposable, ExtensionContext } from "vscode";
 import { getVscodeLang, loadTranslations } from "vscode-ext-localisation";
 
+import { offerWalkthroughOnce } from "@/commands/get-started";
 import { Config } from "@/lib/constants";
 import { $extensionStore, selectAndSubscribe } from "@/lib/store";
 import { Logger } from "@/structures/logger";
@@ -49,9 +50,17 @@ export class SquareCloudExtension implements Disposable {
 
     this.initializeStores();
 
+    // Connecting or disconnecting in one window applies to all of them.
+    this.disposables.push(
+      this.config.apiKey.onDidChangeElsewhere(
+        () => void this.api.restartForNewKey(),
+      ),
+    );
+
     // Decides which half of the sidebar renders — the sign-in view or the
     // trees. Runs before anything can paint so nobody sees the wrong one.
     void this.treeViews.auth.syncVisibility();
+    void offerWalkthroughOnce(this);
 
     this.logger.log("Extension is ready!");
   }

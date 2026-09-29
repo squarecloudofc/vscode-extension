@@ -1,5 +1,6 @@
 export * from "./applications";
 export * from "./databases";
+export * from "./get-started";
 export * from "./logout";
 export * from "./refresh-cache";
 export * from "./service-status";

@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 20 300 232" fill="none"><style>
+.gw{fill:var(--vscode-textLink-foreground,#3794ff);opacity:.16;filter:blur(18px)}
+.sh{fill:#000;opacity:.28;filter:blur(5px)}
+.ks,.as{--hd:1.2s}
+.kb,.ab{--hd:3.4s}
+.kd,.ad{--hd:5.6s}
+.ki,.ai{--hd:7.8s}
+.ao{fill:#000;opacity:.35;filter:blur(3px);animation:hm-ao 8.8s ease-in-out var(--hd) infinite}
+.pt,.pl,.pr,.kt,.kl,.kr{stroke:var(--hm-edge,var(--vscode-contrastBorder,var(--vscode-widget-border,#454545)));stroke-width:.8;stroke-linejoin:round}
+.pt{fill:var(--hm-pt,var(--vscode-editor-background,#1e1e1e))}
+.pl{fill:var(--hm-pl,var(--vscode-editor-background,#1e1e1e))}
+.pr{fill:var(--hm-pr,var(--vscode-editor-background,#1e1e1e))}
+.kt,.dcf{fill:var(--hm-kt,var(--vscode-editor-background,#1e1e1e))}
+.kl{fill:var(--hm-kl,var(--vscode-editor-background,#1e1e1e))}
+.kr{fill:var(--hm-kr,var(--vscode-editor-background,#1e1e1e))}
+.gd{stroke:var(--hm-grid,var(--vscode-widget-border,#454545));stroke-width:.8;stroke-dasharray:2 3}
+.rm{stroke:var(--vscode-textLink-foreground,#3794ff);stroke-width:1.2;stroke-linejoin:round;opacity:.55}
+.en{font-size:6px;font-weight:700;letter-spacing:.24em;fill:var(--vscode-descriptionForeground,#9d9d9d)}
+.vt{stroke:var(--hm-edge,var(--vscode-widget-border,#454545));stroke-width:1.1;stroke-linecap:round}
+.cb{color:var(--vscode-textLink-foreground,#3794ff)}
+.cv{color:var(--hm-violet,var(--vscode-charts-purple,#b180d7))}
+.ca{color:var(--vscode-editorWarning-foreground,#cca700)}
+.cg{color:var(--vscode-testing-iconPassed,#3fb950)}
+.dc{stroke:currentColor;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
+.fc{fill:currentColor;stroke:none}
+.lid{fill:currentColor;fill-opacity:.22;animation:hm-lid 8.8s ease-in-out var(--hd) infinite}
+.lf{animation:hm-lift 8.8s cubic-bezier(.34,1.56,.64,1) var(--hd) infinite}
+.pk{fill:currentColor;opacity:0;animation:hm-up 8.8s ease-out var(--hd) infinite}
+.hub{fill:var(--vscode-textLink-foreground,#3794ff);fill-opacity:.16;stroke:var(--vscode-textLink-foreground,#3794ff);stroke-width:1.2;stroke-linejoin:round}
+.sp{stroke:var(--vscode-textLink-foreground,#3794ff);stroke-width:1.6;stroke-linecap:round;stroke-dasharray:2 4;opacity:.8;animation:hm-flow .9s linear infinite}
+.pu{stroke:var(--vscode-textLink-foreground,#3794ff);stroke-width:1.2;animation:hm-pulse 2.4s ease-out infinite}
+.led{fill:var(--vscode-testing-iconPassed,#3fb950);animation:hm-led 1.8s ease-in-out infinite}
+.tw{fill:var(--vscode-textLink-foreground,#3794ff);animation:hm-tw 3s ease-in-out infinite}
+.o{transform-box:fill-box;transform-origin:center}
+.pf{animation:hm-rise .6s cubic-bezier(.16,1,.3,1) both}
+.dr{animation:hm-drop .8s cubic-bezier(.34,1.56,.64,1) both}
+@keyframes hm-flow{to{stroke-dashoffset:-12}}
+@keyframes hm-pulse{0%{transform:scale(.7);opacity:.9}100%{transform:scale(1.7);opacity:0}}
+@keyframes hm-led{50%{opacity:.25}}
+@keyframes hm-tw{0%,100%{transform:scale(.3);opacity:0}50%{transform:scale(1);opacity:1}}
+@keyframes hm-lid{0%,25%,100%{fill-opacity:.22}5%,20%{fill-opacity:.9}}
+@keyframes hm-lift{0%,25%,100%{transform:none}5%,20%{transform:translateY(-4px)}}
+@keyframes hm-ao{0%,25%,100%{opacity:.35}5%,20%{opacity:.18}}
+@keyframes hm-up{0%{opacity:0;transform:none}3%{opacity:1}17%,100%{opacity:0;transform:translateY(-26px)}}
+@keyframes hm-rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes hm-drop{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+<g class="pf">
+<ellipse class="gw" cx="150" cy="148" rx="140" ry="74"/>
+<ellipse class="sh" cx="150" cy="240" rx="118" ry="8"/>
+<path class="pl" d="M20.1 145L150 220L150 234L20.1 159Z"/>
+<path class="pr" d="M279.9 145L150 220L150 234L279.9 159Z"/>
+<path class="pt" d="M150 70L279.9 145L150 220L20.1 145Z"/>
+<path class="gd" d="M193.3 95L63.4 170M236.6 120L106.7 195M106.7 95L236.6 170M63.4 120L193.3 195"/>
+<path class="rm" d="M20.1 145L150 220L279.9 145"/>
+<text class="en" transform="matrix(0.866 0.5 0 1 20.1 145)" x="18" y="9.6">SQUARE CLOUD</text>
+<g transform="matrix(-0.866 0.5 0 1 279.9 145)"><circle class="led" cx="16" cy="7" r="1.5"/><circle class="led" cx="23" cy="7" r="1.5" style="animation-delay:-.6s"/><circle class="led" cx="30" cy="7" r="1.5" style="fill:var(--vscode-textLink-foreground,#3794ff);animation-delay:-1.2s"/></g>
+<path class="ao as" d="M150 75L184.6 95L150 115L115.4 95Z"/>
+<path class="ao ab" d="M236.6 125L271.2 145L236.6 165L202 145Z"/>
+<path class="ao ad" d="M63.4 125L98 145L63.4 165L28.8 145Z"/>
+<path class="ao ai" d="M150 175L184.6 195L150 215L115.4 195Z"/>
+</g>
+<g class="ks cb"><g class="dr" style="animation-delay:.15s"><g class="lf">
+<path class="kl" d="M120.6 61L150 78L150 112L120.6 95Z"/>
+<path class="kr" d="M179.4 61L150 78L150 112L179.4 95Z"/>
+<path class="kt" d="M150 44L179.4 61L150 78L120.6 61Z"/>
+<path class="lid" d="M150 51.6L166.2 61L150 70.4L133.8 61Z"/>
+<g class="dc" transform="matrix(0.866 0.5 0 1 120.6 61)"><rect class="dcf" x="7" y="9" width="20" height="16" rx="2.5"/><path d="M7 13.5H27"/><circle class="fc" cx="10" cy="11.2" r=".7"/><circle class="fc" cx="12.8" cy="11.2" r=".7"/><path d="M11 18H23M11 21H18" style="stroke-width:1.1;opacity:.6"/></g>
+<g transform="matrix(-0.866 0.5 0 1 179.4 61)"><circle class="led" cx="8" cy="8" r="1.8"/><path class="vt" d="M14 8H28M14 14H28M14 20H28M14 26H28"/></g>
+<path class="pk" d="M150 58.5L154.3 61L150 63.5L145.7 61Z"/>
+<path class="pk" d="M150 58.5L154.3 61L150 63.5L145.7 61Z" style="animation-delay:calc(var(--hd) + .4s)"/>
+</g></g></g>
+<g class="pf" style="animation-delay:.5s">
+<path class="sp" d="M150 130V112"/>
+<path class="sp" d="M176 145H207.2"/>
+<path class="sp" d="M124 145H92.8"/>
+<ellipse class="pu o" cx="150" cy="143" rx="26" ry="15"/>
+<path class="hub" d="M150 128L176 143L150 158L124 143Z"/>
+<path class="fc cb" d="M150 136L162 143L150 150L138 143Z"/>
+</g>
+<g class="kb cv"><g class="dr" style="animation-delay:.25s"><g class="lf">
+<path class="kl" d="M207.2 119L236.6 136L236.6 162L207.2 145Z"/>
+<path class="kr" d="M266 119L236.6 136L236.6 162L266 145Z"/>
+<path class="kt" d="M236.6 102L266 119L236.6 136L207.2 119Z"/>
+<path class="lid" d="M236.6 109.6L252.8 119L236.6 128.4L220.4 119Z"/>
+<g class="dc" transform="matrix(0.866 0.5 0 1 207.2 119)"><rect class="dcf" x="10" y="8" width="14" height="11" rx="3.5"/><circle class="fc" cx="14.5" cy="13.5" r="1.3"/><circle class="fc" cx="19.5" cy="13.5" r="1.3"/><path d="M17 8V5.2"/><circle class="fc" cx="17" cy="4.4" r="1.1"/></g>
+<g transform="matrix(-0.866 0.5 0 1 266 119)"><circle class="led" cx="8" cy="8" r="1.8" style="animation-delay:-.5s"/><path class="vt" d="M14 8H28M14 14H28M14 20H28"/></g>
+<path class="pk" d="M236.6 116.5L240.9 119L236.6 121.5L232.3 119Z"/>
+<path class="pk" d="M236.6 116.5L240.9 119L236.6 121.5L232.3 119Z" style="animation-delay:calc(var(--hd) + .4s)"/>
+</g></g></g>
+<g class="kd ca"><g class="dr" style="animation-delay:.35s"><g class="lf">
+<path class="kl" d="M34 119L63.4 136L63.4 162L34 145Z"/>
+<path class="kr" d="M92.8 119L63.4 136L63.4 162L92.8 145Z"/>
+<path class="kt" d="M63.4 102L92.8 119L63.4 136L34 119Z"/>
+<path class="lid" d="M63.4 109.6L79.6 119L63.4 128.4L47.2 119Z"/>
+<g class="dc" transform="matrix(0.866 0.5 0 1 34 119)"><ellipse class="dcf" cx="17" cy="7" rx="7.5" ry="2.4"/><path d="M9.5 7V18.5A7.5 2.4 0 0 0 24.5 18.5V7"/><path d="M9.5 12.7A7.5 2.4 0 0 0 24.5 12.7"/></g>
+<g transform="matrix(-0.866 0.5 0 1 92.8 119)"><circle class="led" cx="8" cy="8" r="1.8" style="animation-delay:-1s"/><path class="vt" d="M14 8H28M14 14H28M14 20H28"/></g>
+<path class="pk" d="M63.4 116.5L67.7 119L63.4 121.5L59.1 119Z"/>
+<path class="pk" d="M63.4 116.5L67.7 119L63.4 121.5L59.1 119Z" style="animation-delay:calc(var(--hd) + .4s)"/>
+</g></g></g>
+<g class="ki cg"><g class="dr" style="animation-delay:.45s"><g class="lf">
+<path class="kl" d="M120.6 175L150 192L150 212L120.6 195Z"/>
+<path class="kr" d="M179.4 175L150 192L150 212L179.4 195Z"/>
+<path class="kt" d="M150 158L179.4 175L150 192L120.6 175Z"/>
+<path class="lid" d="M150 165.6L166.2 175L150 184.4L133.8 175Z"/>
+<g class="dc" transform="matrix(0.866 0.5 0 1 120.6 175)"><path d="M12 5.5L8 10L12 14.5M22 5.5L26 10L22 14.5M18.6 4.5L15.4 15.5"/></g>
+<g transform="matrix(-0.866 0.5 0 1 179.4 175)"><circle class="led" cx="8" cy="8" r="1.8" style="animation-delay:-1.4s"/><path class="vt" d="M14 8H28M14 14H28"/></g>
+<path class="pk" d="M150 172.5L154.3 175L150 177.5L145.7 175Z"/>
+<path class="pk" d="M150 172.5L154.3 175L150 177.5L145.7 175Z" style="animation-delay:calc(var(--hd) + .4s)"/>
+</g></g></g>
+<path class="tw o" d="M40 64l1.3 3.2 3.2 1.3-3.2 1.3L40 73l-1.3-3.2-3.2-1.3 3.2-1.3Z"/>
+<path class="tw o" d="M262 58l1 2.5 2.5 1-2.5 1-1 2.5-1-2.5-2.5-1 2.5-1Z" style="animation-delay:-1s"/>
+<path class="tw o" d="M222 36l1.3 3.2 3.2 1.3-3.2 1.3-1.3 3.2-1.3-3.2-3.2-1.3 3.2-1.3Z" style="animation-delay:-2s"/>
+<path class="tw o" d="M88 40l1 2.5 2.5 1-2.5 1-1 2.5-1-2.5-2.5-1 2.5-1Z" style="animation-delay:-1.5s"/>
+</svg>

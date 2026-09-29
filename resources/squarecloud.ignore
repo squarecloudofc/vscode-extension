@@ -1,4 +1,7 @@
 node_modules
+.git
+.github
+.vscode
 package-lock.json
 pnpm-lock.yaml
 yarn.lock

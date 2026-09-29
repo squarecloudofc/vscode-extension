@@ -6,14 +6,14 @@ import { ApplicationCommand } from "@/structures/application/command";
 
 export const logsEntry = new ApplicationCommand(
   "logsEntry",
-  (extension, { application }) =>
+  (extension, { application }, api) =>
     window.withProgress(
       {
         location: ProgressLocation.Notification,
         title: t("logs.loading"),
       },
       async (progress) => {
-        const logs = await application.getLogs().catch(() => null);
+        const logs = await api.apps.logs(application.id).catch(() => null);
         progress.report({ increment: 100, message: ` ${t("generic.done")}` });
 
         if (!logs) {

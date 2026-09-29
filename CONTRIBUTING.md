@@ -10,7 +10,7 @@ Thanks for taking the time to contribute to the **Square Cloud** VSCode extensio
 |---|---|---|
 | Node.js | **≥ 20** | Matches `@squarecloud/api` v4 minimum. |
 | pnpm | **11.5.0** | Pinned via `packageManager` in `package.json`. If you have [Corepack](https://nodejs.org/api/corepack.html) enabled (default since Node 16), it activates the right version on first command — no global install needed. |
-| VSCode | **≥ 1.120** | Matches the extension's declared engine. |
+| VSCode | **≥ 1.125** | Matches the extension's declared engine. |
 
 ---
 

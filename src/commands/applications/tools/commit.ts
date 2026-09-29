@@ -1,19 +1,18 @@
 import { readFile } from "node:fs/promises";
-import { basename, join } from "node:path";
-import ignore from "ignore";
+import { basename } from "node:path";
 import JSZip from "jszip";
-import { CancellationError, ProgressLocation, type Uri, window } from "vscode";
+import { ProgressLocation, window } from "vscode";
 import { t } from "vscode-ext-localisation";
 
 import { confirm } from "@/lib/utils/dialogs";
-import { walkDir } from "@/lib/utils/walk-dir";
+import { loadIgnore, walkDir } from "@/lib/utils/walk-dir";
 import { ApplicationCommand } from "@/structures/application/command";
 
 type CommitKind = "file" | "folder";
 
 export const commitEntry = new ApplicationCommand(
   "commitEntry",
-  async (extension, { application }) => {
+  async (extension, { application }, api) => {
     const kindLabel = await window.showQuickPick(
       [
         { label: t("generic.file"), id: "file" as const },
@@ -33,15 +32,13 @@ export const commitEntry = new ApplicationCommand(
       canSelectMany: kind === "file",
       canSelectFiles: kind === "file",
       canSelectFolders: kind === "folder",
-      openLabel: t("commit.select", { TYPE: kindLabel.label.toLowerCase() }),
-      title: `Commit - ${application.name}`,
+      // Two t() calls, not t(ternary): check-strings only sees literal keys.
+      openLabel:
+        kind === "file" ? t("commit.selectFiles") : t("commit.selectFolder"),
+      title: `${t("command.commit")} - ${application.name}`,
     });
     if (!dialog) return;
 
-    const ignoreDefaults = await readFile(
-      join(__dirname, "..", "resources", "squarecloud.ignore"),
-    );
-    const ig = ignore().add(ignoreDefaults.toString("utf-8"));
     const zip = new JSZip();
 
     await window.withProgress(
@@ -53,15 +50,17 @@ export const commitEntry = new ApplicationCommand(
       async (progress, token) => {
         if (kind === "file") {
           for (const uri of dialog) {
-            if (token.isCancellationRequested) throw new CancellationError();
+            // Cancel is the user's choice, not a failure: no error toast (a
+            // thrown CancellationError surfaced as "Canceled").
+            if (token.isCancellationRequested) return;
             zip.file(basename(uri.fsPath), await readFile(uri.fsPath));
           }
         } else {
-          const rootUri = dialog[0];
-          await maybeMergeIgnore(rootUri, ig);
-          const folderName = basename(rootUri.fsPath);
-          for await (const entry of walkDir(rootUri.fsPath, ig)) {
-            if (token.isCancellationRequested) throw new CancellationError();
+          const root = dialog[0].fsPath;
+          const ig = await loadIgnore(root);
+          const folderName = basename(root);
+          for await (const entry of walkDir(root, ig)) {
+            if (token.isCancellationRequested) return;
             zip.file(`${folderName}/${entry.relPath}`, entry.content);
           }
         }
@@ -74,12 +73,23 @@ export const commitEntry = new ApplicationCommand(
           compressionOptions: { level: 6 },
         });
 
-        if (token.isCancellationRequested) throw new CancellationError();
+        if (token.isCancellationRequested) return;
         progress.report({ message: t("commit.uploading") });
 
-        await application.commit(buffer, `${application.id}.zip`);
+        // The SDK gives uploads no timeout; Cancel is how one ends early.
+        const upload = new AbortController();
+        token.onCancellationRequested(() => upload.abort());
+        try {
+          await api.apps.commit(application.id, buffer, {
+            filename: `${application.id}.zip`,
+            signal: upload.signal,
+          });
+        } catch (error) {
+          if (token.isCancellationRequested) return;
+          throw error;
+        }
 
-        if (shouldRestart) await application.restart();
+        if (shouldRestart) await api.apps.restart(application.id);
 
         extension.api.scheduleStatusRefresh(application.id);
 
@@ -89,26 +99,3 @@ export const commitEntry = new ApplicationCommand(
     );
   },
 );
-
-async function maybeMergeIgnore(
-  rootUri: Uri,
-  ig: ReturnType<typeof ignore>,
-): Promise<void> {
-  const squarecloudIgnore = await readFile(
-    join(rootUri.fsPath, "squarecloud.ignore"),
-  ).catch(() => null);
-  if (squarecloudIgnore) {
-    ig.add(squarecloudIgnore.toString("utf-8"));
-    return;
-  }
-  const gitIgnore = await readFile(join(rootUri.fsPath, ".gitignore")).catch(
-    () => null,
-  );
-  if (!gitIgnore) return;
-
-  // Only ask the user about .gitignore when there's no squarecloud.ignore —
-  // otherwise the prompt is noise.
-  if (await confirm(t("commit.useGitIgnore"), { modal: false })) {
-    ig.add(gitIgnore.toString("utf-8"));
-  }
-}

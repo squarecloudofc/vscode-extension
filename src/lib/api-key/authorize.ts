@@ -198,6 +198,7 @@ export async function beginAuthorization(
                 }
                 continue;
 
+              case "RATE_LIMITED":
               case "RATE_LIMIT":
               case "KEEP_CALM":
                 if (!warned.has("RATE_LIMIT")) {
@@ -216,7 +217,14 @@ export async function beginAuthorization(
           }
         }
 
-        throw new SquareCloudAPIError("INVALID_GRANT");
+        // Local deadline, no response involved: status 0, like the SDK's own.
+        throw new SquareCloudAPIError(
+          0,
+          "INVALID_GRANT",
+          undefined,
+          "POST",
+          authorizePath("claim"),
+        );
       } finally {
         close();
       }
@@ -256,7 +264,14 @@ async function post(path: string, body: unknown) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
   }).catch((error) => {
-    throw new SquareCloudAPIError("NETWORK_ERROR", error?.message);
+    throw new SquareCloudAPIError(
+      0,
+      "NETWORK_ERROR",
+      error?.message,
+      "POST",
+      authorizePath(path),
+      { cause: error },
+    );
   });
 
   const data = await response.json().catch(() => null);
@@ -268,10 +283,21 @@ async function post(path: string, body: unknown) {
       response.status === 429
         ? "RATE_LIMIT"
         : `UNKNOWN_ERROR_${response.status}`;
-    throw new SquareCloudAPIError(data?.code ?? fallback);
+    throw new SquareCloudAPIError(
+      response.status,
+      data?.code ?? fallback,
+      data?.message,
+      "POST",
+      authorizePath(path),
+    );
   }
 
   return data.response ?? data;
+}
+
+/** URL path of an authorize route, as `SquareCloudAPIError.path` carries it. */
+function authorizePath(path: string): string {
+  return new URL(`${AUTHORIZE_BASE}/${path}`).pathname;
 }
 
 /** Binds 127.0.0.1 and resolves `redirected` on the first hit to /callback. */

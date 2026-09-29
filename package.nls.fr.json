@@ -1,0 +1,580 @@
+{
+  "command.setApiKey": "Connecter un compte",
+  "command.logsEntry": "Afficher les logs",
+  "command.refresh": "Actualiser",
+  "command.open": "Ouvrir dans le tableau de bord",
+  "command.start": "Démarrer",
+  "command.stop": "Arrêter",
+  "command.copyId": "Copier l’ID",
+  "command.restart": "Redémarrer",
+  "command.delete": "Supprimer",
+  "command.favorite": "Ajouter aux favoris",
+  "command.unfavorite": "Retirer des favoris",
+  "command.snapshotRestore": "Restaurer un snapshot",
+  "command.envs": "Variables d’environnement",
+  "command.metrics": "Afficher les métriques sur 24 h",
+  "command.realtime": "Activer/désactiver le flux en temps réel",
+  "command.linkGithub": "Lier un dépôt GitHub",
+  "command.unlinkGithub": "Dissocier le dépôt GitHub",
+  "command.networkErrors": "Erreurs edge",
+  "command.networkLogs": "Logs edge",
+  "command.networkPerformance": "Performances edge",
+  "command.purgeCache": "Vider le cache edge",
+  "command.createWorkspace": "Créer un espace de travail",
+  "command.deleteWorkspace": "Supprimer l’espace de travail",
+  "command.leaveWorkspace": "Quitter l’espace de travail",
+  "command.createDatabase": "Créer une base de données",
+  "command.startDatabase": "Démarrer la base de données",
+  "command.stopDatabase": "Arrêter la base de données",
+  "command.deleteDatabase": "Supprimer la base de données",
+  "command.downloadDatabaseCertificate": "Télécharger le certificat TLS",
+  "palette.startEntry": "Démarrer une application...",
+  "palette.stopEntry": "Arrêter une application...",
+  "palette.restartEntry": "Redémarrer une application...",
+  "palette.logsEntry": "Afficher les logs d’une application...",
+  "palette.realtimeEntry": "Activer/désactiver le flux en temps réel d’une application...",
+  "palette.metricsEntry": "Afficher les métriques d’une application sur 24 h...",
+  "palette.commitEntry": "Envoyer des fichiers à une application (commit)...",
+  "palette.snapshotEntry": "Télécharger le snapshot d’une application...",
+  "palette.snapshotRestoreEntry": "Restaurer le snapshot d’une application...",
+  "palette.envsEntry": "Modifier les variables d’environnement d’une application...",
+  "palette.linkGithubAppEntry": "Lier une application à un dépôt GitHub...",
+  "palette.unlinkGithubAppEntry": "Dissocier une application de son dépôt GitHub...",
+  "palette.networkLogsEntry": "Afficher les logs edge...",
+  "palette.networkErrorsEntry": "Afficher les erreurs edge...",
+  "palette.networkPerformanceEntry": "Afficher les performances edge...",
+  "palette.purgeCacheEntry": "Vider le cache edge...",
+  "palette.openEntry": "Ouvrir une application dans le tableau de bord web...",
+  "palette.copyIdEntry": "Copier l’ID d’une application...",
+  "palette.deleteEntry": "Supprimer une application...",
+  "palette.startDatabase": "Démarrer une base de données...",
+  "palette.stopDatabase": "Arrêter une base de données...",
+  "palette.downloadDatabaseCertificate": "Télécharger le certificat TLS d’une base de données...",
+  "palette.deleteDatabase": "Supprimer une base de données...",
+  "palette.generateInviteCode": "Copier mon code d’invitation",
+  "palette.setApiKey": "Connecter un compte",
+  "palette.uploadApplication": "Téléverser une nouvelle application",
+  "palette.createWorkspace": "Créer un espace de travail",
+  "palette.createDatabase": "Créer une base de données",
+  "palette.serviceStatus": "Afficher le statut du service",
+  "palette.logout": "Déconnecter le compte",
+  "view.apps.title": "Applications",
+  "view.workspaces.title": "Espaces de travail",
+  "view.databases.title": "Bases de données",
+  "view.welcome": "Aucun compte connecté.\n[Connecter un compte](command:squarecloud.setApiKey)",
+  "apps": {
+    "noApps": {
+      "message": "Aucune application trouvée",
+      "upgrade": "Voir les plans"
+    },
+    "pick": "Choisissez une application",
+    "allRunning": "Toutes vos applications sont déjà en cours d’exécution.",
+    "noneRunning": "Aucune de vos applications n’est en cours d’exécution.",
+    "noneWebsite": "Aucune de vos applications n’a de domaine.",
+    "noneMetrics": "Les métriques nécessitent au moins 512 MB de RAM, et aucune de vos applications n’en a autant."
+  },
+  "generic": {
+    "yes": "Oui",
+    "no": "Non",
+    "loading": "Chargement...",
+    "error": "Une erreur inconnue s’est produite.",
+    "done": "Terminé !",
+    "paste": "Collez ici...",
+    "choose": "Choisissez une option...",
+    "file": "Fichier",
+    "folder": "Dossier"
+  },
+  "setApiKey": {
+    "tutorial": {
+      "button": "Ouvrir le tableau de bord"
+    },
+    "apiKey": "Collez un jeton créé dans le tableau de bord.",
+    "testing": "Vérification...",
+    "invalid": "Ce jeton n’est pas valide.",
+    "success": "Connecté !",
+    "connect": {
+      "label": "Connecter un compte",
+      "action": "Connecter un compte",
+      "codeDetail": "La page vous le demandera. Ne saisissez jamais un code que quelqu’un vous a envoyé.",
+      "open": "Ouvrir la page",
+      "success": "Connecté en tant que {{EMAIL}}",
+      "accountChanged": "Cette approbation provient de {{NEW}}, mais {{OLD}} est actuellement connecté. Le remplacer ?",
+      "expired": "Votre autorisation a expiré ou a été révoquée. Par sécurité, elle ne dure que 90 jours. Connectez de nouveau votre compte.",
+      "browserTitle": "Compte connecté",
+      "browserBody": "Vous pouvez fermer cet onglet et revenir à VS Code."
+    },
+    "manual": {
+      "label": "Autres façons de se connecter"
+    },
+    "panel": {
+      "codeLabel": "Collez ce code sur la page",
+      "copyHint": "Copié. Cliquez pour copier à nouveau.",
+      "copied": "Copié !",
+      "waitingHint": "En attente d’approbation dans le navigateur...",
+      "cancel": "Annuler",
+      "retry": "Réessayer",
+      "expiresIn": "Expire dans {{TIME}}"
+    }
+  },
+  "logs": {
+    "loading": "Récupération des logs.",
+    "null": "Aucun log trouvé."
+  },
+  "copy": {
+    "copiedId": "ID de l’application copié dans le presse-papiers."
+  },
+  "start": {
+    "loading": "Démarrage de l’application...",
+    "loaded": "L’application a démarré."
+  },
+  "stop": {
+    "loading": "Arrêt de l’application...",
+    "loaded": "L’application est arrêtée."
+  },
+  "restart": {
+    "loading": "Redémarrage de l’application...",
+    "loaded": "L’application a redémarré."
+  },
+  "delete": {
+    "loading": "Suppression de l’application...",
+    "loaded": "L’application a été supprimée.",
+    "cancelled": "La suppression a été annulée.",
+    "confirm": "Saisissez le nom de l’application pour confirmer sa suppression.",
+    "downloadSnapshot": "Télécharger le snapshot",
+    "snapshotPending": "Le snapshot de récupération est encore en cours de génération, l’application n’a donc pas été supprimée. Réessayez dans quelques minutes."
+  },
+  "commit": {
+    "loading": "Envoi du commit...",
+    "loaded": "Commit envoyé avec succès.",
+    "fileOrFolder": "Que voulez-vous envoyer ?",
+    "restart": "Voulez-vous redémarrer votre application ?",
+    "selectFiles": "Sélectionner les fichiers à envoyer",
+    "selectFolder": "Sélectionner le dossier à envoyer",
+    "zipping": "Compression des fichiers...",
+    "uploading": "Envoi vers Square Cloud..."
+  },
+  "snapshot": {
+    "loading": "Téléchargement du snapshot...",
+    "loaded": "Snapshot téléchargé avec succès.",
+    "save": "Enregistrer ici",
+    "pending": "Le snapshot est encore en cours de génération. Il sera prêt dans quelques minutes : réessayez à ce moment-là."
+  },
+  "snapshotRestore": {
+    "select": "Choisissez un snapshot à restaurer",
+    "placeholder": "Du plus récent au plus ancien",
+    "noSnapshots": "Aucun snapshot disponible à restaurer.",
+    "confirm": "Restaurer l’application au snapshot du {{DATE}} ?",
+    "loading": "Restauration du snapshot...",
+    "loaded": "L’application a été restaurée à partir du snapshot sélectionné."
+  },
+  "envs": {
+    "title": "Variables d’environnement",
+    "placeholder": "{{COUNT}} variables configurées",
+    "placeholderOne": "{{COUNT}} variable configurée",
+    "addNew": "Ajouter une variable",
+    "removeAll": "Supprimer toutes les variables",
+    "editValue": "Modifier la valeur",
+    "deleteOne": "Supprimer cette variable",
+    "keyPrompt": "Saisissez le nom de la variable (KEY)",
+    "valuePrompt": "Saisissez la valeur",
+    "invalidKey": "Utilisez uniquement les lettres de A à Z, des chiffres et des traits de soulignement, sans commencer par un chiffre.",
+    "saving": "Enregistrement de la variable d’environnement...",
+    "saved": "Variable d’environnement enregistrée.",
+    "deleting": "Suppression de la variable d’environnement...",
+    "deleted": "Variable d’environnement supprimée.",
+    "confirmDelete": "Supprimer {{KEY}} ?",
+    "confirmWipe": "Supprimer TOUTES les variables d’environnement ?",
+    "loadError": "Impossible de charger les variables d’environnement."
+  },
+  "metrics": {
+    "loading": "Récupération des métriques sur 24 h...",
+    "null": "Aucune métrique disponible. Au moins 512 MB de RAM sont nécessaires.",
+    "channel": "Métriques Square Cloud ({{NAME}})",
+    "header": "Métriques des dernières 24 heures, un échantillon toutes les 5 minutes. NET correspond aux données reçues et envoyées.",
+    "latest": "Dernière mesure : CPU {{CPU}}, RAM {{RAM}}",
+    "average": "Moyenne sur 24 heures : CPU {{CPU}}, RAM {{RAM}}"
+  },
+  "realtime": {
+    "started": "Flux en temps réel démarré",
+    "ended": "Flux en temps réel terminé",
+    "stopped": "Flux en temps réel arrêté.",
+    "startError": "Impossible de démarrer le flux en temps réel.",
+    "reconnecting": "Reconnexion..."
+  },
+  "githubApp": {
+    "linkTitle": "Lier un dépôt GitHub",
+    "repoPrompt": "propriétaire/dépôt",
+    "branchPrompt": "Nom de la branche (par exemple, main)",
+    "invalidRepo": "Utilisez le format propriétaire/dépôt.",
+    "linking": "Liaison du dépôt GitHub...",
+    "linked": "Dépôt lié avec succès.",
+    "unlinking": "Dissociation du dépôt GitHub...",
+    "unlinked": "Dépôt dissocié avec succès.",
+    "confirmUnlink": "Dissocier le dépôt GitHub de cette application ?"
+  },
+  "network": {
+    "pickRange": "Choisissez une période",
+    "loading": "Récupération des données edge...",
+    "empty": "Aucune donnée disponible pour la période sélectionnée.",
+    "notWebsite": "Cette application n’a pas de domaine. Les analyses edge nécessitent une application de type site web.",
+    "purgeConfirmAll": "Vider tout le cache edge de cette application ?",
+    "purging": "Vidage du cache edge...",
+    "purged": "Cache edge vidé."
+  },
+  "workspace": {
+    "createTitle": "Créer un espace de travail",
+    "namePrompt": "Nom de l’espace de travail (1 à 32 caractères)",
+    "invalidName": "Utilisez entre 1 et 32 caractères.",
+    "creating": "Création de l’espace de travail...",
+    "created": "Espace de travail créé.",
+    "deleteConfirm": "Saisissez {{NAME}} pour confirmer la suppression.",
+    "deleting": "Suppression de l’espace de travail...",
+    "deleted": "Espace de travail supprimé.",
+    "leaveConfirm": "Quitter l’espace de travail {{NAME}} ?",
+    "leaving": "Sortie de l’espace de travail...",
+    "left": "Vous avez quitté l’espace de travail.",
+    "inviteCopied": "Votre code d’invitation {{CODE}} a été copié. Envoyez-le au propriétaire d’un espace de travail pour qu’il vous ajoute. Il est valable 5 minutes."
+  },
+  "database": {
+    "empty": "Aucune base de données trouvée",
+    "pick": "Choisissez une base de données",
+    "createTitle": "Créer une base de données",
+    "namePrompt": "Nom de la base de données (1 à 32 caractères)",
+    "invalidName": "Utilisez entre 1 et 32 caractères.",
+    "typePrompt": "Choisissez un moteur de base de données",
+    "memoryPrompt": "Mémoire allouée en MB (min. 256)",
+    "invalidMemory": "Saisissez un nombre entier supérieur ou égal à 256.",
+    "versionPrompt": "Choisissez une version",
+    "customVersion": "Autre version...",
+    "copyPassword": "Copier le mot de passe",
+    "passwordCopied": "Mot de passe de la base de données copié dans le presse-papiers.",
+    "creating": "Création de la base de données...",
+    "createdWithUrl": "Base de données créée. URL de connexion copiée dans le presse-papiers (affichée une seule fois).",
+    "starting": "Démarrage de la base de données...",
+    "started": "Base de données démarrée.",
+    "stopping": "Arrêt de la base de données...",
+    "stopped": "Base de données arrêtée.",
+    "deleteConfirm": "Saisissez {{NAME}} pour confirmer la suppression.",
+    "deleting": "Suppression de la base de données...",
+    "deleted": "Base de données supprimée.",
+    "certSave": "Enregistrer ici",
+    "certDownloading": "Téléchargement du certificat TLS...",
+    "certDownloaded": "Certificat TLS enregistré ({{FILES}}).",
+    "openFolder": "Ouvrir le dossier"
+  },
+  "serviceStatus": {
+    "label": "Square Cloud ({{STATUS}}) : {{MESSAGE}}",
+    "online": "Opérationnel",
+    "degraded": "Dégradé",
+    "unknown": "Inconnu",
+    "openPage": "Ouvrir la page de statut",
+    "unavailable": "Statut du service indisponible pour le moment.",
+    "title": "Statut du service"
+  },
+  "upload": {
+    "title": "Téléverser une application",
+    "select": "Sélectionner le dossier de l’application",
+    "browse": "Parcourir...",
+    "missingConfig": "Aucun fichier squarecloud.app ou squarecloud.config trouvé dans le dossier sélectionné. Square Cloud en a besoin pour héberger l’application.",
+    "openDocs": "Ouvrir la documentation",
+    "confirm": "Téléverser le contenu de\n{{PATH}}\nvers Square Cloud ?",
+    "zipping": "Compression de l’application...",
+    "fileCount": "{{COUNT}} fichiers ajoutés...",
+    "uploading": "Téléversement vers Square Cloud...",
+    "emptyFolder": "Le dossier sélectionné est vide après application des règles d’exclusion.",
+    "tooLarge": "L’application compressée dépasse 100 MB. Ajoutez les artefacts de build et les dépendances à squarecloud.ignore, puis réessayez.",
+    "openDashboard": "Ouvrir le tableau de bord",
+    "loaded": "Application « {{NAME}} » téléversée avec succès ({{RUNTIME}})."
+  },
+  "apiError": {
+    "generic": "Erreur de l’API Square Cloud : {{CODE}}",
+    "INVALID_API_TOKEN": "Votre autorisation n’est plus valide. Connectez de nouveau votre compte avec `Square Cloud: Connecter un compte`.",
+    "INVALID_ACCESS_TOKEN": "Votre autorisation n’est plus valide. Connectez de nouveau votre compte avec `Square Cloud: Connecter un compte`.",
+    "ACCESS_DENIED": "Square Cloud a refusé cette autorisation. Si elle a expiré ou a été révoquée, il vous sera demandé de connecter de nouveau votre compte.",
+    "MISSING_SCOPE": "Cette autorisation ne couvre pas cette action. Connectez de nouveau votre compte pour mettre à jour ses permissions.",
+    "RESOURCE_NOT_ALLOWED": "Cette autorisation est limitée à certaines applications, et celle-ci n’en fait pas partie.",
+    "AUTHORIZATION_PENDING": "L’autorisation n’a pas encore été approuvée.",
+    "NETWORK_ERROR": "Impossible de joindre Square Cloud. Vérifiez votre connexion et réessayez.",
+    "TIMEOUT": "Square Cloud a mis trop de temps à répondre. Réessayez.",
+    "RATE_LIMITED": "Square Cloud limite les requêtes de ce compte ou de ce réseau. Le blocage peut durer jusqu’à 30 minutes environ ; en attendant, les mises à jour en arrière-plan ralentissent.",
+    "KEEP_CALM": "Trop de requêtes en peu de temps. Patientez quelques secondes et réessayez.",
+    "APP_NOT_FOUND": "Application introuvable. Elle a peut-être été supprimée.",
+    "WORKSPACE_NOT_FOUND": "Espace de travail introuvable.",
+    "DATABASE_NOT_FOUND": "Base de données introuvable.",
+    "INSUFFICIENT_PERMISSIONS": "Votre plan ou votre rôle ne permet pas cette action.",
+    "UPGRADE_REQUIRED": "Cette fonctionnalité nécessite un plan payant actif.",
+    "INSUFFICIENT_MEMORY": "Mémoire disponible insuffisante sur votre plan. Libérez-en ou passez à un plan supérieur.",
+    "APPLICATIONS_LIMIT_REACHED": "Vous avez atteint la limite d’applications de votre plan.",
+    "MEMBERS_LIMIT_REACHED": "Cet espace de travail a atteint sa limite de membres.",
+    "WORKSPACE_LIMIT_REACHED": "Vous avez atteint la limite d’espaces de travail de votre plan.",
+    "LOAD_BALANCER_LIMIT_REACHED": "Vous avez atteint la limite d’applications par domaine personnalisé de votre plan.",
+    "DAILY_SNAPSHOTS_LIMIT_REACHED": "Le quota quotidien de snapshots de votre plan est épuisé. Réessayez demain.",
+    "SNAPSHOT_PROCESSING": "Un snapshot est encore en cours de traitement. Attendez qu’il se termine, puis réessayez.",
+    "RESTORE_IN_PROGRESS": "Une restauration est déjà en cours pour cette application.",
+    "UPLOAD_ABORTED": "Le téléversement a été annulé.",
+    "FILE_TOO_LARGE": "Le fichier est trop volumineux. Les archives zip sont limitées à 100 MB.",
+    "INVALID_DOMAIN": "Le domaine indiqué n’est pas valide.",
+    "CANNOT_SET_SUBDOMAIN": "Ce type d’application n’accepte pas de sous-domaine.",
+    "RESERVED_DOMAIN": "Ce domaine est réservé et ne peut pas être utilisé.",
+    "DOMAIN_ALREADY_EXISTS": "Ce domaine est déjà utilisé par une autre application.",
+    "METRICS_NOT_SUPPORTED": "Cette application ne prend pas en charge les métriques.",
+    "REALTIME_MAX_CONNECTIONS": "Limite de connexions en temps réel atteinte (5 par compte). Arrêtez un autre flux et réessayez.",
+    "CLUSTER_MAINTENANCE_TRY_LATER": "Le cluster est en maintenance. Réessayez dans quelques minutes.",
+    "INVALID_DATABASE_VERSION": "Cette version de base de données n’est pas prise en charge.",
+    "INVALID_GRANT": "L’autorisation a expiré ou a déjà été utilisée. Recommencez.",
+    "APIKEY_LIMIT_REACHED": "Ce compte a déjà 5 autorisations, le maximum. Révoquez-en une dans la minute qui suit et cette connexion se terminera d’elle-même.",
+    "INVALID_VERIFIER": "Impossible de valider l’autorisation. Recommencez.",
+    "INVALID_REDIRECT_URI": "Impossible de valider l’autorisation. Recommencez.",
+    "INVALID_REQUEST": "La demande d’autorisation était mal formée.",
+    "RATE_LIMIT": "Trop de tentatives depuis ce réseau. Nouvelle tentative dans un instant.",
+    "CONTAINER_ALREADY_STARTED": "L’application est déjà en cours d’exécution.",
+    "CONTAINER_ALREADY_STOPPED": "L’application est déjà arrêtée.",
+    "CONTAINER_TEMPORARILY_SUSPENDED": "Cette application est temporairement suspendue. Consultez le tableau de bord pour en savoir plus.",
+    "CONTAINER_NOT_FOUND": "Le conteneur de l’application n’est pas disponible pour le moment. Réessayez dans un instant.",
+    "CONTAINER_INSUFFICIENT_DISK_SPACE": "L’application n’a plus d’espace disque. Libérez de l’espace et réessayez.",
+    "CONTAINER_NETWORK_CONFLICT": "Impossible de configurer le réseau de l’application. Réessayez dans un instant.",
+    "ACTION_FAILED": "Square Cloud n’a pas pu effectuer cette action. Réessayez dans un instant.",
+    "GITHUB_NOT_CONNECTED": "La GitHub App Square Cloud n’est pas installée sur votre compte. Installez-la d’abord depuis le tableau de bord.",
+    "REPOSITORY_NOT_AVAILABLE": "Ce dépôt ne fait pas partie de votre installation de la GitHub App Square Cloud.",
+    "REPOSITORY_PERMISSION_REQUIRED": "Le compte GitHub lié n’a pas d’accès en écriture à ce dépôt.",
+    "REPOSITORY_BRANCH_ALREADY_CONFIGURED": "Ce dépôt et cette branche sont déjà liés à une autre application.",
+    "GIT_NOT_CONFIGURED": "Aucun dépôt GitHub n’est lié à cette application.",
+    "FAILED_TO_FETCH": "GitHub n’a pas confirmé la branche. Vérifiez son nom et réessayez.",
+    "VALIDATION_FAILED": "Square Cloud a rejeté la requête, car certaines valeurs ne sont pas valides.",
+    "DATABASE_UNAVAILABLE": "Square Cloud est temporairement indisponible. Réessayez dans un instant (la modification a peut-être déjà été appliquée).",
+    "SNAPSHOT_RESTORE_FAILED": "Impossible de restaurer le snapshot. Il n’existe peut-être plus."
+  },
+  "configFile": {
+    "error": {
+      "duplicateKey": "Votre fichier de configuration Square Cloud contient 2 paramètres « {{key}} ».",
+      "missingKey": "La propriété « {{key}} » est absente de votre fichier de configuration, mais elle est obligatoire pour héberger votre application.",
+      "long": {
+        "displayName": "Le champ DISPLAY_NAME ne peut pas dépasser 32 caractères.",
+        "description": "Le champ DESCRIPTION ne peut pas dépasser 280 caractères.",
+        "subdomain": "Le champ SUBDOMAIN ne peut pas dépasser 63 caractères.",
+        "start": "Le champ START ne peut pas dépasser 256 caractères."
+      },
+      "invalid": {
+        "mainFile": "Le fichier MAIN « {{file}} » n’existe pas dans votre projet.",
+        "memory": "Le champ MEMORY doit être une valeur en mégaoctets supérieure ou égale à {{memory}}.",
+        "autoRestart": "Le champ AUTORESTART doit valoir « true » ou « false ».",
+        "version": "Le champ VERSION accepte uniquement « recommended » ou « latest ».",
+        "subdomain": "SUBDOMAIN invalide. Seuls les caractères alphanumériques et les tirets sont autorisés.",
+        "runtime": "RUNTIME invalide. Valeurs autorisées : nodejs, javascript, typescript, python, dotnet, csharp, c#, java, elixir, rust, ruby, rb, php, go, golang, static, html."
+      },
+      "missing": {
+        "displayName": "Vous devez indiquer un DISPLAY_NAME valide de 32 caractères maximum.",
+        "description": "Vous devez indiquer une description valide de 280 caractères maximum. Sinon, supprimez simplement le champ DESCRIPTION.",
+        "subdomain": "Vous devez indiquer un sous-domaine valide pour héberger une application web (site, API). Si ce n’est pas votre intention, supprimez simplement le champ SUBDOMAIN.",
+        "start": "Vous devez indiquer une commande de démarrage. Si ce n’est pas votre intention, supprimez simplement le champ START.",
+        "main": "Vous devez indiquer un fichier principal valide. C’est le fichier principal de votre application, celui par lequel tout commence !"
+      },
+      "unavailable": {
+        "memory": {
+          "message": "Vous n’avez plus de mémoire disponible. Pensez à passer à un plan supérieur.",
+          "code": "Améliorer le plan"
+        }
+      }
+    },
+    "quickFix": "Remplacer par {{LINE}}"
+  },
+  "dashboard": {
+    "online": "En ligne",
+    "offline": "Hors ligne",
+    "unknown": "Vérification",
+    "more": "Plus d’actions",
+    "ramUsed": "RAM",
+    "ramUnavailable": "Indisponible",
+    "member": "{{COUNT}} membre",
+    "members": "{{COUNT}} membres",
+    "app": "{{COUNT}} application",
+    "apps": "{{COUNT}} applications",
+    "group": {
+      "app": "Application",
+      "deploy": "Déploiement",
+      "settings": "Configuration",
+      "monitoring": "Surveillance",
+      "edge": "Edge",
+      "control": "Contrôle",
+      "credentials": "Identifiants",
+      "danger": "Zone de danger",
+      "metrics": "Métriques"
+    },
+    "empty": {
+      "body": "Téléversez un dossier de projet contenant un fichier squarecloud.app, et Square Cloud se charge de l’exécuter.",
+      "upload": "Téléverser votre première application",
+      "alt": "Un nuage vide qui attend votre premier téléversement."
+    },
+    "tour": "Guide de démarrage",
+    "pending": {
+      "start": "Démarrage",
+      "stop": "Arrêt",
+      "restart": "Redémarrage"
+    },
+    "help": {
+      "label": "Qu’est-ce que c’est ?",
+      "account": "La mémoire de votre plan est partagée entre toutes vos applications. La barre indique la part déjà réservée.",
+      "apps": "Les programmes que vous hébergez sur Square Cloud. Le badge indique leur statut : En ligne, Hors ligne, ou ambre pendant un changement. Cliquez sur une carte pour voir les détails, et faites un clic droit ou utilisez ⋯ pour toutes les actions.",
+      "metrics": "Le CPU et la mémoire que l’application utilise en ce moment.",
+      "databases": "Des bases de données gérées, hébergées par Square Cloud, avec des connexions chiffrées (TLS). Utilisez ⋯ pour les démarrer, les arrêter ou télécharger le certificat.",
+      "workspaces": "Des espaces partagés où les membres d’une équipe gèrent ensemble les mêmes applications, chacun avec son rôle."
+    },
+    "field": {
+      "id": "ID",
+      "ram": "RAM",
+      "runtime": "Runtime",
+      "cluster": "Cluster",
+      "domain": "Domaine",
+      "uptime": "En ligne depuis"
+    },
+    "fieldHelp": {
+      "id": "Identifiant unique de l’application. Copiez-le pour l’utiliser avec la CLI ou l’API.",
+      "ram": "Mémoire de votre plan réservée à cette application.",
+      "runtime": "Le langage dans lequel l’application s’exécute.",
+      "cluster": "Le groupe de serveurs Square Cloud sur lequel l’application s’exécute.",
+      "domain": "L’adresse web à laquelle l’application est accessible.",
+      "uptime": "Date du dernier démarrage de l’application."
+    },
+    "stale": "Impossible d’actualiser. Dernière mise à jour à {{TIME}}.",
+    "plan": {
+      "title": "Choisissez un plan pour commencer à héberger",
+      "body": "Avec un plan, Square Cloud garde vos bots, sites et API en ligne jour et nuit."
+    },
+    "noDatabases": "Aucune base de données pour l’instant.",
+    "noWorkspaces": "Aucun espace de travail pour l’instant.",
+    "filter": "Filtrer les applications",
+    "noMatch": "Aucune application ne correspond à « {{QUERY}} ».",
+    "page": "Page {{PAGE}} sur {{PAGES}}",
+    "prevPage": "Page précédente",
+    "nextPage": "Page suivante"
+  },
+  "command.commit": "Commit",
+  "command.snapshot": "Télécharger le snapshot",
+  "logout": {
+    "confirm": "Déconnecter ce compte de VS Code ?",
+    "confirmAccount": "Déconnecter {{EMAIL}} de VS Code ? L’autorisation reste active jusqu’à son expiration ou jusqu’à ce que vous la révoquiez dans Mon compte → Authentification."
+  },
+  "command.getStarted": "Premiers pas",
+  "walkthrough.title": "Premiers pas avec Square Cloud",
+  "walkthrough.description": "Déployez, exécutez et surveillez vos applications sans quitter VS Code, étape par étape.",
+  "walkthrough.connect.title": "Connectez votre compte",
+  "walkthrough.connect.description": "Une fois votre compte connecté, cet éditeur peut gérer Square Cloud pour vous.\nCliquez sur **Connecter un compte**, collez le code à 8 caractères de VS Code dans la page qui s’ouvre dans le navigateur, puis approuvez. L’autorisation est conservée dans le trousseau de votre système, reste valable 90 jours et peut être révoquée à tout moment.\n[Connecter un compte](command:squarecloud.setApiKey)",
+  "walkthrough.connect.alt": "Connexion de votre compte : VS Code affiche un code, vous le collez dans le navigateur et approuvez, et votre autorisation est stockée en toute sécurité.",
+  "walkthrough.config.title": "Décrivez votre application dans squarecloud.app",
+  "walkthrough.config.description": "Chaque application possède un fichier **squarecloud.app** à la racine de son dossier. Il indique à Square Cloud comment l’exécuter : le fichier principal, la quantité de mémoire à réserver, le runtime et, pour les sites web, un sous-domaine.\nOuvrez-en un et cette extension vous aide pendant la saisie : autocomplétion pour chaque champ (Ctrl+Space), validation instantanée avec des messages clairs et corrections rapides pour les valeurs invalides.\n[Ouvrir la référence du fichier de configuration](https://docs.squarecloud.app/getting-started/config-file)",
+  "walkthrough.config.alt": "Modification du fichier de configuration squarecloud.app avec des suggestions d’autocomplétion.",
+  "walkthrough.upload.title": "Téléversez votre application",
+  "walkthrough.upload.description": "**Téléverser** compresse le dossier de votre projet (en ignorant ce que liste squarecloud.ignore), l’envoie à Square Cloud et démarre l’application.\nDéjà en ligne ? **Commit** envoie les fichiers mis à jour vers une application existante, en conservant son ID et son adresse.\n[Téléverser une application](command:squarecloud.uploadApplication)\n[Envoyer des fichiers (commit)](command:squarecloud.commitEntry)",
+  "walkthrough.upload.alt": "Votre projet est compressé et téléversé sur Square Cloud, où il commence à s’exécuter.",
+  "walkthrough.manage.title": "Démarrez, arrêtez et redémarrez",
+  "walkthrough.manage.description": "La barre latérale Square Cloud liste vos applications, chacune avec un badge de statut : En ligne, Hors ligne, ou ambre pendant un démarrage, un arrêt ou un redémarrage. Survolez une ligne pour la démarrer, l’arrêter ou la redémarrer, cliquez dessus pour voir les détails, et faites un clic droit (ou utilisez ⋯) pour tout le reste, comme les variables d’environnement.\n[Ouvrir la barre latérale](command:workbench.view.extension.squarecloud-container)\n[Redémarrer une application](command:squarecloud.restartEntry)\n[Modifier les variables d’environnement](command:squarecloud.envsEntry)",
+  "walkthrough.manage.alt": "Démarrez, arrêtez et redémarrez des applications depuis la barre latérale, et suivez l’évolution de leur statut.",
+  "walkthrough.logs.title": "Suivez les logs et les métriques",
+  "walkthrough.logs.description": "Les logs sont les messages qu’affiche votre application. **Afficher les logs** récupère les dernières lignes, et le **flux en temps réel** affiche les nouvelles au fur et à mesure. Les **métriques sur 24 h** montrent le CPU, la mémoire et le réseau sur la dernière journée (applications de 512 MB ou plus).\n[Afficher les logs](command:squarecloud.logsEntry)\n[Activer/désactiver le flux en temps réel](command:squarecloud.realtimeEntry)\n[Afficher les métriques sur 24 h](command:squarecloud.metricsEntry)",
+  "walkthrough.logs.alt": "Logs diffusés en temps réel à côté de graphiques en direct du CPU et de la mémoire.",
+  "walkthrough.snapshots.title": "Sauvegardez avec les snapshots",
+  "walkthrough.snapshots.description": "Un snapshot est une sauvegarde des fichiers de votre application. Téléchargez-en un avant une modification risquée ; si quelque chose ne fonctionne plus, restaurez l’application à un snapshot antérieur.\n[Télécharger un snapshot](command:squarecloud.snapshotEntry)\n[Restaurer un snapshot](command:squarecloud.snapshotRestoreEntry)",
+  "walkthrough.snapshots.alt": "Choix d’un snapshot dans la chronologie et restauration de votre application à cet état.",
+  "walkthrough.databases.title": "Créez une base de données",
+  "walkthrough.databases.description": "Square Cloud héberge des bases de données MongoDB, MySQL, PostgreSQL et Redis gérées, avec des connexions chiffrées (TLS). Créez-en une ici et son URL de connexion est copiée pour vous ; téléchargez ensuite son certificat TLS pour que votre application puisse s’y connecter.\n[Créer une base de données](command:squarecloud.createDatabase)\n[Télécharger le certificat TLS](command:squarecloud.downloadDatabaseCertificate)",
+  "walkthrough.databases.alt": "Bases de données gérées avec certificat TLS et identifiants.",
+  "walkthrough.workspaces.title": "Travaillez en équipe",
+  "walkthrough.workspaces.description": "Un espace de travail est un espace partagé où les membres d’une équipe gèrent les mêmes applications, chacun avec son propre rôle. Créez-en un pour votre équipe, ou copiez votre code d’invitation et envoyez-le au propriétaire d’un espace de travail pour qu’il vous ajoute.\n[Créer un espace de travail](command:squarecloud.createWorkspace)\n[Copier mon code d’invitation](command:squarecloud.generateInviteCode)",
+  "walkthrough.workspaces.alt": "Des membres d’une équipe rejoignent un espace de travail autour d’une application partagée, chacun avec un rôle.",
+  "walkthrough.github.title": "Déployez à chaque git push",
+  "walkthrough.github.description": "Liez une application à un dépôt et à une branche GitHub : chaque push sur cette branche la déploie automatiquement, sans aucun téléversement. Installez d’abord la GitHub App Square Cloud depuis le tableau de bord.\n[Lier un dépôt GitHub](command:squarecloud.linkGithubAppEntry)",
+  "walkthrough.github.alt": "Un git push déclenche un déploiement par webhook : en attente, clonage, commit, redémarrage, succès.",
+  "walkthrough.network.title": "Comprenez votre trafic",
+  "walkthrough.network.description": "Les sites web bénéficient des analyses edge : logs de requêtes, erreurs et temps de réponse, ainsi que le vidage du cache, utile quand vous publiez des modifications. Disponible pour les applications avec un domaine.\n[Logs edge](command:squarecloud.networkLogsEntry)\n[Performances edge](command:squarecloud.networkPerformanceEntry)\n[Vider le cache edge](command:squarecloud.purgeCacheEntry)",
+  "walkthrough.network.alt": "Analyses edge : requêtes entrantes du monde entier, graphiques de trafic et vidage du cache.",
+  "auth": {
+    "hero": {
+      "alt": "La plateforme Square Cloud : un site web, un bot, une base de données et une API reliés à son centre, chacun y faisant remonter des données."
+    },
+    "brandTag": "pour VS Code",
+    "home": {
+      "title": "Hébergez tout. Pilotez tout d’ici.",
+      "lede": "Sites web, bots, bases de données et API en ligne 24/7 sur Square Cloud. Suivez et pilotez le tout sans quitter VS Code.",
+      "trust": "VS Code reçoit sa propre autorisation, valable 90 jours et révocable à tout moment. Votre mot de passe ne transite jamais par ici."
+    },
+    "newHere": "Première fois ici ?",
+    "tour": "Suivre le guide",
+    "steps": {
+      "label": "Comment fonctionne la connexion",
+      "connect": "Connecter",
+      "confirm": "Confirmer le code",
+      "done": "Terminé"
+    },
+    "preparing": "Préparation d’un code sécurisé...",
+    "copy": "Copier le code",
+    "warning": {
+      "keyLimit": "Limite d’autorisations atteinte",
+      "rateLimit": "Petite pause",
+      "openSecurity": "Ouvrir Mon compte → Authentification"
+    },
+    "expired": {
+      "title": "Le code a expiré",
+      "body": "Pour votre sécurité, chaque code ne dure que quelques minutes. Recommencez pour en obtenir un nouveau. Rien n’a été connecté."
+    },
+    "success": {
+      "alt": "Connexion réussie."
+    },
+    "cancelled": "Annulé. Rien n’a été connecté, et vous pouvez recommencer à tout moment.",
+    "scopes": {
+      "title": "Que pourra faire VS Code ?",
+      "account": "Voir votre nom, votre e-mail et votre plan.",
+      "appsRead": "Voir vos applications, leur statut, leurs logs et leurs métriques.",
+      "appsControl": "Démarrer, arrêter et redémarrer vos applications.",
+      "appsDeploy": "Téléverser de nouvelles applications et envoyer des fichiers aux applications existantes.",
+      "appsWrite": "Modifier les paramètres des applications et les supprimer, uniquement à votre demande.",
+      "envs": "Lire et modifier les variables d’environnement.",
+      "snapshots": "Télécharger des snapshots (sauvegardes) et y restaurer une application.",
+      "databases": "Voir, créer, démarrer, arrêter et supprimer vos bases de données.",
+      "databaseCredentials": "Télécharger les certificats TLS et les identifiants des bases de données.",
+      "workspaces": "Créer, quitter et supprimer des espaces de travail, et y inviter des personnes.",
+      "footer": "VS Code ne voit jamais votre mot de passe. L’autorisation dure 90 jours et vous pouvez la révoquer à tout moment dans Mon compte → Authentification."
+    }
+  },
+  "problem": {
+    "offline": {
+      "title": "Impossible de joindre Square Cloud",
+      "body": "Vérifiez votre connexion. Le tableau de bord se reconnectera automatiquement dès que vous serez de nouveau en ligne."
+    },
+    "rateLimit": {
+      "title": "Petite pause",
+      "body": "Square Cloud limite les requêtes pendant quelques minutes. Vos applications continuent de tourner.",
+      "retryIn": "Nouvelle tentative automatique dans {{TIME}}"
+    },
+    "outage": {
+      "title": "Square Cloud rencontre des difficultés",
+      "body": "Une partie de la plateforme ne répond pas. Tout rentre généralement dans l’ordre en quelques minutes."
+    },
+    "session": {
+      "title": "Reconnectez votre compte",
+      "body": "Cette autorisation ne permet pas de charger votre compte. Reconnectez-vous pour en obtenir une nouvelle."
+    },
+    "error": {
+      "title": "Une erreur est survenue",
+      "body": "Impossible de charger votre compte. Réessayez dans un instant."
+    },
+    "plan": {
+      "action": "Voir les plans"
+    }
+  },
+  "illustration": {
+    "offline": "Aucune connexion à Square Cloud.",
+    "rateLimit": "Requêtes en pause.",
+    "keyLimit": "Limite d’autorisations atteinte.",
+    "outage": "Perturbation du service Square Cloud.",
+    "session": "Une autorisation à renouveler.",
+    "error": "Une erreur est survenue.",
+    "plan": "Choix d’un plan Square Cloud.",
+    "codeExpired": "Un code dont le temps est écoulé.",
+    "emptyDatabases": "Le contour en pointillés d’une base de données avec un signe plus, en attente de votre première base de données.",
+    "emptyWorkspaces": "Deux membres d’une équipe reliés à un carré partagé, avec une place libre pour une nouvelle personne."
+  },
+  "statusBar": {
+    "signIn": "Square Cloud : connecter un compte",
+    "online": "{{ONLINE}} sur {{TOTAL}} en ligne"
+  }
+}

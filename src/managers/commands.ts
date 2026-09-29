@@ -27,7 +27,7 @@ export class CommandsManager implements Disposable {
       if (!isCommand(exported)) continue;
       this.disposables.push(
         vscommands.registerCommand(exported.name, (...args) =>
-          exported.execute(this.extension, ...(args as [never, ...never[]])),
+          exported.execute(this.extension, ...(args as [never])),
         ),
       );
       count++;

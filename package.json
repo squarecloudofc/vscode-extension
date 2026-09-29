@@ -8,6 +8,10 @@
     "Other"
   ],
   "icon": "resources/squarecloud.png",
+  "galleryBanner": {
+    "color": "#030405",
+    "theme": "dark"
+  },
   "packageManager": "pnpm@11.5.0",
   "keywords": [
     "squarecloud",
@@ -45,7 +49,7 @@
   "main": "./dist/extension.js",
   "scripts": {
     "lint": "biome check --write .",
-    "build": "pnpm run check-types && pnpm run check-strings && pnpm run check-realtime && node esbuild.js --production",
+    "build": "pnpm run check-types && pnpm run check-strings && pnpm run check-realtime && pnpm run check-problems && pnpm run check-key-sync && node esbuild.js --production",
     "check-types": "tsc --noEmit",
     "check-authorize": "node scripts/check-authorize.mjs",
     "watch": "concurrently --raw \"pnpm:watch:*\"",
@@ -56,10 +60,12 @@
     "publish:ovsx": "ovsx publish --no-dependencies",
     "package": "vsce package --allow-star-activation --no-dependencies",
     "check-strings": "node scripts/check-strings.mjs",
-    "check-realtime": "node scripts/check-realtime.mjs"
+    "check-realtime": "node scripts/check-realtime.mjs",
+    "check-problems": "node scripts/check-problems.mjs",
+    "check-key-sync": "node scripts/check-key-sync.mjs"
   },
   "dependencies": {
-    "@squarecloud/api": "^5.0.0",
+    "@squarecloud/api": "^6.0.0",
     "ignore": "^7.0.6",
     "jszip": "^3.10.1",
     "vscode-ext-localisation": "^1.1.0",
@@ -80,19 +86,19 @@
       "commandPalette": [
         {
           "command": "squarecloud.commitEntry",
-          "when": "false"
+          "when": "squarecloud.hideAuth"
         },
         {
           "command": "squarecloud.copyIdEntry",
-          "when": "false"
+          "when": "squarecloud.hideAuth"
         },
         {
           "command": "squarecloud.deleteDatabase",
-          "when": "false"
+          "when": "squarecloud.hideAuth"
         },
         {
           "command": "squarecloud.deleteEntry",
-          "when": "false"
+          "when": "squarecloud.hideAuth"
         },
         {
           "command": "squarecloud.deleteWorkspace",
@@ -100,11 +106,11 @@
         },
         {
           "command": "squarecloud.downloadDatabaseCertificate",
-          "when": "false"
+          "when": "squarecloud.hideAuth"
         },
         {
           "command": "squarecloud.envsEntry",
-          "when": "false"
+          "when": "squarecloud.hideAuth"
         },
         {
           "command": "squarecloud.favoriteEntry",
@@ -112,7 +118,11 @@
         },
         {
           "command": "squarecloud.generateInviteCode",
-          "when": "false"
+          "when": "squarecloud.hideAuth"
+        },
+        {
+          "command": "squarecloud.showServiceStatus",
+          "when": "squarecloud.hideAuth"
         },
         {
           "command": "squarecloud.leaveWorkspace",
@@ -120,39 +130,39 @@
         },
         {
           "command": "squarecloud.linkGithubAppEntry",
-          "when": "false"
+          "when": "squarecloud.hideAuth"
         },
         {
           "command": "squarecloud.logsEntry",
-          "when": "false"
+          "when": "squarecloud.hideAuth"
         },
         {
           "command": "squarecloud.metricsEntry",
-          "when": "false"
+          "when": "squarecloud.hideAuth"
         },
         {
           "command": "squarecloud.networkErrorsEntry",
-          "when": "false"
+          "when": "squarecloud.hideAuth"
         },
         {
           "command": "squarecloud.networkLogsEntry",
-          "when": "false"
+          "when": "squarecloud.hideAuth"
         },
         {
           "command": "squarecloud.networkPerformanceEntry",
-          "when": "false"
+          "when": "squarecloud.hideAuth"
         },
         {
           "command": "squarecloud.openEntry",
-          "when": "false"
+          "when": "squarecloud.hideAuth"
         },
         {
           "command": "squarecloud.purgeCacheEntry",
-          "when": "false"
+          "when": "squarecloud.hideAuth"
         },
         {
           "command": "squarecloud.realtimeEntry",
-          "when": "false"
+          "when": "squarecloud.hideAuth"
         },
         {
           "command": "squarecloud.refreshEntry",
@@ -164,31 +174,31 @@
         },
         {
           "command": "squarecloud.restartEntry",
-          "when": "false"
+          "when": "squarecloud.hideAuth"
         },
         {
           "command": "squarecloud.snapshotEntry",
-          "when": "false"
+          "when": "squarecloud.hideAuth"
         },
         {
           "command": "squarecloud.snapshotRestoreEntry",
-          "when": "false"
+          "when": "squarecloud.hideAuth"
         },
         {
           "command": "squarecloud.startDatabase",
-          "when": "false"
+          "when": "squarecloud.hideAuth"
         },
         {
           "command": "squarecloud.startEntry",
-          "when": "false"
+          "when": "squarecloud.hideAuth"
         },
         {
           "command": "squarecloud.stopDatabase",
-          "when": "false"
+          "when": "squarecloud.hideAuth"
         },
         {
           "command": "squarecloud.stopEntry",
-          "when": "false"
+          "when": "squarecloud.hideAuth"
         },
         {
           "command": "squarecloud.unfavoriteEntry",
@@ -196,7 +206,7 @@
         },
         {
           "command": "squarecloud.unlinkGithubAppEntry",
-          "when": "false"
+          "when": "squarecloud.hideAuth"
         }
       ],
       "view/title": [
@@ -219,7 +229,19 @@
           "when": "view == dashboard-view"
         },
         {
+          "command": "squarecloud.generateInviteCode",
+          "when": "view == dashboard-view"
+        },
+        {
           "command": "squarecloud.logout",
+          "when": "view == dashboard-view"
+        },
+        {
+          "command": "squarecloud.getStarted",
+          "when": "view == auth-view"
+        },
+        {
+          "command": "squarecloud.getStarted",
           "when": "view == dashboard-view"
         }
       ]
@@ -227,138 +249,146 @@
     "commands": [
       {
         "command": "squarecloud.setApiKey",
-        "title": "%command.setApiKey%",
+        "title": "%palette.setApiKey%",
         "category": "Square Cloud"
       },
       {
+        "command": "squarecloud.getStarted",
+        "title": "%command.getStarted%",
+        "category": "Square Cloud",
+        "icon": "$(question)"
+      },
+      {
         "command": "squarecloud.uploadApplication",
-        "title": "%command.uploadApplication%",
+        "title": "%palette.uploadApplication%",
         "category": "Square Cloud",
         "icon": "$(cloud-upload)"
       },
       {
         "command": "squarecloud.refreshCache",
         "title": "%command.refresh%",
-        "icon": {
-          "light": "resources/light/refresh.svg",
-          "dark": "resources/dark/refresh.svg"
-        }
+        "category": "Square Cloud",
+        "icon": "$(refresh)"
       },
       {
         "command": "squarecloud.refreshEntry",
         "title": "%command.refresh%",
-        "icon": {
-          "light": "resources/light/refresh.svg",
-          "dark": "resources/dark/refresh.svg"
-        }
+        "icon": "$(refresh)"
       },
       {
         "command": "squarecloud.refreshWorkspaces",
         "title": "%command.refresh%",
-        "icon": {
-          "light": "resources/light/refresh.svg",
-          "dark": "resources/dark/refresh.svg"
-        }
+        "icon": "$(refresh)"
       },
       {
         "command": "squarecloud.logsEntry",
-        "title": "%command.logsEntry%",
-        "icon": {
-          "light": "resources/light/logs.svg",
-          "dark": "resources/dark/logs.svg"
-        }
+        "title": "%palette.logsEntry%",
+        "category": "Square Cloud",
+        "icon": "$(output)"
       },
       {
         "command": "squarecloud.favoriteEntry",
         "title": "%command.favorite%",
-        "icon": {
-          "light": "resources/light/star.svg",
-          "dark": "resources/dark/star.svg"
-        }
+        "icon": "$(star-empty)"
       },
       {
         "command": "squarecloud.unfavoriteEntry",
         "title": "%command.unfavorite%",
-        "icon": {
-          "light": "resources/light/star-fill.svg",
-          "dark": "resources/dark/star-fill.svg"
-        }
+        "icon": "$(star-full)"
       },
       {
         "command": "squarecloud.openEntry",
-        "title": "%command.open%"
+        "title": "%palette.openEntry%",
+        "category": "Square Cloud"
       },
       {
         "command": "squarecloud.startEntry",
-        "title": "%command.start%"
+        "title": "%palette.startEntry%",
+        "category": "Square Cloud"
       },
       {
         "command": "squarecloud.stopEntry",
-        "title": "%command.stop%"
+        "title": "%palette.stopEntry%",
+        "category": "Square Cloud"
       },
       {
         "command": "squarecloud.restartEntry",
-        "title": "%command.restart%"
+        "title": "%palette.restartEntry%",
+        "category": "Square Cloud"
       },
       {
         "command": "squarecloud.deleteEntry",
-        "title": "%command.delete%"
+        "title": "%palette.deleteEntry%",
+        "category": "Square Cloud"
       },
       {
         "command": "squarecloud.commitEntry",
-        "title": "%command.commit%"
+        "title": "%palette.commitEntry%",
+        "category": "Square Cloud"
       },
       {
         "command": "squarecloud.snapshotEntry",
-        "title": "%command.snapshot%"
+        "title": "%palette.snapshotEntry%",
+        "category": "Square Cloud"
       },
       {
         "command": "squarecloud.snapshotRestoreEntry",
-        "title": "%command.snapshotRestore%"
+        "title": "%palette.snapshotRestoreEntry%",
+        "category": "Square Cloud"
       },
       {
         "command": "squarecloud.copyIdEntry",
-        "title": "%command.copyId%"
+        "title": "%palette.copyIdEntry%",
+        "category": "Square Cloud"
       },
       {
         "command": "squarecloud.envsEntry",
-        "title": "%command.envs%"
+        "title": "%palette.envsEntry%",
+        "category": "Square Cloud"
       },
       {
         "command": "squarecloud.metricsEntry",
-        "title": "%command.metrics%"
+        "title": "%palette.metricsEntry%",
+        "category": "Square Cloud"
       },
       {
         "command": "squarecloud.realtimeEntry",
-        "title": "%command.realtime%"
+        "title": "%palette.realtimeEntry%",
+        "category": "Square Cloud"
       },
       {
         "command": "squarecloud.linkGithubAppEntry",
-        "title": "%command.linkGithub%"
+        "title": "%palette.linkGithubAppEntry%",
+        "category": "Square Cloud"
       },
       {
         "command": "squarecloud.unlinkGithubAppEntry",
-        "title": "%command.unlinkGithub%"
+        "title": "%palette.unlinkGithubAppEntry%",
+        "category": "Square Cloud"
       },
       {
         "command": "squarecloud.networkErrorsEntry",
-        "title": "%command.networkErrors%"
+        "title": "%palette.networkErrorsEntry%",
+        "category": "Square Cloud"
       },
       {
         "command": "squarecloud.networkLogsEntry",
-        "title": "%command.networkLogs%"
+        "title": "%palette.networkLogsEntry%",
+        "category": "Square Cloud"
       },
       {
         "command": "squarecloud.networkPerformanceEntry",
-        "title": "%command.networkPerformance%"
+        "title": "%palette.networkPerformanceEntry%",
+        "category": "Square Cloud"
       },
       {
         "command": "squarecloud.purgeCacheEntry",
-        "title": "%command.purgeCache%"
+        "title": "%palette.purgeCacheEntry%",
+        "category": "Square Cloud"
       },
       {
         "command": "squarecloud.createWorkspace",
-        "title": "%command.createWorkspace%",
+        "title": "%palette.createWorkspace%",
         "category": "Square Cloud"
       },
       {
@@ -371,38 +401,42 @@
       },
       {
         "command": "squarecloud.generateInviteCode",
-        "title": "%command.generateInviteCode%",
+        "title": "%palette.generateInviteCode%",
         "category": "Square Cloud"
       },
       {
         "command": "squarecloud.createDatabase",
-        "title": "%command.createDatabase%",
+        "title": "%palette.createDatabase%",
         "category": "Square Cloud"
       },
       {
         "command": "squarecloud.startDatabase",
-        "title": "%command.startDatabase%"
+        "title": "%palette.startDatabase%",
+        "category": "Square Cloud"
       },
       {
         "command": "squarecloud.stopDatabase",
-        "title": "%command.stopDatabase%"
+        "title": "%palette.stopDatabase%",
+        "category": "Square Cloud"
       },
       {
         "command": "squarecloud.deleteDatabase",
-        "title": "%command.deleteDatabase%"
+        "title": "%palette.deleteDatabase%",
+        "category": "Square Cloud"
       },
       {
         "command": "squarecloud.downloadDatabaseCertificate",
-        "title": "%command.downloadDatabaseCertificate%"
+        "title": "%palette.downloadDatabaseCertificate%",
+        "category": "Square Cloud"
       },
       {
         "command": "squarecloud.showServiceStatus",
-        "title": "%command.serviceStatus%",
+        "title": "%palette.serviceStatus%",
         "category": "Square Cloud"
       },
       {
         "command": "squarecloud.logout",
-        "title": "%command.logout%",
+        "title": "%palette.logout%",
         "category": "Square Cloud"
       }
     ],
@@ -479,6 +513,148 @@
         "language": "squarecloud.config",
         "scopeName": "source.squarecloud",
         "path": "./syntaxes/config.tmLanguage.json"
+      }
+    ],
+    "walkthroughs": [
+      {
+        "id": "getStarted",
+        "title": "%walkthrough.title%",
+        "description": "%walkthrough.description%",
+        "featuredFor": [
+          "squarecloud.app",
+          "squarecloud.config"
+        ],
+        "steps": [
+          {
+            "id": "connect",
+            "title": "%walkthrough.connect.title%",
+            "description": "%walkthrough.connect.description%",
+            "media": {
+              "svg": "resources/walkthrough/connect.svg",
+              "altText": "%walkthrough.connect.alt%"
+            },
+            "completionEvents": [
+              "onContext:squarecloud.hideAuth"
+            ]
+          },
+          {
+            "id": "config",
+            "title": "%walkthrough.config.title%",
+            "description": "%walkthrough.config.description%",
+            "media": {
+              "svg": "resources/walkthrough/config.svg",
+              "altText": "%walkthrough.config.alt%"
+            }
+          },
+          {
+            "id": "upload",
+            "title": "%walkthrough.upload.title%",
+            "description": "%walkthrough.upload.description%",
+            "media": {
+              "svg": "resources/walkthrough/upload.svg",
+              "altText": "%walkthrough.upload.alt%"
+            },
+            "completionEvents": [
+              "onCommand:squarecloud.uploadApplication",
+              "onCommand:squarecloud.commitEntry"
+            ]
+          },
+          {
+            "id": "manage",
+            "title": "%walkthrough.manage.title%",
+            "description": "%walkthrough.manage.description%",
+            "media": {
+              "svg": "resources/walkthrough/manage.svg",
+              "altText": "%walkthrough.manage.alt%"
+            },
+            "completionEvents": [
+              "onCommand:squarecloud.startEntry",
+              "onCommand:squarecloud.stopEntry",
+              "onCommand:squarecloud.restartEntry",
+              "onCommand:squarecloud.envsEntry"
+            ]
+          },
+          {
+            "id": "logs",
+            "title": "%walkthrough.logs.title%",
+            "description": "%walkthrough.logs.description%",
+            "media": {
+              "svg": "resources/walkthrough/logs.svg",
+              "altText": "%walkthrough.logs.alt%"
+            },
+            "completionEvents": [
+              "onCommand:squarecloud.logsEntry",
+              "onCommand:squarecloud.realtimeEntry",
+              "onCommand:squarecloud.metricsEntry"
+            ]
+          },
+          {
+            "id": "snapshots",
+            "title": "%walkthrough.snapshots.title%",
+            "description": "%walkthrough.snapshots.description%",
+            "media": {
+              "svg": "resources/walkthrough/snapshots.svg",
+              "altText": "%walkthrough.snapshots.alt%"
+            },
+            "completionEvents": [
+              "onCommand:squarecloud.snapshotEntry",
+              "onCommand:squarecloud.snapshotRestoreEntry"
+            ]
+          },
+          {
+            "id": "databases",
+            "title": "%walkthrough.databases.title%",
+            "description": "%walkthrough.databases.description%",
+            "media": {
+              "svg": "resources/walkthrough/databases.svg",
+              "altText": "%walkthrough.databases.alt%"
+            },
+            "completionEvents": [
+              "onCommand:squarecloud.createDatabase",
+              "onCommand:squarecloud.downloadDatabaseCertificate"
+            ]
+          },
+          {
+            "id": "workspaces",
+            "title": "%walkthrough.workspaces.title%",
+            "description": "%walkthrough.workspaces.description%",
+            "media": {
+              "svg": "resources/walkthrough/workspaces.svg",
+              "altText": "%walkthrough.workspaces.alt%"
+            },
+            "completionEvents": [
+              "onCommand:squarecloud.createWorkspace",
+              "onCommand:squarecloud.generateInviteCode"
+            ]
+          },
+          {
+            "id": "github",
+            "title": "%walkthrough.github.title%",
+            "description": "%walkthrough.github.description%",
+            "media": {
+              "svg": "resources/walkthrough/github.svg",
+              "altText": "%walkthrough.github.alt%"
+            },
+            "completionEvents": [
+              "onCommand:squarecloud.linkGithubAppEntry"
+            ]
+          },
+          {
+            "id": "network",
+            "title": "%walkthrough.network.title%",
+            "description": "%walkthrough.network.description%",
+            "media": {
+              "svg": "resources/walkthrough/network.svg",
+              "altText": "%walkthrough.network.alt%"
+            },
+            "completionEvents": [
+              "onCommand:squarecloud.networkLogsEntry",
+              "onCommand:squarecloud.networkErrorsEntry",
+              "onCommand:squarecloud.networkPerformanceEntry",
+              "onCommand:squarecloud.purgeCacheEntry"
+            ]
+          }
+        ]
       }
     ]
   }

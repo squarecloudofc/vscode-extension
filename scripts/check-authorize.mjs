@@ -42,7 +42,10 @@ await esbuild.build({
     "@squarecloud/api": stub(
       "sdk.mjs",
       `export class SquareCloudAPIError extends Error {
-         constructor(code, message) { super(code); this.code = code; this.detail = message; }
+         constructor(status, code, message, method, path, options) {
+           super(message || code, options);
+           Object.assign(this, { status, code, method, path });
+         }
        }`,
     ),
   },

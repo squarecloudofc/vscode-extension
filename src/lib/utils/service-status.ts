@@ -12,10 +12,13 @@ import type { ServiceStatus } from "@/lib/store";
  *
  * ponytail: allowlist, because an unrecognised value should say something is
  * off rather than quietly claim everything is fine. If the platform starts
- * reporting a new healthy word, it lands here.
+ * reporting a new healthy word, it lands here. `unknown` is in the list on
+ * purpose: the API sends it when its own check could not run, which is not
+ * evidence of an outage.
  */
 const HEALTHY = new Set([
   "online",
+  "unknown",
   "operational",
   "ok",
   "up",

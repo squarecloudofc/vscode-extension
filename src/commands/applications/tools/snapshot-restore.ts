@@ -1,71 +1,30 @@
-import type { Snapshot } from "@squarecloud/api";
 import { ProgressLocation, window } from "vscode";
 import { t } from "vscode-ext-localisation";
 
 import { confirm } from "@/lib/utils/dialogs";
 import { formatBytes } from "@/lib/utils/format";
+import { getLocale } from "@/lib/utils/locale";
 import { ApplicationCommand } from "@/structures/application/command";
-import { Logger } from "@/structures/logger";
-
-const logger = new Logger("snapshot-restore");
-
-interface SnapshotIds {
-  snapshotId: string;
-  versionId: string;
-}
-
-/**
- * Pulls the identifiers needed by `snapshots.restore()` out of a Snapshot.
- *
- * The SDK builds the URL as
- *   `https://snapshots.squarecloud.app/applications/<userId>/<name>.zip?<key>`
- * where `name` is the snapshotId (UUID v4) and `key` is a signed query string
- * that carries the versionId among its params. Neither field is exposed
- * directly on `BaseSnapshot`, so we reconstruct them from the URL.
- */
-function extractIds(snapshot: Snapshot): SnapshotIds | null {
-  try {
-    const url = new URL(snapshot.url);
-    const filename = url.pathname.split("/").pop() ?? "";
-    const snapshotId = filename.replace(/\.zip$/i, "");
-
-    const fromUrl = url.searchParams.get("versionId");
-    const fromKey = new URLSearchParams(snapshot.key).get("versionId");
-    const versionId = fromUrl ?? fromKey ?? null;
-
-    if (!snapshotId || !versionId) {
-      logger.warn(
-        `Could not derive snapshot ids — snapshotId=${snapshotId} versionId=${versionId} key=${snapshot.key}`,
-      );
-      return null;
-    }
-    return { snapshotId, versionId };
-  } catch (error) {
-    logger.error("Failed to parse snapshot URL", error);
-    return null;
-  }
-}
 
 export const snapshotRestoreEntry = new ApplicationCommand(
   "snapshotRestoreEntry",
-  async (extension, { application }) => {
-    const snapshots = await application.snapshots.list().catch((error) => {
-      logger.error("snapshots.list() failed", error);
-      return undefined;
-    });
+  async (extension, { application }, api) => {
+    // A failed listing is reported as what it is (offline, rate limit, plan):
+    // "no snapshots" would tell someone with backups that they have none.
+    const snapshots = await api.apps.snapshots.list(application.id);
 
-    if (!snapshots || snapshots.length === 0) {
+    if (snapshots.length === 0) {
       window.showErrorMessage(t("snapshotRestore.noSnapshots"));
       return;
     }
 
     // Sort newest first — restoring almost always means "undo the last change".
     const sorted = [...snapshots].sort(
-      (a, b) => b.modifiedTimestamp - a.modifiedTimestamp,
+      (a, b) => Date.parse(b.modified) - Date.parse(a.modified),
     );
 
     const items = sorted.map((snapshot) => ({
-      label: snapshot.modifiedAt.toLocaleString(),
+      label: new Date(snapshot.modified).toLocaleString(getLocale()),
       description: formatBytes(snapshot.size),
       snapshot,
     }));
@@ -76,14 +35,6 @@ export const snapshotRestoreEntry = new ApplicationCommand(
     });
     if (!picked) return;
 
-    const ids = extractIds(picked.snapshot);
-    if (!ids) {
-      // Extraction failure is logged with the raw key so the user can report
-      // an example back to us if the URL format changes again.
-      window.showErrorMessage(t("snapshotRestore.idExtractFailed"));
-      return;
-    }
-
     if (!(await confirm(t("snapshotRestore.confirm", { DATE: picked.label }))))
       return;
 
@@ -92,9 +43,14 @@ export const snapshotRestoreEntry = new ApplicationCommand(
         location: ProgressLocation.Notification,
         title: t("snapshotRestore.loading"),
       },
-      async () => {
-        await application.snapshots.restore(ids);
-      },
+      // The listing carries exactly what restore takes: its `name` and
+      // `version_id`.
+      () =>
+        api.apps.snapshots.restore(
+          application.id,
+          picked.snapshot.name,
+          picked.snapshot.version_id,
+        ),
     );
 
     extension.api.scheduleStatusRefresh(application.id);

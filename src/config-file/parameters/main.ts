@@ -1,5 +1,5 @@
 import { existsSync, statSync } from "node:fs";
-import { dirname, relative, resolve } from "node:path";
+import { dirname, isAbsolute, relative, resolve } from "node:path";
 import * as vscode from "vscode";
 import { t } from "vscode-ext-localisation";
 
@@ -18,6 +18,10 @@ export const MAIN = {
     const configFilePath = dirname(document.uri.fsPath);
     const mainFilePath = resolve(configFilePath, value);
     const stats = existsSync(mainFilePath) ? statSync(mainFilePath) : undefined;
+    // Judged relative to the config file: a project that lives under a
+    // dot-folder is fine, and "../" (caught by "/.") leaves the project.
+    const relativePath = relative(configFilePath, mainFilePath);
+    const inProject = `/${relativePath.replaceAll("\\", "/")}`;
 
     // Validate if there is some value on MAIN
     if (!value) {
@@ -29,10 +33,8 @@ export const MAIN = {
     // Validate if the file exists, is a file, and is inside config file root path
     if (
       !stats?.isFile() ||
-      !mainFilePath.startsWith(configFilePath) ||
-      notAllowedFolders.some((folder) =>
-        mainFilePath.replaceAll("\\", "/").includes(folder),
-      )
+      isAbsolute(relativePath) ||
+      notAllowedFolders.some((folder) => inProject.includes(folder))
     ) {
       diagnostics.push(
         createDiagnostic(
@@ -53,21 +55,28 @@ export const MAIN = {
 
     return files.then((uris) =>
       uris
+        // Filtered on the path inside the project, like the validation above:
+        // "/." also drops "../" siblings, and a parent folder named "dist"
+        // or ".projects" no longer hides every file.
+        .map((uri) =>
+          relative(configFilePath, uri.fsPath).replaceAll("\\", "/"),
+        )
         .filter(
-          (uri) =>
-            uri.fsPath.startsWith(configFilePath) &&
-            !uri.fsPath.includes("dist") &&
+          (relativePath) =>
+            !isAbsolute(relativePath) &&
+            !`/${relativePath}`.includes("/dist/") &&
             !notAllowedFolders.some((folder) =>
-              uri.fsPath.replaceAll("\\", "/").includes(folder),
+              `/${relativePath}`.includes(folder),
             ),
         )
-        .map((uri) => {
-          const relativePath = relative(configFilePath, uri.fsPath);
+        .map((relativePath) => {
+          // Forward slashes in the label too, or typing "src/" filters every
+          // Windows suggestion out.
           const item = new vscode.CompletionItem(
             relativePath,
             vscode.CompletionItemKind.File,
           );
-          item.insertText = relativePath.replaceAll("\\", "/");
+          item.insertText = relativePath;
           item.range = document.getWordRangeAtPosition(
             position,
             /(?<=MAIN=).*/,

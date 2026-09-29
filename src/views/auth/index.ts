@@ -18,7 +18,12 @@ import {
   type PendingAuthorization,
 } from "@/lib/api-key/authorize";
 import { confirm } from "@/lib/utils/dialogs";
-import { describeCode, describeError } from "@/lib/utils/errors";
+import {
+  describeCode,
+  describeError,
+  isApiError,
+  problemOf,
+} from "@/lib/utils/errors";
 import { getLocale } from "@/lib/utils/locale";
 import { Logger } from "@/structures/logger";
 
@@ -76,10 +81,13 @@ export class AuthViewProvider implements WebviewViewProvider {
 
   /** Reveals the view, forcing it open even when a key is already stored. */
   async reveal(): Promise<void> {
-    this.reconnecting = true;
+    // Only someone with a key is re-connecting, and has a dashboard to go
+    // back to; for anyone else this is just the sign-in.
+    this.reconnecting = Boolean(await this.extension.config.apiKey.get());
     await this.syncVisibility();
     await commands.executeCommand(`${AuthViewProvider.viewId}.focus`);
     if (this.step === "starting" || this.step === "done") this.show("choose");
+    else this.push();
   }
 
   /**
@@ -110,6 +118,10 @@ export class AuthViewProvider implements WebviewViewProvider {
         return void this.openApprovalPage();
       case "copy":
         return void this.copyCode();
+      case "security":
+        return void env.openExternal(Uri.parse(securityPage()));
+      case "tour":
+        return void commands.executeCommand("squarecloud.getStarted");
       case "retry":
         this.show("choose");
         return;
@@ -118,7 +130,7 @@ export class AuthViewProvider implements WebviewViewProvider {
         // Cancelling a re-connect means "never mind", not "start over" — hand
         // the sidebar back instead of parking on the sign-in screen.
         if (this.reconnecting) return void this.finish();
-        this.show("choose");
+        this.show("choose", { notice: t("auth.cancelled"), kind: "cancelled" });
         return;
       case "close":
         return void this.finish();
@@ -132,7 +144,13 @@ export class AuthViewProvider implements WebviewViewProvider {
   }
 
   private push(): void {
-    this.view?.webview.postMessage({ step: this.step, ...this.data });
+    this.view?.webview.postMessage({
+      step: this.step,
+      ...this.data,
+      // Offers the way back to the dashboard, which otherwise only a
+      // successful connect or a reload would give.
+      reconnecting: this.reconnecting,
+    });
   }
 
   /**
@@ -141,31 +159,57 @@ export class AuthViewProvider implements WebviewViewProvider {
    * alive and the next tick may well succeed.
    */
   private warn(code: string): void {
-    this.data = { ...this.data, warning: describeCode(code) };
+    const kind = problemOf(code);
+    this.data = {
+      ...this.data,
+      warning: describeCode(code),
+      warningKind: kind,
+      warningTitle:
+        kind === "keyLimit"
+          ? t("auth.warning.keyLimit")
+          : t("auth.warning.rateLimit"),
+    };
     this.push();
+  }
+
+  /** The error step, pictured by what kind of problem it is. */
+  private fail(error: unknown): void {
+    this.show("error", {
+      error: describeError(error),
+      kind: problemOf(error),
+      code: isApiError(error) ? error.code : "",
+    });
   }
 
   private async connect(): Promise<void> {
     this.abort();
+    // Held locally and made before the first await: a Cancel or a second
+    // Connect while `start` is in flight, or while the code is copied and the
+    // browser opens, must stop this attempt rather than race it.
+    const cancellation = new CancellationTokenSource();
+    this.cancellation = cancellation;
+    let pending: PendingAuthorization | undefined;
     this.show("starting");
 
     try {
-      const pending = await beginAuthorization(getLocale());
+      pending = await beginAuthorization(getLocale());
+      if (cancellation.token.isCancellationRequested) return pending.dispose();
       this.pending = pending;
-      this.cancellation = new CancellationTokenSource();
 
       // The countdown runs off the server's `expires_in`, never a hardcoded 10
       // minutes — the grant's clock is the only one that matters.
       this.show("waiting", {
         code: pending.display,
         expiresIn: String(pending.expiresIn),
+        // Absolute, so a webview rebuilt mid-wait resumes the same countdown.
+        expiresAt: String(Date.now() + pending.expiresIn * 1000),
       });
       // On the clipboard before the browser opens, so the page can be filled
       // with a paste instead of squinting back at the sidebar.
       await this.copyCode();
       await this.openApprovalPage();
 
-      const grant = await pending.wait(this.cancellation.token, {
+      const grant = await pending.wait(cancellation.token, {
         onWarning: (code) => this.warn(code),
       });
       if (!(await this.storeGrant(grant))) {
@@ -180,11 +224,21 @@ export class AuthViewProvider implements WebviewViewProvider {
       window.showInformationMessage(message);
       this.lingerThenFinish();
     } catch (error) {
-      if (error instanceof CancellationError) return;
+      if (
+        error instanceof CancellationError ||
+        cancellation.token.isCancellationRequested
+      ) {
+        return;
+      }
       this.logger.error("authorization failed", error);
-      this.show("error", { error: describeError(error) });
+      // Running out the clock is the common "failure" — say so plainly.
+      if (isApiError(error) && error.code === "INVALID_GRANT") {
+        this.show("error", { error: t("auth.expired.body"), kind: "expired" });
+      } else {
+        this.fail(error);
+      }
     } finally {
-      this.pending = undefined;
+      if (this.pending === pending) this.pending = undefined;
     }
   }
 
@@ -233,7 +287,7 @@ export class AuthViewProvider implements WebviewViewProvider {
 
   /** Fallback for keys created by hand in the dashboard (CI, or no browser). */
   private async paste(): Promise<void> {
-    const apiKeyUrl = `https://squarecloud.app/${getLocale()}/account/security`;
+    const apiKeyUrl = securityPage();
 
     const apiKey = await window.showInputBox({
       title: t("setApiKey.apiKey"),
@@ -255,11 +309,11 @@ export class AuthViewProvider implements WebviewViewProvider {
       );
 
       if (!valid) {
-        this.show("error", { error: t("setApiKey.invalid") });
+        this.show("error", { error: t("setApiKey.invalid"), kind: "session" });
         return;
       }
     } catch (error) {
-      this.show("error", { error: describeError(error) });
+      this.fail(error);
       return;
     }
 
@@ -315,4 +369,8 @@ export class AuthViewProvider implements WebviewViewProvider {
     this.clearDoneTimer();
     this.abort();
   }
+}
+
+function securityPage(): string {
+  return `https://squarecloud.app/${getLocale()}/account/security`;
 }

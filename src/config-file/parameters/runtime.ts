@@ -26,6 +26,8 @@ export const RUNTIME_VALUES = [
   // Other runtimes
   "elixir",
   "rust",
+  "ruby",
+  "rb",
   "php",
   // Go (canonical first per docs)
   "go",

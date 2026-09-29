@@ -1,0 +1,580 @@
+{
+  "command.setApiKey": "アカウントを接続",
+  "command.logsEntry": "ログを表示",
+  "command.refresh": "更新",
+  "command.open": "ダッシュボードで開く",
+  "command.start": "起動",
+  "command.stop": "停止",
+  "command.copyId": "ID をコピー",
+  "command.restart": "再起動",
+  "command.delete": "削除",
+  "command.favorite": "お気に入りに追加",
+  "command.unfavorite": "お気に入りから削除",
+  "command.snapshotRestore": "スナップショットを復元",
+  "command.envs": "環境変数",
+  "command.metrics": "過去 24 時間のメトリクスを表示",
+  "command.realtime": "リアルタイムストリームを切り替え",
+  "command.linkGithub": "GitHub リポジトリを連携",
+  "command.unlinkGithub": "GitHub リポジトリの連携を解除",
+  "command.networkErrors": "エッジのエラー",
+  "command.networkLogs": "エッジのログ",
+  "command.networkPerformance": "エッジのパフォーマンス",
+  "command.purgeCache": "エッジキャッシュをパージ",
+  "command.createWorkspace": "ワークスペースを作成",
+  "command.deleteWorkspace": "ワークスペースを削除",
+  "command.leaveWorkspace": "ワークスペースから退出",
+  "command.createDatabase": "データベースを作成",
+  "command.startDatabase": "データベースを起動",
+  "command.stopDatabase": "データベースを停止",
+  "command.deleteDatabase": "データベースを削除",
+  "command.downloadDatabaseCertificate": "TLS 証明書をダウンロード",
+  "palette.startEntry": "アプリケーションを起動...",
+  "palette.stopEntry": "アプリケーションを停止...",
+  "palette.restartEntry": "アプリケーションを再起動...",
+  "palette.logsEntry": "アプリケーションのログを表示...",
+  "palette.realtimeEntry": "アプリケーションのリアルタイムストリームを切り替え...",
+  "palette.metricsEntry": "アプリケーションの過去 24 時間のメトリクスを表示...",
+  "palette.commitEntry": "アプリケーションにファイルをコミット...",
+  "palette.snapshotEntry": "アプリケーションのスナップショットをダウンロード...",
+  "palette.snapshotRestoreEntry": "アプリケーションのスナップショットを復元...",
+  "palette.envsEntry": "アプリケーションの環境変数を編集...",
+  "palette.linkGithubAppEntry": "アプリケーションを GitHub リポジトリに連携...",
+  "palette.unlinkGithubAppEntry": "アプリケーションと GitHub リポジトリの連携を解除...",
+  "palette.networkLogsEntry": "エッジのログを表示...",
+  "palette.networkErrorsEntry": "エッジのエラーを表示...",
+  "palette.networkPerformanceEntry": "エッジのパフォーマンスを表示...",
+  "palette.purgeCacheEntry": "エッジキャッシュをパージ...",
+  "palette.openEntry": "アプリケーションを Web ダッシュボードで開く...",
+  "palette.copyIdEntry": "アプリケーション ID をコピー...",
+  "palette.deleteEntry": "アプリケーションを削除...",
+  "palette.startDatabase": "データベースを起動...",
+  "palette.stopDatabase": "データベースを停止...",
+  "palette.downloadDatabaseCertificate": "データベースの TLS 証明書をダウンロード...",
+  "palette.deleteDatabase": "データベースを削除...",
+  "palette.generateInviteCode": "自分の招待コードをコピー",
+  "palette.setApiKey": "アカウントを接続",
+  "palette.uploadApplication": "新しいアプリケーションをアップロード",
+  "palette.createWorkspace": "ワークスペースを作成",
+  "palette.createDatabase": "データベースを作成",
+  "palette.serviceStatus": "サービスステータスを表示",
+  "palette.logout": "アカウントの接続を解除",
+  "view.apps.title": "アプリケーション",
+  "view.workspaces.title": "ワークスペース",
+  "view.databases.title": "データベース",
+  "view.welcome": "接続されているアカウントはありません。\n[アカウントを接続](command:squarecloud.setApiKey)",
+  "apps": {
+    "noApps": {
+      "message": "アプリケーションがありません",
+      "upgrade": "プランを見る"
+    },
+    "pick": "アプリケーションを選択",
+    "allRunning": "すべてのアプリケーションがすでに稼働中です。",
+    "noneRunning": "稼働中のアプリケーションはありません。",
+    "noneWebsite": "ドメインを持つアプリケーションはありません。",
+    "noneMetrics": "メトリクスには 512 MB 以上の RAM が必要ですが、条件を満たすアプリケーションがありません。"
+  },
+  "generic": {
+    "yes": "はい",
+    "no": "いいえ",
+    "loading": "読み込み中...",
+    "error": "不明なエラーが発生しました。",
+    "done": "完了しました！",
+    "paste": "ここに貼り付け...",
+    "choose": "オプションを選択...",
+    "file": "ファイル",
+    "folder": "フォルダ"
+  },
+  "setApiKey": {
+    "tutorial": {
+      "button": "ダッシュボードを開く"
+    },
+    "apiKey": "ダッシュボードで作成したトークンを貼り付けてください。",
+    "testing": "確認しています...",
+    "invalid": "このトークンは無効です。",
+    "success": "接続しました！",
+    "connect": {
+      "label": "アカウントを接続",
+      "action": "アカウントを接続",
+      "codeDetail": "ページでこのコードの入力を求められます。他の人から送られてきたコードは絶対に入力しないでください。",
+      "open": "ページを開く",
+      "success": "{{EMAIL}} として接続しました",
+      "accountChanged": "この承認は {{NEW}} で行われましたが、現在は {{OLD}} が接続されています。置き換えますか？",
+      "expired": "認可の有効期限が切れたか、失効しました（安全のため、有効期間は 90 日です）。アカウントをもう一度接続してください。",
+      "browserTitle": "アカウントを接続しました",
+      "browserBody": "このタブを閉じて、VS Code に戻ってかまいません。"
+    },
+    "manual": {
+      "label": "その他の接続方法"
+    },
+    "panel": {
+      "codeLabel": "このコードをページに貼り付けてください",
+      "copyHint": "コピーしました。クリックするともう一度コピーします。",
+      "copied": "コピーしました！",
+      "waitingHint": "ブラウザでの承認を待っています...",
+      "cancel": "キャンセル",
+      "retry": "再試行",
+      "expiresIn": "有効期限まで {{TIME}}"
+    }
+  },
+  "logs": {
+    "loading": "ログを取得しています...",
+    "null": "ログが見つかりませんでした。"
+  },
+  "copy": {
+    "copiedId": "アプリケーション ID をクリップボードにコピーしました。"
+  },
+  "start": {
+    "loading": "アプリケーションを起動しています...",
+    "loaded": "アプリケーションが起動しました。"
+  },
+  "stop": {
+    "loading": "アプリケーションを停止しています...",
+    "loaded": "アプリケーションを停止しました。"
+  },
+  "restart": {
+    "loading": "アプリケーションを再起動しています...",
+    "loaded": "アプリケーションを再起動しました。"
+  },
+  "delete": {
+    "loading": "アプリケーションを削除しています...",
+    "loaded": "アプリケーションを削除しました。",
+    "cancelled": "削除をキャンセルしました。",
+    "confirm": "削除を確定するには、アプリケーション名を入力してください。",
+    "downloadSnapshot": "スナップショットをダウンロード",
+    "snapshotPending": "復旧用のスナップショットがまだ生成中のため、アプリケーションは削除されていません。数分後にもう一度お試しください。"
+  },
+  "commit": {
+    "loading": "ファイルをコミットしています...",
+    "loaded": "ファイルをコミットしました。",
+    "fileOrFolder": "何をコミットしますか？",
+    "restart": "アプリケーションを再起動しますか？",
+    "selectFiles": "コミットするファイルを選択",
+    "selectFolder": "コミットするフォルダを選択",
+    "zipping": "ファイルを圧縮しています...",
+    "uploading": "Square Cloud にアップロードしています..."
+  },
+  "snapshot": {
+    "loading": "スナップショットをダウンロードしています...",
+    "loaded": "スナップショットをダウンロードしました。",
+    "save": "ここに保存",
+    "pending": "スナップショットはまだ生成中です。数分で準備が整いますので、その後もう一度お試しください。"
+  },
+  "snapshotRestore": {
+    "select": "復元するスナップショットを選択",
+    "placeholder": "新しい順に表示",
+    "noSnapshots": "復元できるスナップショットがありません。",
+    "confirm": "アプリケーションを {{DATE}} のスナップショットに復元しますか？",
+    "loading": "スナップショットを復元しています...",
+    "loaded": "選択したスナップショットからアプリケーションを復元しました。"
+  },
+  "envs": {
+    "title": "環境変数",
+    "placeholder": "{{COUNT}} 個の変数が設定されています",
+    "placeholderOne": "{{COUNT}} 個の変数が設定されています",
+    "addNew": "新しい変数を追加",
+    "removeAll": "すべての変数を削除",
+    "editValue": "値を編集",
+    "deleteOne": "この変数を削除",
+    "keyPrompt": "変数名（KEY）を入力してください",
+    "valuePrompt": "値を入力してください",
+    "invalidKey": "英字、数字、アンダースコアのみ使用できます。先頭に数字は使えません。",
+    "saving": "環境変数を保存しています...",
+    "saved": "環境変数を保存しました。",
+    "deleting": "環境変数を削除しています...",
+    "deleted": "環境変数を削除しました。",
+    "confirmDelete": "{{KEY}} を削除しますか？",
+    "confirmWipe": "環境変数をすべて削除しますか？",
+    "loadError": "環境変数を読み込めませんでした。"
+  },
+  "metrics": {
+    "loading": "過去 24 時間のメトリクスを取得しています...",
+    "null": "利用できるメトリクスがありません。512 MB 以上の RAM が必要です。",
+    "channel": "Square Cloud のメトリクス（{{NAME}}）",
+    "header": "過去 24 時間のメトリクス（5 分ごとに 1 件）。NET は受信データと送信データの合計です。",
+    "latest": "最新：CPU {{CPU}}、RAM {{RAM}}",
+    "average": "24 時間の平均：CPU {{CPU}}、RAM {{RAM}}"
+  },
+  "realtime": {
+    "started": "リアルタイムストリームを開始しました",
+    "ended": "リアルタイムストリームが終了しました",
+    "stopped": "リアルタイムストリームを停止しました。",
+    "startError": "リアルタイムストリームを開始できませんでした。",
+    "reconnecting": "再接続しています..."
+  },
+  "githubApp": {
+    "linkTitle": "GitHub リポジトリを連携",
+    "repoPrompt": "オーナー/リポジトリ",
+    "branchPrompt": "ブランチ名（例：main）",
+    "invalidRepo": "「オーナー/リポジトリ」の形式で入力してください。",
+    "linking": "GitHub リポジトリを連携しています...",
+    "linked": "リポジトリを連携しました。",
+    "unlinking": "GitHub リポジトリの連携を解除しています...",
+    "unlinked": "リポジトリの連携を解除しました。",
+    "confirmUnlink": "このアプリケーションと GitHub リポジトリの連携を解除しますか？"
+  },
+  "network": {
+    "pickRange": "期間を選択",
+    "loading": "エッジのデータを取得しています...",
+    "empty": "選択した期間のデータはありません。",
+    "notWebsite": "このアプリケーションにはドメインがありません。エッジアナリティクスはウェブサイトのアプリケーションでのみ利用できます。",
+    "purgeConfirmAll": "このアプリケーションのエッジキャッシュをすべてパージしますか？",
+    "purging": "エッジキャッシュをパージしています...",
+    "purged": "エッジキャッシュをパージしました。"
+  },
+  "workspace": {
+    "createTitle": "ワークスペースを作成",
+    "namePrompt": "ワークスペース名（1〜32 文字）",
+    "invalidName": "1〜32 文字で入力してください。",
+    "creating": "ワークスペースを作成しています...",
+    "created": "ワークスペースを作成しました。",
+    "deleteConfirm": "削除を確定するには {{NAME}} と入力してください。",
+    "deleting": "ワークスペースを削除しています...",
+    "deleted": "ワークスペースを削除しました。",
+    "leaveConfirm": "ワークスペース {{NAME}} から退出しますか？",
+    "leaving": "ワークスペースから退出しています...",
+    "left": "ワークスペースから退出しました。",
+    "inviteCopied": "招待コード {{CODE}} をコピーしました。ワークスペースのオーナーに送ると、あなたをメンバーに追加してもらえます。有効期間は 5 分です。"
+  },
+  "database": {
+    "empty": "データベースがありません",
+    "pick": "データベースを選択",
+    "createTitle": "データベースを作成",
+    "namePrompt": "データベース名（1〜32 文字）",
+    "invalidName": "1〜32 文字で入力してください。",
+    "typePrompt": "データベースエンジンを選択",
+    "memoryPrompt": "割り当てるメモリ（MB、最小 256）",
+    "invalidMemory": "256 以上の整数を入力してください。",
+    "versionPrompt": "バージョンを選択",
+    "customVersion": "その他のバージョン...",
+    "copyPassword": "パスワードをコピー",
+    "passwordCopied": "データベースのパスワードをクリップボードにコピーしました。",
+    "creating": "データベースを作成しています...",
+    "createdWithUrl": "データベースを作成しました。接続 URL をクリップボードにコピーしました（表示は今回限りです）。",
+    "starting": "データベースを起動しています...",
+    "started": "データベースを起動しました。",
+    "stopping": "データベースを停止しています...",
+    "stopped": "データベースを停止しました。",
+    "deleteConfirm": "削除を確定するには {{NAME}} と入力してください。",
+    "deleting": "データベースを削除しています...",
+    "deleted": "データベースを削除しました。",
+    "certSave": "ここに保存",
+    "certDownloading": "TLS 証明書をダウンロードしています...",
+    "certDownloaded": "TLS 証明書を保存しました（{{FILES}}）。",
+    "openFolder": "フォルダを開く"
+  },
+  "serviceStatus": {
+    "label": "Square Cloud（{{STATUS}}）：{{MESSAGE}}",
+    "online": "正常",
+    "degraded": "一部に障害",
+    "unknown": "不明",
+    "openPage": "ステータスページを開く",
+    "unavailable": "現在、サービスステータスを取得できません。",
+    "title": "サービスステータス"
+  },
+  "upload": {
+    "title": "アプリケーションをアップロード",
+    "select": "アプリケーションのフォルダを選択",
+    "browse": "参照...",
+    "missingConfig": "選択したフォルダに squarecloud.app または squarecloud.config ファイルがありません。Square Cloud でアプリケーションをホストするには、どちらかのファイルが必要です。",
+    "openDocs": "ドキュメントを開く",
+    "confirm": "次のフォルダの内容を\n{{PATH}}\nSquare Cloud にアップロードしますか？",
+    "zipping": "アプリケーションを圧縮しています...",
+    "fileCount": "{{COUNT}} 個のファイルを追加しました...",
+    "uploading": "Square Cloud にアップロードしています...",
+    "emptyFolder": "除外ルールを適用すると、選択したフォルダは空になります。",
+    "tooLarge": "圧縮後のアプリケーションが 100 MB を超えています。ビルド成果物と依存関係を squarecloud.ignore に追加して、もう一度お試しください。",
+    "openDashboard": "ダッシュボードを開く",
+    "loaded": "アプリケーション「{{NAME}}」をアップロードしました（{{RUNTIME}}）。"
+  },
+  "apiError": {
+    "generic": "Square Cloud API エラー：{{CODE}}",
+    "INVALID_API_TOKEN": "認可が無効になりました。`Square Cloud: アカウントを接続` でアカウントをもう一度接続してください。",
+    "INVALID_ACCESS_TOKEN": "認可が無効になりました。`Square Cloud: アカウントを接続` でアカウントをもう一度接続してください。",
+    "ACCESS_DENIED": "Square Cloud がこの認可を拒否しました。有効期限切れまたは失効済みの場合は、アカウントの再接続を求められます。",
+    "MISSING_SCOPE": "この認可では、この操作を実行できません。アカウントをもう一度接続して、権限を更新してください。",
+    "RESOURCE_NOT_ALLOWED": "この認可は特定のアプリケーションに限定されており、このアプリケーションは対象外です。",
+    "AUTHORIZATION_PENDING": "認可はまだ承認されていません。",
+    "NETWORK_ERROR": "Square Cloud に接続できませんでした。ネットワーク接続を確認して、もう一度お試しください。",
+    "TIMEOUT": "Square Cloud からの応答がタイムアウトしました。もう一度お試しください。",
+    "RATE_LIMITED": "Square Cloud がこのアカウントまたはネットワークからのリクエストを制限しています。制限は最大 30 分ほど続くことがあり、その間はバックグラウンドでの更新の間隔が長くなります。",
+    "KEEP_CALM": "短時間にリクエストが集中しました。数秒待ってから、もう一度お試しください。",
+    "APP_NOT_FOUND": "アプリケーションが見つかりません。削除された可能性があります。",
+    "WORKSPACE_NOT_FOUND": "ワークスペースが見つかりません。",
+    "DATABASE_NOT_FOUND": "データベースが見つかりません。",
+    "INSUFFICIENT_PERMISSIONS": "現在のプランまたはロールでは、この操作を実行できません。",
+    "UPGRADE_REQUIRED": "この機能を利用するには、有効な有料プランが必要です。",
+    "INSUFFICIENT_MEMORY": "プランで利用できるメモリが不足しています。メモリを空けるか、プランをアップグレードしてください。",
+    "APPLICATIONS_LIMIT_REACHED": "プランのアプリケーション数の上限に達しました。",
+    "MEMBERS_LIMIT_REACHED": "このワークスペースはメンバー数の上限に達しました。",
+    "WORKSPACE_LIMIT_REACHED": "プランのワークスペース数の上限に達しました。",
+    "LOAD_BALANCER_LIMIT_REACHED": "プランで利用できる、カスタムドメインあたりのアプリケーション数の上限に達しました。",
+    "DAILY_SNAPSHOTS_LIMIT_REACHED": "プランの 1 日あたりのスナップショット数の上限に達しました。明日もう一度お試しください。",
+    "SNAPSHOT_PROCESSING": "スナップショットを処理中です。完了するまで待ってから、もう一度お試しください。",
+    "RESTORE_IN_PROGRESS": "このアプリケーションはすでに復元中です。",
+    "UPLOAD_ABORTED": "アップロードがキャンセルされました。",
+    "FILE_TOO_LARGE": "ファイルが大きすぎます。ZIP でアップロードできるのは 100 MB までです。",
+    "INVALID_DOMAIN": "指定されたドメインは無効です。",
+    "CANNOT_SET_SUBDOMAIN": "この種類のアプリケーションにはサブドメインを設定できません。",
+    "RESERVED_DOMAIN": "このドメインは予約済みのため使用できません。",
+    "DOMAIN_ALREADY_EXISTS": "このドメインは別のアプリケーションですでに使用されています。",
+    "METRICS_NOT_SUPPORTED": "このアプリケーションはメトリクスに対応していません。",
+    "REALTIME_MAX_CONNECTIONS": "リアルタイム接続の上限（アカウントあたり 5 件）に達しました。ほかのストリームを停止してから、もう一度お試しください。",
+    "CLUSTER_MAINTENANCE_TRY_LATER": "クラスターはメンテナンス中です。数分後にもう一度お試しください。",
+    "INVALID_DATABASE_VERSION": "このデータベースのバージョンはサポートされていません。",
+    "INVALID_GRANT": "認可の有効期限が切れたか、すでに使用されています。最初からやり直してください。",
+    "APIKEY_LIMIT_REACHED": "このアカウントの認可はすでに上限の 5 件に達しています。1 分以内にいずれかを失効させると、この接続は自動的に完了します。",
+    "INVALID_VERIFIER": "認可を検証できませんでした。最初からやり直してください。",
+    "INVALID_REDIRECT_URI": "認可を検証できませんでした。最初からやり直してください。",
+    "INVALID_REQUEST": "認可リクエストの形式が正しくありません。",
+    "RATE_LIMIT": "このネットワークからの試行回数が多すぎます。少し待ってから再試行します。",
+    "CONTAINER_ALREADY_STARTED": "アプリケーションはすでに稼働中です。",
+    "CONTAINER_ALREADY_STOPPED": "アプリケーションはすでに停止しています。",
+    "CONTAINER_TEMPORARILY_SUSPENDED": "このアプリケーションは一時的に利用停止されています。詳細はダッシュボードで確認してください。",
+    "CONTAINER_NOT_FOUND": "現在、アプリケーションのコンテナを利用できません。しばらくしてからもう一度お試しください。",
+    "CONTAINER_INSUFFICIENT_DISK_SPACE": "アプリケーションのディスク容量が不足しています。ストレージを空けてから、もう一度お試しください。",
+    "CONTAINER_NETWORK_CONFLICT": "アプリケーションのネットワークを設定できませんでした。しばらくしてからもう一度お試しください。",
+    "ACTION_FAILED": "Square Cloud でこの操作を完了できませんでした。しばらくしてからもう一度お試しください。",
+    "GITHUB_NOT_CONNECTED": "アカウントに Square Cloud GitHub App がインストールされていません。まずダッシュボードからインストールしてください。",
+    "REPOSITORY_NOT_AVAILABLE": "このリポジトリは、Square Cloud GitHub App のインストール対象に含まれていません。",
+    "REPOSITORY_PERMISSION_REQUIRED": "連携している GitHub アカウントには、このリポジトリへの書き込み権限がありません。",
+    "REPOSITORY_BRANCH_ALREADY_CONFIGURED": "このリポジトリとブランチは、すでに別のアプリケーションに連携されています。",
+    "GIT_NOT_CONFIGURED": "このアプリケーションには GitHub リポジトリが連携されていません。",
+    "FAILED_TO_FETCH": "GitHub でブランチを確認できませんでした。ブランチ名を確認して、もう一度お試しください。",
+    "VALIDATION_FAILED": "一部の値が無効なため、Square Cloud がリクエストを拒否しました。",
+    "DATABASE_UNAVAILABLE": "Square Cloud は一時的に利用できません。しばらくしてからもう一度お試しください（変更はすでに適用されている可能性があります）。",
+    "SNAPSHOT_RESTORE_FAILED": "スナップショットを復元できませんでした。スナップショットがすでに存在しない可能性があります。"
+  },
+  "configFile": {
+    "error": {
+      "duplicateKey": "Square Cloud の設定ファイルに「{{key}}」の設定が 2 つあります。",
+      "missingKey": "設定ファイルにプロパティ「{{key}}」がありません。アプリケーションをホストするには必須です。",
+      "long": {
+        "displayName": "DISPLAY_NAME フィールドは 32 文字以内にしてください。",
+        "description": "DESCRIPTION フィールドは 280 文字以内にしてください。",
+        "subdomain": "SUBDOMAIN フィールドは 63 文字以内にしてください。",
+        "start": "START フィールドは 256 文字以内にしてください。"
+      },
+      "invalid": {
+        "mainFile": "MAIN に指定されたファイル「{{file}}」がプロジェクト内にありません。",
+        "memory": "MEMORY フィールドには、{{memory}} 以上の値をメガバイト単位で指定してください。",
+        "autoRestart": "AUTORESTART フィールドには「true」または「false」を指定してください。",
+        "version": "VERSION フィールドに指定できるのは「recommended」または「latest」のみです。",
+        "subdomain": "SUBDOMAIN が無効です。使用できるのは英数字とハイフンのみです。",
+        "runtime": "RUNTIME が無効です。使用できる値：nodejs, javascript, typescript, python, dotnet, csharp, c#, java, elixir, rust, ruby, rb, php, go, golang, static, html"
+      },
+      "missing": {
+        "displayName": "32 文字以内の有効な DISPLAY_NAME を指定してください。",
+        "description": "280 文字以内の有効な説明を指定してください。説明が不要な場合は、DESCRIPTION フィールドを削除してください。",
+        "subdomain": "Web アプリケーション（サイト、API）をホストするには、有効なサブドメインを指定してください。その予定がない場合は、SUBDOMAIN フィールドを削除してください。",
+        "start": "起動コマンドを指定してください。起動コマンドを使わない場合は、START フィールドを削除してください。",
+        "main": "有効なメインファイルを指定してください。メインファイルは、アプリケーションの実行の起点となるファイルです。"
+      },
+      "unavailable": {
+        "memory": {
+          "message": "利用できるメモリがありません。プランのアップグレードをご検討ください。",
+          "code": "アップグレード"
+        }
+      }
+    },
+    "quickFix": "{{LINE}} に変更"
+  },
+  "dashboard": {
+    "online": "オンライン",
+    "offline": "オフライン",
+    "unknown": "確認中",
+    "more": "その他の操作",
+    "ramUsed": "RAM",
+    "ramUnavailable": "利用不可",
+    "member": "メンバー {{COUNT}} 人",
+    "members": "メンバー {{COUNT}} 人",
+    "app": "アプリ {{COUNT}} 件",
+    "apps": "アプリ {{COUNT}} 件",
+    "group": {
+      "app": "アプリケーション",
+      "deploy": "デプロイ",
+      "settings": "設定",
+      "monitoring": "監視",
+      "edge": "エッジ",
+      "control": "制御",
+      "credentials": "認証情報",
+      "danger": "危険な操作",
+      "metrics": "メトリクス"
+    },
+    "empty": {
+      "body": "squarecloud.app ファイルを含むプロジェクトフォルダをアップロードすると、Square Cloud が実行を開始します。",
+      "upload": "最初のアプリケーションをアップロード",
+      "alt": "最初のアップロードを待っている、空っぽの雲。"
+    },
+    "tour": "スタートガイド",
+    "pending": {
+      "start": "起動中",
+      "stop": "停止中",
+      "restart": "再起動中"
+    },
+    "help": {
+      "label": "これは何ですか？",
+      "account": "プランのメモリは、すべてのアプリケーションで共有されます。バーには、すでに確保されている量が表示されます。",
+      "apps": "Square Cloud でホストしているプログラムです。バッジにはステータス（オンライン、オフライン、状態の変更中は黄色）が表示されます。カードをクリックすると詳細が表示され、右クリックまたは ⋯ からすべての操作を実行できます。",
+      "metrics": "アプリケーションが現在使用している CPU とメモリです。",
+      "databases": "Square Cloud がホストするマネージドデータベースで、接続は暗号化（TLS）されています。⋯ から起動、停止、証明書のダウンロードができます。",
+      "workspaces": "メンバーがそれぞれのロールで、同じアプリケーションを一緒に管理できる共有スペースです。"
+    },
+    "field": {
+      "id": "ID",
+      "ram": "RAM",
+      "runtime": "ランタイム",
+      "cluster": "クラスター",
+      "domain": "ドメイン",
+      "uptime": "稼働開始"
+    },
+    "fieldHelp": {
+      "id": "アプリケーションの一意の識別子です。CLI や API で使うときにコピーしてください。",
+      "ram": "プランからこのアプリケーションに確保されているメモリです。",
+      "runtime": "アプリケーションが動作する言語です。",
+      "cluster": "アプリケーションが動作している Square Cloud のサーバーグループです。",
+      "domain": "アプリケーションにアクセスできる Web アドレスです。",
+      "uptime": "アプリケーションが最後に起動した日時です。"
+    },
+    "stale": "更新できませんでした。{{TIME}} 時点のデータを表示しています。",
+    "plan": {
+      "title": "プランを選んでホスティングを始めましょう",
+      "body": "プランに加入すると、Square Cloud がボット、サイト、API を 24 時間 365 日オンラインに保ちます。"
+    },
+    "noDatabases": "データベースはまだありません。",
+    "noWorkspaces": "ワークスペースはまだありません。",
+    "filter": "アプリケーションを絞り込み",
+    "noMatch": "「{{QUERY}}」に一致するアプリケーションはありません。",
+    "page": "{{PAGE}} / {{PAGES}} ページ",
+    "prevPage": "前のページ",
+    "nextPage": "次のページ"
+  },
+  "command.commit": "コミット",
+  "command.snapshot": "スナップショットをダウンロード",
+  "logout": {
+    "confirm": "このアカウントと VS Code の接続を解除しますか？",
+    "confirmAccount": "{{EMAIL}} と VS Code の接続を解除しますか？認可は、期限が切れるか「マイアカウント → 認証」で失効させるまで有効なままです。"
+  },
+  "command.getStarted": "はじめに",
+  "walkthrough.title": "Square Cloud を始める",
+  "walkthrough.description": "VS Code を離れずに、アプリケーションのデプロイ、実行、監視を行う方法を 1 ステップずつ紹介します。",
+  "walkthrough.connect.title": "アカウントを接続",
+  "walkthrough.connect.description": "接続すると、このエディターから Square Cloud を操作できるようになります。\n**アカウントを接続**をクリックし、ブラウザで開いたページに VS Code の 8 文字のコードを貼り付けて承認します。認可はシステムのキーチェーンに保存され、有効期間は 90 日で、いつでも失効させられます。\n[アカウントを接続](command:squarecloud.setApiKey)",
+  "walkthrough.connect.alt": "アカウントの接続。VS Code に表示されたコードをブラウザに貼り付けて承認すると、認可が安全に保存されます。",
+  "walkthrough.config.title": "squarecloud.app でアプリを定義",
+  "walkthrough.config.description": "すべてのアプリケーションには、ルートフォルダに **squarecloud.app** ファイルがあります。このファイルで、メインファイル、確保するメモリ、ランタイム、ウェブサイトの場合はサブドメインなど、アプリケーションの実行方法を Square Cloud に伝えます。\nファイルを開くと、入力中にこの拡張機能がサポートします。すべてのフィールドの自動補完（Ctrl+Space）、わかりやすいメッセージによる即時検証、無効な値のクイックフィックスを利用できます。\n[設定ファイルのリファレンスを開く](https://docs.squarecloud.app/getting-started/config-file)",
+  "walkthrough.config.alt": "自動補完の候補を使って squarecloud.app 設定ファイルを編集している様子。",
+  "walkthrough.upload.title": "アプリケーションをアップロード",
+  "walkthrough.upload.description": "**アップロード**では、プロジェクトフォルダを ZIP に圧縮し（squarecloud.ignore に記載されたものは除外）、Square Cloud に送信して起動します。\nすでにオンラインの場合は、**コミット**で更新したファイルを既存のアプリケーションに送信できます。ID とアドレスはそのまま維持されます。\n[アプリケーションをアップロード](command:squarecloud.uploadApplication)\n[ファイルをコミット](command:squarecloud.commitEntry)",
+  "walkthrough.upload.alt": "プロジェクトが ZIP に圧縮されて Square Cloud にアップロードされ、実行が始まる様子。",
+  "walkthrough.manage.title": "起動、停止、再起動",
+  "walkthrough.manage.description": "Square Cloud のサイドバーにはアプリケーションが一覧表示され、それぞれにステータスバッジが付きます（オンライン、オフライン、起動・停止・再起動の処理中は黄色）。行にカーソルを合わせると起動、停止、再起動ができ、クリックすると詳細が表示されます。環境変数など、その他の操作は右クリック（または ⋯）から行えます。\n[サイドバーを開く](command:workbench.view.extension.squarecloud-container)\n[アプリケーションを再起動](command:squarecloud.restartEntry)\n[環境変数を編集](command:squarecloud.envsEntry)",
+  "walkthrough.manage.alt": "サイドバーからアプリケーションを起動、停止、再起動し、ステータスの変化を確認している様子。",
+  "walkthrough.logs.title": "ログとメトリクスを確認",
+  "walkthrough.logs.description": "ログは、アプリケーションが出力する内容です。**ログを表示**で最新の行を取得でき、**リアルタイムストリーム**では新しいログが届くたびに表示し続けます。**過去 24 時間のメトリクス**では、直近 1 日の CPU、メモリ、ネットワークを確認できます（512 MB 以上のアプリケーションが対象）。\n[ログを表示](command:squarecloud.logsEntry)\n[リアルタイムストリームを切り替え](command:squarecloud.realtimeEntry)\n[過去 24 時間のメトリクスを表示](command:squarecloud.metricsEntry)",
+  "walkthrough.logs.alt": "リアルタイムで流れるログと、CPU とメモリのライブグラフ。",
+  "walkthrough.snapshots.title": "スナップショットでバックアップ",
+  "walkthrough.snapshots.description": "スナップショットは、アプリケーションのファイルのバックアップです。リスクのある変更の前にダウンロードしておけば、問題が起きたときに以前のスナップショットからアプリケーションを復元できます。\n[スナップショットをダウンロード](command:squarecloud.snapshotEntry)\n[スナップショットを復元](command:squarecloud.snapshotRestoreEntry)",
+  "walkthrough.snapshots.alt": "タイムラインからスナップショットを選び、アプリケーションをその時点に復元している様子。",
+  "walkthrough.databases.title": "データベースを作成",
+  "walkthrough.databases.description": "Square Cloud は、暗号化（TLS）接続に対応したマネージドの MongoDB、MySQL、PostgreSQL、Redis データベースをホストしています。ここで作成すると接続 URL が自動でコピーされます。続いて TLS 証明書をダウンロードすれば、アプリケーションから接続できます。\n[データベースを作成](command:squarecloud.createDatabase)\n[TLS 証明書をダウンロード](command:squarecloud.downloadDatabaseCertificate)",
+  "walkthrough.databases.alt": "TLS 証明書と認証情報を備えたマネージドデータベース。",
+  "walkthrough.workspaces.title": "チームで作業",
+  "walkthrough.workspaces.description": "ワークスペースは、メンバーがそれぞれのロールで同じアプリケーションを管理できる共有スペースです。チーム用に作成するか、自分の招待コードをコピーしてワークスペースのオーナーに送り、メンバーに追加してもらいましょう。\n[ワークスペースを作成](command:squarecloud.createWorkspace)\n[自分の招待コードをコピー](command:squarecloud.generateInviteCode)",
+  "walkthrough.workspaces.alt": "共有アプリケーションを中心にワークスペースに参加するチームメンバー。それぞれにロールがあります。",
+  "walkthrough.github.title": "git push のたびにデプロイ",
+  "walkthrough.github.description": "アプリケーションを GitHub リポジトリとブランチに連携すると、そのブランチに push するたびに自動でデプロイされます。アップロードは必要ありません。まず、ダッシュボードから Square Cloud GitHub App をインストールしてください。\n[GitHub リポジトリを連携](command:squarecloud.linkGithubAppEntry)",
+  "walkthrough.github.alt": "git push をきっかけに Webhook によるデプロイが進む様子（保留中、クローン、コミット、再起動中、成功）。",
+  "walkthrough.network.title": "トラフィックを把握",
+  "walkthrough.network.description": "ウェブサイトではエッジアナリティクスを利用できます。リクエストログ、エラー、レスポンス時間を確認できるほか、変更を公開したときにはキャッシュをパージできます。ドメインを持つアプリケーションで利用できます。\n[エッジのログ](command:squarecloud.networkLogsEntry)\n[エッジのパフォーマンス](command:squarecloud.networkPerformanceEntry)\n[エッジキャッシュをパージ](command:squarecloud.purgeCacheEntry)",
+  "walkthrough.network.alt": "エッジアナリティクス。世界中から届くリクエスト、トラフィックのグラフ、キャッシュのパージ。",
+  "auth": {
+    "hero": {
+      "alt": "Square Cloud プラットフォーム。ウェブサイト、ボット、データベース、API が中心につながり、それぞれがデータを送っている様子。"
+    },
+    "brandTag": "VS Code 向け",
+    "home": {
+      "title": "すべてをホスティング。操作はここから。",
+      "lede": "ウェブサイト、ボット、データベース、API が Square Cloud で 24 時間 365 日稼働。VS Code を離れずに、すべてを確認して操作できます。",
+      "trust": "VS Code には専用の認可が発行されます。有効期間は 90 日で、いつでも失効させられます。パスワードがここを通ることはありません。"
+    },
+    "newHere": "はじめてですか？",
+    "tour": "ガイドを見る",
+    "steps": {
+      "label": "接続の流れ",
+      "connect": "接続",
+      "confirm": "コードを確認",
+      "done": "完了"
+    },
+    "preparing": "安全なコードを準備しています...",
+    "copy": "コードをコピー",
+    "warning": {
+      "keyLimit": "認可の上限に達しました",
+      "rateLimit": "少し休憩中です",
+      "openSecurity": "「マイアカウント → 認証」を開く"
+    },
+    "expired": {
+      "title": "コードの有効期限が切れました",
+      "body": "安全のため、コードの有効期間は数分間です。最初からやり直して、新しいコードを取得してください。接続は行われていません。"
+    },
+    "success": {
+      "alt": "接続に成功しました。"
+    },
+    "cancelled": "キャンセルしました。接続は行われていません。いつでもやり直せます。",
+    "scopes": {
+      "title": "VS Code でできるようになること",
+      "account": "名前、メールアドレス、プランを表示できます。",
+      "appsRead": "アプリケーションとそのステータス、ログ、メトリクスを表示できます。",
+      "appsControl": "アプリケーションを起動、停止、再起動できます。",
+      "appsDeploy": "新しいアプリケーションをアップロードし、既存のアプリケーションにファイルを送信できます。",
+      "appsWrite": "アプリケーションの設定変更と削除ができます（指示したときのみ）。",
+      "envs": "環境変数を読み取り、編集できます。",
+      "snapshots": "スナップショット（バックアップ）をダウンロードし、アプリケーションをその時点に復元できます。",
+      "databases": "データベースの表示、作成、起動、停止、削除ができます。",
+      "databaseCredentials": "データベースの TLS 証明書と認証情報をダウンロードできます。",
+      "workspaces": "ワークスペースの作成、退出、削除と、メンバーの招待ができます。",
+      "footer": "パスワードが VS Code に渡ることはありません。認可の有効期間は 90 日で、「マイアカウント → 認証」からいつでも失効させられます。"
+    }
+  },
+  "problem": {
+    "offline": {
+      "title": "Square Cloud に接続できません",
+      "body": "ネットワーク接続を確認してください。オンラインに戻ると、ダッシュボードは自動で再接続します。"
+    },
+    "rateLimit": {
+      "title": "少し休憩中です",
+      "body": "Square Cloud が数分間リクエストを制限しています。アプリケーションはそのまま稼働し続けます。",
+      "retryIn": "自動再試行まで {{TIME}}"
+    },
+    "outage": {
+      "title": "Square Cloud で問題が発生しています",
+      "body": "プラットフォームの一部が応答していません。通常は数分で復旧します。"
+    },
+    "session": {
+      "title": "アカウントを再接続してください",
+      "body": "この認可ではアカウントを読み込めません。もう一度接続して、新しい認可を取得してください。"
+    },
+    "error": {
+      "title": "問題が発生しました",
+      "body": "アカウントを読み込めませんでした。しばらくしてからもう一度お試しください。"
+    },
+    "plan": {
+      "action": "プランを見る"
+    }
+  },
+  "illustration": {
+    "offline": "Square Cloud に接続されていません。",
+    "rateLimit": "リクエストが一時停止しています。",
+    "keyLimit": "認可の上限に達しました。",
+    "outage": "Square Cloud のサービス障害。",
+    "session": "更新が必要な認可。",
+    "error": "問題が発生しました。",
+    "plan": "Square Cloud のプランを選んでいる様子。",
+    "codeExpired": "時間切れになったコード。",
+    "emptyDatabases": "プラス記号の付いた点線のデータベース。最初のデータベースを待っています。",
+    "emptyWorkspaces": "共有の四角形につながる 2 人のメンバーと、新しく加わる人のための空席。"
+  },
+  "statusBar": {
+    "signIn": "Square Cloud: アカウントを接続",
+    "online": "{{TOTAL}} 件中 {{ONLINE}} 件がオンライン"
+  }
+}

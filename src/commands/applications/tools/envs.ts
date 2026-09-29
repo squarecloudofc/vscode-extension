@@ -1,7 +1,9 @@
+import type { SquareCloudAPI } from "@squarecloud/api";
 import { ProgressLocation, window } from "vscode";
 import { t } from "vscode-ext-localisation";
 
 import { confirm } from "@/lib/utils/dialogs";
+import { isSingular } from "@/lib/utils/locale";
 import { ApplicationCommand } from "@/structures/application/command";
 
 const ADD_ITEM = "$(add) ";
@@ -20,8 +22,8 @@ interface EnvQuickPickItem {
 
 export const envsEntry = new ApplicationCommand(
   "envsEntry",
-  async (_extension, { application }) => {
-    const envs = await application.envs.list().catch(() => undefined);
+  async (_extension, { application }, api) => {
+    const envs = await api.apps.envs.get(application.id).catch(() => undefined);
 
     if (!envs) {
       window.showErrorMessage(t("envs.loadError"));
@@ -48,24 +50,30 @@ export const envsEntry = new ApplicationCommand(
 
     const picked = await window.showQuickPick(items, {
       title: `${t("envs.title")} - ${application.name}`,
-      placeHolder: t("envs.placeholder", { COUNT: String(entries.length) }),
+      // Two t() calls, not t(ternary): check-strings only sees literal keys.
+      placeHolder: isSingular(entries.length)
+        ? t("envs.placeholderOne", { COUNT: String(entries.length) })
+        : t("envs.placeholder", { COUNT: String(entries.length) }),
     });
     if (!picked) return;
 
     switch (picked.action.kind) {
       case "add":
-        return addEnv(application);
+        return addEnv(api, application.id);
       case "edit":
-        return editEnv(application, picked.action.key, picked.action.value);
+        return editEnv(
+          api,
+          application.id,
+          picked.action.key,
+          picked.action.value,
+        );
       case "wipe":
-        return wipeEnvs(application);
+        return wipeEnvs(api, application.id);
     }
   },
 );
 
-async function addEnv(application: {
-  envs: { set(envs: Record<string, string>): Promise<unknown> };
-}) {
+async function addEnv(api: SquareCloudAPI, appId: string) {
   const key = await window.showInputBox({
     title: t("envs.keyPrompt"),
     placeHolder: "KEY",
@@ -76,26 +84,21 @@ async function addEnv(application: {
 
   const value = await window.showInputBox({
     title: t("envs.valuePrompt"),
-    placeHolder: "value",
   });
   if (value === undefined) return;
 
   await window.withProgress(
     { location: ProgressLocation.Notification, title: t("envs.saving") },
     async () => {
-      await application.envs.set({ [key]: value });
+      await api.apps.envs.set(appId, { [key]: value });
       window.showInformationMessage(t("envs.saved"));
     },
   );
 }
 
 async function editEnv(
-  application: {
-    envs: {
-      set(envs: Record<string, string>): Promise<unknown>;
-      delete(keys: string[]): Promise<unknown>;
-    };
-  },
+  api: SquareCloudAPI,
+  appId: string,
   key: string,
   currentValue: string,
 ) {
@@ -118,7 +121,7 @@ async function editEnv(
     await window.withProgress(
       { location: ProgressLocation.Notification, title: t("envs.saving") },
       async () => {
-        await application.envs.set({ [key]: value });
+        await api.apps.envs.set(appId, { [key]: value });
         window.showInformationMessage(t("envs.saved"));
       },
     );
@@ -130,21 +133,19 @@ async function editEnv(
   await window.withProgress(
     { location: ProgressLocation.Notification, title: t("envs.deleting") },
     async () => {
-      await application.envs.delete([key]);
+      await api.apps.envs.delete(appId, [key]);
       window.showInformationMessage(t("envs.deleted"));
     },
   );
 }
 
-async function wipeEnvs(application: {
-  envs: { replace(envs: Record<string, string>): Promise<unknown> };
-}) {
+async function wipeEnvs(api: SquareCloudAPI, appId: string) {
   if (!(await confirm(t("envs.confirmWipe"), { destructive: true }))) return;
 
   await window.withProgress(
     { location: ProgressLocation.Notification, title: t("envs.deleting") },
     async () => {
-      await application.envs.replace({});
+      await api.apps.envs.replace(appId, {});
       window.showInformationMessage(t("envs.deleted"));
     },
   );

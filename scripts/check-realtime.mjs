@@ -4,10 +4,10 @@
  *
  *   node scripts/check-realtime.mjs
  *
- * The chunk below is the wire format from the endpoint's documentation. Fails
- * if `status` or `system` frames start leaking into the console again, if the
- * stdout/stderr prefix byte stops being stripped, or if log indentation is
- * eaten by the `data:` unwrapping.
+ * The events below are what the SDK yields for the endpoint's wire format.
+ * Fails if `status` or `system` frames start leaking into the console again,
+ * if the raw `data` (with its stdout/stderr prefix byte) is printed instead of
+ * the parsed `line`, or if log indentation is lost.
  */
 import assert from "node:assert/strict";
 import { mkdtempSync, writeFileSync } from "node:fs";
@@ -39,6 +39,7 @@ await esbuild.build({
       "vscode.mjs",
       `const noop = () => {};
        const channel = { appendLine: noop, show: noop, dispose: noop, replace: noop, clear: noop };
+       export const commands = {}, env = {}, Uri = {};
        export const window = {
          createOutputChannel: () => channel,
          showErrorMessage: noop,
@@ -51,44 +52,52 @@ await esbuild.build({
     ),
     "@squarecloud/api": stub(
       "sdk.mjs",
-      `export class SquareCloudAPIError extends Error {}
-       export const APIErrorCode = {};`,
+      "export class SquareCloudAPIError extends Error {}",
     ),
   },
 });
 
-const { extractPrintableLines } = await import(pathToFileURL(bundle).href);
+const { printableLine } = await import(pathToFileURL(bundle).href);
 
-const CHUNK = [
-  "event: system",
-  "data: REALTIME_CONNECTING | abc123-1716000000000-deadbeef",
-  "",
-  "event: status",
-  'data: {"cpu":12.5,"cpuLimit":100,"ram":[128,512],"status":"running","netIO":{"i":2048,"o":4096},"bIO":{"i":0,"o":0},"uptime":1716000000000}',
-  "",
-  "event: logs",
-  "data: \x01Server listening on :3000",
-  "",
-  "event: status",
-  'data: {"cpu":13.1,"ram":[131,512],"netIO":{"i":2176,"o":4288}}',
-  "",
-  "event: logs",
-  "data: \x02Error: connect ECONNREFUSED",
-  "",
-  "event: logs",
-  "data: \x02    at TCPConnectWrap.afterConnect",
-  "",
-  "event: error",
-  "data: REALTIME_ERROR",
-].join("\n");
+// Events as the SDK yields them: SSE frames already split, the stdout/stderr
+// byte already stripped into `stream`, status frames merged.
+const EVENTS = [
+  {
+    event: "system",
+    data: "REALTIME_CONNECTING | abc123-1716000000000-deadbeef",
+  },
+  {
+    event: "status",
+    data: '{"cpu":12.5,"ram":[128,512],"netIO":{"i":2048,"o":4096}}',
+    status: { cpu: 12.5, ram: [128, 512], netIO: { i: 2048, o: 4096 } },
+  },
+  {
+    event: "logs",
+    data: "Server listening on :3000",
+    stream: "stdout",
+    line: "Server listening on :3000",
+  },
+  {
+    event: "logs",
+    data: "Error: connect ECONNREFUSED",
+    stream: "stderr",
+    line: "Error: connect ECONNREFUSED",
+  },
+  {
+    event: "logs",
+    data: "    at TCPConnectWrap.afterConnect",
+    stream: "stderr",
+    line: "    at TCPConnectWrap.afterConnect",
+  },
+  { event: "error", data: "REALTIME_ERROR" },
+];
 
-const lines = extractPrintableLines(CHUNK);
+const lines = EVENTS.map(printableLine).filter((line) => line !== undefined);
 
 assert.deepEqual(lines, [
   "Server listening on :3000",
   "Error: connect ECONNREFUSED",
-  // Indentation survives: exactly one space is stripped after `data:`, and the
-  // stream-id byte is not whitespace.
+  // Indentation survives: the console prints the SDK's `line` untouched.
   "    at TCPConnectWrap.afterConnect",
   "REALTIME_ERROR",
 ]);

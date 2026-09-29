@@ -1,77 +1,108 @@
-import type { Disposable } from "vscode";
-import {
-  type BaseApplication,
-  Collection,
-  type Database,
-  type User,
-  type Workspace,
+import type {
+  AppSummary,
+  DatabaseSummary,
+  RuntimeStats,
+  StatusListItem,
+  User,
+  Workspace,
 } from "@squarecloud/api";
+import type { Disposable } from "vscode";
 import { atom } from "xoid";
 
-import type { ApplicationStatus } from "@/structures/application/status";
+import type { ProblemKind } from "@/lib/utils/errors";
 
 export interface ServiceStatus {
   status: string;
   message: string;
 }
 
+/**
+ * What the extension knows about an app's state: the list endpoint gives
+ * `running` (plus `cpu`/`ram` while running); opening a row adds the full
+ * stats (`uptime`, `storage`, `network`).
+ */
+export type AppStatus = StatusListItem & Partial<RuntimeStats>;
+
+/** Why the last account refresh failed; cleared by the next one that works. */
+export interface Problem {
+  kind: ProblemKind;
+  code: string;
+  at: number;
+  /** When background polling resumes after a rate limit, if it is paused. */
+  retryAt?: number;
+}
+
 export interface ExtensionStore {
-  applications: Collection<string, BaseApplication>;
-  statuses: Collection<string, ApplicationStatus>;
+  applications: Map<string, AppSummary>;
+  statuses: Map<string, AppStatus>;
   favorited: Set<string>;
   workspaces: Workspace[];
-  databases: Collection<string, Database>;
+  databases: Map<string, DatabaseSummary>;
   serviceStatus?: ServiceStatus;
   user?: User;
   appsLoaded: boolean;
+  problem?: Problem;
+  /** When the account last refreshed successfully. */
+  lastUpdated?: number;
 }
 
 export interface ExtensionStoreActions {
-  setApplications(applications: BaseApplication[]): void;
-  setStatuses(statuses: ApplicationStatus[]): void;
-  setStatus(status: ApplicationStatus): void;
+  setApplications(applications: AppSummary[]): void;
+  setStatuses(statuses: AppStatus[]): void;
+  setStatus(status: AppStatus): void;
   setFavorited(applicationsId: string[]): void;
   toggleFavorite(applicationId: string, value?: boolean): void;
 
   setWorkspaces(workspaces: Workspace[]): void;
-  setDatabases(databases: Database[]): void;
+  setDatabases(databases: DatabaseSummary[]): void;
   setServiceStatus(status?: ServiceStatus): void;
 
-  getStatus(applicationId: string): ApplicationStatus | undefined;
+  getStatus(applicationId: string): AppStatus | undefined;
   isFavorited(applicationId: string): boolean;
 
   setUser(user?: User): void;
   setAppsLoaded(value: boolean): void;
+  setProblem(problem?: Problem): void;
+  setLastUpdated(at?: number): void;
 }
 
 export const $extensionStore = atom<ExtensionStore, ExtensionStoreActions>(
   {
-    applications: new Collection(),
-    statuses: new Collection(),
+    applications: new Map(),
+    statuses: new Map(),
     favorited: new Set(),
     workspaces: [],
-    databases: new Collection(),
+    databases: new Map(),
     serviceStatus: undefined,
     user: undefined,
     appsLoaded: false,
   },
   (atom) => ({
     setApplications: (applications) => {
-      const map = new Collection(applications.map((app) => [app.id, app]));
+      const map = new Map(applications.map((app) => [app.id, app]));
 
       atom.update((value) => ({ ...value, applications: map }));
     },
     setStatus: (status) => {
-      // Build a new Collection so the reference changes — `selectAndSubscribe`
+      // Build a new Map so the reference changes — `selectAndSubscribe`
       // compares slices with `===`, and mutating in place left the reference
       // stable, which meant tree views never refreshed on status updates.
-      const map = new Collection(atom.value.statuses);
-      map.set(status.applicationId, status);
+      const map = new Map(atom.value.statuses);
+      map.set(status.id, status);
       atom.update((value) => ({ ...value, statuses: map }));
     },
     setStatuses: (statuses) => {
-      const map = new Collection(
-        statuses.map((status) => [status.applicationId, status]),
+      // The list carries running, CPU and RAM only. An opened row's full
+      // status (uptime, storage, network) survives the poll while the app
+      // keeps running; the poll then re-reads opened rows, which catches a
+      // restart made somewhere else.
+      const previous = atom.value.statuses;
+      const map = new Map(
+        statuses.map((status) => {
+          const full = previous.get(status.id);
+          const kept = full?.running && status.running;
+          return [status.id, kept ? { ...full, ...status } : status];
+        }),
       );
 
       atom.update((value) => ({ ...value, statuses: map }));
@@ -96,7 +127,7 @@ export const $extensionStore = atom<ExtensionStore, ExtensionStoreActions>(
       atom.update((value) => ({ ...value, workspaces }));
     },
     setDatabases: (databases) => {
-      const map = new Collection(databases.map((db) => [db.id, db]));
+      const map = new Map(databases.map((db) => [db.id, db]));
       atom.update((value) => ({ ...value, databases: map }));
     },
     setServiceStatus: (status) => {
@@ -115,6 +146,12 @@ export const $extensionStore = atom<ExtensionStore, ExtensionStoreActions>(
     },
     setAppsLoaded: (value) => {
       atom.update((store) => ({ ...store, appsLoaded: value }));
+    },
+    setProblem: (problem) => {
+      atom.update((store) => ({ ...store, problem }));
+    },
+    setLastUpdated: (lastUpdated) => {
+      atom.update((store) => ({ ...store, lastUpdated }));
     },
   }),
 );

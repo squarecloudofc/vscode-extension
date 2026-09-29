@@ -6,7 +6,7 @@ import { ApplicationCommand } from "@/structures/application/command";
 
 export const linkGithubAppEntry = new ApplicationCommand(
   "linkGithubAppEntry",
-  async (_extension, { application }) => {
+  async (_extension, { application }, api) => {
     const repositoryName = await window.showInputBox({
       title: t("githubApp.linkTitle"),
       placeHolder: "octocat/hello-world",
@@ -30,10 +30,11 @@ export const linkGithubAppEntry = new ApplicationCommand(
         title: t("githubApp.linking"),
       },
       async () => {
-        await application.deploys.linkGithubApp({
+        await api.apps.deploys.linkGithubApp(
+          application.id,
           repositoryName,
           repositoryBranch,
-        });
+        );
         window.showInformationMessage(t("githubApp.linked"));
       },
     );
@@ -42,7 +43,7 @@ export const linkGithubAppEntry = new ApplicationCommand(
 
 export const unlinkGithubAppEntry = new ApplicationCommand(
   "unlinkGithubAppEntry",
-  async (_extension, { application }) => {
+  async (_extension, { application }, api) => {
     if (!(await confirm(t("githubApp.confirmUnlink")))) return;
 
     await window.withProgress(
@@ -51,7 +52,7 @@ export const unlinkGithubAppEntry = new ApplicationCommand(
         title: t("githubApp.unlinking"),
       },
       async () => {
-        await application.deploys.unlinkGithubApp();
+        await api.apps.deploys.unlinkGithubApp(application.id);
         window.showInformationMessage(t("githubApp.unlinked"));
       },
     );

@@ -6,7 +6,7 @@ import { ApplicationCommand } from "@/structures/application/command";
 
 export const deleteEntry = new ApplicationCommand(
   "deleteEntry",
-  async (extension, { application }) => {
+  async (extension, { application }, api) => {
     const typed = await window.showInputBox({
       placeHolder: application.name,
       title: t("delete.confirm"),
@@ -27,11 +27,19 @@ export const deleteEntry = new ApplicationCommand(
         title: t("delete.loading"),
       },
       async () => {
-        const snapshot = await application.snapshots.create();
-        await application.delete();
+        const snapshot = await api.apps.snapshots.create(application.id);
+        // A large app answers 202 while the snapshot is still generating —
+        // deleting now could leave it without one, so stop here.
+        if (snapshot.pending) return undefined;
+        await api.apps.delete(application.id);
         return snapshot.url;
       },
     );
+
+    if (!snapshotUrl) {
+      window.showWarningMessage(t("delete.snapshotPending"));
+      return;
+    }
 
     setTimeout(() => void extension.api.refresh(), 7_000);
 

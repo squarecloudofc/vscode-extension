@@ -1,39 +1,40 @@
-import type { BaseApplication } from "@squarecloud/api";
+import type { AppSummary } from "@squarecloud/api";
 import {
   commands,
   type Disposable,
+  env,
+  Uri,
   type WebviewView,
   type WebviewViewProvider,
 } from "vscode";
 import { t } from "vscode-ext-localisation";
 
 import type { SquareCloudExtension } from "@/managers/extension";
-import { ExtensionID } from "@/lib/constants";
+import { ExtensionID, LINKS } from "@/lib/constants";
 import { type ExtensionStore, selectAndSubscribe } from "@/lib/store";
 import { type PickEntry, pickOne } from "@/lib/utils/dialogs";
+import { getLocale, isSingular } from "@/lib/utils/locale";
 import { isServiceHealthy } from "@/lib/utils/service-status";
+import { hasMetrics, isWebsite } from "@/structures/application/command";
 
 import { renderDashboard } from "./html";
 
 type MenuKind = "app" | "database" | "workspace";
 
+/** One action in the overflow menu, with its codicon. */
+type MenuItem = { command: string; label: string; icon: string };
+
 /** A menu section: its heading, then the commands under it. */
 type MenuGroup = {
   group: string;
-  items: Array<{ command: string; label: string }>;
+  items: MenuItem[];
   /**
    * Offering an action the API will refuse is worse than not offering it — the
    * user learns the answer from an error toast. Groups the extension can rule
    * out from what it already knows are dropped instead.
    */
-  requires?: (application: BaseApplication) => boolean;
+  requires?: (application: AppSummary) => boolean;
 };
-
-/** Edge routes exist only for applications that serve a domain. */
-const isWebsite = (application: BaseApplication) =>
-  Boolean(application.custom ?? application.domain);
-/** The metrics endpoint answers METRICS_NOT_SUPPORTED below 512 MB. */
-const hasMetrics = (application: BaseApplication) => application.ram >= 512;
 
 /**
  * The per-application menu, grouped by what the user is trying to do rather
@@ -45,52 +46,81 @@ const APP_MENU: MenuGroup[] = [
   {
     group: "dashboard.group.app",
     items: [
-      { command: "openEntry", label: "command.open" },
-      { command: "logsEntry", label: "command.logsEntry" },
-      { command: "copyIdEntry", label: "command.copyId" },
+      { command: "openEntry", label: "command.open", icon: "link-external" },
+      { command: "logsEntry", label: "command.logsEntry", icon: "output" },
+      { command: "copyIdEntry", label: "command.copyId", icon: "copy" },
     ],
   },
   {
     group: "dashboard.group.deploy",
     items: [
-      { command: "commitEntry", label: "command.commit" },
-      { command: "snapshotEntry", label: "command.snapshot" },
-      { command: "snapshotRestoreEntry", label: "command.snapshotRestore" },
+      { command: "commitEntry", label: "command.commit", icon: "git-commit" },
+      { command: "snapshotEntry", label: "command.snapshot", icon: "archive" },
+      {
+        command: "snapshotRestoreEntry",
+        label: "command.snapshotRestore",
+        icon: "history",
+      },
     ],
   },
   {
     group: "dashboard.group.settings",
     items: [
-      { command: "envsEntry", label: "command.envs" },
-      { command: "linkGithubAppEntry", label: "command.linkGithub" },
-      { command: "unlinkGithubAppEntry", label: "command.unlinkGithub" },
+      { command: "envsEntry", label: "command.envs", icon: "symbol-variable" },
+      {
+        command: "linkGithubAppEntry",
+        label: "command.linkGithub",
+        icon: "github",
+      },
+      {
+        command: "unlinkGithubAppEntry",
+        label: "command.unlinkGithub",
+        icon: "github",
+      },
     ],
   },
   {
     group: "dashboard.group.monitoring",
-    items: [{ command: "realtimeEntry", label: "command.realtime" }],
+    items: [
+      { command: "realtimeEntry", label: "command.realtime", icon: "pulse" },
+    ],
   },
   {
     group: "dashboard.group.metrics",
-    items: [{ command: "metricsEntry", label: "command.metrics" }],
+    items: [
+      { command: "metricsEntry", label: "command.metrics", icon: "graph" },
+    ],
     requires: hasMetrics,
   },
   {
     group: "dashboard.group.edge",
     items: [
-      { command: "networkLogsEntry", label: "command.networkLogs" },
-      { command: "networkErrorsEntry", label: "command.networkErrors" },
+      {
+        command: "networkLogsEntry",
+        label: "command.networkLogs",
+        icon: "globe",
+      },
+      {
+        command: "networkErrorsEntry",
+        label: "command.networkErrors",
+        icon: "warning",
+      },
       {
         command: "networkPerformanceEntry",
         label: "command.networkPerformance",
+        icon: "dashboard",
       },
-      { command: "purgeCacheEntry", label: "command.purgeCache" },
+      {
+        command: "purgeCacheEntry",
+        label: "command.purgeCache",
+        icon: "clear-all",
+      },
     ],
     requires: isWebsite,
   },
   {
     group: "dashboard.group.danger",
-    items: [{ command: "deleteEntry", label: "command.delete" }],
+    items: [{ command: "deleteEntry", label: "command.delete", icon: "trash" }],
   },
 ];
 
@@ -98,8 +128,16 @@ const DATABASE_MENU: MenuGroup[] = [
   {
     group: "dashboard.group.control",
     items: [
-      { command: "startDatabase", label: "command.startDatabase" },
-      { command: "stopDatabase", label: "command.stopDatabase" },
+      {
+        command: "startDatabase",
+        label: "command.startDatabase",
+        icon: "play",
+      },
+      {
+        command: "stopDatabase",
+        label: "command.stopDatabase",
+        icon: "debug-stop",
+      },
     ],
   },
   {
@@ -108,30 +146,60 @@ const DATABASE_MENU: MenuGroup[] = [
       {
         command: "downloadDatabaseCertificate",
         label: "command.downloadDatabaseCertificate",
+        icon: "key",
       },
     ],
   },
   {
     group: "dashboard.group.danger",
-    items: [{ command: "deleteDatabase", label: "command.deleteDatabase" }],
+    items: [
+      {
+        command: "deleteDatabase",
+        label: "command.deleteDatabase",
+        icon: "trash",
+      },
+    ],
   },
 ];
 
+// The invite code is the user's own, not a workspace's, so it lives in the
+// sidebar's ... menu next to Create workspace.
 const WORKSPACE_MENU: MenuGroup[] = [
-  {
-    group: "dashboard.group.members",
-    items: [
-      { command: "generateInviteCode", label: "command.generateInviteCode" },
-    ],
-  },
   {
     group: "dashboard.group.danger",
     items: [
-      { command: "leaveWorkspace", label: "command.leaveWorkspace" },
-      { command: "deleteWorkspace", label: "command.deleteWorkspace" },
+      {
+        command: "leaveWorkspace",
+        label: "command.leaveWorkspace",
+        icon: "sign-out",
+      },
+      {
+        command: "deleteWorkspace",
+        label: "command.deleteWorkspace",
+        icon: "trash",
+      },
     ],
   },
 ];
+
+const GLOBAL_COMMANDS = new Set([
+  "uploadApplication",
+  "getStarted",
+  "refreshCache",
+  "createDatabase",
+  "createWorkspace",
+  "setApiKey",
+]);
+
+/** What a row's own buttons run; everything else goes through the ⋯ menu. */
+const ROW_COMMANDS = new Set([
+  "startEntry",
+  "stopEntry",
+  "restartEntry",
+  "logsEntry",
+  "favoriteEntry",
+  "unfavoriteEntry",
+]);
 
 export class DashboardViewProvider implements WebviewViewProvider, Disposable {
   public static readonly viewId = "dashboard-view";
@@ -154,6 +222,8 @@ export class DashboardViewProvider implements WebviewViewProvider, Disposable {
       // so favouriting looked like it did nothing.
       (s) => s.favorited,
       (s) => s.serviceStatus,
+      (s) => s.problem,
+      (s) => s.lastUpdated,
     ];
     for (const select of slices) {
       this.disposables.push(selectAndSubscribe(select, push));
@@ -163,7 +233,7 @@ export class DashboardViewProvider implements WebviewViewProvider, Disposable {
   resolveWebviewView(view: WebviewView): void {
     this.view = view;
     view.webview.options = { enableScripts: true };
-    view.webview.html = renderDashboard();
+    view.webview.html = renderDashboard(getLocale());
     view.webview.onDidReceiveMessage((message) => this.onMessage(message));
     view.onDidDispose(() => {
       if (this.view === view) this.view = undefined;
@@ -175,13 +245,20 @@ export class DashboardViewProvider implements WebviewViewProvider, Disposable {
     id?: string;
     command?: string;
     kind?: MenuKind;
+    key?: string;
   }): void {
     switch (message.type) {
       case "ready":
+        this.extension.api.forgetInspected();
         this.push();
         return;
       case "command":
-        if (message.command && message.id) {
+        // Allow-listed like "global": the row's own buttons, nothing else.
+        if (
+          message.command &&
+          message.id &&
+          ROW_COMMANDS.has(message.command)
+        ) {
           this.run(message.command, message.id);
         }
         return;
@@ -189,12 +266,26 @@ export class DashboardViewProvider implements WebviewViewProvider, Disposable {
         if (message.id) void this.showMenu(message.kind ?? "app", message.id);
         return;
       case "inspect":
-        // Opening a row asks for the full status (uptime, storage, network),
-        // which the list endpoint doesn't carry.
-        if (message.id) void this.extension.api.refreshStatus(message.id);
+      case "collapse":
+        if (message.id) {
+          this.extension.api.inspect(message.id, message.type === "inspect");
+        }
         return;
       case "service":
         commands.executeCommand(`${ExtensionID}.showServiceStatus`);
+        return;
+      case "global":
+        // App-less commands the empty state and footer offer. Allow-listed so
+        // the webview can't run arbitrary commands.
+        if (message.command && GLOBAL_COMMANDS.has(message.command)) {
+          commands.executeCommand(`${ExtensionID}.${message.command}`);
+        }
+        return;
+      case "open":
+        // The webview names a page; the URL never comes from it.
+        if (message.key === "pricing" || message.key === "status") {
+          env.openExternal(Uri.parse(LINKS[message.key]));
+        }
         return;
     }
   }
@@ -230,7 +321,7 @@ export class DashboardViewProvider implements WebviewViewProvider, Disposable {
           : WORKSPACE_MENU;
 
     if (kind === "app") {
-      const application = target as BaseApplication;
+      const application = target as AppSummary;
       const favorited = this.extension.store.actions.isFavorited(id);
       const running = this.extension.store.actions.getStatus(id)?.running;
 
@@ -244,18 +335,37 @@ export class DashboardViewProvider implements WebviewViewProvider, Disposable {
                   // Lifecycle belongs here too, and only the half that can
                   // actually run: a stopped app has nothing to stop.
                   running === false
-                    ? { command: "startEntry", label: "command.start" }
-                    : { command: "stopEntry", label: "command.stop" },
+                    ? {
+                        command: "startEntry",
+                        label: "command.start",
+                        icon: "play",
+                      }
+                    : {
+                        command: "stopEntry",
+                        label: "command.stop",
+                        icon: "debug-stop",
+                      },
                   ...(running
-                    ? [{ command: "restartEntry", label: "command.restart" }]
+                    ? [
+                        {
+                          command: "restartEntry",
+                          label: "command.restart",
+                          icon: "debug-restart",
+                        },
+                      ]
                     : []),
                   ...section.items,
                   favorited
                     ? {
                         command: "unfavoriteEntry",
                         label: "command.unfavorite",
+                        icon: "star-full",
                       }
-                    : { command: "favoriteEntry", label: "command.favorite" },
+                    : {
+                        command: "favoriteEntry",
+                        label: "command.favorite",
+                        icon: "star-empty",
+                      },
                 ],
               }
             : section,
@@ -266,7 +376,7 @@ export class DashboardViewProvider implements WebviewViewProvider, Disposable {
       { separator: t(section.group) },
       ...section.items.map((item) => ({
         id: item.command,
-        label: t(item.label),
+        label: `$(${item.icon}) ${t(item.label)}`,
       })),
     ]);
 
@@ -315,17 +425,17 @@ export class DashboardViewProvider implements WebviewViewProvider, Disposable {
         return {
           id: application.id,
           name: application.name,
-          language: application.language,
+          language: application.lang,
           cluster: application.cluster,
           ram: application.ram,
           domain: application.custom ?? application.domain,
           favorited: isFavorited(application.id),
           running: status?.running,
-          cpu: status?.usage?.cpu,
-          ramUsage: status?.usage?.ram,
-          uptime: status?.isFull()
-            ? status.uptime?.toLocaleString()
-            : undefined,
+          cpu: status?.cpu,
+          ramUsage: status?.ram,
+          // Start timestamp (ms), only in the full status of an opened row.
+          // The webview formats it, in the user's own timezone.
+          uptime: status?.uptime,
         };
       });
 
@@ -350,16 +460,29 @@ export class DashboardViewProvider implements WebviewViewProvider, Disposable {
         message: state.serviceStatus.message,
         operational: isServiceHealthy(state.serviceStatus),
       },
-      workspaces: state.workspaces.map((workspace) => ({
-        id: workspace.id,
-        name: workspace.name,
-        members: t("dashboard.members", {
-          COUNT: String(workspace.memberList.length),
-        }),
-        apps: t("dashboard.apps", {
-          COUNT: String(workspace.applicationList.length),
-        }),
-      })),
+      // `at` changes on every failed retry, so the problem card repaints and
+      // "Try again" comes back even when the answer is the same.
+      problem: state.problem && {
+        kind: state.problem.kind,
+        at: state.problem.at,
+        retryAt: state.problem.retryAt,
+      },
+      updatedAt: state.lastUpdated,
+      workspaces: state.workspaces.map((workspace) => {
+        const members = workspace.members.length;
+        const apps = workspace.applications.length;
+        return {
+          id: workspace.id,
+          name: workspace.name,
+          // Two t() calls, not t(ternary): check-strings only sees literal keys.
+          members: isSingular(members)
+            ? t("dashboard.member", { COUNT: String(members) })
+            : t("dashboard.members", { COUNT: String(members) }),
+          apps: isSingular(apps)
+            ? t("dashboard.app", { COUNT: String(apps) })
+            : t("dashboard.apps", { COUNT: String(apps) }),
+        };
+      }),
     });
   }
 

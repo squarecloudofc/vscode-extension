@@ -8,6 +8,9 @@ import { Command } from "@/structures/command";
 export const createWorkspace = new Command(
   "createWorkspace",
   async (extension) => {
+    const api = await extension.api.getClient();
+    if (!api) return extension.treeViews.auth.reveal();
+
     const name = await window.showInputBox({
       title: t("workspace.createTitle"),
       placeHolder: t("workspace.namePrompt"),
@@ -18,16 +21,13 @@ export const createWorkspace = new Command(
     });
     if (!name) return;
 
-    const api = await extension.api.getClient();
-    if (!api) return;
-
     await window.withProgress(
       {
         location: ProgressLocation.Notification,
         title: t("workspace.creating"),
       },
       async () => {
-        await api.workspaces.create({ name });
+        await api.workspaces.create(name);
         await extension.api.refresh();
         window.showInformationMessage(t("workspace.created"));
       },
@@ -38,6 +38,9 @@ export const createWorkspace = new Command(
 export const deleteWorkspace = new Command(
   "deleteWorkspace",
   async (extension, item: { workspace: Workspace }) => {
+    const api = await extension.api.getClient();
+    if (!api) return;
+
     const typed = await window.showInputBox({
       title: t("workspace.deleteConfirm", { NAME: item.workspace.name }),
       placeHolder: item.workspace.name,
@@ -50,7 +53,7 @@ export const deleteWorkspace = new Command(
         title: t("workspace.deleting"),
       },
       async () => {
-        await item.workspace.delete();
+        await api.workspaces.delete(item.workspace.id);
         await extension.api.refresh();
         window.showInformationMessage(t("workspace.deleted"));
       },
@@ -61,6 +64,9 @@ export const deleteWorkspace = new Command(
 export const leaveWorkspace = new Command(
   "leaveWorkspace",
   async (extension, item: { workspace: Workspace }) => {
+    const api = await extension.api.getClient();
+    if (!api) return;
+
     if (
       !(await confirm(
         t("workspace.leaveConfirm", { NAME: item.workspace.name }),
@@ -74,7 +80,7 @@ export const leaveWorkspace = new Command(
         title: t("workspace.leaving"),
       },
       async () => {
-        await item.workspace.leave();
+        await api.workspaces.leave(item.workspace.id);
         await extension.api.refresh();
         window.showInformationMessage(t("workspace.left"));
       },
@@ -86,9 +92,9 @@ export const generateInviteCode = new Command(
   "generateInviteCode",
   async (extension) => {
     const api = await extension.api.getClient();
-    if (!api) return;
+    if (!api) return extension.treeViews.auth.reveal();
 
-    const code = await api.workspaces.generateInviteCode();
+    const code = await api.workspaces.members.inviteCode();
     await env.clipboard.writeText(code);
     window.showInformationMessage(t("workspace.inviteCopied", { CODE: code }));
   },

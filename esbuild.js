@@ -14,6 +14,8 @@ async function main() {
     platform: "node",
     outfile: "dist/extension.js",
     external: ["vscode"],
+    // Webviews inline resources/illustrations so theme variables apply.
+    loader: { ".svg": "text" },
     logLevel: "warning",
     alias: {
       "@": "./src",

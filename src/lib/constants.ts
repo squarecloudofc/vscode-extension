@@ -4,6 +4,13 @@ export const Config = {
   FavoritedApps: "favApps",
 };
 
+/** Pages the extension links to. Webviews name one by key, never by URL. */
+export const LINKS = {
+  pricing: "https://squarecloud.app/pricing",
+  status: "https://status.squarecloud.app/",
+  dashboard: "https://squarecloud.app/dashboard",
+};
+
 export const AllowedExtensions = [
   "js",
   "jsx",
@@ -26,6 +33,7 @@ export const AllowedExtensions = [
   "exs",
   "jar",
   "rs",
+  "rb",
   "php",
   "go",
   "html",

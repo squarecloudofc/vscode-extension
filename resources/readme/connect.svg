@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="400" viewBox="0 0 900 400" role="img" aria-labelledby="t d">
+  <title id="t">Connect without copying a key</title>
+  <desc id="d">Three steps: VS Code shows an eight-character code, you paste it on the approval page in the browser and approve, and VS Code is connected with an authorization valid for 90 days.</desc>
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="0%" r="95%">
+      <stop offset="0" stop-color="#0d1424"/>
+      <stop offset=".62" stop-color="#030405"/>
+    </radialGradient>
+    <marker id="head" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M1 1l5 3-5 3" fill="none" stroke="#3b82f6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <g id="slot"><rect width="22" height="34" rx="5" fill="#131821" stroke="#262d39"/></g>
+    <g id="slot-ok"><rect width="19" height="28" rx="4.5" fill="#0c1811" stroke="#1d6b3f"/></g>
+  </defs>
+  <style>
+    text { font-family: Inter, "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif; fill: #e3e6ea; }
+    .h1 { font-size: 22px; font-weight: 650; fill: #f4f5f7; letter-spacing: -.01em; }
+    .sub { font-size: 14px; fill: #9aa3b2; }
+    .step { font-size: 14px; font-weight: 600; fill: #f4f5f7; }
+    .num { font-size: 12px; font-weight: 700; fill: #fff; text-anchor: middle; }
+    .small { font-size: 12px; fill: #9aa3b2; }
+    .tiny { font-size: 11px; fill: #9aa3b2; }
+    .strong { font-size: 12px; font-weight: 600; fill: #f4f5f7; }
+    .code { font-family: "Cascadia Mono", Consolas, monospace; font-weight: 700; fill: #f4f5f7; text-anchor: middle; }
+    .mid { text-anchor: middle; }
+    .card { fill: #0a0d12; stroke: #1c2330; }
+    .icon { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+
+  <rect width="900" height="400" rx="16" fill="url(#bg)"/>
+  <text class="h1" x="40" y="54">Connect without copying a key</text>
+  <text class="sub" x="40" y="80">VS Code shows a code. Paste it on the approval page in your browser and approve.</text>
+
+  <!-- 1. In VS Code -->
+  <rect class="card" x="40" y="108" width="248" height="248" rx="14"/>
+  <circle cx="69" cy="137" r="11" fill="#1f4fe0"/>
+  <text class="num" x="69" y="141">1</text>
+  <text class="step" x="88" y="142">In VS Code</text>
+  <text class="small mid" x="164" y="184">Paste this code on the page</text>
+  <use href="#slot" x="59" y="196"/><use href="#slot" x="85" y="196"/><use href="#slot" x="111" y="196"/><use href="#slot" x="137" y="196"/>
+  <use href="#slot" x="169" y="196"/><use href="#slot" x="195" y="196"/><use href="#slot" x="221" y="196"/><use href="#slot" x="247" y="196"/>
+  <g class="code" font-size="15">
+    <text x="70" y="219">B</text><text x="96" y="219">7</text><text x="122" y="219">K</text><text x="148" y="219">2</text>
+    <text x="180" y="219">Q</text><text x="206" y="219">X</text><text x="232" y="219">9</text><text x="258" y="219">M</text>
+  </g>
+  <rect x="114" y="244" width="100" height="26" rx="7" fill="none" stroke="#2a3140"/>
+  <g class="icon" stroke="#c9ced6" stroke-width="1.3">
+    <rect x="129" y="252.5" width="7.5" height="7.5" rx="1.3"/>
+    <path d="M127 258.5v-5.2c0-.5.3-.8.8-.8h5.2"/>
+  </g>
+  <text class="strong" x="143" y="261.5" font-weight="500">Copy code</text>
+  <rect x="58" y="286" width="212" height="50" rx="10" fill="#0e131a" stroke="#1c2330"/>
+  <circle cx="81" cy="311" r="9" fill="none" stroke="#1e3a6e" stroke-width="2.4"/>
+  <path d="M81 302a9 9 0 0 1 9 9" fill="none" stroke="#3b82f6" stroke-width="2.4" stroke-linecap="round"/>
+  <text class="strong" x="100" y="307">Waiting for approval</text>
+  <text class="tiny" x="100" y="323">Expires in 7:31</text>
+
+  <path d="M294 232h24" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#head)"/>
+
+  <!-- 2. In the browser -->
+  <rect class="card" x="326" y="108" width="248" height="248" rx="14"/>
+  <circle cx="355" cy="137" r="11" fill="#1f4fe0"/>
+  <text class="num" x="355" y="141">2</text>
+  <text class="step" x="374" y="142">In the browser</text>
+  <rect x="340" y="160" width="220" height="182" rx="10" fill="#0e131a" stroke="#232a36"/>
+  <circle cx="353" cy="173" r="3" fill="#2a3140"/><circle cx="363" cy="173" r="3" fill="#2a3140"/><circle cx="373" cy="173" r="3" fill="#2a3140"/>
+  <rect x="384" y="165" width="164" height="16" rx="8" fill="#151a23"/>
+  <g class="icon" stroke="#9aa3b2" stroke-width="1.1">
+    <rect x="419" y="171.5" width="6" height="5" rx="1"/>
+    <path d="M420.2 171.5v-1.4a1.8 1.8 0 0 1 3.6 0v1.4"/>
+  </g>
+  <text class="tiny" x="429" y="177" font-size="10">squarecloud.app</text>
+  <path d="M340.5 187.5h219" stroke="#1c2330"/>
+  <text class="strong" x="354" y="210" font-size="13">Authorize VS Code</text>
+  <text class="tiny" x="354" y="226">Type the code from your editor</text>
+  <use href="#slot-ok" x="357" y="236"/><use href="#slot-ok" x="380" y="236"/><use href="#slot-ok" x="403" y="236"/><use href="#slot-ok" x="426" y="236"/>
+  <use href="#slot-ok" x="454" y="236"/><use href="#slot-ok" x="477" y="236"/><use href="#slot-ok" x="500" y="236"/><use href="#slot-ok" x="523" y="236"/>
+  <g class="code" font-size="13">
+    <text x="366.5" y="255">B</text><text x="389.5" y="255">7</text><text x="412.5" y="255">K</text><text x="435.5" y="255">2</text>
+    <text x="463.5" y="255">Q</text><text x="486.5" y="255">X</text><text x="509.5" y="255">9</text><text x="532.5" y="255">M</text>
+  </g>
+  <path class="icon" d="M358 279.5l3 3 5.5-6" stroke="#22c55e" stroke-width="1.8"/>
+  <text class="tiny" x="371" y="284" fill="#4ade80" style="fill:#4ade80" font-weight="600">Code entered</text>
+  <rect x="354" y="298" width="192" height="30" rx="7" fill="#1f4fe0"/>
+  <text class="strong mid" x="450" y="317.5" style="fill:#fff" font-size="12.5">Approve</text>
+
+  <path d="M580 232h24" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#head)"/>
+
+  <!-- 3. Connected -->
+  <rect class="card" x="612" y="108" width="248" height="248" rx="14"/>
+  <circle cx="641" cy="137" r="11" fill="#16a34a"/>
+  <path class="icon" d="M636.5 137.5l3 3 5.5-6" stroke="#fff" stroke-width="2"/>
+  <text class="step" x="660" y="142">Connected</text>
+  <circle cx="736" cy="196" r="26" fill="#0f2418" stroke="#22c55e" stroke-width="1.5"/>
+  <circle cx="736" cy="196" r="34" fill="none" stroke="#22c55e" stroke-opacity=".18"/>
+  <path class="icon" d="M725 196.5l7.5 7.5 14-15" stroke="#22c55e" stroke-width="3.2"/>
+  <text class="small mid" x="736" y="248">Connected as</text>
+  <text class="strong mid" x="736" y="266" font-size="14">ana@example.com</text>
+  <g class="icon" stroke="#9aa3b2" stroke-width="1.3">
+    <circle cx="642" cy="291" r="5.5"/><path d="M642 288v3.2l2 1.3"/>
+    <path d="M637 309.5a5.5 5.5 0 1 0 1.7-4"/><path d="M637 303v3.5h3.5"/>
+    <rect x="637" y="328" width="10" height="7.5" rx="1.5"/><path d="M639 328v-1.8a3 3 0 0 1 6 0v1.8"/>
+  </g>
+  <text class="small" x="656" y="295" style="fill:#c9ced6">Valid for 90 days</text>
+  <text class="small" x="656" y="314" style="fill:#c9ced6">Revocable at any time</text>
+  <text class="small" x="656" y="334" style="fill:#c9ced6">No password in VS Code</text>
+
+  <!-- Centred on the page: 12px shield + 8px gap + the text -->
+  <g transform="translate(72 0)">
+    <g class="icon" stroke="#9aa3b2" stroke-width="1.3">
+      <path d="M254 371.5l6-2.5 6 2.5v4.2c0 3.6-2.6 6-6 7.3-3.4-1.3-6-3.7-6-7.3z"/>
+      <path d="M257.3 376l1.9 1.9 3.6-3.9"/>
+    </g>
+    <text class="small" x="274" y="381" font-size="12.5">Never enter a code that someone sent you.</text>
+  </g>
+</svg>

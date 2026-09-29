@@ -23,9 +23,12 @@ export function validateConfigFile(
   const keys: ConfigFileKeys = new Map();
 
   for (let line = 0; line < lines.length; line++) {
-    const [key, value] = lines[line].split("=");
+    // Only the first "=" separates: a START command carries its own, and a
+    // key typed without one yet must still read as a string.
+    const [key, ...rest] = lines[line].split("=");
+    const value = rest.join("=");
 
-    if (!key) continue;
+    if (!key.trim()) continue;
     if (!keys.has(key)) keys.set(key, { line, value });
     else
       diagnostics.push(

@@ -7,3 +7,10 @@ scripts
 tsconfig.json
 esbuild.js
 pnpm-lock.yaml
+**/*.map
+.gitignore
+biome.json
+pnpm-workspace.yaml
+resources/readme/**
+# Inlined into dist/extension.js at build time.
+resources/illustrations/**

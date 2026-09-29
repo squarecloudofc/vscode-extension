@@ -1,0 +1,580 @@
+{
+  "command.setApiKey": "Konto verbinden",
+  "command.logsEntry": "Logs anzeigen",
+  "command.refresh": "Aktualisieren",
+  "command.open": "Im Dashboard öffnen",
+  "command.start": "Starten",
+  "command.stop": "Stoppen",
+  "command.copyId": "ID kopieren",
+  "command.restart": "Neu starten",
+  "command.delete": "Löschen",
+  "command.favorite": "Favorisieren",
+  "command.unfavorite": "Aus Favoriten entfernen",
+  "command.snapshotRestore": "Snapshot wiederherstellen",
+  "command.envs": "Umgebungsvariablen",
+  "command.metrics": "24h-Metriken anzeigen",
+  "command.realtime": "Echtzeit-Stream umschalten",
+  "command.linkGithub": "GitHub-Repository verknüpfen",
+  "command.unlinkGithub": "GitHub-Repository trennen",
+  "command.networkErrors": "Edge-Fehler",
+  "command.networkLogs": "Edge-Logs",
+  "command.networkPerformance": "Edge-Performance",
+  "command.purgeCache": "Edge-Cache leeren",
+  "command.createWorkspace": "Workspace erstellen",
+  "command.deleteWorkspace": "Workspace löschen",
+  "command.leaveWorkspace": "Workspace verlassen",
+  "command.createDatabase": "Datenbank erstellen",
+  "command.startDatabase": "Datenbank starten",
+  "command.stopDatabase": "Datenbank stoppen",
+  "command.deleteDatabase": "Datenbank löschen",
+  "command.downloadDatabaseCertificate": "TLS-Zertifikat herunterladen",
+  "palette.startEntry": "Anwendung starten...",
+  "palette.stopEntry": "Anwendung stoppen...",
+  "palette.restartEntry": "Anwendung neu starten...",
+  "palette.logsEntry": "Logs der Anwendung anzeigen...",
+  "palette.realtimeEntry": "Echtzeit-Stream der Anwendung umschalten...",
+  "palette.metricsEntry": "24h-Metriken der Anwendung anzeigen...",
+  "palette.commitEntry": "Dateien per Commit an Anwendung senden...",
+  "palette.snapshotEntry": "Snapshot der Anwendung herunterladen...",
+  "palette.snapshotRestoreEntry": "Snapshot der Anwendung wiederherstellen...",
+  "palette.envsEntry": "Umgebungsvariablen der Anwendung bearbeiten...",
+  "palette.linkGithubAppEntry": "Anwendung mit GitHub-Repository verknüpfen...",
+  "palette.unlinkGithubAppEntry": "Anwendung vom GitHub-Repository trennen...",
+  "palette.networkLogsEntry": "Edge-Logs anzeigen...",
+  "palette.networkErrorsEntry": "Edge-Fehler anzeigen...",
+  "palette.networkPerformanceEntry": "Edge-Performance anzeigen...",
+  "palette.purgeCacheEntry": "Edge-Cache leeren...",
+  "palette.openEntry": "Anwendung im Web-Dashboard öffnen...",
+  "palette.copyIdEntry": "Anwendungs-ID kopieren...",
+  "palette.deleteEntry": "Anwendung löschen...",
+  "palette.startDatabase": "Datenbank starten...",
+  "palette.stopDatabase": "Datenbank stoppen...",
+  "palette.downloadDatabaseCertificate": "TLS-Zertifikat der Datenbank herunterladen...",
+  "palette.deleteDatabase": "Datenbank löschen...",
+  "palette.generateInviteCode": "Meinen Einladungscode kopieren",
+  "palette.setApiKey": "Konto verbinden",
+  "palette.uploadApplication": "Neue Anwendung hochladen",
+  "palette.createWorkspace": "Workspace erstellen",
+  "palette.createDatabase": "Datenbank erstellen",
+  "palette.serviceStatus": "Dienststatus anzeigen",
+  "palette.logout": "Konto trennen",
+  "view.apps.title": "Anwendungen",
+  "view.workspaces.title": "Workspaces",
+  "view.databases.title": "Datenbanken",
+  "view.welcome": "Kein Konto verbunden.\n[Konto verbinden](command:squarecloud.setApiKey)",
+  "apps": {
+    "noApps": {
+      "message": "Keine Anwendungen gefunden",
+      "upgrade": "Pläne ansehen"
+    },
+    "pick": "Anwendung auswählen",
+    "allRunning": "Alle Ihre Anwendungen laufen bereits.",
+    "noneRunning": "Keine Ihrer Anwendungen läuft.",
+    "noneWebsite": "Keine Ihrer Anwendungen hat eine Domain.",
+    "noneMetrics": "Metriken erfordern mindestens 512 MB RAM, und keine Ihrer Anwendungen hat so viel."
+  },
+  "generic": {
+    "yes": "Ja",
+    "no": "Nein",
+    "loading": "Wird geladen...",
+    "error": "Ein unbekannter Fehler ist aufgetreten.",
+    "done": "Fertig!",
+    "paste": "Hier einfügen...",
+    "choose": "Option auswählen...",
+    "file": "Datei",
+    "folder": "Ordner"
+  },
+  "setApiKey": {
+    "tutorial": {
+      "button": "Dashboard öffnen"
+    },
+    "apiKey": "Fügen Sie ein im Dashboard erstelltes Token ein.",
+    "testing": "Wird geprüft...",
+    "invalid": "Dieses Token ist ungültig.",
+    "success": "Verbunden!",
+    "connect": {
+      "label": "Konto verbinden",
+      "action": "Konto verbinden",
+      "codeDetail": "Die Seite fragt danach. Geben Sie niemals einen Code ein, den Ihnen jemand geschickt hat.",
+      "open": "Seite öffnen",
+      "success": "Verbunden als {{EMAIL}}",
+      "accountChanged": "Diese Genehmigung stammt von {{NEW}}, verbunden ist aber derzeit {{OLD}}. Ersetzen?",
+      "expired": "Ihre Autorisierung ist abgelaufen oder wurde widerrufen. Aus Sicherheitsgründen gilt sie nur 90 Tage. Verbinden Sie Ihr Konto erneut.",
+      "browserTitle": "Konto verbunden",
+      "browserBody": "Sie können diesen Tab schließen und zu VS Code zurückkehren."
+    },
+    "manual": {
+      "label": "Andere Möglichkeiten zum Verbinden"
+    },
+    "panel": {
+      "codeLabel": "Diesen Code auf der Seite einfügen",
+      "copyHint": "Kopiert. Zum erneuten Kopieren klicken.",
+      "copied": "Kopiert!",
+      "waitingHint": "Warten auf Genehmigung im Browser...",
+      "cancel": "Abbrechen",
+      "retry": "Erneut versuchen",
+      "expiresIn": "Läuft in {{TIME}} ab"
+    }
+  },
+  "logs": {
+    "loading": "Logs werden abgerufen.",
+    "null": "Keine Logs gefunden."
+  },
+  "copy": {
+    "copiedId": "Anwendungs-ID in die Zwischenablage kopiert."
+  },
+  "start": {
+    "loading": "Anwendung wird gestartet...",
+    "loaded": "Anwendung läuft jetzt."
+  },
+  "stop": {
+    "loading": "Anwendung wird heruntergefahren...",
+    "loaded": "Anwendung läuft nicht mehr."
+  },
+  "restart": {
+    "loading": "Anwendung wird neu gestartet...",
+    "loaded": "Anwendung wurde neu gestartet."
+  },
+  "delete": {
+    "loading": "Anwendung wird gelöscht...",
+    "loaded": "Anwendung wurde gelöscht.",
+    "cancelled": "Der Löschvorgang wurde abgebrochen.",
+    "confirm": "Geben Sie den Namen der Anwendung ein, um das Löschen zu bestätigen.",
+    "downloadSnapshot": "Snapshot herunterladen",
+    "snapshotPending": "Der Wiederherstellungs-Snapshot wird noch erstellt, daher wurde die Anwendung nicht gelöscht. Versuchen Sie es in ein paar Minuten erneut."
+  },
+  "commit": {
+    "loading": "Commit wird gesendet...",
+    "loaded": "Commit erfolgreich gesendet.",
+    "fileOrFolder": "Was möchten Sie per Commit senden?",
+    "restart": "Möchten Sie Ihre Anwendung neu starten?",
+    "selectFiles": "Dateien für Commit auswählen",
+    "selectFolder": "Ordner für Commit auswählen",
+    "zipping": "Dateien werden komprimiert...",
+    "uploading": "Wird auf Square Cloud hochgeladen..."
+  },
+  "snapshot": {
+    "loading": "Snapshot wird heruntergeladen...",
+    "loaded": "Snapshot erfolgreich heruntergeladen.",
+    "save": "Hier speichern",
+    "pending": "Der Snapshot wird noch erstellt. In ein paar Minuten ist er fertig. Versuchen Sie es dann erneut."
+  },
+  "snapshotRestore": {
+    "select": "Snapshot zum Wiederherstellen auswählen",
+    "placeholder": "Neueste zuerst",
+    "noSnapshots": "Keine Snapshots zum Wiederherstellen verfügbar.",
+    "confirm": "Anwendung aus dem Snapshot vom {{DATE}} wiederherstellen?",
+    "loading": "Snapshot wird wiederhergestellt...",
+    "loaded": "Die Anwendung wurde aus dem ausgewählten Snapshot wiederhergestellt."
+  },
+  "envs": {
+    "title": "Umgebungsvariablen",
+    "placeholder": "{{COUNT}} Variablen konfiguriert",
+    "placeholderOne": "{{COUNT}} Variable konfiguriert",
+    "addNew": "Neue Variable hinzufügen",
+    "removeAll": "Alle Variablen entfernen",
+    "editValue": "Wert bearbeiten",
+    "deleteOne": "Diese Variable löschen",
+    "keyPrompt": "Variablennamen eingeben (KEY)",
+    "valuePrompt": "Wert eingeben",
+    "invalidKey": "Verwenden Sie nur die Buchstaben A bis Z, Ziffern und Unterstriche. Der Name darf nicht mit einer Ziffer beginnen.",
+    "saving": "Umgebungsvariable wird gespeichert...",
+    "saved": "Umgebungsvariable gespeichert.",
+    "deleting": "Umgebungsvariable wird entfernt...",
+    "deleted": "Umgebungsvariable entfernt.",
+    "confirmDelete": "{{KEY}} entfernen?",
+    "confirmWipe": "ALLE Umgebungsvariablen entfernen?",
+    "loadError": "Umgebungsvariablen konnten nicht geladen werden."
+  },
+  "metrics": {
+    "loading": "24h-Metriken werden abgerufen...",
+    "null": "Keine Metriken verfügbar. Dafür sind mindestens 512 MB RAM nötig.",
+    "channel": "Square Cloud-Metriken ({{NAME}})",
+    "header": "Metriken der letzten 24 Stunden, ein Messwert alle 5 Minuten. NET ist die Summe aus empfangenen und gesendeten Daten.",
+    "latest": "Aktuell: CPU {{CPU}}, RAM {{RAM}}",
+    "average": "24-Stunden-Durchschnitt: CPU {{CPU}}, RAM {{RAM}}"
+  },
+  "realtime": {
+    "started": "Echtzeit-Stream gestartet",
+    "ended": "Echtzeit-Stream beendet",
+    "stopped": "Echtzeit-Stream gestoppt.",
+    "startError": "Echtzeit-Stream konnte nicht gestartet werden.",
+    "reconnecting": "Verbindung wird wiederhergestellt..."
+  },
+  "githubApp": {
+    "linkTitle": "GitHub-Repository verknüpfen",
+    "repoPrompt": "Besitzer/Repository",
+    "branchPrompt": "Name des Branches (z. B. main)",
+    "invalidRepo": "Verwenden Sie das Format Besitzer/Repository.",
+    "linking": "GitHub-Repository wird verknüpft...",
+    "linked": "Repository erfolgreich verknüpft.",
+    "unlinking": "GitHub-Repository wird getrennt...",
+    "unlinked": "Repository erfolgreich getrennt.",
+    "confirmUnlink": "GitHub-Repository von dieser Anwendung trennen?"
+  },
+  "network": {
+    "pickRange": "Zeitraum auswählen",
+    "loading": "Edge-Daten werden abgerufen...",
+    "empty": "Für den ausgewählten Zeitraum sind keine Daten verfügbar.",
+    "notWebsite": "Diese Anwendung hat keine Domain. Edge-Analytics gibt es nur für Website-Anwendungen.",
+    "purgeConfirmAll": "Den gesamten Edge-Cache dieser Anwendung leeren?",
+    "purging": "Edge-Cache wird geleert...",
+    "purged": "Edge-Cache geleert."
+  },
+  "workspace": {
+    "createTitle": "Workspace erstellen",
+    "namePrompt": "Workspace-Name (1-32 Zeichen)",
+    "invalidName": "Verwenden Sie 1 bis 32 Zeichen.",
+    "creating": "Workspace wird erstellt...",
+    "created": "Workspace erstellt.",
+    "deleteConfirm": "Geben Sie {{NAME}} ein, um das Löschen zu bestätigen.",
+    "deleting": "Workspace wird gelöscht...",
+    "deleted": "Workspace gelöscht.",
+    "leaveConfirm": "Workspace {{NAME}} verlassen?",
+    "leaving": "Workspace wird verlassen...",
+    "left": "Sie haben den Workspace verlassen.",
+    "inviteCopied": "Ihr Einladungscode {{CODE}} wurde kopiert. Senden Sie ihn an den Besitzer eines Workspace, damit er Sie hinzufügen kann. Er ist 5 Minuten gültig."
+  },
+  "database": {
+    "empty": "Keine Datenbanken gefunden",
+    "pick": "Datenbank auswählen",
+    "createTitle": "Datenbank erstellen",
+    "namePrompt": "Datenbankname (1-32 Zeichen)",
+    "invalidName": "Verwenden Sie 1 bis 32 Zeichen.",
+    "typePrompt": "Datenbanktyp auswählen",
+    "memoryPrompt": "Zugewiesener Arbeitsspeicher in MB (mind. 256)",
+    "invalidMemory": "Geben Sie eine ganze Zahl >= 256 ein.",
+    "versionPrompt": "Version auswählen",
+    "customVersion": "Andere Version...",
+    "copyPassword": "Passwort kopieren",
+    "passwordCopied": "Datenbankpasswort in die Zwischenablage kopiert.",
+    "creating": "Datenbank wird erstellt...",
+    "createdWithUrl": "Datenbank erstellt. Verbindungs-URL in die Zwischenablage kopiert (wird nur einmal angezeigt).",
+    "starting": "Datenbank wird gestartet...",
+    "started": "Datenbank gestartet.",
+    "stopping": "Datenbank wird gestoppt...",
+    "stopped": "Datenbank gestoppt.",
+    "deleteConfirm": "Geben Sie {{NAME}} ein, um das Löschen zu bestätigen.",
+    "deleting": "Datenbank wird gelöscht...",
+    "deleted": "Datenbank gelöscht.",
+    "certSave": "Hier speichern",
+    "certDownloading": "TLS-Zertifikat wird heruntergeladen...",
+    "certDownloaded": "TLS-Zertifikat gespeichert ({{FILES}}).",
+    "openFolder": "Ordner öffnen"
+  },
+  "serviceStatus": {
+    "label": "Square Cloud ({{STATUS}}): {{MESSAGE}}",
+    "online": "Betriebsbereit",
+    "degraded": "Beeinträchtigt",
+    "unknown": "Unbekannt",
+    "openPage": "Statusseite öffnen",
+    "unavailable": "Der Dienststatus ist gerade nicht verfügbar.",
+    "title": "Dienststatus"
+  },
+  "upload": {
+    "title": "Anwendung hochladen",
+    "select": "Anwendungsordner auswählen",
+    "browse": "Durchsuchen...",
+    "missingConfig": "Im ausgewählten Ordner wurde keine Datei squarecloud.app oder squarecloud.config gefunden. Square Cloud benötigt eine davon, um die Anwendung zu hosten.",
+    "openDocs": "Dokumentation öffnen",
+    "confirm": "Inhalt von\n{{PATH}}\nauf Square Cloud hochladen?",
+    "zipping": "Anwendung wird komprimiert...",
+    "fileCount": "{{COUNT}} Dateien hinzugefügt...",
+    "uploading": "Wird auf Square Cloud hochgeladen...",
+    "emptyFolder": "Der ausgewählte Ordner ist leer, nachdem die Ignore-Regeln angewendet wurden.",
+    "tooLarge": "Die komprimierte Anwendung ist größer als 100 MB. Tragen Sie Build-Artefakte und Abhängigkeiten in squarecloud.ignore ein und versuchen Sie es erneut.",
+    "openDashboard": "Dashboard öffnen",
+    "loaded": "Anwendung „{{NAME}}“ erfolgreich hochgeladen ({{RUNTIME}})."
+  },
+  "apiError": {
+    "generic": "Fehler der Square-Cloud-API: {{CODE}}",
+    "INVALID_API_TOKEN": "Ihre Autorisierung ist nicht mehr gültig. Verbinden Sie Ihr Konto erneut mit `Square Cloud: Konto verbinden`.",
+    "INVALID_ACCESS_TOKEN": "Ihre Autorisierung ist nicht mehr gültig. Verbinden Sie Ihr Konto erneut mit `Square Cloud: Konto verbinden`.",
+    "ACCESS_DENIED": "Square Cloud hat diese Autorisierung abgelehnt. Falls sie abgelaufen ist oder widerrufen wurde, werden Sie gebeten, Ihr Konto erneut zu verbinden.",
+    "MISSING_SCOPE": "Diese Autorisierung deckt diese Aktion nicht ab. Verbinden Sie Ihr Konto erneut, um die Berechtigungen zu aktualisieren.",
+    "RESOURCE_NOT_ALLOWED": "Diese Autorisierung ist auf bestimmte Anwendungen beschränkt, und diese gehört nicht dazu.",
+    "AUTHORIZATION_PENDING": "Die Autorisierung wurde noch nicht genehmigt.",
+    "NETWORK_ERROR": "Square Cloud ist nicht erreichbar. Prüfen Sie Ihre Verbindung und versuchen Sie es erneut.",
+    "TIMEOUT": "Square Cloud hat zu lange nicht geantwortet. Versuchen Sie es erneut.",
+    "RATE_LIMITED": "Square Cloud begrenzt gerade die Anfragen von diesem Konto oder Netzwerk. Die Sperre kann bis zu etwa 30 Minuten dauern; so lange laufen Hintergrundaktualisierungen seltener.",
+    "KEEP_CALM": "Zu viele Anfragen in kurzer Zeit. Warten Sie ein paar Sekunden und versuchen Sie es erneut.",
+    "APP_NOT_FOUND": "Anwendung nicht gefunden. Möglicherweise wurde sie gelöscht.",
+    "WORKSPACE_NOT_FOUND": "Workspace nicht gefunden.",
+    "DATABASE_NOT_FOUND": "Datenbank nicht gefunden.",
+    "INSUFFICIENT_PERMISSIONS": "Ihr Plan oder Ihre Rolle erlaubt diese Aktion nicht.",
+    "UPGRADE_REQUIRED": "Für diese Funktion ist ein aktiver kostenpflichtiger Plan erforderlich.",
+    "INSUFFICIENT_MEMORY": "In Ihrem Plan ist nicht genug Arbeitsspeicher frei. Geben Sie Speicher frei oder führen Sie ein Upgrade durch.",
+    "APPLICATIONS_LIMIT_REACHED": "Sie haben das Anwendungslimit Ihres Plans erreicht.",
+    "MEMBERS_LIMIT_REACHED": "Dieser Workspace hat sein Mitgliederlimit erreicht.",
+    "WORKSPACE_LIMIT_REACHED": "Sie haben das Workspace-Limit Ihres Plans erreicht.",
+    "LOAD_BALANCER_LIMIT_REACHED": "Sie haben das Limit Ihres Plans für Anwendungen pro eigener Domain erreicht.",
+    "DAILY_SNAPSHOTS_LIMIT_REACHED": "Das tägliche Snapshot-Kontingent Ihres Plans ist aufgebraucht. Versuchen Sie es morgen erneut.",
+    "SNAPSHOT_PROCESSING": "Ein Snapshot wird noch verarbeitet. Warten Sie, bis er fertig ist, und versuchen Sie es dann erneut.",
+    "RESTORE_IN_PROGRESS": "Für diese Anwendung läuft bereits eine Wiederherstellung.",
+    "UPLOAD_ABORTED": "Der Upload wurde abgebrochen.",
+    "FILE_TOO_LARGE": "Die Datei ist zu groß. ZIP-Uploads sind auf 100 MB begrenzt.",
+    "INVALID_DOMAIN": "Die angegebene Domain ist ungültig.",
+    "CANNOT_SET_SUBDOMAIN": "Dieser Anwendungstyp unterstützt keine Subdomain.",
+    "RESERVED_DOMAIN": "Diese Domain ist reserviert und kann nicht verwendet werden.",
+    "DOMAIN_ALREADY_EXISTS": "Diese Domain wird bereits von einer anderen Anwendung verwendet.",
+    "METRICS_NOT_SUPPORTED": "Diese Anwendung unterstützt keine Metriken.",
+    "REALTIME_MAX_CONNECTIONS": "Limit für Echtzeitverbindungen erreicht (5 pro Konto). Beenden Sie einen anderen Stream und versuchen Sie es erneut.",
+    "CLUSTER_MAINTENANCE_TRY_LATER": "Der Cluster wird gerade gewartet. Versuchen Sie es in ein paar Minuten erneut.",
+    "INVALID_DATABASE_VERSION": "Diese Datenbankversion wird nicht unterstützt.",
+    "INVALID_GRANT": "Die Autorisierung ist abgelaufen oder wurde bereits verwendet. Beginnen Sie von vorn.",
+    "APIKEY_LIMIT_REACHED": "Dieses Konto hat bereits 5 Autorisierungen, das Maximum. Widerrufen Sie innerhalb der nächsten Minute eine davon, dann wird diese Verbindung automatisch abgeschlossen.",
+    "INVALID_VERIFIER": "Die Autorisierung konnte nicht überprüft werden. Beginnen Sie von vorn.",
+    "INVALID_REDIRECT_URI": "Die Autorisierung konnte nicht überprüft werden. Beginnen Sie von vorn.",
+    "INVALID_REQUEST": "Die Autorisierungsanfrage war fehlerhaft.",
+    "RATE_LIMIT": "Zu viele Versuche aus diesem Netzwerk. Es wird kurz gewartet und dann erneut versucht.",
+    "CONTAINER_ALREADY_STARTED": "Die Anwendung läuft bereits.",
+    "CONTAINER_ALREADY_STOPPED": "Die Anwendung ist bereits gestoppt.",
+    "CONTAINER_TEMPORARILY_SUSPENDED": "Diese Anwendung ist vorübergehend gesperrt. Details finden Sie im Dashboard.",
+    "CONTAINER_NOT_FOUND": "Der Container der Anwendung ist gerade nicht verfügbar. Versuchen Sie es gleich noch einmal.",
+    "CONTAINER_INSUFFICIENT_DISK_SPACE": "Der Anwendung ist der Speicherplatz ausgegangen. Geben Sie Speicherplatz frei und versuchen Sie es erneut.",
+    "CONTAINER_NETWORK_CONFLICT": "Das Netzwerk der Anwendung konnte nicht eingerichtet werden. Versuchen Sie es gleich noch einmal.",
+    "ACTION_FAILED": "Square Cloud konnte diese Aktion nicht abschließen. Versuchen Sie es gleich noch einmal.",
+    "GITHUB_NOT_CONNECTED": "Für Ihr Konto ist die GitHub App von Square Cloud nicht installiert. Installieren Sie sie zuerst über das Dashboard.",
+    "REPOSITORY_NOT_AVAILABLE": "Dieses Repository gehört nicht zu Ihrer Installation der GitHub App von Square Cloud.",
+    "REPOSITORY_PERMISSION_REQUIRED": "Das verknüpfte GitHub-Konto hat keinen Schreibzugriff auf dieses Repository.",
+    "REPOSITORY_BRANCH_ALREADY_CONFIGURED": "Dieses Repository und dieser Branch sind bereits mit einer anderen Anwendung verknüpft.",
+    "GIT_NOT_CONFIGURED": "Mit dieser Anwendung ist kein GitHub-Repository verknüpft.",
+    "FAILED_TO_FETCH": "GitHub hat den Branch nicht bestätigt. Prüfen Sie den Namen und versuchen Sie es erneut.",
+    "VALIDATION_FAILED": "Square Cloud hat die Anfrage abgelehnt, weil einige Werte ungültig sind.",
+    "DATABASE_UNAVAILABLE": "Square Cloud ist vorübergehend nicht verfügbar. Versuchen Sie es gleich noch einmal. Möglicherweise wurde die Änderung bereits übernommen.",
+    "SNAPSHOT_RESTORE_FAILED": "Der Snapshot konnte nicht wiederhergestellt werden. Möglicherweise existiert er nicht mehr."
+  },
+  "configFile": {
+    "error": {
+      "duplicateKey": "Ihre Square-Cloud-Konfigurationsdatei enthält die Einstellung „{{key}}“ zweimal.",
+      "missingKey": "Die Eigenschaft „{{key}}“ fehlt in Ihrer Konfigurationsdatei, ist aber erforderlich, um Ihre Anwendung zu hosten.",
+      "long": {
+        "displayName": "Das Feld DISPLAY_NAME darf höchstens 32 Zeichen lang sein.",
+        "description": "Das Feld DESCRIPTION darf höchstens 280 Zeichen lang sein.",
+        "subdomain": "Das Feld SUBDOMAIN darf höchstens 63 Zeichen lang sein.",
+        "start": "Das Feld START darf höchstens 256 Zeichen lang sein."
+      },
+      "invalid": {
+        "mainFile": "Die in MAIN angegebene Datei „{{file}}“ existiert nicht in Ihrem Projekt.",
+        "memory": "Das Feld MEMORY muss ein Wert in Megabyte sein, der größer oder gleich {{memory}} ist.",
+        "autoRestart": "Das Feld AUTORESTART muss „true“ oder „false“ sein.",
+        "version": "Das Feld VERSION erlaubt nur „recommended“ oder „latest“.",
+        "subdomain": "Ungültige SUBDOMAIN. Erlaubt sind nur alphanumerische Zeichen und Bindestriche.",
+        "runtime": "Ungültige RUNTIME. Erlaubte Werte: nodejs, javascript, typescript, python, dotnet, csharp, c#, java, elixir, rust, ruby, rb, php, go, golang, static, html."
+      },
+      "missing": {
+        "displayName": "Sie müssen einen gültigen DISPLAY_NAME mit höchstens 32 Zeichen angeben.",
+        "description": "Sie müssen eine gültige Beschreibung mit höchstens 280 Zeichen angeben. Wenn Sie keine möchten, entfernen Sie einfach das Feld DESCRIPTION.",
+        "subdomain": "Sie müssen eine gültige Subdomain angeben, um eine Webanwendung (Website, API) zu hosten. Wenn Sie das nicht vorhaben, entfernen Sie einfach das Feld SUBDOMAIN.",
+        "start": "Sie müssen einen Startbefehl angeben. Wenn Sie das nicht vorhaben, entfernen Sie einfach das Feld START.",
+        "main": "Sie müssen eine gültige Hauptdatei angeben. Das ist die Hauptdatei Ihrer Anwendung, mit der alles beginnt!"
+      },
+      "unavailable": {
+        "memory": {
+          "message": "Sie haben keinen freien Arbeitsspeicher mehr. Erwägen Sie ein Upgrade.",
+          "code": "Upgrade"
+        }
+      }
+    },
+    "quickFix": "Ändern in {{LINE}}"
+  },
+  "dashboard": {
+    "online": "Online",
+    "offline": "Offline",
+    "unknown": "Wird geprüft",
+    "more": "Weitere Aktionen",
+    "ramUsed": "RAM",
+    "ramUnavailable": "Nicht verfügbar",
+    "member": "{{COUNT}} Mitglied",
+    "members": "{{COUNT}} Mitglieder",
+    "app": "{{COUNT}} Anwendung",
+    "apps": "{{COUNT}} Anwendungen",
+    "group": {
+      "app": "Anwendung",
+      "deploy": "Deploy",
+      "settings": "Konfiguration",
+      "monitoring": "Monitoring",
+      "edge": "Edge",
+      "control": "Steuerung",
+      "credentials": "Zugangsdaten",
+      "danger": "Gefahrenzone",
+      "metrics": "Metriken"
+    },
+    "empty": {
+      "body": "Laden Sie einen Projektordner mit einer Datei squarecloud.app hoch, und Square Cloud bringt das Projekt zum Laufen.",
+      "upload": "Erste Anwendung hochladen",
+      "alt": "Eine leere Wolke wartet auf Ihren ersten Upload."
+    },
+    "tour": "Erste Schritte",
+    "pending": {
+      "start": "Wird gestartet",
+      "stop": "Wird gestoppt",
+      "restart": "Wird neu gestartet"
+    },
+    "help": {
+      "label": "Was ist das?",
+      "account": "Der Arbeitsspeicher Ihres Plans wird von allen Ihren Anwendungen gemeinsam genutzt. Der Balken zeigt, wie viel davon bereits reserviert ist.",
+      "apps": "Programme, die Sie auf Square Cloud hosten. Das Badge zeigt den Status: Online, Offline oder Gelb, solange er sich ändert. Klicken Sie auf eine Karte, um Details zu sehen; ein Rechtsklick oder ⋯ zeigt alle Aktionen.",
+      "metrics": "CPU und Arbeitsspeicher, die die Anwendung gerade nutzt.",
+      "databases": "Von Square Cloud gehostete, verwaltete Datenbanken mit verschlüsselten (TLS-)Verbindungen. Über ⋯ können Sie sie starten, stoppen oder das Zertifikat herunterladen.",
+      "workspaces": "Gemeinsame Bereiche, in denen Teammitglieder dieselben Anwendungen zusammen verwalten, jeweils mit eigener Rolle."
+    },
+    "field": {
+      "id": "ID",
+      "ram": "RAM",
+      "runtime": "Runtime",
+      "cluster": "Cluster",
+      "domain": "Domain",
+      "uptime": "Läuft seit"
+    },
+    "fieldHelp": {
+      "id": "Eindeutige Kennung der Anwendung. Kopieren Sie sie für die CLI oder die API.",
+      "ram": "Arbeitsspeicher aus Ihrem Plan, der für diese Anwendung reserviert ist.",
+      "runtime": "Die Sprache, mit der die Anwendung läuft.",
+      "cluster": "Die Gruppe von Square-Cloud-Servern, auf denen die Anwendung läuft.",
+      "domain": "Webadresse, unter der die Anwendung erreichbar ist.",
+      "uptime": "Wann die Anwendung zuletzt gestartet wurde."
+    },
+    "stale": "Aktualisierung fehlgeschlagen. Angezeigt wird der Stand von {{TIME}}.",
+    "plan": {
+      "title": "Wählen Sie einen Plan, um mit dem Hosting zu beginnen",
+      "body": "Mit einem Plan hält Square Cloud Ihre Bots, Websites und APIs rund um die Uhr online."
+    },
+    "noDatabases": "Noch keine Datenbanken.",
+    "noWorkspaces": "Noch keine Workspaces.",
+    "filter": "Anwendungen filtern",
+    "noMatch": "Keine Anwendungen für „{{QUERY}}“ gefunden.",
+    "page": "Seite {{PAGE}} von {{PAGES}}",
+    "prevPage": "Vorherige Seite",
+    "nextPage": "Nächste Seite"
+  },
+  "command.commit": "Commit",
+  "command.snapshot": "Snapshot herunterladen",
+  "logout": {
+    "confirm": "Dieses Konto von VS Code trennen?",
+    "confirmAccount": "{{EMAIL}} von VS Code trennen? Die Autorisierung bleibt aktiv, bis sie abläuft oder Sie sie unter Mein Konto → Authentifizierung widerrufen."
+  },
+  "command.getStarted": "Erste Schritte",
+  "walkthrough.title": "Erste Schritte mit Square Cloud",
+  "walkthrough.description": "Schritt für Schritt: Deployen, betreiben und überwachen Sie Ihre Anwendungen, ohne VS Code zu verlassen.",
+  "walkthrough.connect.title": "Konto verbinden",
+  "walkthrough.connect.description": "Nach dem Verbinden kann dieser Editor Square Cloud für Sie verwalten.\nKlicken Sie auf **Konto verbinden**, fügen Sie den 8-stelligen Code aus VS Code auf der Seite ein, die sich im Browser öffnet, und genehmigen Sie den Zugriff. Die Autorisierung wird im Schlüsselbund Ihres Systems gespeichert, gilt 90 Tage und kann jederzeit widerrufen werden.\n[Konto verbinden](command:squarecloud.setApiKey)",
+  "walkthrough.connect.alt": "Kontoverbindung: VS Code zeigt einen Code, Sie fügen ihn im Browser ein und genehmigen, und Ihre Autorisierung wird sicher gespeichert.",
+  "walkthrough.config.title": "Anwendung in squarecloud.app beschreiben",
+  "walkthrough.config.description": "Jede Anwendung hat eine Datei **squarecloud.app** im Stammordner. Sie teilt Square Cloud mit, wie die Anwendung ausgeführt wird: die Hauptdatei, wie viel Arbeitsspeicher reserviert wird, die Runtime und bei Websites eine Subdomain.\nÖffnen Sie eine solche Datei, und diese Erweiterung hilft Ihnen beim Tippen: Autovervollständigung für jedes Feld (Ctrl+Space), sofortige Validierung mit klaren Meldungen und schnelle Problembehebungen für ungültige Werte.\n[Referenz der Konfigurationsdatei öffnen](https://docs.squarecloud.app/getting-started/config-file)",
+  "walkthrough.config.alt": "Bearbeiten der Konfigurationsdatei squarecloud.app mit Vorschlägen der Autovervollständigung.",
+  "walkthrough.upload.title": "Anwendung hochladen",
+  "walkthrough.upload.description": "**Hochladen** packt Ihren Projektordner als ZIP (ohne das, was in squarecloud.ignore steht), sendet ihn an Square Cloud und startet die Anwendung.\nSchon online? **Commit** sendet aktualisierte Dateien an eine bestehende Anwendung und behält deren ID und Adresse bei.\n[Anwendung hochladen](command:squarecloud.uploadApplication)\n[Dateien per Commit senden](command:squarecloud.commitEntry)",
+  "walkthrough.upload.alt": "Ihr Projekt wird als ZIP gepackt und auf Square Cloud hochgeladen, wo es gestartet wird.",
+  "walkthrough.manage.title": "Starten, stoppen und neu starten",
+  "walkthrough.manage.description": "Die Square-Cloud-Seitenleiste listet Ihre Anwendungen auf, jeweils mit einem Status-Badge: Online, Offline oder Gelb, solange ein Start, Stopp oder Neustart läuft. Zeigen Sie mit der Maus auf eine Zeile, um die Anwendung zu starten, zu stoppen oder neu zu starten, klicken Sie darauf für Details, und nutzen Sie den Rechtsklick (oder ⋯) für alles andere, etwa Umgebungsvariablen.\n[Seitenleiste öffnen](command:workbench.view.extension.squarecloud-container)\n[Anwendung neu starten](command:squarecloud.restartEntry)\n[Umgebungsvariablen bearbeiten](command:squarecloud.envsEntry)",
+  "walkthrough.manage.alt": "Anwendungen über die Seitenleiste starten, stoppen und neu starten und dabei die Statusänderung verfolgen.",
+  "walkthrough.logs.title": "Logs und Metriken verfolgen",
+  "walkthrough.logs.description": "Logs sind die Ausgaben Ihrer Anwendung. **Logs anzeigen** ruft die neuesten Zeilen ab, und der **Echtzeit-Stream** zeigt neue Zeilen laufend an, sobald sie eintreffen. **24h-Metriken** zeigen CPU, Arbeitsspeicher und Netzwerk des letzten Tages (für Anwendungen ab 512 MB).\n[Logs anzeigen](command:squarecloud.logsEntry)\n[Echtzeit-Stream umschalten](command:squarecloud.realtimeEntry)\n[24h-Metriken anzeigen](command:squarecloud.metricsEntry)",
+  "walkthrough.logs.alt": "Logs in Echtzeit neben Live-Diagrammen für CPU und Arbeitsspeicher.",
+  "walkthrough.snapshots.title": "Mit Snapshots sichern",
+  "walkthrough.snapshots.description": "Ein Snapshot ist ein Backup der Dateien Ihrer Anwendung. Laden Sie vor einer riskanten Änderung einen herunter; wenn etwas schiefgeht, stellen Sie die Anwendung aus einem früheren Snapshot wieder her.\n[Snapshot herunterladen](command:squarecloud.snapshotEntry)\n[Snapshot wiederherstellen](command:squarecloud.snapshotRestoreEntry)",
+  "walkthrough.snapshots.alt": "Einen Snapshot auf der Zeitachse auswählen und die Anwendung daraus wiederherstellen.",
+  "walkthrough.databases.title": "Datenbank erstellen",
+  "walkthrough.databases.description": "Square Cloud hostet verwaltete Datenbanken für MongoDB, MySQL, PostgreSQL und Redis mit verschlüsselten (TLS-)Verbindungen. Erstellen Sie hier eine, und die Verbindungs-URL wird für Sie kopiert. Laden Sie danach das TLS-Zertifikat herunter, damit sich Ihre Anwendung verbinden kann.\n[Datenbank erstellen](command:squarecloud.createDatabase)\n[TLS-Zertifikat herunterladen](command:squarecloud.downloadDatabaseCertificate)",
+  "walkthrough.databases.alt": "Verwaltete Datenbanken mit TLS-Zertifikat und Zugangsdaten.",
+  "walkthrough.workspaces.title": "Im Team arbeiten",
+  "walkthrough.workspaces.description": "Ein Workspace ist ein gemeinsamer Bereich, in dem Teammitglieder dieselben Anwendungen verwalten, jeweils mit eigener Rolle. Erstellen Sie einen für Ihr Team, oder kopieren Sie Ihren Einladungscode und senden Sie ihn an den Besitzer eines Workspace, damit er Sie hinzufügt.\n[Workspace erstellen](command:squarecloud.createWorkspace)\n[Meinen Einladungscode kopieren](command:squarecloud.generateInviteCode)",
+  "walkthrough.workspaces.alt": "Teammitglieder treten einem Workspace rund um eine gemeinsame Anwendung bei, jeweils mit einer Rolle.",
+  "walkthrough.github.title": "Deploy bei jedem git push",
+  "walkthrough.github.description": "Verknüpfen Sie eine Anwendung mit einem GitHub-Repository und einem Branch, und jeder Push auf diesen Branch deployt sie automatisch, ganz ohne Upload. Installieren Sie vorher die GitHub App von Square Cloud über das Dashboard.\n[GitHub-Repository verknüpfen](command:squarecloud.linkGithubAppEntry)",
+  "walkthrough.github.alt": "Ein git push löst ein Deploy per Webhook aus: ausstehend, Klonen, Commit, Neustart, Erfolg.",
+  "walkthrough.network.title": "Ihren Traffic verstehen",
+  "walkthrough.network.description": "Websites erhalten Edge-Analytics: Anfrage-Logs, Fehler und Antwortzeiten, dazu eine Cache-Leerung, wenn Sie Änderungen veröffentlichen. Verfügbar für Anwendungen mit Domain.\n[Edge-Logs](command:squarecloud.networkLogsEntry)\n[Edge-Performance](command:squarecloud.networkPerformanceEntry)\n[Edge-Cache leeren](command:squarecloud.purgeCacheEntry)",
+  "walkthrough.network.alt": "Edge-Analytics: eingehende Anfragen aus aller Welt, Traffic-Diagramme und Cache-Leerung.",
+  "auth": {
+    "hero": {
+      "alt": "Die Square-Cloud-Plattform: eine Website, ein Bot, eine Datenbank und eine API sind mit ihrem Zentrum verbunden und senden jeweils Daten nach oben."
+    },
+    "brandTag": "für VS Code",
+    "home": {
+      "title": "Alles hosten. Von hier aus steuern.",
+      "lede": "Websites, Bots, Datenbanken und APIs laufen 24/7 auf Square Cloud. Verfolgen und steuern Sie alles, ohne VS Code zu verlassen.",
+      "trust": "VS Code erhält eine eigene Autorisierung, 90 Tage gültig und jederzeit widerrufbar. Ihr Passwort gelangt nie hierher."
+    },
+    "newHere": "Neu hier?",
+    "tour": "Tour starten",
+    "steps": {
+      "label": "So funktioniert das Verbinden",
+      "connect": "Verbinden",
+      "confirm": "Code bestätigen",
+      "done": "Fertig"
+    },
+    "preparing": "Sicherer Code wird vorbereitet...",
+    "copy": "Code kopieren",
+    "warning": {
+      "keyLimit": "Autorisierungslimit erreicht",
+      "rateLimit": "Kurze Pause",
+      "openSecurity": "Mein Konto → Authentifizierung öffnen"
+    },
+    "expired": {
+      "title": "Der Code ist abgelaufen",
+      "body": "Zu Ihrer Sicherheit gilt jeder Code nur wenige Minuten. Beginnen Sie von vorn, um einen neuen zu erhalten. Es wurde nichts verbunden."
+    },
+    "success": {
+      "alt": "Erfolgreich verbunden."
+    },
+    "cancelled": "Abgebrochen. Es wurde nichts verbunden, und Sie können jederzeit neu beginnen.",
+    "scopes": {
+      "title": "Was darf VS Code tun?",
+      "account": "Ihren Namen, Ihre E-Mail-Adresse und Ihren Plan sehen.",
+      "appsRead": "Ihre Anwendungen samt Status, Logs und Metriken sehen.",
+      "appsControl": "Ihre Anwendungen starten, stoppen und neu starten.",
+      "appsDeploy": "Neue Anwendungen hochladen und Dateien an bestehende senden.",
+      "appsWrite": "Anwendungseinstellungen ändern und Anwendungen löschen, nur auf Ihre Anweisung.",
+      "envs": "Umgebungsvariablen lesen und bearbeiten.",
+      "snapshots": "Snapshots (Backups) herunterladen und eine Anwendung daraus wiederherstellen.",
+      "databases": "Ihre Datenbanken sehen, erstellen, starten, stoppen und löschen.",
+      "databaseCredentials": "TLS-Zertifikate und Zugangsdaten von Datenbanken herunterladen.",
+      "workspaces": "Workspaces erstellen, verlassen und löschen sowie Personen dazu einladen.",
+      "footer": "Ihr Passwort sieht VS Code nie. Die Autorisierung gilt 90 Tage, und Sie können sie jederzeit unter Mein Konto → Authentifizierung widerrufen."
+    }
+  },
+  "problem": {
+    "offline": {
+      "title": "Square Cloud nicht erreichbar",
+      "body": "Prüfen Sie Ihre Verbindung. Das Dashboard verbindet sich automatisch neu, sobald Sie wieder online sind."
+    },
+    "rateLimit": {
+      "title": "Kurze Pause",
+      "body": "Square Cloud begrenzt die Anfragen für ein paar Minuten. Ihre Anwendungen laufen weiter.",
+      "retryIn": "Nächster automatischer Versuch in {{TIME}}"
+    },
+    "outage": {
+      "title": "Square Cloud hat Probleme",
+      "body": "Ein Teil der Plattform antwortet nicht. Das behebt sich meist innerhalb weniger Minuten."
+    },
+    "session": {
+      "title": "Konto erneut verbinden",
+      "body": "Mit dieser Autorisierung lässt sich Ihr Konto nicht laden. Verbinden Sie es erneut, um eine neue zu erhalten."
+    },
+    "error": {
+      "title": "Etwas ist schiefgelaufen",
+      "body": "Ihr Konto konnte nicht geladen werden. Versuchen Sie es gleich noch einmal."
+    },
+    "plan": {
+      "action": "Pläne ansehen"
+    }
+  },
+  "illustration": {
+    "offline": "Keine Verbindung zu Square Cloud.",
+    "rateLimit": "Anfragen pausiert.",
+    "keyLimit": "Autorisierungslimit erreicht.",
+    "outage": "Störung bei Square Cloud.",
+    "session": "Eine Autorisierung, die erneuert werden muss.",
+    "error": "Etwas ist schiefgelaufen.",
+    "plan": "Auswahl eines Square-Cloud-Plans.",
+    "codeExpired": "Ein Code, dessen Zeit abgelaufen ist.",
+    "emptyDatabases": "Gestrichelter Umriss einer Datenbank mit Pluszeichen, der auf Ihre erste Datenbank wartet.",
+    "emptyWorkspaces": "Zwei Teammitglieder, verbunden mit einem gemeinsamen Quadrat, und ein freier Platz für ein neues Mitglied."
+  },
+  "statusBar": {
+    "signIn": "Square Cloud: Konto verbinden",
+    "online": "{{ONLINE}} von {{TOTAL}} online"
+  }
+}

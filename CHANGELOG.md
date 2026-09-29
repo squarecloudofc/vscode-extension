@@ -2,6 +2,62 @@
 
 All notable changes to this project will be documented in this file.
 
+## Unreleased
+
+### Added
+
+- **Get Started walkthrough.** `Square Cloud: Get Started` opens a ten-step guide on the Welcome page (connect, the `squarecloud.app` file, upload and commit, lifecycle, logs and metrics, snapshots, databases, workspaces, GitHub deploys and edge analytics), each with an animated, theme-aware illustration, a plain-words explanation and buttons that run the real commands. Steps complete as you use the features. It opens once on the first activation without a connected account and never again; it is also linked from both side bar views and their `...` menu.
+- **Application commands ask which application** when run without one (from the walkthrough or a command link), and open the sign-in view when no account is connected, instead of doing nothing. Upload, Create database, Create workspace and Copy My Invite Code also open sign-in when disconnected.
+- **Application and database actions in the command palette.** With an account connected, the ⋯ menu's actions (`Square Cloud: Restart Application...`, `Download Database TLS Certificate...` and the rest) run from the palette and ask which application or database to use. `Copy My Invite Code` is there too.
+- **Pickers offer only what fits.** Start lists applications that aren't running, Stop and Restart the ones that aren't stopped, edge tools only websites and metrics only applications with 512 MB or more; when nothing fits, a message says why. The walkthrough's database step gets a **Download the TLS certificate** button.
+- **A new home before you connect.** An isometric Square Cloud platform with a website, a bot, a database and an API on it, each block lighting up in turn, above a short pitch, **Connect account**, the other ways to sign in and the tour. At the foot, what connecting grants: an authorization of its own, valid for 90 days, revocable, and your password never passes through VS Code.
+- **Sign-in view, redesigned to teach the flow.** Once you connect, a 1 → 2 → 3 guide (connect, confirm the code, done) that moves with you, the code in eight slots with a copy button, a countdown ring driven by the grant's own expiry, a collapsible "What will VS Code be able to do?" list that explains each requested permission in plain words, and a success animation. Key-limit and rate-limit warnings get a title (and a shortcut to My Account → Authentication for the key limit), an expired code gets its own state, and cancelling says that nothing was connected.
+- **Dashboard polish.** Skeleton placeholders while loading; an illustrated empty state with an **Upload your first application** button; a live status that turns amber while a start/stop/restart you clicked is on its way; "?" popovers explaining the RAM meter, applications, databases and workspaces; tooltips on every detail field (now localised); and repaints that only rebuild what changed, so animations no longer restart on every status poll and the RAM meter glides to new values.
+- **Square Cloud look.** The sign-in view and the dashboard now use the website's own colours, cards, buttons, status badges, plan tag and RAM bar, in its dark and light themes; high-contrast themes keep VS Code's colours.
+- **Accessibility.** Illustrations carry localised labels, rows open from the keyboard (Enter/Space, context menu with Shift+F10), focus is always visible, every animation respects "reduce motion", and high-contrast themes keep their borders.
+- **Illustrated problem states.** Being offline, a rate limit, an outage, an expired code, the authorization limit and plain errors each get a picture, one sentence on what happened and the button that helps. A rate limit counts down to the automatic retry; a failed refresh keeps the last data under a "Couldn't refresh" banner; a degraded platform gets a banner on top. Accounts without a plan are invited to pick one, and Databases and Workspaces always show, with a way to create the first one. Error toasts offer the next step: Connect account, See plans or Service status.
+- **Status bar tooltip.** Account and plan, applications online, service health and the current problem, with links to refresh, service status and the web dashboard. The item itself shows when you are offline or rate-limited.
+- **Eight languages.** Besides English, Portuguese and Spanish, the extension now speaks German, French, Italian, Japanese and Simplified Chinese, the languages of the Square Cloud website, and links into the website open in the same language.
+- **Long application lists page.** Past 10 applications the dashboard shows them 10 at a time with previous and next arrows, and a filter by name, domain or ID finds one among a thousand. Favourites stay on the first page.
+- **Icons in menus.** Every entry of the ⋯ menu has an icon, the application picker shows each app's status and memory in use, and the toolbar uses VS Code's own icons.
+
+### Changed
+
+- **Official SDK v6.** The extension now runs on `@squarecloud/api` 6, a flat client of plain data. It sees the API's real error codes and messages instead of synthetic ones, times calls out instead of waiting forever, and retries only what is safe to retry.
+- **One request to refresh an application's status** instead of two: the extension no longer fetches the application before asking for its status.
+- **Edge analytics** (logs, errors, performance, purge cache) are offered and checked from the account listing, without an extra request per command. A failed analytics call now says why instead of reading as "no data".
+- **Working offline stays quiet.** A failed background refresh no longer pops an error toast; the side bar and the status bar show what happened and retry on their own.
+- **Spanish says "espacio de trabajo"** everywhere, like the website, instead of mixing it with "workspace".
+- **Your invite code moved to the side bar's `...` menu** and is now called **Copy My Invite Code**. The code belongs to you, not to a workspace: a workspace owner uses it to add you. The notification says so.
+- **Sign-in wording matches the page.** VS Code shows a code and the approval page asks you to paste it, so the extension no longer tells you to compare two codes. It warns you never to enter a code someone sent you instead.
+- **Everything is localised.** Dialog titles, the upload file count, quick-fix titles, the metrics and edge reports, the service status and the edge time ranges no longer appear in English in other languages.
+- **One ignore file for the extension and the CLI.** Both read `squarecloud.ignore` with `.gitignore` syntax and the same defaults, which now also leave out `.git`, `.github` and `.vscode`; a `!` rule brings any of them back. `.gitignore` is no longer read in its place: it often lists what the application needs to run, like `.env`. A symbolic link to a file is uploaded as that file instead of being skipped.
+- **Service status only where it works.** Without a connected account the command is hidden from the palette, since it needs one; run anyway, it opens the public status page.
+- **Smaller package.** The icons left over from the old tree views are gone; the Marketplace page shows screenshots instead.
+
+### Fixes
+
+- **A failed refresh no longer reads "sign in"** in the status bar while an account is connected.
+- **An expired authorization asks to connect again.** The API no longer sends `APIKEY_EXPIRED`; an expired key answers `401 ACCESS_DENIED`, exactly like a revoked one, so that is what triggers the prompt now. Only a rejected account refresh drops the key; an `ACCESS_DENIED` from another command is shown as an error and re-checks the account, which asks to connect again only when the key itself is dead.
+- **Restore snapshot uses the snapshot's own identifiers.** It used to rebuild them from the download URL and could fail with "could not read the snapshot identifiers"; the listing now carries them.
+- **Snapshots stream to disk** instead of being held in memory, and a failed download no longer leaves a partial zip behind. A snapshot that is still being generated (large applications) is reported as such instead of failing.
+- **Delete no longer runs without a recovery snapshot.** If the snapshot is still being generated, the application is kept and you are asked to try again in a couple of minutes.
+- **Rate limits degrade quietly.** A `RATE_LIMITED` block pauses background polling for a few minutes and keeps what is already on screen; a short `KEEP_CALM` burst is retried once. Before, a throttled refresh blanked every status dot until the next poll.
+- **"Already running" / "already stopped" is information, not an error.** Starting a running application (or stopping a stopped one) shows an information message and resyncs the row, which was stale.
+- **Clearer messages** in every language for missing permissions, rate limits, suspended or unavailable containers, lack of disk space, GitHub App linking (no installation, no write access, branch not confirmed, already linked), validation failures, timeouts and temporary unavailability. Any other code still shows a generic message with the code.
+- **Switching or disconnecting an account is clean.** A refresh that started before the change no longer writes the old account back, an old 401 no longer deletes the new authorization, and open realtime consoles close.
+- **Sign-in survives impatience.** Cancel while the code is copied or the browser opens, or clicking Connect twice, no longer shows an error or leaves a second attempt polling in the background. Reconnecting from the dashboard has a **Cancel** button back to it.
+- **Cancel is never an error.** Cancelling an upload, a commit or a dialog no longer shows an error notification.
+- **The dashboard keeps keyboard focus** when a row updates, and a filter with `$` in it shows the right text.
+- **Times follow your machine.** Under Remote-SSH, WSL or containers, "Running since" and "Showing data from" used the remote host's time zone; the dashboard now formats them locally.
+- **A newly migrated key is read correctly on startup** instead of showing the sign-in screen once.
+- **Config file checks:** a value with `=` in it is read correctly, `ruby` and `rb` are accepted runtimes, quick fixes replace the whole line, and `MAIN` paths work with forward and back slashes.
+- **Safer downloads.** A snapshot is written to a temporary file and renamed only once complete, and database certificates are saved readable only by you.
+- **Every window follows the account.** Connecting or disconnecting in one VS Code window now applies to the others, which kept the old state until reloaded.
+- **"Running since" stays.** An open card lost its start time on the next refresh; it now keeps it and re-reads it on every refresh, so a restart made elsewhere shows up.
+- **The environment variable name hint is right.** It asked for uppercase letters, but lowercase names are accepted too; it now says letters A to Z, digits and underscores.
+- **24h metrics show RAM correctly.** RAM values are megabytes and were formatted as bytes; the "current" line also read the oldest sample, since the API sends the newest first.
+
 ## 5.2.1
 
 ### Fixes

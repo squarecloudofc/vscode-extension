@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="470" viewBox="0 0 900 470" role="img" aria-labelledby="t d">
+  <title id="t">IntelliSense for squarecloud.app</title>
+  <desc id="d">A squarecloud.app file open in VS Code: MEMORY=256 is underlined as an error, and typing RUNTIME= opens a list of runtimes with typescript selected, with a light bulb for quick fixes on that line.</desc>
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="0%" r="95%">
+      <stop offset="0" stop-color="#0d1424"/>
+      <stop offset=".62" stop-color="#030405"/>
+    </radialGradient>
+    <g id="member">
+      <rect x=".5" y=".5" width="11" height="9" rx="1.5" fill="none" stroke="#75beff"/>
+      <path d="M3 3.5h6M3 6.5h4" stroke="#75beff" stroke-linecap="round"/>
+    </g>
+  </defs>
+  <style>
+    text { font-family: Inter, "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif; fill: #e3e6ea; }
+    .h1 { font-size: 22px; font-weight: 650; fill: #f4f5f7; letter-spacing: -.01em; }
+    .sub { font-size: 14px; fill: #9aa3b2; }
+    .title { font-size: 15px; font-weight: 600; fill: #f4f5f7; }
+    .body { font-size: 12.5px; fill: #9aa3b2; }
+    .mono { font-family: Consolas, "Cascadia Mono", monospace; font-size: 13.5px; }
+    .ln { font-family: Consolas, "Cascadia Mono", monospace; font-size: 13px; fill: #6e7681; text-anchor: end; }
+    .k { fill: #569cd6; } .o { fill: #d4d4d4; } .v { fill: #ce9178; }
+    .item { font-family: Consolas, "Cascadia Mono", monospace; font-size: 13px; fill: #cccccc; }
+    .squiggle { fill: none; stroke: #f14c4c; stroke-width: 1.2; }
+    .icon { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+
+  <rect width="900" height="470" rx="16" fill="url(#bg)"/>
+  <text class="h1" x="40" y="54">IntelliSense for squarecloud.app</text>
+  <text class="sub" x="40" y="80">Autocomplete, validation and quick fixes for the Square Cloud config file. Nothing else to install.</text>
+
+  <!-- The editor -->
+  <rect x="40" y="108" width="544" height="330" rx="12" fill="#1f1f1f" stroke="#2b2b2b"/>
+  <path d="M52 108.5h520a11.5 11.5 0 0 1 11.5 11.5v22h-543v-22a11.5 11.5 0 0 1 11.5-11.5z" fill="#181818"/>
+  <path d="M52 108.5h162v33.5h-173.5v-22a11.5 11.5 0 0 1 11.5-11.5z" fill="#1f1f1f"/>
+  <path d="M50 109.5h164" stroke="#0078d4" stroke-width="2"/>
+  <g class="icon" stroke="#c9ced6" stroke-width="1.4">
+    <rect x="59.5" y="117.5" width="9" height="9" rx="1"/>
+    <rect x="56.5" y="120.5" width="9" height="9" rx="1" fill="#1f1f1f"/>
+  </g>
+  <text x="76" y="129.5" font-size="12.5" style="fill:#ffffff">squarecloud.app</text>
+  <path class="icon" d="M195 121l6 6m0-6l-6 6" stroke="#9d9d9d" stroke-width="1.2"/>
+  <path d="M40.5 142h543" stroke="#2b2b2b"/>
+
+  <!-- Current line -->
+  <rect x="41" y="276" width="542" height="24" fill="none" stroke="#282828"/>
+
+  <text class="ln" x="80" y="170">1</text>
+  <text class="ln" x="80" y="194">2</text>
+  <text class="ln" x="80" y="218">3</text>
+  <text class="ln" x="80" y="242">4</text>
+  <text class="ln" x="80" y="266">5</text>
+  <text class="ln" x="80" y="290" style="fill:#cccccc">6</text>
+  <text class="ln" x="80" y="314">7</text>
+  <text class="ln" x="80" y="338">8</text>
+
+  <text class="mono" x="104" y="170"><tspan class="k">DISPLAY_NAME</tspan><tspan class="o">=</tspan><tspan class="v">Online store</tspan></text>
+  <text class="mono" x="104" y="194"><tspan class="k">MAIN</tspan><tspan class="o">=</tspan><tspan class="v">src/server.ts</tspan></text>
+  <text class="mono" x="104" y="218"><tspan class="k">SUBDOMAIN</tspan><tspan class="o">=</tspan><tspan class="v">store</tspan></text>
+  <text class="mono" x="104" y="242"><tspan class="k">MEMORY</tspan><tspan class="o">=</tspan><tspan class="v">256</tspan></text>
+  <text class="mono" x="104" y="266"><tspan class="k">VERSION</tspan><tspan class="o">=</tspan><tspan class="v">recommended</tspan></text>
+  <text class="mono" x="104" y="290"><tspan class="k">RUNTIME</tspan><tspan class="o">=</tspan></text>
+  <text class="mono" x="104" y="314"><tspan class="k">AUTORESTART</tspan><tspan class="o">=</tspan><tspan class="v">true</tspan></text>
+
+  <path class="squiggle" d="M156 246.5l2.2-2 2.2 2 2.2-2 2.2 2 2.2-2 2.2 2 2.2-2 2.2 2 2.2-2 2.2 2"/>
+
+  <!-- Light bulb on the cursor's line: quick fixes for RUNTIME -->
+  <g class="icon" stroke="#ffcc00" stroke-width="1.2">
+    <path d="M89 289.5v-1.2c0-.8-.4-1.4-1-2a3.6 3.6 0 1 1 5 0c-.6.6-1 1.2-1 2v1.2z"/>
+    <path d="M89.3 291.5h2.4"/>
+  </g>
+
+  <rect x="163.4" y="278" width="2" height="19" fill="#aeafad"/>
+
+  <!-- Suggestions for RUNTIME= -->
+  <rect x="142" y="300" width="220" height="118" rx="5" fill="#202020" stroke="#454545"/>
+  <rect x="143" y="348" width="218" height="22" fill="#04395e" stroke="#0078d4"/>
+  <use href="#member" x="152" y="309"/><text class="item" x="172" y="319">nodejs</text>
+  <use href="#member" x="152" y="331"/><text class="item" x="172" y="341">javascript</text>
+  <use href="#member" x="152" y="353"/><text class="item" x="172" y="363" style="fill:#ffffff">typescript</text>
+  <use href="#member" x="152" y="375"/><text class="item" x="172" y="385">python</text>
+  <use href="#member" x="152" y="397"/><text class="item" x="172" y="407">dotnet</text>
+
+  <!-- What it does -->
+  <circle cx="630" cy="142" r="14" fill="#10213f"/>
+  <g class="icon" stroke="#60a5fa" stroke-width="1.5">
+    <path d="M623.5 137h9M623.5 142h13M623.5 147h7"/>
+  </g>
+  <text class="title" x="654" y="147">Autocomplete</text>
+  <text class="body" x="616" y="178">Every key, and the values of MAIN,</text>
+  <text class="body" x="616" y="196">RUNTIME, VERSION, MEMORY and</text>
+  <text class="body" x="616" y="214">AUTORESTART, with Ctrl+Space.</text>
+
+  <circle cx="630" cy="252" r="14" fill="#3a1414"/>
+  <g class="icon" stroke="#f87171" stroke-width="1.6">
+    <circle cx="630" cy="252" r="6.5"/>
+    <path d="M627.5 249.5l5 5m0-5l-5 5"/>
+  </g>
+  <text class="title" x="654" y="257">Errors as you type</text>
+  <text class="body" x="616" y="288">Missing keys, length limits, a MAIN</text>
+  <text class="body" x="616" y="306">file that doesn't exist and memory</text>
+  <text class="body" x="616" y="324">under what the app needs.</text>
+
+  <circle cx="630" cy="362" r="14" fill="#3a3010"/>
+  <g class="icon" stroke="#ffcc00" stroke-width="1.5">
+    <path d="M627.8 366.5v-1.5c0-1-.5-1.7-1.2-2.4a4.4 4.4 0 1 1 6.8 0c-.7.7-1.2 1.4-1.2 2.4v1.5z"/>
+    <path d="M628.3 369.5h3.4"/>
+  </g>
+  <text class="title" x="654" y="367">Quick fixes</text>
+  <text class="body" x="616" y="398">One click turns an invalid RUNTIME,</text>
+  <text class="body" x="616" y="416">VERSION or AUTORESTART into a</text>
+  <text class="body" x="616" y="434">value Square Cloud accepts.</text>
+</svg>

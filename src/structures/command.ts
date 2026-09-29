@@ -1,8 +1,6 @@
-import { window } from "vscode";
-
 import type { SquareCloudExtension } from "@/managers/extension";
 import { ExtensionID } from "@/lib/constants";
-import { describeError } from "@/lib/utils/errors";
+import { reportError } from "@/lib/utils/errors";
 
 import { Logger } from "./logger";
 
@@ -37,7 +35,7 @@ export class Command {
       await this.handler(extension, ...args);
     } catch (error) {
       logger.error(`Command ${this.name} failed`, error);
-      window.showErrorMessage(describeError(error));
+      reportError(extension, error);
     }
   }
 }

@@ -1,4 +1,5 @@
 import * as vscode from "vscode";
+import { t } from "vscode-ext-localisation";
 
 import type { RUNTIME_VALUES } from "@/config-file/parameters/runtime";
 
@@ -35,6 +36,7 @@ export class ConfigFileActionProvider implements vscode.CodeActionProvider {
         "java",
         "elixir",
         "rust",
+        "ruby",
         "php",
         "go",
         "static",
@@ -50,13 +52,16 @@ export class ConfigFileActionProvider implements vscode.CodeActionProvider {
     field: string,
     values: readonly string[],
   ): vscode.CodeAction[] {
+    // `range` is the cursor when the lightbulb is used, not the diagnostic:
+    // replace the whole line or the fix lands mid-line.
+    const line = document.lineAt(range.start.line).range;
     return values.map((value) => {
       const fix = new vscode.CodeAction(
-        `Set ${field}=${value}`,
+        t("configFile.quickFix", { LINE: `${field}=${value}` }),
         vscode.CodeActionKind.QuickFix,
       );
       fix.edit = new vscode.WorkspaceEdit();
-      fix.edit.replace(document.uri, range, `${field}=${value}`);
+      fix.edit.replace(document.uri, line, `${field}=${value}`);
       return fix;
     });
   }
