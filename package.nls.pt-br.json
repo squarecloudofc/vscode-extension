@@ -2,7 +2,7 @@
   "command.setApiKey": "Conectar conta",
   "command.logsEntry": "Exibir logs",
   "command.refresh": "Atualizar",
-  "command.open": "Abrir no painel",
+  "command.open": "Abrir no dashboard",
   "command.start": "Iniciar",
   "command.stop": "Parar",
   "command.copyId": "Copiar ID",
@@ -44,7 +44,7 @@
   "palette.networkErrorsEntry": "Exibir erros da edge...",
   "palette.networkPerformanceEntry": "Exibir desempenho da edge...",
   "palette.purgeCacheEntry": "Limpar cache da edge...",
-  "palette.openEntry": "Abrir aplicação no painel web...",
+  "palette.openEntry": "Abrir aplicação no dashboard web...",
   "palette.copyIdEntry": "Copiar ID da aplicação...",
   "palette.deleteEntry": "Excluir aplicação...",
   "palette.startDatabase": "Iniciar banco de dados...",
@@ -86,9 +86,9 @@
   },
   "setApiKey": {
     "tutorial": {
-      "button": "Abrir o painel"
+      "button": "Abrir o dashboard"
     },
-    "apiKey": "Cole um token criado no painel.",
+    "apiKey": "Cole um token criado no dashboard.",
     "testing": "Verificando...",
     "invalid": "Este token não é válido.",
     "success": "Conectado!",
@@ -283,7 +283,7 @@
     "uploading": "Enviando para a Square Cloud...",
     "emptyFolder": "A pasta selecionada fica vazia depois de aplicar as regras de ignore.",
     "tooLarge": "A aplicação compactada excede 100 MB. Adicione artefatos de build e dependências ao squarecloud.ignore e tente novamente.",
-    "openDashboard": "Abrir painel",
+    "openDashboard": "Abrir dashboard",
     "loaded": "Aplicação '{{NAME}}' enviada com sucesso ({{RUNTIME}})."
   },
   "apiError": {
@@ -329,12 +329,12 @@
     "RATE_LIMIT": "Muitas tentativas a partir desta rede. Aguardando um momento antes de tentar novamente.",
     "CONTAINER_ALREADY_STARTED": "A aplicação já está em execução.",
     "CONTAINER_ALREADY_STOPPED": "A aplicação já está parada.",
-    "CONTAINER_TEMPORARILY_SUSPENDED": "Esta aplicação está suspensa temporariamente. Veja os detalhes no painel.",
+    "CONTAINER_TEMPORARILY_SUSPENDED": "Esta aplicação está suspensa temporariamente. Veja os detalhes no dashboard.",
     "CONTAINER_NOT_FOUND": "O container da aplicação não está disponível agora. Tente novamente em instantes.",
     "CONTAINER_INSUFFICIENT_DISK_SPACE": "A aplicação ficou sem espaço em disco. Libere armazenamento e tente novamente.",
     "CONTAINER_NETWORK_CONFLICT": "Não foi possível configurar a rede da aplicação. Tente novamente em instantes.",
     "ACTION_FAILED": "A Square Cloud não conseguiu concluir esta ação. Tente novamente em instantes.",
-    "GITHUB_NOT_CONNECTED": "Sua conta não tem o GitHub App da Square Cloud instalado. Instale-o primeiro pelo painel.",
+    "GITHUB_NOT_CONNECTED": "Sua conta não tem o GitHub App da Square Cloud instalado. Instale-o primeiro pelo dashboard.",
     "REPOSITORY_NOT_AVAILABLE": "Este repositório não faz parte da sua instalação do GitHub App da Square Cloud.",
     "REPOSITORY_PERMISSION_REQUIRED": "A conta do GitHub vinculada não tem acesso de escrita a este repositório.",
     "REPOSITORY_BRANCH_ALREADY_CONFIGURED": "Este repositório e esta branch já estão vinculados a outra aplicação.",
@@ -482,7 +482,7 @@
   "walkthrough.workspaces.description": "Um workspace é um espaço compartilhado onde a equipe gerencia as mesmas aplicações, cada pessoa com seu papel. Crie um para a sua equipe ou copie seu código de convite e envie para o dono de um workspace adicionar você.\n[Criar um workspace](command:squarecloud.createWorkspace)\n[Copiar meu código de convite](command:squarecloud.generateInviteCode)",
   "walkthrough.workspaces.alt": "Membros da equipe entrando em um workspace em volta de uma aplicação compartilhada, cada um com um papel.",
   "walkthrough.github.title": "Deploy a cada git push",
-  "walkthrough.github.description": "Vincule uma aplicação a um repositório e uma branch do GitHub, e cada push nessa branch faz o deploy automaticamente, sem precisar enviar nada. Antes, instale o GitHub App da Square Cloud pelo painel.\n[Vincular um repositório do GitHub](command:squarecloud.linkGithubAppEntry)",
+  "walkthrough.github.description": "Vincule uma aplicação a um repositório e uma branch do GitHub, e cada push nessa branch faz o deploy automaticamente, sem precisar enviar nada. Antes, instale o GitHub App da Square Cloud pelo dashboard.\n[Vincular um repositório do GitHub](command:squarecloud.linkGithubAppEntry)",
   "walkthrough.github.alt": "Um git push dispara um deploy por webhook: pendente, clone, commit, reiniciando, sucesso.",
   "walkthrough.network.title": "Entenda seu tráfego",
   "walkthrough.network.description": "Sites ganham analytics da edge: logs de requisições, erros e tempos de resposta, além de uma limpeza de cache para quando você publicar mudanças. Disponível para aplicações com domínio.\n[Logs da edge](command:squarecloud.networkLogsEntry)\n[Desempenho da edge](command:squarecloud.networkPerformanceEntry)\n[Limpar cache da edge](command:squarecloud.purgeCacheEntry)",
@@ -538,7 +538,7 @@
   "problem": {
     "offline": {
       "title": "Sem conexão com a Square Cloud",
-      "body": "Verifique sua conexão. O painel se reconecta sozinho quando você voltar a ficar online."
+      "body": "Verifique sua conexão. O dashboard se reconecta sozinho quando você voltar a ficar online."
     },
     "rateLimit": {
       "title": "Uma pausa rápida",
