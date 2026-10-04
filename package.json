@@ -53,7 +53,7 @@
   "main": "./dist/extension.js",
   "scripts": {
     "lint": "biome check --write .",
-    "build": "pnpm run check-types && pnpm run check-strings && pnpm run check-realtime && pnpm run check-problems && pnpm run check-key-sync && node esbuild.js --production",
+    "build": "pnpm run check-types && pnpm run check-strings && pnpm run check-realtime && pnpm run check-problems && pnpm run check-key-sync && pnpm run check-env-quote && node esbuild.js --production",
     "check-types": "tsc --noEmit",
     "check-authorize": "node scripts/check-authorize.mjs",
     "watch": "concurrently --raw \"pnpm:watch:*\"",
@@ -66,7 +66,8 @@
     "check-strings": "node scripts/check-strings.mjs",
     "check-realtime": "node scripts/check-realtime.mjs",
     "check-problems": "node scripts/check-problems.mjs",
-    "check-key-sync": "node scripts/check-key-sync.mjs"
+    "check-key-sync": "node scripts/check-key-sync.mjs",
+    "check-env-quote": "node scripts/check-env-quote.mjs"
   },
   "dependencies": {
     "@squarecloud/api": "^6.0.0",

@@ -3,6 +3,7 @@ import { ProgressLocation, window } from "vscode";
 import { t } from "vscode-ext-localisation";
 
 import { confirm } from "@/lib/utils/dialogs";
+import { shellQuote } from "@/lib/utils/format";
 import { isSingular } from "@/lib/utils/locale";
 import { ApplicationCommand } from "@/structures/application/command";
 
@@ -90,7 +91,7 @@ async function addEnv(api: SquareCloudAPI, appId: string) {
   await window.withProgress(
     { location: ProgressLocation.Notification, title: t("envs.saving") },
     async () => {
-      await api.apps.envs.set(appId, { [key]: value });
+      await api.apps.envs.set(appId, { [key]: shellQuote(value) });
       window.showInformationMessage(t("envs.saved"));
     },
   );
@@ -121,7 +122,7 @@ async function editEnv(
     await window.withProgress(
       { location: ProgressLocation.Notification, title: t("envs.saving") },
       async () => {
-        await api.apps.envs.set(appId, { [key]: value });
+        await api.apps.envs.set(appId, { [key]: shellQuote(value) });
         window.showInformationMessage(t("envs.saved"));
       },
     );
