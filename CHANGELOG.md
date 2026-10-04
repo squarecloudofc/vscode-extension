@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## 5.3.2
+
+### Fixes
+
+- **Environment variables arrive as typed.** The application reads its variables through a shell, so a value with a space or a character such as `$`, `&`, `;` or `|` was cut short or expanded, and the app received it empty or changed. Adding or editing a variable now sends such values in quotes: single quotes, or double quotes when the value has a single quote. Simple values, and values already wrapped in one pair of quotes (such as `"${HOST}:3000"`, which refers to another variable), are sent unchanged. The Square Cloud CLI quotes the same way. Variables saved with earlier versions are not changed; edit again any value that lost characters.
+- **Portuguese says "dashboard".** The Brazilian Portuguese strings used "painel" where the rest of Square Cloud says "dashboard".
+
 ## 5.3.1
 
 ### Changes
