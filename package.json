@@ -71,7 +71,7 @@
   },
   "dependencies": {
     "@squarecloud/api": "^6.0.0",
-    "ignore": "^7.0.10",
+    "ignore": "^7.0.12",
     "jszip": "^3.10.2",
     "vscode-ext-localisation": "^1.1.0",
     "xoid": "^1.0.1"
