@@ -5,6 +5,7 @@ import { createDiagnostic } from "@/lib/utils/diagnostic";
 
 export const DESCRIPTION = {
   required: false,
+  docs: () => t("configFile.hover.description"),
   validation(_keys, value, line, diagnostics, document) {
     // Validate if exists some value on DESCRIPTION
     if (!value.trim()) {

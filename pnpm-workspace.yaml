@@ -2,6 +2,7 @@ enablePrePostScripts: true
 
 minimumReleaseAgeExclude:
   - '@squarecloud/api'
+  - '@squarecloud/blob'
 
 # Security floors for vulnerable transitive dev deps (Dependabot alerts).
 # Everything here comes in under @vscode/vsce — packaging tooling, never

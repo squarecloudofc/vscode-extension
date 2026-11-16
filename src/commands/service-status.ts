@@ -34,6 +34,7 @@ export const showServiceStatus = new Command(
 
     const labels: Record<string, string> = {
       online: t("serviceStatus.online"),
+      maintenance: t("serviceStatus.maintenance"),
       degraded: t("serviceStatus.degraded"),
       unknown: t("serviceStatus.unknown"),
     };

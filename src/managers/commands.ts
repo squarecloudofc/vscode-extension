@@ -19,9 +19,8 @@ export class CommandsManager implements Disposable {
 
   constructor(private readonly extension: SquareCloudExtension) {
     let count = 0;
-    // The `commands` barrel re-exports a few helper functions (e.g. realtime's
-    // disposeAllRealtimeSessions) alongside actual Command instances. Filter
-    // by instanceof so we don't register phantom commands named after
+    // The `commands` barrel re-exports helper functions (e.g. saveSnapshot)
+    // alongside actual Command instances. Filter by instanceof so we don't register phantom commands named after
     // utilities and crash later when VSCode invokes them.
     for (const exported of Object.values(commandExports)) {
       if (!isCommand(exported)) continue;

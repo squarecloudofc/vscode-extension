@@ -40,28 +40,28 @@ function sources(dir) {
     const path = join(dir, entry);
     return statSync(path).isDirectory()
       ? sources(path)
-      : path.endsWith(".ts")
+      : /\.tsx?$/.test(path)
         ? [path]
         : [];
   });
 }
 
 const used = new Map(); // key -> where we first saw it
+// The webview has only the strings its host sends (renderShell's l10n), so a
+// key it reads must also appear, quoted, in the host's source.
+const webviewKeys = new Map();
+let hostSource = "";
 
-const PATTERNS = [
-  // t("some.key"), and e("some.key") in the auth view (t + escape)
-  /\b[te]\(\s*"([^"$]+)"/g,
-  // Menu tables hold their keys in `label:` / `group:` fields and hand them to
-  // `t(variable)` later, which the call-site pattern above cannot see.
-  /\b(?:label|group)\s*:\s*"([^"$]+\.[^"$]+)"/g,
-];
+// t("some.key"), on the host and in the webview (src/webview/l10n.ts).
+const CALL = /\bt\(\s*"([^"$]+)"/g;
 
 for (const file of sources("src")) {
   const code = readFileSync(file, "utf-8");
-  for (const pattern of PATTERNS) {
-    for (const [, key] of code.matchAll(pattern)) {
-      if (!used.has(key)) used.set(key, file);
-    }
+  const webview = file.replaceAll("\\", "/").startsWith("src/webview/");
+  if (!webview) hostSource += code;
+  for (const [, key] of code.matchAll(CALL)) {
+    if (!used.has(key)) used.set(key, file);
+    if (webview && !webviewKeys.has(key)) webviewKeys.set(key, file);
   }
 }
 
@@ -70,6 +70,19 @@ const manifest = readFileSync("package.json", "utf-8");
 for (const [, key] of manifest.matchAll(/"%([^%"]+)%"/g)) {
   if (!used.has(key)) used.set(key, "package.json");
 }
+
+// One convention for command titles: squarecloud.<id> is titled %command.<id>%.
+const misnamed = JSON.parse(manifest)
+  .contributes.commands.filter(
+    ({ command, title }) =>
+      title !== `%command.${command.replace(/^squarecloud\./, "")}%`,
+  )
+  .map(({ command, title }) => `${command}: ${title}`);
+assert.equal(
+  misnamed.length,
+  0,
+  `Command titles not named %command.<id>%:\n  ${misnamed.join("\n  ")}`,
+);
 
 const missing = [];
 for (const [key, where] of used) {
@@ -83,6 +96,15 @@ assert.equal(
   missing.length,
   0,
   `Unresolved translation keys:\n  ${missing.join("\n  ")}`,
+);
+
+const unsent = [...webviewKeys]
+  .filter(([key]) => !hostSource.includes(`"${key}"`))
+  .map(([key, file]) => `${key} (used in ${file})`);
+assert.equal(
+  unsent.length,
+  0,
+  `Webview strings its host never sends (list them in its STRINGS):\n  ${unsent.join("\n  ")}`,
 );
 
 // VS Code loads a locale's file INSTEAD of English, not on top of it: a key
@@ -124,7 +146,7 @@ assert.equal(
 
 // A string nothing reads still gets translated and reviewed eight times.
 // Keys built at runtime: t(`apiError.${code}`), t(`${action}.loading`).
-const DYNAMIC = /^apiError\.|^(start|stop|restart)\.(loading|loaded)$/;
+const DYNAMIC = /^apiError\.|^(start|stop|restart)\.loading$/;
 const orphans = [...english.flat.keys()].filter(
   (key) => !used.has(key) && !DYNAMIC.test(key),
 );

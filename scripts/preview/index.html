@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Webview preview</title>
+    <!--
+      The webview bundle outside VS Code, on mock data, to check the look in
+      each theme. Build first with `node esbuild.js`, then open this file: a
+      production build leaves the gallery out (the other views work).
+      ?theme=dark|light|hc|hc-light picks the theme; ?clean hides the bar.
+      ?view=sidebar&state=signed-in|signed-out|waiting|degraded|empty|problem|loading
+      draws the sidebar instead of the gallery (give it a sidebar-wide window).
+      Not shipped: scripts/ is in .vscodeignore.
+    -->
+    <link rel="stylesheet" href="../../dist/webview.css" />
+    <style>
+      /* What VS Code provides to a webview: its theme's --vscode-* colours
+         (Dark Modern, Light Modern and the two high contrast themes). */
+      body.vscode-dark {
+        --vscode-editor-background: #1f1f1f;
+        --vscode-sideBar-background: #181818;
+        --vscode-foreground: #cccccc;
+        --vscode-descriptionForeground: #9d9d9d;
+        --vscode-list-hoverBackground: #2a2d2e;
+        --vscode-input-background: #313131;
+      }
+      body.vscode-light {
+        --vscode-editor-background: #ffffff;
+        --vscode-sideBar-background: #f8f8f8;
+        --vscode-foreground: #3b3b3b;
+        --vscode-descriptionForeground: #6f6f6f;
+        --vscode-list-hoverBackground: #f2f2f2;
+        --vscode-input-background: #ffffff;
+      }
+      body.vscode-high-contrast {
+        --vscode-editor-background: #000000;
+        --vscode-sideBar-background: #000000;
+        --vscode-editorWidget-background: #0c141f;
+        --vscode-foreground: #ffffff;
+        --vscode-descriptionForeground: #ffffffb3;
+        --vscode-contrastBorder: #6fc3df;
+        --vscode-focusBorder: #f38518;
+        --vscode-button-background: #000000;
+        --vscode-button-foreground: #ffffff;
+        --vscode-button-border: #6fc3df;
+        --vscode-button-secondaryBackground: #000000;
+        --vscode-input-background: #000000;
+        --vscode-input-border: #6fc3df;
+        --vscode-textLink-foreground: #21a6ff;
+        --vscode-testing-iconPassed: #73c991;
+        --vscode-errorForeground: #f48771;
+        --vscode-editorWarning-foreground: #ffd370;
+        --vscode-charts-blue: #3794ff;
+        --vscode-charts-green: #89d185;
+        --vscode-charts-yellow: #ffd370;
+        --vscode-charts-purple: #b180d7;
+        --vscode-charts-red: #f48771;
+      }
+      body.vscode-high-contrast-light {
+        --vscode-editor-background: #ffffff;
+        --vscode-sideBar-background: #ffffff;
+        --vscode-editorWidget-background: #ffffff;
+        --vscode-foreground: #292929;
+        --vscode-descriptionForeground: #292929b3;
+        --vscode-contrastBorder: #0f4a85;
+        --vscode-focusBorder: #006bbd;
+        --vscode-button-background: #0f4a85;
+        --vscode-button-foreground: #ffffff;
+        --vscode-button-border: #0f4a85;
+        --vscode-button-secondaryBackground: #ffffff;
+        --vscode-input-background: #ffffff;
+        --vscode-input-border: #0f4a85;
+        --vscode-textLink-foreground: #0f4a85;
+        --vscode-testing-iconPassed: #007100;
+        --vscode-errorForeground: #b5200d;
+        --vscode-editorWarning-foreground: #895503;
+        --vscode-charts-blue: #0f4a85;
+        --vscode-charts-green: #007100;
+        --vscode-charts-yellow: #895503;
+        --vscode-charts-purple: #652d90;
+        --vscode-charts-red: #b5200d;
+      }
+      body {
+        --vscode-font-family: "Segoe WPC", "Segoe UI", system-ui, sans-serif;
+        --vscode-font-size: 13px;
+      }
+      .gallery {
+        min-height: 100vh;
+      }
+      .preview-bar {
+        position: fixed;
+        z-index: 10;
+        right: 316px;
+        bottom: 16px;
+        display: flex;
+        gap: 4px;
+        padding: 4px;
+        border: 1px solid #8884;
+        border-radius: 8px;
+        background: #8882;
+        backdrop-filter: blur(8px);
+        font: 12px system-ui, sans-serif;
+      }
+      .preview-bar a {
+        padding: 4px 8px;
+        border-radius: 4px;
+        color: inherit;
+        text-decoration: none;
+      }
+      .preview-bar a[aria-current] {
+        background: #8884;
+      }
+    </style>
+  </head>
+  <body class="vscode-dark surface-editor">
+    <div id="root"></div>
+    <nav class="preview-bar" aria-label="Theme">
+      <a href="?theme=dark">Dark</a>
+      <a href="?theme=light">Light</a>
+      <a href="?theme=hc">High contrast</a>
+      <a href="?theme=hc-light">High contrast light</a>
+    </nav>
+    <script type="application/json" id="sq-boot"></script>
+    <script src="mock.js"></script>
+    <script src="../../dist/webview.js"></script>
+  </body>
+</html>

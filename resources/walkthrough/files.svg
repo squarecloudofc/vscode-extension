@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" fill="none" role="img">
+<defs><pattern id="wt-files" width="16" height="16" patternUnits="userSpaceOnUse"><circle cx="8" cy="8" r="1" fill="var(--vscode-foreground,#808080)" fill-opacity=".16"/></pattern></defs>
+<rect x=".5" y=".5" width="479" height="319" rx="12" fill="url(#wt-files)" stroke="var(--vscode-foreground,#808080)" stroke-opacity=".15"/>
+<g fill="var(--vscode-editor-background,none)" stroke="var(--vscode-foreground,#808080)" stroke-opacity=".18" stroke-width="1.5">
+<rect x="32" y="96" width="416" height="192" rx="12"/>
+<path d="M406 68H440A11 11 0 1 0 436.04 46.73A15 15 0 0 0 407.51 48.11A10 10 0 1 0 406 68Z"/>
+</g>
+<path d="M168 96V288M168 124H448M256 96V124" stroke="var(--vscode-foreground,#808080)" stroke-opacity=".15"/>
+<rect x="38" y="159" width="124" height="18" rx="4" fill="var(--vscode-foreground,#808080)" fill-opacity=".08"/>
+<g fill="var(--vscode-foreground,#808080)" fill-opacity=".15">
+<rect x="74" y="129.5" width="40" height="5" rx="2.5"/><rect x="80" y="147.5" width="44" height="5" rx="2.5"/><rect x="80" y="183.5" width="52" height="5" rx="2.5"/><rect x="74" y="201.5" width="64" height="5" rx="2.5"/><rect x="74" y="219.5" width="48" height="5" rx="2.5"/><rect x="74" y="237.5" width="56" height="5" rx="2.5"/><rect x="74" y="255.5" width="72" height="5" rx="2.5"/>
+<rect x="180" y="140" width="8" height="4" rx="2"/><rect x="180" y="156" width="8" height="4" rx="2"/><rect x="180" y="172" width="8" height="4" rx="2"/><rect x="180" y="188" width="8" height="4" rx="2"/><rect x="180" y="204" width="8" height="4" rx="2"/><rect x="180" y="220" width="8" height="4" rx="2"/><rect x="180" y="236" width="8" height="4" rx="2"/><rect x="180" y="252" width="8" height="4" rx="2"/><rect x="180" y="268" width="8" height="4" rx="2"/>
+<rect x="200" y="140" width="120" height="4" rx="2"/><rect x="200" y="156" width="88" height="4" rx="2"/><rect x="216" y="172" width="140" height="4" rx="2"/><rect x="232" y="188" width="96" height="4" rx="2"/><rect x="216" y="220" width="48" height="4" rx="2"/><rect x="200" y="236" width="24" height="4" rx="2"/><rect x="200" y="268" width="104" height="4" rx="2"/>
+<g fill-opacity=".25"><rect x="48" y="110" width="48" height="4" rx="2"/><rect x="80" y="165.5" width="40" height="5" rx="2.5"/><rect x="232" y="204" width="120" height="4" rx="2"/></g>
+</g>
+<g fill="var(--vscode-foreground,#808080)" fill-opacity=".55" font-family="var(--vscode-editor-font-family,ui-monospace,monospace)" font-size="11"><text x="184" y="114">index.js</text></g>
+<g stroke="var(--vscode-foreground,#808080)" stroke-opacity=".2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+<path d="M45 130.5l3 3 3-3M46.5 201l3 3-3 3M46.5 219l3 3-3 3"/>
+<rect x="56" y="127.5" width="12" height="9" rx="2"/><rect x="56" y="199.5" width="12" height="9" rx="2"/><rect x="56" y="217.5" width="12" height="9" rx="2"/>
+<rect x="64" y="145" width="8" height="10" rx="1.5"/><rect x="64" y="163" width="8" height="10" rx="1.5"/><rect x="64" y="181" width="8" height="10" rx="1.5"/><rect x="58" y="235" width="8" height="10" rx="1.5"/><rect x="58" y="253" width="8" height="10" rx="1.5"/>
+</g>
+<g stroke="var(--vscode-charts-blue,#3b82f6)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+<path d="M212 92V72Q212 56 228 56H385" stroke-dasharray="4 3"/><path d="M381 51l5 5-5 5"/>
+</g>
+</svg>

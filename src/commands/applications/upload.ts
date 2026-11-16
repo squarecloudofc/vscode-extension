@@ -13,12 +13,10 @@ import {
 } from "vscode";
 import { t } from "vscode-ext-localisation";
 
-import { confirm, showMessageWithActions } from "@/lib/utils/dialogs";
+import { confirm } from "@/lib/utils/dialogs";
 import { getLocale } from "@/lib/utils/locale";
 import { loadIgnore, walkDir } from "@/lib/utils/walk-dir";
 import { Command } from "@/structures/command";
-
-import { copyApplicationId } from "./copy-id";
 
 const CONFIG_FILENAMES = ["squarecloud.app", "squarecloud.config"];
 /** The API rejects zips above 100 MB — fail fast before wasting the upload. */
@@ -37,7 +35,7 @@ export const uploadApplication = new Command(
   async (extension) => {
     const api = await extension.api.getClient();
     // Reachable from the walkthrough before anyone has connected.
-    if (!api) return extension.treeViews.auth.reveal();
+    if (!api) return extension.views.sidebar.signIn();
 
     const rootUri = await pickSourceFolder();
     if (!rootUri) return;
@@ -124,23 +122,9 @@ export const uploadApplication = new Command(
     );
     if (!result) return;
 
+    // The new app's panel is the confirmation: no toast after the progress.
     await extension.api.refresh();
-
-    const runtime = `${result.language.name} ${result.language.version}`;
-    const choice = await showMessageWithActions(
-      t("upload.loaded", { NAME: result.name, RUNTIME: runtime }),
-      [
-        { id: "dashboard", title: t("upload.openDashboard") },
-        { id: "copy-id", title: t("command.copyId") },
-      ],
-    );
-    if (choice === "dashboard") {
-      env.openExternal(
-        Uri.parse(`https://squarecloud.app/dashboard/app/${result.id}`),
-      );
-    } else if (choice === "copy-id") {
-      await copyApplicationId(result.id);
-    }
+    extension.panels.openResource("app", result.id);
   },
 );
 

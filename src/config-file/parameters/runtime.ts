@@ -41,6 +41,8 @@ const acceptedValues = new Set<string>(RUNTIME_VALUES);
 
 export const RUNTIME = {
   required: false,
+  docs: () =>
+    t("configFile.hover.runtime", { VALUES: RUNTIME_VALUES.join(", ") }),
   validation(_keys, value, line, diagnostics, document) {
     // RUNTIME is optional — only flag when present but invalid. Case-insensitive
     // because the docs mix capitalisation in the table (e.g. "Elixir").

@@ -1,4 +1,5 @@
 export * from "./applications";
+export * from "./blob";
 export * from "./databases";
 export * from "./get-started";
 export * from "./logout";

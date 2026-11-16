@@ -36,8 +36,6 @@ export interface ApplicationFilter {
 /** Edge routes exist only for applications that serve a domain. */
 export const isWebsite = (application: AppSummary) =>
   Boolean(application.custom ?? application.domain);
-/** The metrics endpoint answers METRICS_NOT_SUPPORTED below 512 MB. */
-export const hasMetrics = (application: AppSummary) => application.ram >= 512;
 
 const logger = new Logger("AppCommand");
 
@@ -66,7 +64,7 @@ export class ApplicationCommand {
     try {
       const api = await extension.api.getClient();
       // Walkthrough links run these commands before anyone has connected.
-      if (!api) return void (await extension.treeViews.auth.reveal());
+      if (!api) return void (await extension.views.sidebar.signIn());
       // A row passes its application; the palette or a walkthrough link
       // passes nothing.
       const application =
@@ -104,8 +102,6 @@ async function pickApplication(
     window.showInformationMessage(filter.empty());
     return undefined;
   }
-  // Plain showQuickPick, not dialogs' pickOne: this module is bundled into
-  // check-realtime against a minimal vscode stub.
   const picked = await window.showQuickPick(items, {
     placeHolder: t("apps.pick"),
   });

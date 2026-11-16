@@ -6,6 +6,7 @@ import { createDiagnostic } from "@/lib/utils/diagnostic";
 
 export const AUTORESTART = {
   required: false,
+  docs: () => t("configFile.hover.autorestart"),
   validation(_keys, value, line, diagnostics, document) {
     if (value !== "true" && value !== "false") {
       diagnostics.push(

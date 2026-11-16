@@ -50,8 +50,10 @@ export class ApiKey {
 
   async set(value: string | undefined, account?: ApiKeyAccount) {
     if (!value) return void (await this.store.delete());
-    await this.store.set(value);
+    // The account first: another window reacts to the key and reads the
+    // account then, to tell a reconnect from a switch (PanelManager).
     await this.store.setAccount(account);
+    await this.store.set(value);
     this.expiredNotified = false;
   }
 

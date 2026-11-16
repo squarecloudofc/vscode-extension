@@ -1,14 +1,62 @@
 import { readFile } from "node:fs/promises";
 import { basename } from "node:path";
 import JSZip from "jszip";
-import { ProgressLocation, window } from "vscode";
+import { ProgressLocation, type Uri, window } from "vscode";
 import { t } from "vscode-ext-localisation";
 
 import { confirm } from "@/lib/utils/dialogs";
 import { loadIgnore, walkDir } from "@/lib/utils/walk-dir";
 import { ApplicationCommand } from "@/structures/application/command";
 
-type CommitKind = "file" | "folder";
+export type CommitKind = "file" | "folder";
+
+/** Files (several) or one folder to commit, from the open dialog. */
+export function pickCommitSource(
+  kind: CommitKind,
+  appName: string,
+): Thenable<Uri[] | undefined> {
+  return window.showOpenDialog({
+    canSelectMany: kind === "file",
+    canSelectFiles: kind === "file",
+    canSelectFolders: kind === "folder",
+    // Two t() calls, not t(ternary): check-strings only sees literal keys.
+    openLabel:
+      kind === "file" ? t("commit.selectFiles") : t("commit.selectFolder"),
+    title: `${t("command.commit")} - ${appName}`,
+  });
+}
+
+/**
+ * The zip a commit uploads: files at its root, or the folder under its own
+ * name minus what its ignore files list. Undefined once `cancelled()`.
+ */
+export async function zipForCommit(
+  kind: CommitKind,
+  uris: readonly Uri[],
+  cancelled: () => boolean = () => false,
+): Promise<Buffer | undefined> {
+  const zip = new JSZip();
+  if (kind === "file") {
+    for (const uri of uris) {
+      if (cancelled()) return undefined;
+      zip.file(basename(uri.fsPath), await readFile(uri.fsPath));
+    }
+  } else {
+    const root = uris[0]?.fsPath;
+    if (!root) return undefined;
+    const ig = await loadIgnore(root);
+    const folderName = basename(root);
+    for await (const entry of walkDir(root, ig)) {
+      if (cancelled()) return undefined;
+      zip.file(`${folderName}/${entry.relPath}`, entry.content);
+    }
+  }
+  return zip.generateAsync({
+    type: "nodebuffer",
+    compression: "DEFLATE",
+    compressionOptions: { level: 6 },
+  });
+}
 
 export const commitEntry = new ApplicationCommand(
   "commitEntry",
@@ -28,18 +76,8 @@ export const commitEntry = new ApplicationCommand(
 
     const shouldRestart = await confirm(t("commit.restart"), { modal: false });
 
-    const dialog = await window.showOpenDialog({
-      canSelectMany: kind === "file",
-      canSelectFiles: kind === "file",
-      canSelectFolders: kind === "folder",
-      // Two t() calls, not t(ternary): check-strings only sees literal keys.
-      openLabel:
-        kind === "file" ? t("commit.selectFiles") : t("commit.selectFolder"),
-      title: `${t("command.commit")} - ${application.name}`,
-    });
+    const dialog = await pickCommitSource(kind, application.name);
     if (!dialog) return;
-
-    const zip = new JSZip();
 
     await window.withProgress(
       {
@@ -48,32 +86,12 @@ export const commitEntry = new ApplicationCommand(
         cancellable: true,
       },
       async (progress, token) => {
-        if (kind === "file") {
-          for (const uri of dialog) {
-            // Cancel is the user's choice, not a failure: no error toast (a
-            // thrown CancellationError surfaced as "Canceled").
-            if (token.isCancellationRequested) return;
-            zip.file(basename(uri.fsPath), await readFile(uri.fsPath));
-          }
-        } else {
-          const root = dialog[0].fsPath;
-          const ig = await loadIgnore(root);
-          const folderName = basename(root);
-          for await (const entry of walkDir(root, ig)) {
-            if (token.isCancellationRequested) return;
-            zip.file(`${folderName}/${entry.relPath}`, entry.content);
-          }
-        }
-
+        // Cancel is the user's choice, not a failure: no error toast (a
+        // thrown CancellationError surfaced as "Canceled").
+        const cancelled = () => token.isCancellationRequested;
         progress.report({ message: t("commit.zipping") });
-
-        const buffer = await zip.generateAsync({
-          type: "nodebuffer",
-          compression: "DEFLATE",
-          compressionOptions: { level: 6 },
-        });
-
-        if (token.isCancellationRequested) return;
+        const buffer = await zipForCommit(kind, dialog, cancelled);
+        if (!buffer || cancelled()) return;
         progress.report({ message: t("commit.uploading") });
 
         // The SDK gives uploads no timeout; Cancel is how one ends early.
@@ -85,16 +103,13 @@ export const commitEntry = new ApplicationCommand(
             signal: upload.signal,
           });
         } catch (error) {
-          if (token.isCancellationRequested) return;
+          if (cancelled()) return;
           throw error;
         }
 
         if (shouldRestart) await api.apps.restart(application.id);
 
         extension.api.scheduleStatusRefresh(application.id);
-
-        progress.report({ increment: 100 });
-        window.showInformationMessage(t("commit.loaded"));
       },
     );
   },

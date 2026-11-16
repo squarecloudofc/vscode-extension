@@ -1,8 +1,37 @@
+import type { SquareCloudAPI } from "@squarecloud/api";
 import { env, ProgressLocation, Uri, window } from "vscode";
 import { t } from "vscode-ext-localisation";
 
+import type { SquareCloudExtension } from "@/managers/extension";
 import { showMessageWithActions } from "@/lib/utils/dialogs";
 import { ApplicationCommand } from "@/structures/application/command";
+
+/**
+ * Takes a recovery snapshot, then deletes the app. Undefined when the
+ * snapshot is still generating (202): the app is left alone, since deleting
+ * now could leave it without one.
+ */
+export async function deleteWithRecovery(
+  api: SquareCloudAPI,
+  appId: string,
+): Promise<string | undefined> {
+  const snapshot = await api.apps.snapshots.create(appId);
+  if (snapshot.pending) return undefined;
+  await api.apps.delete(appId);
+  return snapshot.url;
+}
+
+/** After a delete: refresh the lists, and offer the recovery snapshot. */
+export async function afterDelete(
+  extension: SquareCloudExtension,
+  snapshotUrl: string,
+): Promise<void> {
+  setTimeout(() => void extension.api.refresh(), 7_000);
+  const choice = await showMessageWithActions(t("delete.loaded"), [
+    { id: "download", title: t("delete.downloadSnapshot") },
+  ]);
+  if (choice === "download") env.openExternal(Uri.parse(snapshotUrl));
+}
 
 export const deleteEntry = new ApplicationCommand(
   "deleteEntry",
@@ -17,37 +46,20 @@ export const deleteEntry = new ApplicationCommand(
       return;
     }
 
-    // Take a recovery snapshot inside withProgress so the spinner only spans
-    // the actual work, and surface the post-delete toast OUTSIDE — otherwise
-    // the progress notification would hang waiting for the user to dismiss
-    // the toast (the same bug we had on the cert download).
+    // Progress in the status bar: the one notification is the toast after
+    // it, which carries the recovery snapshot.
     const snapshotUrl = await window.withProgress(
       {
-        location: ProgressLocation.Notification,
+        location: ProgressLocation.Window,
         title: t("delete.loading"),
       },
-      async () => {
-        const snapshot = await api.apps.snapshots.create(application.id);
-        // A large app answers 202 while the snapshot is still generating —
-        // deleting now could leave it without one, so stop here.
-        if (snapshot.pending) return undefined;
-        await api.apps.delete(application.id);
-        return snapshot.url;
-      },
+      () => deleteWithRecovery(api, application.id),
     );
 
     if (!snapshotUrl) {
       window.showWarningMessage(t("delete.snapshotPending"));
       return;
     }
-
-    setTimeout(() => void extension.api.refresh(), 7_000);
-
-    const choice = await showMessageWithActions(t("delete.loaded"), [
-      { id: "download", title: t("delete.downloadSnapshot") },
-    ]);
-    if (choice === "download") {
-      env.openExternal(Uri.parse(snapshotUrl));
-    }
+    await afterDelete(extension, snapshotUrl);
   },
 );

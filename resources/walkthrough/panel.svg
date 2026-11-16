@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" fill="none" role="img">
+<defs><pattern id="wt-panel" width="16" height="16" patternUnits="userSpaceOnUse"><circle cx="8" cy="8" r="1" fill="var(--vscode-foreground,#808080)" fill-opacity=".16"/></pattern></defs>
+<rect x=".5" y=".5" width="479" height="319" rx="12" fill="url(#wt-panel)" stroke="var(--vscode-foreground,#808080)" stroke-opacity=".15"/>
+<g fill="var(--vscode-editor-background,none)" stroke="var(--vscode-foreground,#808080)" stroke-opacity=".18" stroke-width="1.5">
+<rect x="32" y="24" width="416" height="272" rx="12"/>
+<rect x="48" y="40" width="28" height="28" rx="8"/><rect x="360" y="44" width="72" height="20" rx="10"/>
+<rect x="48" y="122" width="384" height="52" rx="8"/><rect x="48" y="188" width="384" height="92" rx="8"/>
+</g>
+<g stroke="var(--vscode-foreground,#808080)" stroke-opacity=".15">
+<path d="M32 106H448M144 122V174M240 122V174M336 122V174M88 258H416"/>
+<path d="M88 210H416M88 234H416" stroke-dasharray="2 4"/>
+</g>
+<g fill="var(--vscode-foreground,#808080)" fill-opacity=".15">
+<rect x="88" y="57" width="60" height="4" rx="2"/><rect x="386" y="52" width="34" height="4" rx="2"/>
+<rect x="104" y="88" width="32" height="4" rx="2"/><rect x="152" y="88" width="44" height="4" rx="2"/><rect x="212" y="88" width="28" height="4" rx="2"/>
+<rect x="62" y="136" width="40" height="4" rx="2"/><rect x="158" y="136" width="48" height="4" rx="2"/><rect x="254" y="136" width="36" height="4" rx="2"/><rect x="350" y="136" width="44" height="4" rx="2"/>
+<rect x="60" y="208" width="16" height="4" rx="2"/><rect x="60" y="232" width="16" height="4" rx="2"/><rect x="60" y="256" width="16" height="4" rx="2"/>
+<rect x="56" y="48" width="12" height="12" rx="3"/>
+<g fill-opacity=".25">
+<rect x="88" y="45" width="96" height="6" rx="3"/>
+<rect x="48" y="88" width="40" height="4" rx="2"/><rect x="48" y="103" width="40" height="2" rx="1"/>
+<rect x="62" y="150" width="56" height="6" rx="3"/><rect x="158" y="150" width="44" height="6" rx="3"/><rect x="254" y="150" width="64" height="6" rx="3"/><rect x="350" y="150" width="40" height="6" rx="3"/>
+</g></g>
+<circle cx="374" cy="54" r="3" stroke="var(--vscode-foreground,#808080)" stroke-opacity=".2" stroke-width="1.5"/>
+<path d="M88 246L124 236 160 242 196 224 232 230 268 214 304 220 340 206 376 212 409 201" stroke="var(--vscode-charts-blue,#3b82f6)" stroke-width="1.5" stroke-dasharray="4 3" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="412" cy="200" r="3" fill="var(--vscode-charts-blue,#3b82f6)"/>
+</svg>

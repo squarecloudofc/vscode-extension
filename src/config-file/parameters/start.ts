@@ -5,6 +5,7 @@ import { createDiagnostic } from "@/lib/utils/diagnostic";
 
 export const START = {
   required: false,
+  docs: () => t("configFile.hover.start"),
   validation(_keys, value, line, diagnostics, document) {
     // Validate if exists some value on START
     if (!value) {

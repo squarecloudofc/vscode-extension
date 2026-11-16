@@ -1,33 +1,33 @@
-import type { ServiceStatus } from "@/lib/store";
+import type { ServiceStatus } from "@squarecloud/api";
+
+import type { ServiceSummary } from "@/webview/protocol";
 
 /**
- * The API types `status` as a bare string with no enum, and it reports
- * `online` — not `operational`, which is what the status bar compared against
- * since v5.0.0. A perfectly healthy platform was painted as a warning, next
- * to the word "online".
+ * The platform's status in one word, shared by the sidebar footer and the
+ * status bar so they never disagree on the same answer.
  *
- * One predicate for every surface that renders this: the bug only became
- * visible because the side bar footer and the status bar disagreed on the
- * same field, and two lists drift again the moment the API adds a word.
+ * - `unknown`: nothing fetched yet, or the API's own check could not run.
+ *   "Couldn't check", never an error look: it is not evidence of an outage.
+ * - `maintenance`: the summary says so, or every open incident is one.
+ * - `degraded`: degradation, any word the API adds later, or an open
+ *   incident on the status page even while the summary says online.
+ * - `online`: everything else.
  *
- * ponytail: allowlist, because an unrecognised value should say something is
- * off rather than quietly claim everything is fine. If the platform starts
- * reporting a new healthy word, it lands here. `unknown` is in the list on
- * purpose: the API sends it when its own check could not run, which is not
- * evidence of an outage.
+ * ponytail: allowlist of healthy words, so an unrecognised one says something
+ * is off rather than quietly claiming all is fine.
  */
-const HEALTHY = new Set([
-  "online",
-  "unknown",
-  "operational",
-  "ok",
-  "up",
-  "healthy",
-  "normal",
-]);
+const HEALTHY = new Set(["online", "operational", "ok", "up", "healthy"]);
 
-export function isServiceHealthy(status: ServiceStatus | undefined): boolean {
-  // Nothing fetched yet is not the same as degraded — don't cry wolf.
-  if (!status) return true;
-  return HEALTHY.has(status.status.trim().toLowerCase());
+export function serviceSummary(
+  status: ServiceStatus | undefined,
+): ServiceSummary {
+  const word = status?.status.trim().toLowerCase();
+  if (!word || word === "unknown") return "unknown";
+  if (word === "maintenance") return "maintenance";
+  if (!HEALTHY.has(word)) return "degraded";
+  const incidents = status?.incidents ?? [];
+  if (!incidents.length) return "online";
+  return incidents.every((incident) => incident.type === "maintenance")
+    ? "maintenance"
+    : "degraded";
 }

@@ -3,18 +3,22 @@ import { dirname, isAbsolute, relative, resolve } from "node:path";
 import * as vscode from "vscode";
 import { t } from "vscode-ext-localisation";
 
-import type { ConfigFileParameter } from "@/types/config-file";
+import type { ConfigFileKeys, ConfigFileParameter } from "@/types/config-file";
 import { AllowedExtensions } from "@/lib/constants";
 import { createDiagnostic } from "@/lib/utils/diagnostic";
 
 const notAllowedFolders = ["/node_modules", "/__pycache__", "/."];
 
+/** RUNTIME with a value (an empty one counts as none, as on the platform). */
+const hasRuntime = (keys: ConfigFileKeys) =>
+  Boolean(keys.get("RUNTIME")?.value.trim());
+
 export const MAIN = {
-  // The official docs state: "Não é necessário se START estiver definido."
-  // Treat MAIN as required only when START is missing — otherwise the user is
-  // using a custom start command and doesn't need to declare a main file.
-  required: (keys) => !keys.has("START"),
-  validation(_keys, value, line, diagnostics, document) {
+  // The platform needs MAIN unless RUNTIME is set: an upload with neither
+  // is refused as MISSING_MAIN, as the docs say. START doesn't replace it.
+  required: (keys) => !hasRuntime(keys),
+  docs: () => t("configFile.hover.main"),
+  validation(keys, value, line, diagnostics, document) {
     const configFilePath = dirname(document.uri.fsPath);
     const mainFilePath = resolve(configFilePath, value);
     const stats = existsSync(mainFilePath) ? statSync(mainFilePath) : undefined;
@@ -23,11 +27,13 @@ export const MAIN = {
     const relativePath = relative(configFilePath, mainFilePath);
     const inProject = `/${relativePath.replaceAll("\\", "/")}`;
 
-    // Validate if there is some value on MAIN
+    // An empty MAIN is no file: fine next to RUNTIME, missing without it.
     if (!value) {
-      diagnostics.push(
-        createDiagnostic(document, line, t("configFile.error.missing.main")),
-      );
+      if (!hasRuntime(keys))
+        diagnostics.push(
+          createDiagnostic(document, line, t("configFile.error.missing.main")),
+        );
+      return;
     }
 
     // Validate if the file exists, is a file, and is inside config file root path

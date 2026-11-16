@@ -92,7 +92,6 @@ async function addEnv(api: SquareCloudAPI, appId: string) {
     { location: ProgressLocation.Notification, title: t("envs.saving") },
     async () => {
       await api.apps.envs.set(appId, { [key]: shellQuote(value) });
-      window.showInformationMessage(t("envs.saved"));
     },
   );
 }
@@ -123,7 +122,6 @@ async function editEnv(
       { location: ProgressLocation.Notification, title: t("envs.saving") },
       async () => {
         await api.apps.envs.set(appId, { [key]: shellQuote(value) });
-        window.showInformationMessage(t("envs.saved"));
       },
     );
     return;
@@ -135,7 +133,6 @@ async function editEnv(
     { location: ProgressLocation.Notification, title: t("envs.deleting") },
     async () => {
       await api.apps.envs.delete(appId, [key]);
-      window.showInformationMessage(t("envs.deleted"));
     },
   );
 }
@@ -147,7 +144,6 @@ async function wipeEnvs(api: SquareCloudAPI, appId: string) {
     { location: ProgressLocation.Notification, title: t("envs.deleting") },
     async () => {
       await api.apps.envs.replace(appId, {});
-      window.showInformationMessage(t("envs.deleted"));
     },
   );
 }

@@ -5,6 +5,7 @@ import { createDiagnostic } from "@/lib/utils/diagnostic";
 
 export const SUBDOMAIN = {
   required: false,
+  docs: () => t("configFile.hover.subdomain"),
   validation(_keys, value, line, diagnostics, document) {
     // Validate if exists some value on SUBDOMAIN
     if (!value) {

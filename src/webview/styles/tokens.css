@@ -1,0 +1,249 @@
+/*
+ * Square Cloud's semantic tokens, copied from the site
+ * (front-end/packages/tailwind-config/colors.css, Tailwind's palette for the
+ * hues, packages/tailwind-config/index.css for radii and shadows). Components
+ * read only these `--sq-*` names, never a raw colour.
+ *
+ * The theme is the class VS Code puts on <body>: `vscode-dark` and
+ * `vscode-light` get Square's dark and light themes. High contrast (both
+ * `vscode-high-contrast` and `vscode-high-contrast-light`) and anything
+ * unknown keep VS Code's own colours, set first below: there accessibility
+ * wins over the brand. Every token has a value in all three blocks
+ * (test/tokens.test.ts checks it).
+ *
+ * Declared on <body>, not :root: VS Code sets its --vscode-* variables on
+ * <html>, and a var() resolves where it is declared, so tokens on <html>
+ * would miss variables defined on <body> (the preview) and derived tokens
+ * (--sq-shadow-md from --sq-shadow) would freeze before the theme applies.
+ */
+
+body {
+  /* Surfaces and text */
+  --sq-background: var(--vscode-editor-background);
+  --sq-foreground: var(--vscode-foreground);
+  --sq-card: var(--vscode-editor-background);
+  --sq-popover: var(--vscode-editorWidget-background, var(--sq-background));
+  --sq-muted: var(--vscode-editor-background);
+  --sq-accent: var(--vscode-list-hoverBackground, transparent);
+  --sq-secondary: var(--vscode-button-secondaryBackground, transparent);
+  --sq-border: var(--vscode-contrastBorder, var(--vscode-widget-border));
+  --sq-input: var(--vscode-input-background);
+  --sq-input-border: var(--vscode-input-border, var(--sq-border));
+  --sq-ring: var(--vscode-focusBorder);
+  --sq-text-primary: var(--vscode-foreground);
+  --sq-text-secondary: var(--vscode-foreground);
+  --sq-text-muted: var(--vscode-descriptionForeground);
+  --sq-text-link: var(--vscode-textLink-foreground);
+  --sq-shadow: transparent;
+  --sq-overlay: rgb(0 0 0 / 0.5);
+
+  /* Controls */
+  --sq-primary: var(--vscode-button-background);
+  --sq-primary-hover: var(--vscode-button-hoverBackground, var(--sq-primary));
+  --sq-primary-foreground: var(--vscode-button-foreground);
+  --sq-danger: var(--vscode-button-background);
+  --sq-danger-hover: var(--vscode-button-hoverBackground, var(--sq-danger));
+  --sq-danger-foreground: var(--vscode-button-foreground);
+  --sq-control-border: var(
+    --vscode-button-border,
+    var(--vscode-contrastBorder, transparent)
+  );
+
+  /* Status: the dot (fill) and the word next to it (text) */
+  --sq-green: var(--vscode-testing-iconPassed);
+  --sq-amber: var(--vscode-editorWarning-foreground);
+  --sq-red: var(--vscode-errorForeground);
+  --sq-blue: var(--vscode-textLink-foreground);
+  --sq-green-text: var(--sq-green);
+  --sq-amber-text: var(--sq-amber);
+  --sq-red-text: var(--sq-red);
+  --sq-blue-text: var(--sq-blue);
+  --sq-purple-text: var(--vscode-foreground);
+
+  /* Alert edges and titles (utilities/alert.tsx) */
+  --sq-info-edge: var(--vscode-textLink-foreground);
+  --sq-info-text: var(--vscode-textLink-foreground);
+  --sq-success-edge: var(--sq-green);
+  --sq-success-text: var(--sq-green);
+  --sq-warning-edge: var(--sq-amber);
+  --sq-warning-text: var(--sq-amber);
+  --sq-danger-edge: var(--sq-red);
+  --sq-danger-text: var(--sq-red);
+  /* Strength of the soft tints (alert wash, badge fill, stderr row). High
+     contrast draws no tints: borders and text carry the meaning. */
+  --sq-tint: 0%;
+  --sq-tint-strong: 0%;
+  /* With no fill, a badge needs its outline to read as a tag. */
+  --sq-badge-border: currentColor;
+
+  /* Charts */
+  --sq-chart-1: var(--vscode-charts-blue);
+  --sq-chart-2: var(--vscode-charts-green);
+  --sq-chart-3: var(--vscode-charts-yellow);
+  --sq-chart-4: var(--vscode-charts-purple);
+  --sq-chart-5: var(--vscode-charts-red);
+  /* The site's second series (visits, origin latency) and HTTP classes
+     (analytics/_shared/chart-colors.ts). */
+  --sq-series-2: var(--vscode-charts-orange, var(--vscode-charts-yellow));
+  --sq-http-2xx: var(--vscode-charts-green);
+  --sq-http-3xx: var(--vscode-charts-blue);
+  --sq-http-4xx: var(--vscode-charts-yellow);
+  --sq-http-5xx: var(--vscode-charts-red);
+}
+
+/* Fixed hues, the same in Square's dark and light themes. */
+body.vscode-dark,
+body.vscode-light {
+  --sq-overlay: rgb(0 0 0 / 0.5);
+  --sq-primary: oklch(0.488 0.243 264.376); /* blue-700 */
+  --sq-primary-hover: oklch(0.424 0.199 265.638); /* blue-800 */
+  --sq-danger: #d52d37; /* red-600 */
+  --sq-danger-hover: #ac2129; /* red-700 */
+  --sq-control-border: transparent;
+
+  --sq-green: oklch(0.723 0.219 149.579); /* green-500 */
+  --sq-amber: oklch(0.769 0.188 70.08); /* amber-500 */
+  --sq-red: #e84b54; /* red-500 */
+  --sq-blue: oklch(0.623 0.214 259.815); /* blue-500 */
+
+  --sq-info-edge: oklch(0.546 0.245 262.881); /* blue-600 */
+  --sq-info-text: oklch(0.623 0.214 259.815); /* blue-500 */
+  --sq-success-edge: oklch(0.792 0.209 151.711); /* green-400 */
+  --sq-success-text: oklch(0.627 0.194 149.214); /* green-600 */
+  --sq-warning-edge: oklch(0.852 0.199 91.936); /* yellow-400 */
+  --sq-warning-text: oklch(0.681 0.162 75.834); /* yellow-600 */
+  --sq-danger-edge: #f3767d; /* red-400 */
+  --sq-danger-text: #d52d37; /* red-600 */
+  --sq-tint: 5%;
+  --sq-tint-strong: 20%;
+  --sq-badge-border: transparent;
+
+  --sq-chart-1: oklch(0.488 0.243 264.376);
+  --sq-chart-2: oklch(0.696 0.17 162.48);
+  --sq-chart-3: oklch(0.769 0.188 70.08);
+  --sq-chart-4: oklch(0.627 0.265 303.9);
+  --sq-chart-5: oklch(0.645 0.246 16.439);
+  --sq-http-2xx: #10b981; /* emerald-500 */
+  --sq-http-3xx: #3b82f6; /* blue-500 */
+  --sq-http-4xx: #f59e0b; /* amber-500 */
+  --sq-http-5xx: #ef4444; /* red-500 */
+}
+
+body.vscode-dark {
+  --sq-background: oklch(0.105 0.005 244.28); /* square-950 */
+  --sq-foreground: oklch(0.923 0.007 247.87); /* square-50 */
+  --sq-card: oklch(0.128 0.006 262.01); /* square-900 */
+  --sq-popover: oklch(0.128 0.006 262.01);
+  --sq-muted: oklch(0.177 0.007 258.37); /* square-700 */
+  --sq-accent: oklch(0.149 0.007 258.04); /* square-800 */
+  --sq-secondary: oklch(0.269 0 0);
+  --sq-border: oklch(0.189 0.008 248.23); /* square-600 */
+  --sq-input: oklch(0.128 0.006 262.01);
+  --sq-input-border: oklch(0.189 0.008 248.23);
+  /* The site rings focus in blue-700, ~2.4:1 on this background; blue-500
+     clears 3:1 so keyboard focus stays visible. */
+  --sq-ring: oklch(0.623 0.214 259.815);
+  --sq-text-primary: oklch(0.846 0.016 257.21); /* square-100 */
+  --sq-text-secondary: oklch(0.681 0.03 253.31); /* square-200 */
+  --sq-text-muted: oklch(0.65 0.025 257.51);
+  --sq-text-link: oklch(0.707 0.165 254.624); /* blue-400 */
+  --sq-shadow: oklch(0.128 0.006 262.01);
+  --sq-primary-foreground: oklch(0.923 0.007 247.87);
+  --sq-danger-foreground: oklch(0.923 0.007 247.87);
+
+  /* status-tone.ts: dark:text-green-500, amber-400, red-400, blue-400 */
+  --sq-green-text: oklch(0.723 0.219 149.579);
+  --sq-amber-text: oklch(0.828 0.189 84.429);
+  --sq-red-text: #f3767d;
+  --sq-blue-text: oklch(0.707 0.165 254.624);
+  --sq-purple-text: oklch(0.627 0.265 303.9); /* purple-500 */
+  --sq-series-2: #d95926;
+}
+
+body.vscode-light {
+  --sq-background: oklch(1 0 0); /* light-50 */
+  --sq-foreground: oklch(0.105 0.005 244.28); /* square-950 */
+  --sq-card: oklch(0.985 0.001 264); /* light-100 */
+  --sq-popover: oklch(1 0 0);
+  --sq-muted: oklch(0.96 0.002 264); /* light-200 */
+  --sq-accent: oklch(0.92 0.003 257); /* light-300 */
+  --sq-secondary: oklch(0.92 0.003 257);
+  --sq-border: oklch(0.92 0.003 257);
+  --sq-input: oklch(1 0 0);
+  --sq-input-border: oklch(0.92 0.003 257);
+  --sq-ring: oklch(0.546 0.245 262.881); /* blue-600 */
+  --sq-text-primary: oklch(0.128 0.006 262.01); /* square-900 */
+  --sq-text-secondary: oklch(0.149 0.007 258.04); /* square-800 */
+  --sq-text-muted: oklch(0.47 0.013 257); /* light-700 */
+  --sq-text-link: oklch(0.488 0.243 264.376); /* blue-700 */
+  --sq-shadow: rgba(15, 23, 42, 0.08);
+  --sq-primary-foreground: oklch(1 0 0);
+  --sq-danger-foreground: oklch(1 0 0);
+
+  /* status-tone.ts: text-green-700, amber-700, red-700, blue-700 (the 500s
+     are ~2:1 on white) */
+  --sq-green-text: oklch(0.527 0.154 150.069);
+  --sq-amber-text: oklch(0.555 0.163 48.998);
+  --sq-red-text: #ac2129;
+  --sq-blue-text: oklch(0.488 0.243 264.376);
+  --sq-purple-text: oklch(0.496 0.265 301.924); /* purple-700 */
+  --sq-series-2: #eb6834;
+}
+
+/* Shape, type and motion: theme-independent. */
+body {
+  --sq-radius-sm: 4px;
+  --sq-radius: 8px; /* controls */
+  --sq-radius-lg: 12px; /* cards */
+  --sq-shadow-sm: 0 0 8px 2px var(--sq-shadow);
+  --sq-shadow-md: 0 0 12px 4px var(--sq-shadow);
+
+  --sq-font:
+    "Inter Variable", Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --sq-mono:
+    "Fira Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --sq-font-size: 13px;
+
+  --sq-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --sq-duration-fast: 120ms;
+  --sq-duration: 180ms;
+  --sq-duration-slow: 240ms;
+  /* A chart drawing itself in, once. */
+  --sq-duration-reveal: 700ms;
+}
+
+/*
+ * Two surfaces. Panels (`surface-editor`) are full Square Cloud surfaces.
+ * The sidebar (`surface-sidebar`) sits among VS Code's own views, so its
+ * background, base type and plain text come from VS Code; borders, status,
+ * accents and data typography stay Square Cloud's.
+ */
+body.surface-sidebar,
+.surface-sidebar {
+  --sq-background: var(
+    --vscode-sideBar-background,
+    var(--vscode-editor-background)
+  );
+  --sq-foreground: var(--vscode-sideBar-foreground, var(--vscode-foreground));
+  --sq-card: transparent;
+  --sq-muted: color-mix(in srgb, var(--sq-foreground) 6%, transparent);
+  --sq-accent: var(--vscode-list-hoverBackground, var(--sq-muted));
+  --sq-input: var(--vscode-input-background, transparent);
+  --sq-text-primary: var(--sq-foreground);
+  --sq-text-secondary: var(--sq-foreground);
+  --sq-text-muted: var(--vscode-descriptionForeground);
+  --sq-font: var(--vscode-font-family, system-ui, sans-serif);
+  --sq-font-size: var(--vscode-font-size, 13px);
+}
+
+/* Square's border colour is tuned for Square's own near-black and white;
+   on a VS Code sidebar (#181818 in Dark Modern) square-600 disappears. The
+   sidebar draws its hairlines from its own text colour instead, outside high
+   contrast, which keeps --vscode-contrastBorder. */
+body.vscode-dark.surface-sidebar,
+body.vscode-light.surface-sidebar,
+.vscode-dark .surface-sidebar,
+.vscode-light .surface-sidebar {
+  --sq-border: color-mix(in srgb, var(--sq-foreground) 12%, transparent);
+  --sq-input-border: var(--sq-border);
+}

@@ -11,7 +11,9 @@ import { t } from "vscode-ext-localisation";
 import type { SquareCloudExtension } from "@/managers/extension";
 import { ExtensionID } from "@/lib/constants";
 import { showMessageWithActions } from "@/lib/utils/dialogs";
+import { getLocale } from "@/lib/utils/locale";
 import { Command } from "@/structures/command";
+import { formatBytes } from "@/webview/lib/format";
 
 const DATABASE_TYPES: DatabaseType[] = ["mongo", "mysql", "redis", "postgres"];
 
@@ -42,7 +44,7 @@ function databaseCommand(
 ): Command {
   return new Command(name, async (extension, item?: DatabaseTarget) => {
     const api = await extension.api.getClient();
-    if (!api) return extension.treeViews.auth.reveal();
+    if (!api) return extension.views.sidebar.signIn();
     const database = item?.database ?? (await pickDatabase(extension));
     if (database) await handler(extension, { database }, api);
   });
@@ -65,7 +67,7 @@ async function pickDatabase(
     Array.from(databases.values(), (database) => ({
       label: database.name,
       // The store has no database status, only what the listing carries.
-      description: `${database.type} · ${database.ram} MB`,
+      description: `${database.type} · ${formatBytes(database.ram * 1024 ** 2, getLocale(), 1)}`,
       database,
     })),
     { placeHolder: t("database.pick") },
@@ -77,7 +79,7 @@ export const createDatabase = new Command(
   "createDatabase",
   async (extension) => {
     const api = await extension.api.getClient();
-    if (!api) return extension.treeViews.auth.reveal();
+    if (!api) return extension.views.sidebar.signIn();
 
     const name = await window.showInputBox({
       title: t("database.createTitle"),
@@ -124,9 +126,11 @@ export const createDatabase = new Command(
         : picked;
     if (!version) return;
 
+    // Progress in the status bar: the one notification is the toast after
+    // it, which says the URL was copied and offers the password.
     const created = await window.withProgress(
       {
-        location: ProgressLocation.Notification,
+        location: ProgressLocation.Window,
         title: t("database.creating"),
       },
       async () => {
@@ -187,10 +191,15 @@ export const deleteDatabase = databaseCommand(
       async () => {
         await api.databases.delete(item.database.id);
         await extension.api.refresh();
-        window.showInformationMessage(t("database.deleted"));
       },
     );
   },
+);
+
+export const databaseMetrics = databaseCommand(
+  "databaseMetrics",
+  (extension, { database }) =>
+    extension.panels.openResource("database", database.id, "metrics"),
 );
 
 export const downloadDatabaseCertificate = databaseCommand(
@@ -201,62 +210,25 @@ export const downloadDatabaseCertificate = databaseCommand(
       canSelectFiles: false,
       canSelectFolders: true,
       openLabel: t("database.certSave"),
-      title: `${t("command.downloadDatabaseCertificate")} - ${item.database.name}`,
+      title: `${t("database.certDownload")} - ${item.database.name}`,
     });
     if (!dialog) return;
 
     const [{ fsPath }] = dialog;
 
-    // Run the actual work inside withProgress so the progress closes as soon
-    // as the files hit disk. Showing the success toast inside would block the
-    // progress until the user dismissed the toast — see the "infinite
-    // loading" bug from before this commit.
+    // Progress in the status bar: the one notification is the toast after
+    // it, which names the files and opens their folder.
     const written = await window.withProgress(
       {
-        location: ProgressLocation.Notification,
+        location: ProgressLocation.Window,
         title: t("database.certDownloading"),
       },
-      async () => {
-        const encoded = await api.databases.certificate(item.database.id);
-        // The SDK returns the bundle base64-encoded; decode to raw PEM.
-        const pem = Buffer.from(encoded, "base64").toString("utf-8");
-
-        const certificates =
-          pem.match(
-            /-----BEGIN CERTIFICATE-----[\s\S]*?-----END CERTIFICATE-----/g,
-          ) ?? [];
-        const privateKeys =
-          pem.match(
-            /-----BEGIN (?:[A-Z0-9 ]+ )?PRIVATE KEY-----[\s\S]*?-----END (?:[A-Z0-9 ]+ )?PRIVATE KEY-----/g,
-          ) ?? [];
-
-        const base = join(fsPath, `database-${item.database.id}`);
-        const out: string[] = [];
-        // The bundle and the .key hold the private key: owner-only, which
-        // libpq also insists on. Applies to new files only: one written by an
-        // older version keeps its mode.
-        const secret = { encoding: "utf-8", mode: 0o600 } as const;
-
-        // .pem mirrors the raw bundle exactly as Square Cloud returned it.
-        await writeFile(`${base}.pem`, pem, secret);
-        out.push(".pem");
-
-        if (certificates.length > 0) {
-          await writeFile(
-            `${base}.crt`,
-            `${certificates.join("\n")}\n`,
-            "utf-8",
-          );
-          out.push(".crt");
-        }
-
-        if (privateKeys.length > 0) {
-          await writeFile(`${base}.key`, `${privateKeys.join("\n")}\n`, secret);
-          out.push(".key");
-        }
-
-        return out;
-      },
+      async () =>
+        writeCertificate(
+          fsPath,
+          item.database.id,
+          await api.databases.certificate(item.database.id),
+        ),
     );
 
     const choice = await showMessageWithActions(
@@ -268,6 +240,50 @@ export const downloadDatabaseCertificate = databaseCommand(
     }
   },
 );
+
+/**
+ * Writes the database's TLS bundle (base64 PEM, as the API sends it) into
+ * `fsPath` as `database-<id>.pem`, plus `.crt` and `.key` when it holds
+ * them. The extensions written. The database panel saves it the same way.
+ */
+export async function writeCertificate(
+  fsPath: string,
+  id: string,
+  encoded: string,
+): Promise<string[]> {
+  const pem = Buffer.from(encoded, "base64").toString("utf-8");
+
+  const certificates =
+    pem.match(
+      /-----BEGIN CERTIFICATE-----[\s\S]*?-----END CERTIFICATE-----/g,
+    ) ?? [];
+  const privateKeys =
+    pem.match(
+      /-----BEGIN (?:[A-Z0-9 ]+ )?PRIVATE KEY-----[\s\S]*?-----END (?:[A-Z0-9 ]+ )?PRIVATE KEY-----/g,
+    ) ?? [];
+
+  const base = join(fsPath, `database-${id}`);
+  const out: string[] = [];
+  // The bundle and the .key hold the private key: owner-only, which
+  // libpq also insists on. Applies to new files only: one written by an
+  // older version keeps its mode.
+  const secret = { encoding: "utf-8", mode: 0o600 } as const;
+
+  // .pem mirrors the raw bundle exactly as Square Cloud returned it.
+  await writeFile(`${base}.pem`, pem, secret);
+  out.push(".pem");
+
+  if (certificates.length > 0) {
+    await writeFile(`${base}.crt`, `${certificates.join("\n")}\n`, "utf-8");
+    out.push(".crt");
+  }
+
+  if (privateKeys.length > 0) {
+    await writeFile(`${base}.key`, `${privateKeys.join("\n")}\n`, secret);
+    out.push(".key");
+  }
+  return out;
+}
 
 async function runDatabaseAction(
   api: SquareCloudAPI,
@@ -282,11 +298,6 @@ async function runDatabaseAction(
       title:
         action === "start" ? t("database.starting") : t("database.stopping"),
     },
-    async () => {
-      await api.databases[action](item.database.id);
-      window.showInformationMessage(
-        action === "start" ? t("database.started") : t("database.stopped"),
-      );
-    },
+    () => api.databases[action](item.database.id),
   );
 }

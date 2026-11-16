@@ -1,4 +1,5 @@
 import { SquareCloudAPIError } from "@squarecloud/api";
+import { SquareCloudBlobError } from "@squarecloud/blob";
 import { commands, env, Uri, window } from "vscode";
 import { t } from "vscode-ext-localisation";
 
@@ -91,6 +92,9 @@ const INFORMATIONAL_CODES = new Set([
  */
 export function describeError(error: unknown): string {
   if (error instanceof SquareCloudAPIError) return describeCode(error.code);
+  // Blob's codes are its own; an unlisted one keeps the server's English.
+  if (error instanceof SquareCloudBlobError)
+    return localize(error.code) ?? error.message;
   if (error instanceof Error) return error.message;
   return t("generic.error");
 }

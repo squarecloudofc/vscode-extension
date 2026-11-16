@@ -1,27 +1,36 @@
-import type { Disposable, ExtensionContext } from "vscode";
+import { type Disposable, type ExtensionContext, workspace } from "vscode";
 import { getVscodeLang, loadTranslations } from "vscode-ext-localisation";
 
 import { offerWalkthroughOnce } from "@/commands/get-started";
 import { Config } from "@/lib/constants";
 import { $extensionStore, selectAndSubscribe } from "@/lib/store";
+import { PanelManager } from "@/panels/panel-manager";
+import { AppFileSystem } from "@/providers/files";
+import { SquareCloudMcp } from "@/providers/mcp";
 import { Logger } from "@/structures/logger";
+import { FILES_SCHEME } from "@/webview/lib/files";
 
 import { APIManager } from "./api";
 import { CommandsManager } from "./commands";
 import { ConfigManager } from "./config";
 import { ConfigFileManager } from "./config-file";
 import { StatusBarManager } from "./status-bar";
-import { TreeViewsManager } from "./treeviews";
+import { ViewsManager } from "./views";
 
 export class SquareCloudExtension implements Disposable {
   private readonly logger = new Logger("Extension");
 
   public readonly config: ConfigManager;
   public readonly configFile: ConfigFileManager;
-  public readonly treeViews: TreeViewsManager;
+  public readonly views: ViewsManager;
   public readonly commands: CommandsManager;
   public readonly api: APIManager;
   public readonly statusBar: StatusBarManager;
+  public readonly panels: PanelManager;
+  /** Square Cloud's tools in agent mode, for a key with the `mcp` scope. */
+  public readonly mcp: SquareCloudMcp;
+  /** Apps' files as `squarecloud://app/<appId>/<path>`. */
+  public readonly files = new AppFileSystem(() => this.api.getClient());
 
   public readonly store = $extensionStore;
 
@@ -34,18 +43,25 @@ export class SquareCloudExtension implements Disposable {
     this.loadLanguage();
 
     this.config = new ConfigManager(context.secrets);
+    this.mcp = new SquareCloudMcp(this.config.apiKey);
     this.configFile = new ConfigFileManager(this);
-    this.treeViews = new TreeViewsManager(this);
+    this.views = new ViewsManager(this);
     this.commands = new CommandsManager(this);
     this.api = new APIManager(this);
     this.statusBar = new StatusBarManager(this);
+    this.panels = new PanelManager(this);
 
     this.disposables.push(
       this.api,
       this.commands,
       this.configFile,
-      this.treeViews,
+      this.views,
       this.statusBar,
+      this.panels,
+      this.mcp,
+      workspace.registerFileSystemProvider(FILES_SCHEME, this.files, {
+        isCaseSensitive: true,
+      }),
     );
 
     this.initializeStores();
@@ -57,12 +73,10 @@ export class SquareCloudExtension implements Disposable {
       ),
     );
 
-    // Decides which half of the sidebar renders — the sign-in view or the
-    // trees. Runs before anything can paint so nobody sees the wrong one.
-    void this.treeViews.auth.syncVisibility();
+    // Sign-in or the account: the sidebar shows its skeleton until this has
+    // read the stored key.
+    void this.views.sidebar.sync();
     void offerWalkthroughOnce(this);
-
-    this.logger.log("Extension is ready!");
   }
 
   private loadLanguage() {

@@ -1,9 +1,4 @@
-import {
-  type MessageItem,
-  QuickPickItemKind,
-  type QuickPickItem as VSCodeQuickPickItem,
-  window,
-} from "vscode";
+import { type MessageItem, window } from "vscode";
 import { t } from "vscode-ext-localisation";
 
 type ConfirmItem = MessageItem & { id: "yes" | "no" };
@@ -58,44 +53,4 @@ export async function showMessageWithActions<TId extends string>(
     ...items,
   );
   return choice?.id;
-}
-
-interface QuickPickItem<TId extends string> {
-  id: TId;
-  label: string;
-  description?: string;
-  detail?: string;
-}
-
-/** A group heading. Rendered by VSCode as a divider and never selectable. */
-interface QuickPickSeparator {
-  separator: string;
-}
-
-export type PickEntry<TId extends string> =
-  | QuickPickItem<TId>
-  | QuickPickSeparator;
-
-/**
- * Type-safe QuickPick that returns the picked item's `id` instead of its
- * (translated) label. `undefined` when the user dismisses. Entries carrying
- * `separator` become group headings.
- */
-export async function pickOne<TId extends string>(
-  entries: Array<PickEntry<TId>>,
-  options: { title?: string; placeHolder?: string } = {},
-): Promise<TId | undefined> {
-  type Item = VSCodeQuickPickItem & { id?: TId };
-
-  const items: Item[] = entries.map((entry) =>
-    "separator" in entry
-      ? { label: entry.separator, kind: QuickPickItemKind.Separator }
-      : { ...entry },
-  );
-
-  const picked = await window.showQuickPick(items, {
-    title: options.title,
-    placeHolder: options.placeHolder ?? t("generic.choose"),
-  });
-  return picked?.id;
 }

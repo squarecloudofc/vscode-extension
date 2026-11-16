@@ -5,6 +5,8 @@ import { SquareCloudAPIError } from "@squarecloud/api";
 import { CancellationError, type CancellationToken } from "vscode";
 import { t } from "vscode-ext-localisation";
 
+import { LOGO_MARK } from "../../webview/lib/logos";
+
 const AUTHORIZE_BASE = "https://api.squarecloud.app/v2/account/authorize";
 const DASHBOARD_BASE = "https://squarecloud.app";
 const CLIENT_ID = "vscode";
@@ -27,11 +29,16 @@ const POLL_JITTER = 0.15;
 const RATE_LIMIT_BACKOFF_MS = 60_000;
 
 /**
- * Scopes this extension actually calls — nothing more. `files:*` and `blob:*`
- * are deliberately absent (no file manager / storage commands exist here).
+ * Scopes this extension calls — nothing more. `blob:read` reads the Blob
+ * usage the sidebar shows; `blob:write` and `files:*` are for the Blob panel
+ * and the app's Files tab (its `squarecloud:` file system). `mcp` lets agent
+ * mode use Square Cloud's MCP server with this key (src/providers/mcp.ts),
+ * which needs an active plan. A key connected before 6.0 lacks all five:
+ * the sidebar hides Blob for it and offers to reconnect for the tools, and
+ * the panels answer its 403 `MISSING_SCOPE` with a way to reconnect.
  *
  * `workspaces:manage` is the strong one: it reaches other accounts and its
- * grant outlives the key. It's here only because the Workspaces tree view and
+ * grant outlives the key. It's here only because the workspace switcher and
  * its commands can't work without it.
  */
 export const EXTENSION_SCOPES = [
@@ -48,6 +55,11 @@ export const EXTENSION_SCOPES = [
   "databases:write",
   "databases:credentials",
   "workspaces:manage",
+  "files:read",
+  "files:write",
+  "blob:read",
+  "blob:write",
+  "mcp",
 ];
 
 export interface AuthorizedAccount {
@@ -346,9 +358,31 @@ function listenForRedirect(): Promise<{
   });
 }
 
+const escapeHtml = (text: string) =>
+  text.replace(/[&<>"']/g, (char) => `&#${char.charCodeAt(0)};`);
+
+/**
+ * The tab the browser lands on after approving: the site's card on the
+ * site's surfaces (square-950/900 in dark, white in light), the brand mark
+ * and a green status word, so leaving the site doesn't look like an error.
+ */
 function callbackPage(): string {
-  return `<!doctype html><html><head><meta charset="utf-8"><title>Square Cloud</title>
-<style>body{font-family:system-ui,sans-serif;display:grid;place-items:center;height:100vh;margin:0;background:#0d0d0d;color:#fafafa;text-align:center}p{color:#a1a1a1}</style>
-</head><body><div><h1>${t("setApiKey.connect.browserTitle")}</h1>
-<p>${t("setApiKey.connect.browserBody")}</p></div></body></html>`;
+  return `<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Square Cloud</title>
+<style>
+:root{color-scheme:dark light;--bg:oklch(0.105 0.005 244.28);--card:oklch(0.128 0.006 262.01);--border:oklch(0.189 0.008 248.23);--fg:oklch(0.923 0.007 247.87);--muted:oklch(0.65 0.025 257.51);--green:oklch(0.723 0.219 149.579)}
+@media (prefers-color-scheme:light){:root{--bg:oklch(1 0 0);--card:oklch(0.985 0.001 264);--border:oklch(0.92 0.003 257);--fg:oklch(0.128 0.006 262.01);--muted:oklch(0.47 0.013 257);--green:oklch(0.527 0.154 150.069)}}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px;background:var(--bg);color:var(--fg);font:14px/1.5 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+main{width:100%;max-width:380px;padding:28px;border:1px solid var(--border);border-radius:12px;background:var(--card)}
+svg{display:block;width:28px;height:28px;margin-bottom:24px}
+h1{display:flex;align-items:center;gap:8px;margin:0 0 4px;font-size:16px;font-weight:600;letter-spacing:-0.01em}
+h1::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--green)}
+p{margin:0;color:var(--muted)}
+</style></head>
+<body><main>
+<svg viewBox="0 0 512 512" aria-hidden="true"><path fill="currentColor" d="${LOGO_MARK}"/></svg>
+<h1>${escapeHtml(t("setApiKey.connect.browserTitle"))}</h1>
+<p>${escapeHtml(t("setApiKey.connect.browserBody"))}</p>
+</main></body></html>`;
 }

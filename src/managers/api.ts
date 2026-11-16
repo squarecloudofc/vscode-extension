@@ -1,7 +1,6 @@
 import { SquareCloudAPI } from "@squarecloud/api";
 import { type Disposable, window } from "vscode";
 
-import { disposeAllRealtimeSessions } from "@/commands/applications/tools/realtime";
 import { isApiError, isRateLimited, problemOf } from "@/lib/utils/errors";
 import { Logger } from "@/structures/logger";
 
@@ -33,7 +32,7 @@ export class APIManager implements Disposable {
   private clientApiKey?: string;
   private rateLimitedUntil = 0;
   /**
-   * The dashboard counts down to the end of a rate-limit pause, so the retry
+   * The sidebar counts down to the end of a rate-limit pause, so the retry
    * happens right then instead of on the next poll, up to a minute later.
    */
   private retryTimer?: ReturnType<typeof setTimeout>;
@@ -47,14 +46,12 @@ export class APIManager implements Disposable {
    * store, or its 401 would delete the key that just replaced it.
    */
   private generation = 0;
-  /** Dashboard rows that are open, in the order they were opened. */
-  private readonly inspected = new Set<string>();
   private disposables: Disposable[] = [];
   private scheduledRefreshes = new Set<ReturnType<typeof setTimeout>>();
 
   constructor(private readonly extension: SquareCloudExtension) {
     this.refresh();
-    // The dashboard shows service health as a footer, so it has to be there on
+    // The sidebar shows service health as a footer, so it has to be there on
     // first paint rather than a minute in.
     this.refreshServiceStatus();
     this.intervalId = setInterval(() => {
@@ -119,7 +116,7 @@ export class APIManager implements Disposable {
       await this.fetchState();
     } finally {
       // A refresh that failed must not look like one still in flight — the
-      // tree views render "Loading..." off this flag, so bailing out early
+      // sidebar renders its skeleton off this flag, so bailing out early
       // left every view loading forever.
       this.extension.store.actions.setAppsLoaded(true);
     }
@@ -134,12 +131,13 @@ export class APIManager implements Disposable {
       return;
     }
 
-    // All three endpoints are independent — fire them in parallel.
-    const [accountResult, statusesResult, workspacesResult] =
+    // All four endpoints are independent — fire them in parallel.
+    const [accountResult, statusesResult, workspacesResult, databasesResult] =
       await Promise.allSettled([
         api.account.me(),
         api.apps.statusAll(),
         api.workspaces.list(),
+        api.databases.statusAll(),
       ]);
 
     if (generation !== this.generation) return;
@@ -169,11 +167,6 @@ export class APIManager implements Disposable {
     // instead of blanking every status dot until the next poll.
     if (statusesResult.status === "fulfilled") {
       actions.setStatuses(statusesResult.value);
-      // ponytail: one status request per opened row and poll, capped at the
-      // last 5 opened; raise it if people keep many rows open at once.
-      for (const id of [...this.inspected].slice(-5)) {
-        void this.refreshStatus(id);
-      }
     } else {
       this.noteFailure("apps.statusAll()", statusesResult.reason);
     }
@@ -181,6 +174,11 @@ export class APIManager implements Disposable {
       actions.setWorkspaces(workspacesResult.value);
     } else {
       this.noteFailure("workspaces.list()", workspacesResult.reason);
+    }
+    if (databasesResult.status === "fulfilled") {
+      actions.setDatabaseStatuses(databasesResult.value);
+    } else {
+      this.noteFailure("databases.statusAll()", databasesResult.reason);
     }
     actions.setAppsLoaded(true);
   }
@@ -197,8 +195,8 @@ export class APIManager implements Disposable {
 
   /**
    * A refresh can fail because the key is dead or because the network is. The
-   * first drops the key and falls back to the welcome view; the second stays
-   * in the store as `problem`, which the dashboard and the status bar show —
+   * first drops the key and falls back to sign-in; the second stays
+   * in the store as `problem`, which the sidebar and the status bar show —
    * no toast on top, so working offline stays quiet.
    */
   private async handleRefreshFailure(error: unknown): Promise<void> {
@@ -208,8 +206,8 @@ export class APIManager implements Disposable {
     if (await this.extension.config.apiKey.invalidateIfRejected(error)) {
       this.invalidateClient();
       this.clearState();
-      // The key is gone — hand the sidebar back to the sign-in view.
-      await this.extension.treeViews.auth.syncVisibility();
+      // The key is gone — the sidebar goes back to sign-in.
+      await this.extension.views.sidebar.sync();
       return;
     }
 
@@ -236,38 +234,24 @@ export class APIManager implements Disposable {
   async restartForNewKey(): Promise<void> {
     this.invalidateClient();
     this.clearState();
-    await this.extension.treeViews.auth.syncVisibility();
+    await this.extension.views.sidebar.sync();
     await this.refresh();
-  }
-
-  /**
-   * A dashboard row opened or closed. An open row shows the full status
-   * (uptime, storage), which the list endpoint doesn't carry: it is read now
-   * and again on every poll while the row stays open.
-   */
-  inspect(appId: string, open: boolean): void {
-    this.inspected.delete(appId);
-    if (!open) return;
-    this.inspected.add(appId);
-    void this.refreshStatus(appId);
-  }
-
-  /** The dashboard was rebuilt, and a new one starts with every row closed. */
-  forgetInspected(): void {
-    this.inspected.clear();
   }
 
   /** Drops everything fetched with an authorization that no longer applies. */
   clearState(): void {
-    this.inspected.clear();
     const { actions } = this.extension.store;
     actions.setApplications([]);
     actions.setStatuses([]);
     actions.setWorkspaces([]);
     actions.setDatabases([]);
+    actions.setDatabaseStatuses([]);
     actions.setUser(undefined);
     actions.setProblem(undefined);
     actions.setLastUpdated(undefined);
+    // Nothing has loaded for whatever comes next: the sidebar shows its
+    // skeleton until the next refresh answers.
+    actions.setAppsLoaded(false);
   }
 
   async refreshStatus(appId: string, isRetry = false): Promise<void> {
@@ -306,9 +290,9 @@ export class APIManager implements Disposable {
     this.generation++;
     // The next refresh() must use the new key, not join the old one.
     this.refreshInFlight = null;
-    // An open console holds the old client and would keep streaming (and
-    // reconnecting to) the previous account's logs.
-    disposeAllRealtimeSessions();
+    // Open panels and app file tabs: reload for the same account, close
+    // for another one or none.
+    void this.extension.panels.keyChanged();
   }
 
   /**

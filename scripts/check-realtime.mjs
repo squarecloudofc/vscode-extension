@@ -1,6 +1,6 @@
 /**
- * The realtime console prints application output, not the metrics the same
- * stream carries.
+ * The app panel's console prints application output, not the metrics the
+ * same stream carries.
  *
  *   node scripts/check-realtime.mjs
  *
@@ -10,54 +10,9 @@
  * the parsed `line`, or if log indentation is lost.
  */
 import assert from "node:assert/strict";
-import { mkdtempSync, writeFileSync } from "node:fs";
-import { createRequire } from "node:module";
-import { tmpdir } from "node:os";
-import { join } from "node:path";
-import { pathToFileURL } from "node:url";
 
-const esbuild = createRequire(join(process.cwd(), "package.json"))("esbuild");
-
-const dir = mkdtempSync(join(tmpdir(), "sq-realtime-"));
-const stub = (name, source) => {
-  const file = join(dir, name);
-  writeFileSync(file, source);
-  return file;
-};
-
-const bundle = join(dir, "realtime.mjs");
-await esbuild.build({
-  entryPoints: ["src/commands/applications/tools/realtime.ts"],
-  bundle: true,
-  format: "esm",
-  platform: "node",
-  outfile: bundle,
-  alias: {
-    // Enough of the API for the module's import-time side effects (the shared
-    // Logger builds an output channel as soon as it loads).
-    vscode: stub(
-      "vscode.mjs",
-      `const noop = () => {};
-       const channel = { appendLine: noop, show: noop, dispose: noop, replace: noop, clear: noop };
-       export const commands = {}, env = {}, Uri = {};
-       export const window = {
-         createOutputChannel: () => channel,
-         showErrorMessage: noop,
-         showInformationMessage: noop,
-       };`,
-    ),
-    "vscode-ext-localisation": stub(
-      "i18n.mjs",
-      "export const t = (key) => key;",
-    ),
-    "@squarecloud/api": stub(
-      "sdk.mjs",
-      "export class SquareCloudAPIError extends Error {}",
-    ),
-  },
-});
-
-const { printableLine } = await import(pathToFileURL(bundle).href);
+// Pure TypeScript (type imports only): Node strips the types itself.
+const { printableLine } = await import("../src/panels/app/live.ts");
 
 // Events as the SDK yields them: SSE frames already split, the stdout/stderr
 // byte already stripped into `stream`, status frames merged.
@@ -108,7 +63,7 @@ assert.ok(
 );
 assert.ok(
   !lines.some((line) => line.includes("REALTIME_CONNECTING")),
-  "system signals are narrated by the command itself",
+  "system signals are protocol noise, never console lines",
 );
 
 console.log("realtime console: ok");

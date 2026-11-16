@@ -9,9 +9,11 @@ export type ConfigFileParameter = {
   /**
    * Whether the parameter must be present. A function form is supported for
    * fields whose requirement depends on the presence of other fields (e.g.
-   * MAIN is only required when START is absent).
+   * MAIN is only required when RUNTIME is absent).
    */
   required: boolean | ((keys: ConfigFileKeys) => boolean);
+  /** What the key does, in the user's language: the editor's hover. */
+  docs: () => string;
   validation?: (
     keys: ConfigFileKeys,
     value: string,

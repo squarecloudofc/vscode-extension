@@ -12,5 +12,5 @@ pnpm-lock.yaml
 biome.json
 pnpm-workspace.yaml
 resources/readme/**
-# Inlined into dist/extension.js at build time.
-resources/illustrations/**
+test
+CONTRIBUTING.md

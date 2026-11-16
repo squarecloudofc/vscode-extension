@@ -5,6 +5,7 @@ import { createDiagnostic } from "@/lib/utils/diagnostic";
 
 export const DISPLAY_NAME = {
   required: true,
+  docs: () => t("configFile.hover.displayName"),
   validation(_keys, value, line, diagnostics, document) {
     // Validate if exists some value on DISPLAY_NAME
     if (!value.trim()) {

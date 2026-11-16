@@ -3,15 +3,19 @@
     "module": "commonjs",
     "target": "ES2020",
     "outDir": "dist",
-    "lib": ["ESNext", "DOM"],
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "types": ["node", "vscode"],
     "sourceMap": true,
     "rootDir": "src",
     "strict": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
+    // Only the webview's .tsx files have JSX; the extension host has none.
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact",
     "paths": {
       "@/*": ["./src/*"]
     }
-  }
+  },
+  "include": ["src"]
 }

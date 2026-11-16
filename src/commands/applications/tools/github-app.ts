@@ -35,7 +35,6 @@ export const linkGithubAppEntry = new ApplicationCommand(
           repositoryName,
           repositoryBranch,
         );
-        window.showInformationMessage(t("githubApp.linked"));
       },
     );
   },
@@ -53,7 +52,6 @@ export const unlinkGithubAppEntry = new ApplicationCommand(
       },
       async () => {
         await api.apps.deploys.unlinkGithubApp(application.id);
-        window.showInformationMessage(t("githubApp.unlinked"));
       },
     );
   },

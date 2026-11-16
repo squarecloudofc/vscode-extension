@@ -6,6 +6,7 @@ import { createDiagnostic } from "@/lib/utils/diagnostic";
 
 export const VERSION = {
   required: true,
+  docs: () => t("configFile.hover.version"),
   validation(_keys, value, line, diagnostics, document) {
     if (value !== "recommended" && value !== "latest") {
       diagnostics.push(

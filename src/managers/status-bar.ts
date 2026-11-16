@@ -11,7 +11,7 @@ import { t } from "vscode-ext-localisation";
 import { ExtensionID, LINKS } from "@/lib/constants";
 import { type ExtensionStore, selectAndSubscribe } from "@/lib/store";
 import { describeCode } from "@/lib/utils/errors";
-import { isServiceHealthy } from "@/lib/utils/service-status";
+import { serviceSummary } from "@/lib/utils/service-status";
 
 import type { SquareCloudExtension } from "./extension";
 
@@ -21,8 +21,11 @@ const CONNECT = `${ExtensionID}.setApiKey`;
 
 /**
  * Lightweight status bar item that surfaces extension state at a glance —
- * loading, sign in, offline, rate-limited, degraded service, or how many apps
- * are online — with the detail and the next step in its tooltip.
+ * loading, sign in, offline, rate-limited, maintenance or degraded service,
+ * or how many apps are online — with the detail and the next step in its
+ * tooltip. The service has three looks: online (the app count), a warning
+ * (maintenance or degraded), or unknown ("couldn't check" in the tooltip,
+ * never an error look).
  *
  * Subscribes per slice so the render only runs when something it actually
  * displays changed.
@@ -51,7 +54,7 @@ export class StatusBarManager implements Disposable {
   private render(): void {
     const state = this.extension.store.value;
     const { appsLoaded, serviceStatus, user, problem } = state;
-    const healthy = isServiceHealthy(serviceStatus);
+    const summary = serviceSummary(serviceStatus);
 
     this.item.command = REFRESH;
     this.item.backgroundColor = undefined;
@@ -69,13 +72,15 @@ export class StatusBarManager implements Disposable {
         "statusBarItem.warningBackground",
       );
       this.item.command = CONNECT;
-    } else if (!user || !healthy) {
-      this.item.text = healthy
-        ? "$(warning) Square Cloud"
-        : `$(warning) Square Cloud — ${serviceStatus?.status}`;
+    } else if (!user) {
+      this.item.text = "$(warning) Square Cloud";
+    } else if (summary === "maintenance" || summary === "degraded") {
+      // The count stays; the tooltip says what the status page lists.
+      this.item.text = `$(warning) ${online(state)}/${state.applications.size}`;
       this.item.backgroundColor = new ThemeColor(
         "statusBarItem.warningBackground",
       );
+      this.item.command = SERVICE;
     } else {
       this.item.text = `$(cloud) ${online(state)}/${state.applications.size}`;
     }
@@ -103,9 +108,10 @@ export class StatusBarManager implements Disposable {
         }),
       );
     }
-    if (serviceStatus) {
-      const icon = isServiceHealthy(serviceStatus) ? "pass" : "warning";
-      line(icon, serviceStatus.message);
+    const summary = serviceSummary(serviceStatus);
+    line(SUMMARY_ICON[summary], SUMMARY[summary]());
+    for (const incident of serviceStatus?.incidents ?? []) {
+      line("dash", `${incident.title} · ${incidentStatus(incident.status)}`);
     }
     if (problem) {
       const icon =
@@ -131,6 +137,38 @@ export class StatusBarManager implements Disposable {
   }
 }
 
+const SUMMARY = {
+  online: () => t("serviceStatus.summary.online"),
+  maintenance: () => t("serviceStatus.summary.maintenance"),
+  degraded: () => t("serviceStatus.summary.degraded"),
+  unknown: () => t("serviceStatus.summary.unknown"),
+};
+
+const SUMMARY_ICON = {
+  online: "pass",
+  maintenance: "warning",
+  degraded: "warning",
+  unknown: "question",
+};
+
+function incidentStatus(status: string): string {
+  switch (status) {
+    case "maintenance":
+      return t("serviceStatus.maintenance");
+    case "degraded":
+      return t("serviceStatus.degraded");
+    case "outage":
+      return t("serviceStatus.outage");
+    case "operational":
+      return t("serviceStatus.online");
+    default:
+      return t("serviceStatus.unknown");
+  }
+}
+
+/** Own apps only: a workspace app's status can sit in the store too. */
 function online(state: ExtensionStore): number {
-  return Array.from(state.statuses.values()).filter((s) => s.running).length;
+  return Array.from(state.applications.keys()).filter(
+    (id) => state.statuses.get(id)?.running,
+  ).length;
 }

@@ -6,8 +6,8 @@ import { ApplicationCommand } from "@/structures/application/command";
 
 /**
  * Builds an ApplicationCommand for the three lifecycle actions that share the
- * same shape — show progress, fire the action, schedule a status refresh,
- * toast on success.
+ * same shape: show progress, fire the action, follow the status. The progress
+ * is the only notification; the sidebar's status dot says when it's done.
  */
 function lifecycleCommand(action: "start" | "stop" | "restart") {
   return new ApplicationCommand(
@@ -30,7 +30,6 @@ function lifecycleCommand(action: "start" | "stop" | "restart") {
           // Follow the state until it actually changes instead of guessing a
           // single delay — a stopped app should read "stopped" right away.
           void extension.api.trackStatusChange(application.id);
-          window.showInformationMessage(t(`${action}.loaded`));
         },
       ),
     // The picker offers start for what isn't running, and stop/restart for

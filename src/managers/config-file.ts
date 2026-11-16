@@ -7,19 +7,27 @@ import {
 
 import { ConfigFileActionProvider } from "@/providers/config-file/action";
 import { ConfigCompletionProvider } from "@/providers/config-file/completion";
+import { ConfigHoverProvider } from "@/providers/config-file/hover";
 import { validateConfigFile } from "@/providers/config-file/validation";
+import { FILES_SCHEME } from "@/webview/lib/files";
 
 import type { SquareCloudExtension } from "./extension";
 
-const CONFIG_FILE_SELECTOR = {
+// Local files and application files opened through the squarecloud: file
+// system. Other schemes (git diffs, for one) are copies of a file already
+// checked, and would repeat its problems.
+const SCHEMES = ["file", FILES_SCHEME];
+const CONFIG_FILE_SELECTOR = SCHEMES.map((scheme) => ({
+  scheme,
   pattern: "**/{squarecloud.app,squarecloud.config}",
-};
+}));
 const VALIDATE_DEBOUNCE_MS = 200;
 
 function isConfigFile(document: TextDocument): boolean {
   return (
-    document.fileName.endsWith("squarecloud.app") ||
-    document.fileName.endsWith("squarecloud.config")
+    SCHEMES.includes(document.uri.scheme) &&
+    (document.fileName.endsWith("squarecloud.app") ||
+      document.fileName.endsWith("squarecloud.config"))
   );
 }
 
@@ -55,6 +63,10 @@ export class ConfigFileManager implements Disposable {
         CONFIG_FILE_SELECTOR,
         ConfigCompletionProvider,
         "=",
+      ),
+      languages.registerHoverProvider(
+        CONFIG_FILE_SELECTOR,
+        ConfigHoverProvider,
       ),
       languages.registerCodeActionsProvider(
         CONFIG_FILE_SELECTOR,

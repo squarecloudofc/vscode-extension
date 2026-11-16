@@ -2,6 +2,7 @@ import type {
   AppSummary,
   DatabaseSummary,
   RuntimeStats,
+  ServiceStatus,
   StatusListItem,
   User,
   Workspace,
@@ -10,11 +11,6 @@ import type { Disposable } from "vscode";
 import { atom } from "xoid";
 
 import type { ProblemKind } from "@/lib/utils/errors";
-
-export interface ServiceStatus {
-  status: string;
-  message: string;
-}
 
 /**
  * What the extension knows about an app's state: the list endpoint gives
@@ -38,6 +34,8 @@ export interface ExtensionStore {
   favorited: Set<string>;
   workspaces: Workspace[];
   databases: Map<string, DatabaseSummary>;
+  /** Running state of each database (`databases.statusAll`). */
+  databaseStatuses: Map<string, StatusListItem>;
   serviceStatus?: ServiceStatus;
   user?: User;
   appsLoaded: boolean;
@@ -55,6 +53,7 @@ export interface ExtensionStoreActions {
 
   setWorkspaces(workspaces: Workspace[]): void;
   setDatabases(databases: DatabaseSummary[]): void;
+  setDatabaseStatuses(statuses: StatusListItem[]): void;
   setServiceStatus(status?: ServiceStatus): void;
 
   getStatus(applicationId: string): AppStatus | undefined;
@@ -73,6 +72,7 @@ export const $extensionStore = atom<ExtensionStore, ExtensionStoreActions>(
     favorited: new Set(),
     workspaces: [],
     databases: new Map(),
+    databaseStatuses: new Map(),
     serviceStatus: undefined,
     user: undefined,
     appsLoaded: false,
@@ -129,6 +129,10 @@ export const $extensionStore = atom<ExtensionStore, ExtensionStoreActions>(
     setDatabases: (databases) => {
       const map = new Map(databases.map((db) => [db.id, db]));
       atom.update((value) => ({ ...value, databases: map }));
+    },
+    setDatabaseStatuses: (statuses) => {
+      const map = new Map(statuses.map((status) => [status.id, status]));
+      atom.update((value) => ({ ...value, databaseStatuses: map }));
     },
     setServiceStatus: (status) => {
       atom.update((value) => ({ ...value, serviceStatus: status }));

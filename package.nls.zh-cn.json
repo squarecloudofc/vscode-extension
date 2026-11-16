@@ -1,84 +1,65 @@
 {
   "command.setApiKey": "连接账户",
-  "command.logsEntry": "查看日志",
   "command.refresh": "刷新",
+  "command.refreshCache": "刷新",
   "command.open": "在控制台中打开",
   "command.start": "启动",
   "command.stop": "停止",
   "command.copyId": "复制 ID",
   "command.restart": "重启",
   "command.delete": "删除",
-  "command.favorite": "收藏",
-  "command.unfavorite": "取消收藏",
-  "command.snapshotRestore": "恢复快照",
-  "command.envs": "环境变量",
-  "command.metrics": "查看 24 小时指标",
-  "command.realtime": "切换实时流",
-  "command.linkGithub": "关联 GitHub 仓库",
-  "command.unlinkGithub": "取消关联 GitHub 仓库",
-  "command.networkErrors": "边缘错误",
-  "command.networkLogs": "边缘日志",
-  "command.networkPerformance": "边缘性能",
-  "command.purgeCache": "清除边缘缓存",
+  "command.favoriteEntry": "添加到收藏",
+  "command.unfavoriteEntry": "从收藏中移除",
   "command.createWorkspace": "创建工作区",
   "command.deleteWorkspace": "删除工作区",
   "command.leaveWorkspace": "离开工作区",
   "command.createDatabase": "创建数据库",
-  "command.startDatabase": "启动数据库",
-  "command.stopDatabase": "停止数据库",
-  "command.deleteDatabase": "删除数据库",
-  "command.downloadDatabaseCertificate": "下载 TLS 证书",
-  "palette.startEntry": "启动应用...",
-  "palette.stopEntry": "停止应用...",
-  "palette.restartEntry": "重启应用...",
-  "palette.logsEntry": "查看应用日志...",
-  "palette.realtimeEntry": "切换应用实时流...",
-  "palette.metricsEntry": "查看应用 24 小时指标...",
-  "palette.commitEntry": "向应用提交文件...",
-  "palette.snapshotEntry": "下载应用快照...",
-  "palette.snapshotRestoreEntry": "恢复应用快照...",
-  "palette.envsEntry": "编辑应用环境变量...",
-  "palette.linkGithubAppEntry": "将应用关联到 GitHub 仓库...",
-  "palette.unlinkGithubAppEntry": "取消应用与 GitHub 仓库的关联...",
-  "palette.networkLogsEntry": "查看边缘日志...",
-  "palette.networkErrorsEntry": "查看边缘错误...",
-  "palette.networkPerformanceEntry": "查看边缘性能...",
-  "palette.purgeCacheEntry": "清除边缘缓存...",
-  "palette.openEntry": "在网页控制台中打开应用...",
-  "palette.copyIdEntry": "复制应用 ID...",
-  "palette.deleteEntry": "删除应用...",
-  "palette.startDatabase": "启动数据库...",
-  "palette.stopDatabase": "停止数据库...",
-  "palette.downloadDatabaseCertificate": "下载数据库 TLS 证书...",
-  "palette.deleteDatabase": "删除数据库...",
-  "palette.generateInviteCode": "复制我的邀请代码",
-  "palette.setApiKey": "连接账户",
-  "palette.uploadApplication": "上传新应用",
-  "palette.createWorkspace": "创建工作区",
-  "palette.createDatabase": "创建数据库",
-  "palette.serviceStatus": "查看服务状态",
-  "palette.logout": "断开账户连接",
+  "command.startEntry": "启动应用...",
+  "command.stopEntry": "停止应用...",
+  "command.restartEntry": "重启应用...",
+  "command.logsEntry": "打开应用日志...",
+  "command.realtimeEntry": "实时跟踪应用日志...",
+  "command.metricsEntry": "打开应用指标...",
+  "command.commitEntry": "向应用提交文件...",
+  "command.snapshotEntry": "下载应用快照...",
+  "command.snapshotRestoreEntry": "恢复应用快照...",
+  "command.envsEntry": "编辑应用环境变量...",
+  "command.linkGithubAppEntry": "将应用关联到 GitHub 仓库...",
+  "command.unlinkGithubAppEntry": "取消应用与其 GitHub 仓库的关联...",
+  "command.networkLogsEntry": "打开网站访问日志...",
+  "command.networkErrorsEntry": "打开网站错误...",
+  "command.networkPerformanceEntry": "打开网站性能...",
+  "command.purgeCacheEntry": "清除网站缓存...",
+  "command.openEntry": "在控制台中打开应用...",
+  "command.copyIdEntry": "复制应用 ID...",
+  "command.deleteEntry": "删除应用...",
+  "command.startDatabase": "启动数据库...",
+  "command.stopDatabase": "停止数据库...",
+  "command.downloadDatabaseCertificate": "下载数据库 TLS 证书...",
+  "command.databaseMetrics": "打开数据库指标...",
+  "command.deleteDatabase": "删除数据库...",
+  "command.generateInviteCode": "复制我的邀请代码",
+  "command.uploadApplication": "上传新应用",
+  "command.showServiceStatus": "查看服务状态",
+  "command.logout": "断开账户连接",
+  "config.favApps": "你收藏的应用的 ID，固定显示在 Square Cloud 侧边栏顶部。请使用应用 ⋯ 菜单中的 **添加到收藏**，而不要直接编辑此列表。",
   "view.apps.title": "应用",
-  "view.workspaces.title": "工作区",
   "view.databases.title": "数据库",
   "view.welcome": "尚未连接账户。\n[连接账户](command:squarecloud.setApiKey)",
   "apps": {
     "noApps": {
-      "message": "未找到应用",
-      "upgrade": "查看套餐"
+      "message": "你还没有应用。"
     },
     "pick": "选择应用",
     "allRunning": "你的所有应用都已在运行。",
     "noneRunning": "你的应用都没有在运行。",
-    "noneWebsite": "你的应用都没有域名。",
-    "noneMetrics": "指标功能要求应用至少有 512 MB 内存，你的应用均未达到。"
+    "noneWebsite": "你的应用都没有域名。"
   },
   "generic": {
     "yes": "是",
     "no": "否",
     "loading": "加载中...",
-    "error": "发生未知错误。",
-    "done": "完成！",
+    "error": "出了点问题。",
     "paste": "粘贴到这里...",
     "choose": "选择一个选项...",
     "file": "文件",
@@ -86,12 +67,11 @@
   },
   "setApiKey": {
     "tutorial": {
-      "button": "打开控制台"
+      "button": "在“我的账户 › 安全”中创建密钥"
     },
-    "apiKey": "粘贴在控制台中创建的令牌。",
+    "apiKey": "粘贴在控制台中创建的 API 密钥。",
     "testing": "正在验证...",
-    "invalid": "此令牌无效。",
-    "success": "已连接！",
+    "invalid": "此密钥无效。",
     "connect": {
       "label": "连接账户",
       "action": "连接账户",
@@ -99,144 +79,142 @@
       "open": "打开网页",
       "success": "已以 {{EMAIL}} 身份连接",
       "accountChanged": "此次批准来自 {{NEW}}，但当前连接的是 {{OLD}}。要替换吗？",
-      "expired": "你的授权已过期或已被撤销。出于安全考虑，授权有效期为 90 天。请重新连接账户。",
+      "expired": "你的授权已过期或已被撤销。授权有效期为 90 天。请重新连接账户。",
       "browserTitle": "账户已连接",
       "browserBody": "现在可以关闭此标签页并返回 VS Code。"
     },
-    "manual": {
-      "label": "其他连接方式"
-    },
     "panel": {
       "codeLabel": "在网页上粘贴此代码",
-      "copyHint": "已复制。点击可再次复制。",
-      "copied": "已复制！",
       "waitingHint": "正在等待你在浏览器中批准...",
       "cancel": "取消",
-      "retry": "重试",
-      "expiresIn": "{{TIME}} 后过期"
+      "retry": "重试"
     }
   },
-  "logs": {
-    "loading": "正在获取日志。",
-    "null": "未找到日志。"
-  },
   "copy": {
-    "copiedId": "应用 ID 已复制到剪贴板。"
+    "copiedId": "应用 ID 已复制。"
   },
   "start": {
-    "loading": "正在启动应用...",
-    "loaded": "应用已开始运行。"
+    "loading": "正在启动应用..."
   },
   "stop": {
-    "loading": "正在停止应用...",
-    "loaded": "应用已停止运行。"
+    "loading": "正在停止应用..."
   },
   "restart": {
-    "loading": "正在重启应用...",
-    "loaded": "应用已重启。"
+    "loading": "正在重启应用..."
   },
   "delete": {
     "loading": "正在删除应用...",
-    "loaded": "应用已删除。",
-    "cancelled": "已取消删除。",
-    "confirm": "输入应用名称以确认删除。",
+    "loaded": "应用已删除。删除前已创建恢复快照。",
+    "cancelled": "名称不匹配，因此未删除任何内容。",
+    "confirm": "输入应用名称以删除它。",
     "downloadSnapshot": "下载快照",
     "snapshotPending": "用于恢复的快照仍在生成中，因此应用未被删除。请几分钟后重试。"
   },
   "commit": {
     "loading": "正在提交文件...",
-    "loaded": "文件提交成功。",
     "fileOrFolder": "你要提交什么？",
-    "restart": "要重启应用吗？",
+    "restart": "提交后重启应用？",
     "selectFiles": "选择要提交的文件",
     "selectFolder": "选择要提交的文件夹",
     "zipping": "正在压缩文件...",
     "uploading": "正在上传到 Square Cloud..."
   },
   "snapshot": {
-    "loading": "正在下载快照...",
-    "loaded": "快照下载成功。",
+    "loading": "正在创建并下载快照...",
     "save": "保存到此处",
-    "pending": "快照仍在生成中，几分钟后即可就绪，届时请重试。"
-  },
-  "snapshotRestore": {
-    "select": "选择要恢复的快照",
-    "placeholder": "最新的在前",
-    "noSnapshots": "没有可恢复的快照。",
-    "confirm": "要将应用恢复到 {{DATE}} 的快照吗？",
-    "loading": "正在恢复快照...",
-    "loaded": "已将应用恢复到所选快照。"
+    "pending": "快照仍在生成中。请几分钟后重试。"
   },
   "envs": {
     "title": "环境变量",
     "placeholder": "已配置 {{COUNT}} 个变量",
     "placeholderOne": "已配置 {{COUNT}} 个变量",
-    "addNew": "添加新变量",
+    "addNew": "添加变量",
     "removeAll": "移除所有变量",
     "editValue": "编辑值",
     "deleteOne": "删除此变量",
-    "keyPrompt": "输入变量名（KEY）",
-    "valuePrompt": "输入值",
+    "keyPrompt": "变量名",
+    "valuePrompt": "值",
     "invalidKey": "只能使用英文字母、数字和下划线，且不能以数字开头。",
-    "saving": "正在保存环境变量...",
-    "saved": "环境变量已保存。",
-    "deleting": "正在移除环境变量...",
-    "deleted": "环境变量已移除。",
+    "saving": "正在保存变量...",
+    "deleting": "正在移除...",
     "confirmDelete": "要移除 {{KEY}} 吗？",
-    "confirmWipe": "要移除全部环境变量吗？",
+    "confirmWipe": "要从此应用中移除所有环境变量吗？",
     "loadError": "无法加载环境变量。"
-  },
-  "metrics": {
-    "loading": "正在获取 24 小时指标...",
-    "null": "暂无指标数据。需要至少 512 MB 内存。",
-    "channel": "Square Cloud 指标（{{NAME}}）",
-    "header": "过去 24 小时的指标，每 5 分钟采样一次。NET 为接收和发送数据的总和。",
-    "latest": "最新：CPU {{CPU}}，内存 {{RAM}}",
-    "average": "24 小时平均：CPU {{CPU}}，内存 {{RAM}}"
-  },
-  "realtime": {
-    "started": "实时流已开启",
-    "ended": "实时流已结束",
-    "stopped": "实时流已停止。",
-    "startError": "无法开启实时流。",
-    "reconnecting": "正在重新连接..."
   },
   "githubApp": {
     "linkTitle": "关联 GitHub 仓库",
     "repoPrompt": "所有者/仓库",
-    "branchPrompt": "分支名称（例如 main）",
+    "branchPrompt": "用于部署的分支",
     "invalidRepo": "请使用“所有者/仓库”格式。",
-    "linking": "正在关联 GitHub 仓库...",
-    "linked": "仓库关联成功。",
-    "unlinking": "正在取消关联 GitHub 仓库...",
-    "unlinked": "已取消关联仓库。",
+    "linking": "正在关联仓库...",
+    "unlinking": "正在取消关联仓库...",
     "confirmUnlink": "要取消此应用与 GitHub 仓库的关联吗？"
   },
   "network": {
-    "pickRange": "选择时间范围",
-    "loading": "正在获取边缘数据...",
-    "empty": "所选时间范围内暂无数据。",
-    "notWebsite": "此应用没有域名。边缘分析仅适用于网站类应用。",
-    "purgeConfirmAll": "要清除此应用的全部边缘缓存吗？",
-    "purging": "正在清除边缘缓存...",
-    "purged": "边缘缓存已清除。"
+    "notWebsite": "此应用不是网站，因此没有网络数据。",
+    "purgeConfirmAll": "要清除此网站的全部缓存吗？",
+    "purging": "正在清除缓存..."
   },
   "workspace": {
     "createTitle": "创建工作区",
     "namePrompt": "工作区名称（1-32 个字符）",
     "invalidName": "请使用 1 到 32 个字符。",
     "creating": "正在创建工作区...",
-    "created": "工作区已创建。",
     "deleteConfirm": "输入 {{NAME}} 以确认删除。",
     "deleting": "正在删除工作区...",
-    "deleted": "工作区已删除。",
     "leaveConfirm": "要离开工作区 {{NAME}} 吗？",
     "leaving": "正在离开工作区...",
-    "left": "你已离开该工作区。",
-    "inviteCopied": "你的邀请代码 {{CODE}} 已复制。将它发送给工作区所有者，对方即可添加你。代码 5 分钟内有效。"
+    "inviteCopied": "你的邀请代码 {{CODE}} 已复制。将它发送给工作区所有者，对方即可添加你。代码 5 分钟内有效。",
+    "panel": {
+      "group": {
+        "admin": "全部权限，包括快照、环境变量、自定义域名和部署 Webhook。危险区域、GitHub App 和工作区设置仍仅限所有者。",
+        "maintain": "包含“查看”的全部权限，并可启动、停止、重启应用，管理文件、网络标签页和常规设置（名称、描述、内存、启动命令和自动重启）。",
+        "manager": "包含“查看”的全部权限，并可启动、停止、重启应用以及查看部署信息。",
+        "view": "可查看应用、概览、日志和网络可观测性（分析、错误和性能）。"
+      },
+      "members": "成员",
+      "membersBody": "每位成员都有一个角色，决定其可以对此工作区的应用执行哪些操作。",
+      "ownerOnly": "只有工作区所有者可以添加和更改成员。",
+      "removedUser": "已删除的用户",
+      "you": "（你）",
+      "removeMember": "移除 {{NAME}}",
+      "removeMemberBody": "{{NAME}} 将无法再访问此工作区及其应用。",
+      "memberAdd": "添加成员",
+      "code": "邀请代码",
+      "codePlaceholder": "粘贴收到的邀请代码",
+      "deleteConfirm": "{{NAME}} 将被永久删除，所有成员都将失去访问权限。应用不会被删除：它们仍保留在你的账户中，只是不再共享。",
+      "deleteBody": "所有成员都将失去访问权限。应用不会被删除：它们仍保留在你的账户中，只是不再共享。",
+      "leaveConfirm": "你将离开 {{NAME}}，并失去对其应用的访问权限。如需重新加入，需要所有者再次添加你。",
+      "leaveBody": "你将失去对此工作区应用的访问权限。这些应用仍归所有者和其他成员使用。",
+      "add": "添加",
+      "addApp": "添加应用",
+      "addAppBody": "将你的一个应用共享到此工作区。每位成员获得其角色允许的权限。",
+      "added": "已以 {{ROLE}} 角色添加。",
+      "apps": "应用",
+      "appsEmpty": "这里还没有应用",
+      "appsEmptyBody": "在下方添加你的应用，即可共享到此工作区。",
+      "copied": "已复制你的邀请码 {{CODE}}。",
+      "inviteBody": "将其发送给工作区所有者即可被添加。有效期 5 分钟。",
+      "joined": "加入时间",
+      "leaveTitle": "离开 {{NAME}}？",
+      "loadError": "无法加载此工作区",
+      "memberAddBody": "请对方提供邀请码：可在 VS Code 或“我的账户 › 安全”中复制。有效期 5 分钟。",
+      "noYours": "你没有其他可添加的应用。",
+      "removeApp": "从此工作区移除 {{NAME}}",
+      "roles": {
+        "owner": "所有者",
+        "admin": "管理员",
+        "maintain": "维护",
+        "manager": "经理",
+        "view": "查看"
+      },
+      "role": "角色"
+    },
+    "none": "你还没有加入任何工作区。",
+    "pick": "选择工作区"
   },
   "database": {
-    "empty": "未找到数据库",
+    "empty": "你还没有数据库。",
     "pick": "选择数据库",
     "createTitle": "创建数据库",
     "namePrompt": "数据库名称（1-32 个字符）",
@@ -247,20 +225,69 @@
     "versionPrompt": "选择版本",
     "customVersion": "其他版本...",
     "copyPassword": "复制密码",
-    "passwordCopied": "数据库密码已复制到剪贴板。",
+    "passwordCopied": "密码已复制。",
     "creating": "正在创建数据库...",
-    "createdWithUrl": "数据库已创建。连接 URL 已复制到剪贴板（仅显示一次）。",
+    "createdWithUrl": "数据库已创建，连接 URL 已在你的剪贴板中。它仅显示这一次。",
     "starting": "正在启动数据库...",
-    "started": "数据库已启动。",
     "stopping": "正在停止数据库...",
-    "stopped": "数据库已停止。",
     "deleteConfirm": "输入 {{NAME}} 以确认删除。",
+    "delete": "删除数据库",
     "deleting": "正在删除数据库...",
-    "deleted": "数据库已删除。",
     "certSave": "保存到此处",
+    "certDownload": "下载 TLS 证书",
     "certDownloading": "正在下载 TLS 证书...",
     "certDownloaded": "TLS 证书已保存（{{FILES}}）。",
-    "openFolder": "打开文件夹"
+    "openFolder": "打开文件夹",
+    "panel": {
+      "actionFailed": "数据库未及时响应。请稍后重试。",
+      "alreadyStarted": "数据库已在运行。",
+      "alreadyStopped": "数据库已停止。",
+      "certBody": "与数据库的连接使用 TLS。下载证书，并在应用的驱动中配置。",
+      "certReset": "重置证书",
+      "certResetBody": "当前证书将失效，使用此数据库的应用需要改用新证书。",
+      "certResetDone": "下载新证书，并在使用此数据库的应用中更新。",
+      "certSaved": "证书已保存（{{FILES}}）",
+      "certTitle": "TLS 证书",
+      "cluster": "集群",
+      "connection": "连接",
+      "connectionHint": "将 {{PLACEHOLDER}} 替换为你的数据库密码。",
+      "copyPassword": "复制密码",
+      "copyUrl": "复制连接 URL",
+      "credentials": "凭据",
+      "deleteBody": "数据库及其数据将被永久删除。如果之后可能需要，请先创建快照。",
+      "deleteConfirm": "这将永久删除 {{NAME}} 及其数据。如果之后可能需要，请先创建快照。",
+      "engine": "引擎",
+      "hide": "隐藏",
+      "host": "主机",
+      "loadError": "无法加载此数据库",
+      "memory": "内存",
+      "memoryBody": "为此数据库预留的 RAM（MB），从套餐的可用内存中扣除。",
+      "memoryHigh": "你的套餐最多可为此数据库分配 {{MAX}} MB。",
+      "memoryInteger": "请输入以 MB 为单位的整数。",
+      "memoryInvalid": "请输入此数据库和你的套餐允许的内存大小。",
+      "memoryLow": "此引擎至少需要 {{MIN}} MB。",
+      "memoryRange": "按你的套餐为 {{MIN}}–{{MAX}} MB。",
+      "name": "显示名称",
+      "nameBody": "在控制台中显示的名称，不会改变连接 URL。",
+      "nameInvalid": "请使用 1–32 个字母、数字、空格、连字符或下划线。",
+      "newPassword": "新密码",
+      "newPasswordBody": "复制新密码或连接 URL，并更新相关应用。关闭此面板后将不再显示。",
+      "passwordAck": "我已保存",
+      "passwordBody": "生成新的强密码。当前密码将失效，你的应用需要改用新的连接 URL。",
+      "passwordReset": "重置密码",
+      "passwordResetBody": "当前密码将失效，使用此数据库的应用需要改用新的连接 URL。",
+      "passwordTitle": "数据库密码",
+      "port": "端口",
+      "stopStart": "停止并启动数据库以使其生效",
+      "stopStartFailed": "新密码已生效，但数据库可能已停止。请再次启动它。",
+      "stopStartForced": "重置后，数据库会自动停止并启动以应用新密码。",
+      "stopStarted": "数据库已停止并启动，现使用新密码",
+      "stopStarting": "正在停止并启动数据库以应用新密码…",
+      "restoring": "快照正在恢复。恢复结束后即可启动和停止。",
+      "reveal": "显示",
+      "url": "连接 URL",
+      "user": "用户"
+    }
   },
   "serviceStatus": {
     "label": "Square Cloud（{{STATUS}}）：{{MESSAGE}}",
@@ -269,22 +296,29 @@
     "unknown": "未知",
     "openPage": "打开状态页",
     "unavailable": "暂时无法获取服务状态。",
-    "title": "服务状态"
+    "title": "服务状态",
+    "maintenance": "维护中",
+    "outage": "中断",
+    "summary": {
+      "online": "所有系统运行正常",
+      "maintenance": "正在维护",
+      "degraded": "部分系统异常",
+      "unknown": "无法检查状态"
+    }
   },
   "upload": {
     "title": "上传应用",
     "select": "选择应用文件夹",
     "browse": "浏览...",
-    "missingConfig": "所选文件夹中未找到 squarecloud.app 或 squarecloud.config 文件。Square Cloud 需要其中之一才能托管应用。",
+    "missingConfig": "此文件夹中没有 squarecloud.app 或 squarecloud.config 文件。请在其根目录添加一个，以便从 VS Code 上传。",
     "openDocs": "打开文档",
     "confirm": "要将\n{{PATH}}\n中的内容上传到 Square Cloud 吗？",
-    "zipping": "正在压缩应用...",
+    "zipping": "正在压缩文件夹...",
     "fileCount": "已添加 {{COUNT}} 个文件...",
     "uploading": "正在上传到 Square Cloud...",
-    "emptyFolder": "应用忽略规则后，所选文件夹为空。",
+    "emptyFolder": "没有可上传的内容：应用忽略规则后，文件夹为空。",
     "tooLarge": "压缩后的应用超过 100 MB。请将构建产物和依赖项添加到 squarecloud.ignore 后重试。",
-    "openDashboard": "打开控制台",
-    "loaded": "应用“{{NAME}}”上传成功（{{RUNTIME}}）。"
+    "openDashboard": "打开控制台"
   },
   "apiError": {
     "generic": "Square Cloud API 错误：{{CODE}}",
@@ -302,8 +336,8 @@
     "WORKSPACE_NOT_FOUND": "未找到工作区。",
     "DATABASE_NOT_FOUND": "未找到数据库。",
     "INSUFFICIENT_PERMISSIONS": "你的套餐或角色不允许执行此操作。",
-    "UPGRADE_REQUIRED": "此功能需要有效的付费套餐。",
-    "INSUFFICIENT_MEMORY": "你的套餐可用内存不足。请释放部分内存或升级套餐。",
+    "UPGRADE_REQUIRED": "这需要有效套餐。",
+    "INSUFFICIENT_MEMORY": "你的套餐剩余内存不足。请降低其他应用的内存或升级套餐。",
     "APPLICATIONS_LIMIT_REACHED": "你已达到套餐的应用数量上限。",
     "MEMBERS_LIMIT_REACHED": "此工作区的成员数量已达上限。",
     "WORKSPACE_LIMIT_REACHED": "你已达到套餐的工作区数量上限。",
@@ -331,7 +365,7 @@
     "CONTAINER_ALREADY_STOPPED": "应用已处于停止状态。",
     "CONTAINER_TEMPORARILY_SUSPENDED": "此应用已被暂时停用。请在控制台中查看详情。",
     "CONTAINER_NOT_FOUND": "应用的容器暂时不可用。请稍后重试。",
-    "CONTAINER_INSUFFICIENT_DISK_SPACE": "应用的磁盘空间已用完。请释放存储空间后重试。",
+    "CONTAINER_INSUFFICIENT_DISK_SPACE": "应用的磁盘空间已用完。请删除一些文件后重试。",
     "CONTAINER_NETWORK_CONFLICT": "无法设置应用的网络。请稍后重试。",
     "ACTION_FAILED": "Square Cloud 无法完成此操作。请稍后重试。",
     "GITHUB_NOT_CONNECTED": "你的账户尚未安装 Square Cloud GitHub App。请先在控制台中安装。",
@@ -342,41 +376,78 @@
     "FAILED_TO_FETCH": "GitHub 未能确认该分支。请检查分支名称后重试。",
     "VALIDATION_FAILED": "部分值无效，Square Cloud 拒绝了该请求。",
     "DATABASE_UNAVAILABLE": "Square Cloud 暂时不可用，请稍后重试。更改可能已经生效。",
-    "SNAPSHOT_RESTORE_FAILED": "无法恢复快照，它可能已不存在。"
+    "SNAPSHOT_RESTORE_FAILED": "无法恢复快照，它可能已不存在。",
+    "ENV_BUSY": "另一项环境变量更改正在进行中。请稍后重试。",
+    "SNAPSHOTS_UNAVAILABLE": "快照存储暂时没有响应。请在大约 30 秒后重试。",
+    "SNAPSHOT_IN_PROGRESS": "当前正在创建快照。请等待其完成后重试。",
+    "SNAPSHOT_CORRUPT": "此快照的文件已损坏，无法恢复。未做任何更改，请选择其他快照。",
+    "RESTORE_INTERRUPTED": "服务器在恢复开始前重启了，未做任何更改。请重试。",
+    "INVALID_CODE": "邀请代码无效或已过期。受邀者可在“我的账户 › 安全 › 请求邀请代码”中生成新代码，有效期为 5 分钟。",
+    "MEMBER_ALREADY_ADDED": "该成员已在工作区中。",
+    "CANNOT_INVITE_OWNER": "你不能邀请自己加入自己的工作区。",
+    "READ_FAILED": "请稍后重试。如果问题持续，请重置证书或联系支持。",
+    "STORAGE_QUOTA_EXCEEDED": "你已达到套餐的存储上限。请删除文件或升级套餐。",
+    "OBJECT_NOT_FOUND": "未找到文件。它可能已被删除、移动或过期。",
+    "FILE_TOO_SMALL": "文件小于最小限制 512 B。",
+    "PREFIX_NOT_ALLOWED": "你没有访问此文件夹的权限。",
+    "PERMISSION_DENIED": "此操作需要有效套餐。",
+    "STORAGE_UNAVAILABLE": "存储暂时不可用。请约 10 秒后重试。",
+    "DATABASE_NOT_RUNNING": "数据库已停止。请启动后重试。",
+    "RESET_FAILED": "无法重置凭据。请稍后重试。",
+    "INVALID_MEMORY": "此数据库不允许使用该内存大小。",
+    "OBJECT_ALREADY_EXISTS": "此文件夹中已存在同名文件。",
+    "APP_ALREADY_IN_WORKSPACE": "此应用已在工作区中。",
+    "CANNOT_LEAVE_OWNER": "所有者不能离开工作区。请改为删除它。",
+    "CANNOT_EDIT_OWNER": "无法更改所有者的角色。",
+    "MEMBER_NOT_FOUND": "该成员已不在工作区中。"
   },
   "configFile": {
     "error": {
-      "duplicateKey": "你的 Square Cloud 配置文件中有 2 个“{{key}}”设置。",
-      "missingKey": "你的配置文件缺少“{{key}}”属性，托管应用必须提供该属性。",
+      "duplicateKey": "{{key}} 被设置了多次。",
+      "missingKey": "请添加 {{key}}：它是必填项。",
       "long": {
-        "displayName": "DISPLAY_NAME 字段不能超过 32 个字符。",
-        "description": "DESCRIPTION 字段不能超过 280 个字符。",
-        "subdomain": "SUBDOMAIN 字段不能超过 63 个字符。",
-        "start": "START 字段最多只能包含 256 个字符。"
+        "displayName": "DISPLAY_NAME 最多 32 个字符。",
+        "description": "DESCRIPTION 最多 280 个字符。",
+        "subdomain": "SUBDOMAIN 最多 63 个字符。",
+        "start": "START 最多 256 个字符。"
       },
       "invalid": {
-        "mainFile": "你的项目中不存在 MAIN 文件“{{file}}”。",
-        "memory": "MEMORY 字段的值必须以 MB 为单位，且大于或等于 {{memory}}。",
-        "autoRestart": "AUTORESTART 字段必须为“true”或“false”。",
-        "version": "VERSION 字段只允许“recommended”或“latest”。",
-        "subdomain": "SUBDOMAIN 无效。只能包含字母、数字和连字符。",
-        "runtime": "RUNTIME 无效。允许的值：nodejs、javascript、typescript、python、dotnet、csharp、c#、java、elixir、rust、ruby、rb、php、go、golang、static、html。"
+        "mainFile": "“{{file}}”不在你的项目中。",
+        "memory": "MEMORY 以 MB 为单位，且至少为 {{memory}}。",
+        "autoRestart": "AUTORESTART 必须为 true 或 false。",
+        "version": "VERSION 必须为 recommended 或 latest。",
+        "subdomain": "SUBDOMAIN 只能包含字母、数字和连字符。",
+        "runtime": "RUNTIME 必须是以下之一：nodejs、javascript、typescript、python、dotnet、csharp、c#、java、elixir、rust、ruby、rb、php、go、golang、static、html。"
       },
       "missing": {
-        "displayName": "你需要提供有效的 DISPLAY_NAME，最多 32 个字符。",
-        "description": "你需要提供有效的描述，最多 280 个字符。如果不需要，删除 DESCRIPTION 字段即可。",
-        "subdomain": "托管 Web 应用（网站、API）时，你需要提供有效的子域名。如果不是这个用途，删除 SUBDOMAIN 字段即可。",
-        "start": "你需要提供启动命令。如果不需要，删除 START 字段即可。",
-        "main": "你需要提供有效的主文件。它是应用的主文件，一切都从这里开始！"
+        "displayName": "为 DISPLAY_NAME 设置一个最多 32 个字符的名称。",
+        "description": "写一段最多 280 个字符的描述，或删除 DESCRIPTION。",
+        "subdomain": "输入子域名以发布网站或 API，或删除 SUBDOMAIN。",
+        "start": "输入启动命令，或删除 START。",
+        "main": "输入启动应用的文件，例如 index.js，或设置 RUNTIME。"
       },
       "unavailable": {
         "memory": {
-          "message": "你的可用内存已用完。可以考虑升级套餐。",
+          "message": "你的套餐没有这么多可用内存。",
           "code": "升级"
         }
       }
     },
-    "quickFix": "更改为 {{LINE}}"
+    "quickFix": "更改为 {{LINE}}",
+    "hover": {
+      "required": "必填",
+      "optional": "可选",
+      "reference": "配置文件参考",
+      "main": "启动应用的文件，相对于项目根目录，例如 `index.js` 或 `src/main.py`。其扩展名决定运行时。设置了 RUNTIME 时可省略。",
+      "memory": "为应用预留的 RAM，单位为 MB：至少 256，网站至少 512，且不超过你的套餐可用内存。",
+      "version": "运行时版本：`recommended` 或 `latest`。除非你需要只有最新版本才有的功能，否则请使用 `recommended`。",
+      "displayName": "在控制台中显示的名称，最多 32 个字符。",
+      "description": "应用的简短描述，最多 280 个字符。",
+      "autorestart": "`true` 会在应用崩溃后自动重启它。默认为 `false`。",
+      "subdomain": "将应用作为网站发布在 `<subdomain>.squareweb.app`：最多 63 个字母、数字和连字符。请在首次上传时决定，因为网站可以更改子域名，但不能移除它。",
+      "runtime": "直接设置运行时，而不是根据 MAIN 的扩展名判断。可接受的值：{{VALUES}}。",
+      "start": "自定义启动命令，最多 256 个字符。它会取代运行你的 MAIN 文件，依赖项仍会先安装。"
+    }
   },
   "dashboard": {
     "online": "在线",
@@ -385,65 +456,19 @@
     "more": "更多操作",
     "ramUsed": "内存",
     "ramUnavailable": "不可用",
-    "member": "{{COUNT}} 名成员",
-    "members": "{{COUNT}} 名成员",
-    "app": "{{COUNT}} 个应用",
-    "apps": "{{COUNT}} 个应用",
-    "group": {
-      "app": "应用",
-      "deploy": "部署",
-      "settings": "配置",
-      "monitoring": "监控",
-      "edge": "边缘网络",
-      "control": "控制",
-      "credentials": "凭据",
-      "danger": "危险区域",
-      "metrics": "指标"
-    },
     "empty": {
-      "body": "上传一个包含 squarecloud.app 文件的项目文件夹，Square Cloud 就会开始运行它。",
-      "upload": "上传你的第一个应用",
-      "alt": "一朵空空的云，正等待你的第一次上传。"
+      "upload": "上传你的第一个应用"
     },
-    "tour": "入门指南",
     "pending": {
       "start": "正在启动",
       "stop": "正在停止",
       "restart": "正在重启"
     },
-    "help": {
-      "label": "这是什么？",
-      "account": "你套餐中的内存由所有应用共享。进度条显示已预留的部分。",
-      "apps": "你在 Square Cloud 上托管的程序。标签显示状态：在线、离线，状态切换中时显示为琥珀色。点击卡片查看详情；右键单击或点击 ⋯ 可执行全部操作。",
-      "metrics": "应用当前正在使用的 CPU 和内存。",
-      "databases": "由 Square Cloud 托管的数据库，使用加密（TLS）连接。点击 ⋯ 可启动、停止或下载证书。",
-      "workspaces": "团队成员共同管理相同应用的共享空间，每人拥有各自的角色。"
-    },
-    "field": {
-      "id": "ID",
-      "ram": "内存",
-      "runtime": "运行时",
-      "cluster": "集群",
-      "domain": "域名",
-      "uptime": "启动于"
-    },
-    "fieldHelp": {
-      "id": "应用的唯一标识符。复制后可在 CLI 或 API 中使用。",
-      "ram": "从你的套餐中为此应用预留的内存。",
-      "runtime": "应用运行所用的语言。",
-      "cluster": "运行此应用的 Square Cloud 服务器组。",
-      "domain": "可访问此应用的网址。",
-      "uptime": "应用上次启动的时间。"
-    },
     "stale": "无法刷新。当前显示的是 {{TIME}} 的数据。",
     "plan": {
-      "title": "选择套餐，开始托管",
-      "body": "有了套餐，Square Cloud 会让你的机器人、网站和 API 全天候在线。"
+      "title": "选择套餐，开始托管"
     },
     "noDatabases": "还没有数据库。",
-    "noWorkspaces": "还没有工作区。",
-    "filter": "筛选应用",
-    "noMatch": "没有与“{{QUERY}}”匹配的应用。",
     "page": "第 {{PAGE}} 页，共 {{PAGES}} 页",
     "prevPage": "上一页",
     "nextPage": "下一页"
@@ -452,93 +477,64 @@
   "command.snapshot": "下载快照",
   "logout": {
     "confirm": "要从 VS Code 断开此账户吗？",
-    "confirmAccount": "要从 VS Code 断开 {{EMAIL}} 吗？该授权在过期或你在“我的账户 → 验证”中撤销之前仍然有效。"
+    "confirmAccount": "要从 VS Code 断开 {{EMAIL}} 吗？在过期或你在“我的账户 › 安全”中撤销之前，该授权仍然有效。"
   },
   "command.getStarted": "入门",
   "walkthrough.title": "Square Cloud 入门",
-  "walkthrough.description": "无需离开 VS Code，一步一步部署、运行和监控你的应用。",
+  "walkthrough.description": "无需离开 VS Code，即可部署、跟踪和更改你的应用。",
   "walkthrough.connect.title": "连接你的账户",
-  "walkthrough.connect.description": "连接后，此编辑器即可替你管理 Square Cloud。\n点击 **连接账户**，将 VS Code 中的 8 位代码粘贴到浏览器打开的网页中，然后批准。授权保存在系统钥匙串中，有效期 90 天，可随时撤销。\n[连接账户](command:squarecloud.setApiKey)",
-  "walkthrough.connect.alt": "连接账户：VS Code 显示一个代码，你将其粘贴到浏览器中并批准，授权即被安全保存。",
+  "walkthrough.connect.description": "点击 **连接账户**，将 8 位代码粘贴到浏览器打开的网页中，然后批准。VS Code 永远不会看到你的密码。授权保存在系统钥匙串中，有效期 90 天，你可以随时在“我的账户 › 安全”中撤销。\n[连接账户](command:squarecloud.setApiKey)",
+  "walkthrough.connect.alt": "VS Code 显示一个 8 位代码，你将其粘贴到浏览器中的批准页面，然后批准。",
+  "walkthrough.sidebar.title": "在侧边栏中找到一切",
+  "walkthrough.sidebar.description": "Square Cloud 侧边栏列出你的应用和数据库及其实时状态，以及你的 Blob 存储。在顶部选择工作区即可查看团队的应用，将最常用的应用添加到收藏，让它们排在最前，将鼠标悬停在某一行上即可启动、停止或重启。点击某一行可打开其面板；其余操作在 ⋯ 中。\n[打开侧边栏](command:workbench.view.extension.squarecloud-container)",
+  "walkthrough.sidebar.alt": "侧边栏显示账户的内存、工作区选择器和应用行；悬停在某一行上会显示启动、重启和停止。",
   "walkthrough.config.title": "在 squarecloud.app 中描述你的应用",
-  "walkthrough.config.description": "每个应用的根目录中都有一个 **squarecloud.app** 文件。它告诉 Square Cloud 如何运行应用：主文件、预留多少内存、运行时，以及网站所需的子域名。\n打开该文件后，此扩展会在你输入时提供帮助：所有字段的自动补全（Ctrl+Space）、带清晰提示的即时校验，以及针对无效值的快速修复。\n[打开配置文件参考](https://docs.squarecloud.app/getting-started/config-file)",
-  "walkthrough.config.alt": "编辑 squarecloud.app 配置文件，显示自动补全建议。",
-  "walkthrough.upload.title": "上传你的应用",
-  "walkthrough.upload.description": "**上传** 会压缩你的项目文件夹（跳过 squarecloud.ignore 中列出的内容），发送到 Square Cloud 并启动。\n已经上线了？**提交** 会将更新后的文件发送到现有应用，并保留其 ID 和地址。\n[上传应用](command:squarecloud.uploadApplication)\n[提交文件](command:squarecloud.commitEntry)",
-  "walkthrough.upload.alt": "你的项目被压缩并上传到 Square Cloud，然后开始运行。",
-  "walkthrough.manage.title": "启动、停止和重启",
-  "walkthrough.manage.description": "Square Cloud 侧边栏会列出你的应用，每个应用都有状态标签：在线、离线，正在启动、停止或重启时显示为琥珀色。将鼠标悬停在某一行上可启动、停止或重启应用，点击可查看详情，右键单击（或使用 ⋯）可执行其他所有操作，例如编辑环境变量。\n[打开侧边栏](command:workbench.view.extension.squarecloud-container)\n[重启应用](command:squarecloud.restartEntry)\n[编辑环境变量](command:squarecloud.envsEntry)",
-  "walkthrough.manage.alt": "在侧边栏中启动、停止和重启应用，并查看状态变化。",
-  "walkthrough.logs.title": "查看日志和指标",
-  "walkthrough.logs.description": "日志是应用输出的内容。**查看日志** 会获取最新的几行，**实时流** 会持续跟踪新到达的日志。**24 小时指标** 显示最近一天的 CPU、内存和网络情况（适用于 512 MB 及以上的应用）。\n[查看日志](command:squarecloud.logsEntry)\n[切换实时流](command:squarecloud.realtimeEntry)\n[查看 24 小时指标](command:squarecloud.metricsEntry)",
-  "walkthrough.logs.alt": "实时日志与实时 CPU、内存图表并排显示。",
+  "walkthrough.config.description": "要从 VS Code 上传，请在项目根目录放置一个 **squarecloud.app** 文件。它说明由哪个文件启动应用、预留多少内存、运行时版本，以及网站的子域名。\n在你输入时，扩展会补全每个键（Ctrl+Space），用快速修复标出无效值，并在你悬停时解释该键。\n[打开参考](https://docs.squarecloud.app/zh/getting-started/config-file)",
+  "walkthrough.config.alt": "编辑器中的 squarecloud.app 文件，悬停提示正在解释 MEMORY 键。",
+  "walkthrough.upload.title": "上传或提交",
+  "walkthrough.upload.description": "**上传** 会压缩项目文件夹（排除 squarecloud.ignore 中列出的内容），并据此创建新应用。完成后会打开它的面板。\n**提交** 会将文件或文件夹发送到你已有的应用，并保留其 ID 和地址。\n[上传应用](command:squarecloud.uploadApplication)\n[提交文件](command:squarecloud.commitEntry)",
+  "walkthrough.upload.alt": "项目文件夹被压缩并发送到 Square Cloud。",
+  "walkthrough.panel.title": "打开应用",
+  "walkthrough.panel.description": "每个应用都在自己的面板中打开。**概览** 显示实时 CPU、内存和网络，并提供启动、停止和重启。**指标** 显示最近 24 小时的图表，在 Pro 和 Enterprise 套餐中，512 MB 及以上可查看 7 天。**部署** 关联 GitHub 仓库，让每次推送都自动部署；**环境变量** 用于编辑运行环境；网站还有 **网络** 标签页，显示流量、域名、错误和性能。\n[打开指标](command:squarecloud.metricsEntry)\n[重启应用](command:squarecloud.restartEntry)",
+  "walkthrough.panel.alt": "应用面板，包含各标签页、四项实时数据和一张指标图表。",
+  "walkthrough.logs.title": "实时跟踪日志",
+  "walkthrough.logs.description": "**日志** 标签页会加载最新的行，并在应用输出新内容时持续跟踪。你可以搜索、暂停、清空视图或下载屏幕上的内容。\n[打开日志](command:squarecloud.logsEntry)",
+  "walkthrough.logs.alt": "日志视图，最新一行标记为实时，并带有搜索框和暂停按钮。",
+  "walkthrough.files.title": "在 VS Code 中编辑文件",
+  "walkthrough.files.description": "**文件** 标签页列出应用的文件。每个文件都在普通的 VS Code 编辑器中打开，保存即写回 Square Cloud。你可以在这里创建、重命名、上传或删除文件，或选择 **作为文件夹打开**，将整个应用添加到你的工作区。\n[打开侧边栏](command:workbench.view.extension.squarecloud-container)",
+  "walkthrough.files.alt": "应用的文件树位于编辑器旁；保存会将文件发送回 Square Cloud。",
   "walkthrough.snapshots.title": "用快照备份",
-  "walkthrough.snapshots.description": "快照是应用文件的备份。在进行有风险的更改前，先下载一份快照；如果出了问题，可将应用恢复到之前的快照。\n[下载快照](command:squarecloud.snapshotEntry)\n[恢复快照](command:squarecloud.snapshotRestoreEntry)",
-  "walkthrough.snapshots.alt": "从时间线中选择一个快照，并将应用恢复到该快照。",
-  "walkthrough.databases.title": "创建数据库",
-  "walkthrough.databases.description": "Square Cloud 提供托管的 MongoDB、MySQL、PostgreSQL 和 Redis 数据库，使用加密（TLS）连接。在这里创建数据库后，连接 URL 会自动复制到剪贴板；然后下载它的 TLS 证书，让你的应用能够连接。\n[创建数据库](command:squarecloud.createDatabase)\n[下载 TLS 证书](command:squarecloud.downloadDatabaseCertificate)",
-  "walkthrough.databases.alt": "带有 TLS 证书和凭据的托管数据库。",
-  "walkthrough.workspaces.title": "团队协作",
-  "walkthrough.workspaces.description": "工作区是一个共享空间，团队成员可以在其中共同管理相同的应用，每人拥有各自的角色。你可以为团队创建一个工作区，也可以复制自己的邀请代码并发送给工作区所有者，让对方添加你。\n[创建工作区](command:squarecloud.createWorkspace)\n[复制我的邀请代码](command:squarecloud.generateInviteCode)",
-  "walkthrough.workspaces.alt": "团队成员围绕一个共享应用加入工作区，每人拥有各自的角色。",
-  "walkthrough.github.title": "每次 git push 自动部署",
-  "walkthrough.github.description": "将应用关联到 GitHub 仓库和分支后，每次推送到该分支都会自动部署，无需手动上传。请先在控制台中安装 Square Cloud GitHub App。\n[关联 GitHub 仓库](command:squarecloud.linkGithubAppEntry)",
-  "walkthrough.github.alt": "一次 git push 触发 webhook 部署：等待中、克隆、提交、重启中、成功。",
-  "walkthrough.network.title": "了解你的流量",
-  "walkthrough.network.description": "网站可使用边缘分析：请求日志、错误和响应时间，发布更改时还可以清除缓存。适用于有域名的应用。\n[边缘日志](command:squarecloud.networkLogsEntry)\n[边缘性能](command:squarecloud.networkPerformanceEntry)\n[清除边缘缓存](command:squarecloud.purgeCacheEntry)",
-  "walkthrough.network.alt": "边缘分析：来自全球的请求、流量图表和缓存清除。",
+  "walkthrough.snapshots.description": "快照是应用文件的副本。在进行有风险的更改前创建一个快照，将其下载为 .zip，或在 **快照** 标签页中恢复，并逐步跟踪恢复过程。\n[下载快照](command:squarecloud.snapshotEntry)\n[恢复快照](command:squarecloud.snapshotRestoreEntry)",
+  "walkthrough.snapshots.alt": "快照时间线，箭头将应用恢复到较早的快照。",
+  "walkthrough.databases.title": "数据库和 Blob 存储",
+  "walkthrough.databases.description": "创建 MongoDB、MySQL、PostgreSQL 或 Redis 数据库：它的面板提供连接信息、TLS 证书、密码重置、指标和快照。**Blob** 通过公开或私有链接存储文件；在它的面板中上传、浏览和复制链接。\n[创建数据库](command:squarecloud.createDatabase)\n[打开 Blob 存储](command:squarecloud.openBlob)",
+  "walkthrough.databases.alt": "一个通过 TLS 证书连接到数据库的应用，旁边是 Blob 文件网格。",
+  "walkthrough.agent.title": "在代理模式中使用 Square Cloud",
+  "walkthrough.agent.description": "连接账户后，VS Code 的代理模式可以使用 Square Cloud 的工具：在聊天中询问应用的状态或日志，或让它重启应用，VS Code 会在每次更改前征求你的同意。扩展会自动添加 Square Cloud MCP 服务器。在 6.0 之前就已连接？请从侧边栏重新连接以允许此功能。\n[关于 MCP 服务器](https://docs.squarecloud.app/zh/mcp/overview)",
+  "walkthrough.agent.alt": "VS Code 中的聊天通过 mcp.squarecloud.app/mcp 调用 Square Cloud 工具。",
   "auth": {
-    "hero": {
-      "alt": "Square Cloud 平台：网站、机器人、数据库和 API 连接到中心，各自向上发送数据。"
-    },
-    "brandTag": "VS Code 版",
-    "home": {
-      "title": "托管一切，在这里掌控。",
-      "lede": "网站、机器人、数据库和 API 在 Square Cloud 上全天候运行。无需离开 VS Code，即可查看和掌控一切。",
-      "trust": "VS Code 会获得独立的授权，有效期 90 天，你可以随时撤销。你的密码绝不会经过这里。"
-    },
     "newHere": "初次使用？",
     "tour": "查看入门导览",
-    "steps": {
-      "label": "连接流程",
-      "connect": "连接",
-      "confirm": "确认代码",
-      "done": "完成"
-    },
     "preparing": "正在准备安全代码...",
     "copy": "复制代码",
     "warning": {
       "keyLimit": "授权数量已达上限",
       "rateLimit": "稍等片刻",
-      "openSecurity": "打开“我的账户 → 验证”"
+      "openSecurity": "打开“我的账户 › 安全”"
     },
     "expired": {
       "title": "代码已过期",
       "body": "为了你的安全，每个代码只在几分钟内有效。重新开始即可获取新代码。未建立任何连接。"
     },
-    "success": {
-      "alt": "连接成功。"
-    },
     "cancelled": "已取消。未建立任何连接，你可以随时重新开始。",
     "scopes": {
-      "title": "VS Code 将能做什么？",
-      "account": "查看你的姓名、邮箱和套餐。",
-      "appsRead": "查看你的应用及其状态、日志和指标。",
-      "appsControl": "启动、停止和重启你的应用。",
-      "appsDeploy": "上传新应用，并向现有应用发送文件。",
-      "appsWrite": "更改应用设置和删除应用，仅在你要求时执行。",
-      "envs": "读取和编辑环境变量。",
-      "snapshots": "下载快照（备份），并将应用恢复到某个快照。",
-      "databases": "查看、创建、启动、停止和删除你的数据库。",
-      "databaseCredentials": "下载数据库的 TLS 证书和凭据。",
-      "workspaces": "创建、离开和删除工作区，并邀请他人加入。",
-      "footer": "它绝不会看到你的密码。授权有效期为 90 天，你可以随时在“我的账户 → 验证”中撤销。"
+      "footer": "它绝不会看到你的密码。授权有效期为 90 天，你可以随时在“我的账户 › 安全”中撤销。"
     }
   },
   "problem": {
     "offline": {
       "title": "无法连接到 Square Cloud",
-      "body": "请检查网络连接。恢复联网后，面板会自动重新连接。"
+      "body": "请检查网络连接。恢复联网后，此视图会自动重新连接。"
     },
     "rateLimit": {
       "title": "稍等片刻",
@@ -561,20 +557,557 @@
       "action": "查看套餐"
     }
   },
-  "illustration": {
-    "offline": "未连接到 Square Cloud。",
-    "rateLimit": "请求已暂停。",
-    "keyLimit": "授权数量已达上限。",
-    "outage": "Square Cloud 服务中断。",
-    "session": "一个需要续期的授权。",
-    "error": "出了点问题。",
-    "plan": "选择 Square Cloud 套餐。",
-    "codeExpired": "一个已过期的代码。",
-    "emptyDatabases": "带加号的虚线数据库轮廓，正等待你的第一个数据库。",
-    "emptyWorkspaces": "两位队友连接到一个共享方块，旁边留有一个空位给新成员。"
-  },
   "statusBar": {
     "signIn": "Square Cloud：连接账户",
     "online": "{{ONLINE}}/{{TOTAL}} 在线"
-  }
+  },
+  "sidebar": {
+    "signIn": {
+      "title": "连接你的账户",
+      "lede": "无需离开 VS Code，即可查看和控制你的应用、数据库和 Blob 存储。",
+      "paste": "改为粘贴密钥",
+      "scopesTitle": "VS Code 可以做什么",
+      "scopes": {
+        "read": "查看你的账户、应用和数据库",
+        "control": "按你的要求启动、停止、部署和配置它们",
+        "files": "读取和编辑应用文件、环境变量和 Blob 对象",
+        "workspaces": "创建工作区并邀请他人加入",
+        "mcp": "允许代理模式替你使用 Square Cloud 工具"
+      },
+      "expires": "代码将于 {{TIME}} 过期。"
+    },
+    "filter": "按名称筛选",
+    "noMatch": "没有与“{{QUERY}}”匹配的项目。",
+    "noApps": "还没有应用。",
+    "empty": {
+      "title": "还没有部署任何内容",
+      "body": "上传项目文件夹来部署你的第一个应用，或者创建一个数据库。"
+    },
+    "plan": {
+      "body": "选择一个套餐来部署你的机器人、网站和 API。"
+    },
+    "workspaceEmpty": {
+      "title": "这里还没有应用",
+      "body": "添加到此工作区的应用会显示在这里。"
+    },
+    "workspace": {
+      "label": "工作区",
+      "personal": "个人",
+      "invite": "复制我的邀请代码",
+      "open": "打开工作区"
+    },
+    "blob": {
+      "object": "{{COUNT}} 个对象",
+      "objects": "{{COUNT}} 个对象"
+    },
+    "links": {
+      "label": "资源",
+      "dashboard": "控制台",
+      "docs": "文档",
+      "support": "支持"
+    },
+    "mcp": {
+      "action": "重新连接，在代理模式中使用 Square Cloud 工具"
+    }
+  },
+  "panel": {
+    "tabs": "分区",
+    "tab": {
+      "overview": "概览",
+      "metrics": "指标",
+      "logs": "日志",
+      "deploys": "部署",
+      "variables": "环境变量",
+      "files": "文件",
+      "snapshots": "快照",
+      "network": "网络",
+      "settings": "设置"
+    },
+    "actions": "操作",
+    "cancel": "取消",
+    "dismiss": "关闭",
+    "retry": "重试",
+    "error": {
+      "body": "出了点问题。请稍后重试。"
+    },
+    "reconnect": {
+      "title": "重新连接后即可使用",
+      "body": "你的授权早于此功能推出，因此不包含它。请重新连接以授予权限。",
+      "action": "重新连接"
+    },
+    "metrics": {
+      "range": "时间范围",
+      "day": "24 小时",
+      "week": "7 天",
+      "weekPlan": "7 天历史记录包含在 Pro 和 Enterprise 套餐中。",
+      "weekSmall": "7 天历史记录需要 512 MB 及以上的内存。",
+      "weekServed": "当前显示最近 24 小时：7 天历史记录需要 Pro 或 Enterprise 套餐以及 512 MB 及以上的内存。",
+      "updated": "更新于 {{TIME}}",
+      "cpu": "CPU",
+      "ram": "内存",
+      "network": "网络",
+      "empty": {
+        "body": "图表至少需要两个在运行期间采集的样本。采集到后会自动显示在这里。",
+        "title": "此时间段内暂无数据点"
+      },
+      "description": "CPU、内存和网络每 5 分钟采集一次（低于 512 MB 时为 10 分钟），保留 24 小时。在 Pro 和 Enterprise 中，数据库和 512 MB 及以上的应用保留 7 天。",
+      "inbound": "入站",
+      "outbound": "出站",
+      "average": "平均值",
+      "peak": "峰值",
+      "disk": "磁盘 I/O",
+      "read": "读取",
+      "write": "写入",
+      "storage": "存储"
+    },
+    "snapshots": {
+      "title": "快照",
+      "description": "将快照下载为 .zip，或在此恢复快照。",
+      "create": "创建快照",
+      "pending": "正在生成你的快照",
+      "pendingBody": "大约 2 分钟后会出现在此列表中。列表会自动刷新。",
+      "date": "创建时间",
+      "origin": "来源",
+      "size": "大小",
+      "version": "版本",
+      "automatic": "自动",
+      "manual": "手动",
+      "saved": "快照已保存",
+      "confirmTitle": "恢复此快照？",
+      "confirmBody": "{{NAME}} 的全部内容将被替换为 {{DATE}} 时的状态。此操作无法撤销。",
+      "restoring": "正在恢复快照",
+      "restoringBody": "较小的快照只需几秒钟，较大的快照需要几分钟。关闭此面板不会中断恢复。",
+      "joined": "已有恢复正在进行，这里显示它的进度。",
+      "restoredBody": "一切已恢复到快照时的状态。",
+      "unknown": "结果未知",
+      "unknownBody": "Square Cloud 没有这次恢复如何结束的记录。请查看日志，确认一切是否已恢复。",
+      "openLogs": "打开日志",
+      "empty": {
+        "body": "创建一个快照来保存当前状态，之后可以下载或恢复。",
+        "title": "还没有快照"
+      },
+      "phase": {
+        "queued": "排队等待恢复",
+        "inspect": "正在检查快照",
+        "download": "正在下载快照",
+        "preflight": "正在检查空间和要求",
+        "verify": "正在验证快照文件",
+        "lock": "正在预留环境",
+        "stop": "正在停止环境",
+        "wipe": "正在清除当前数据",
+        "unzip": "正在解压文件",
+        "start": "正在启动环境",
+        "recovery": "正在恢复管理员访问权限",
+        "done": "正在完成",
+        "interrupted": "恢复已中断"
+      },
+      "restored": "快照已恢复",
+      "failed": "无法恢复快照",
+      "failedBody": "恢复快照时出错。请稍后重试。",
+      "download": "下载",
+      "restore": "恢复"
+    }
+  },
+  "app": {
+    "copied": "已复制",
+    "open": "打开",
+    "static": "静态站点",
+    "loadError": "无法打开此应用",
+    "usage": "使用情况",
+    "live": {
+      "on": "实时",
+      "connecting": "正在连接",
+      "off": "未实时",
+      "limit": "你的账户已打开 5 个实时流。",
+      "stopped": "应用运行后会自动恢复。"
+    },
+    "stat": {
+      "ofLimit": "上限的 {{PERCENT}}",
+      "stopped": "已停止"
+    },
+    "info": {
+      "title": "详情",
+      "runtime": "运行时",
+      "memory": "内存",
+      "cluster": "集群",
+      "domain": "域名",
+      "started": "运行开始于",
+      "created": "创建时间",
+      "id": "ID"
+    },
+    "logs": {
+      "search": "搜索日志",
+      "pause": "暂停",
+      "resume": "继续",
+      "paused": "已暂停",
+      "pausedHeld": "已暂停 · {{COUNT}} 条新日志",
+      "reload": "重新加载历史",
+      "clear": "清空视图",
+      "download": "下载",
+      "saved": "已保存",
+      "empty": "暂无日志",
+      "noMatch": "没有与“{{QUERY}}”匹配的行。",
+      "label": "应用日志",
+      "open": "打开日志"
+    },
+    "deploys": {
+      "github": "GitHub App",
+      "githubBody": "每次推送到该分支都会部署此应用。你的 GitHub 账户需要安装 Square Cloud GitHub App。",
+      "repository": "仓库",
+      "branch": "分支",
+      "link": "关联仓库",
+      "linkedBody": "每次推送到此分支都会部署该应用。",
+      "unlink": "取消关联",
+      "unlinkTitle": "取消关联该仓库？",
+      "unlinkBody": "推送到 {{REPO}} 的新提交将不再部署此应用。你可以随时重新关联。",
+      "webhook": "Webhook",
+      "webhookBody": "通过使用个人访问令牌配置的 GitHub Webhook，在每次推送时部署。",
+      "token": "GitHub 个人访问令牌",
+      "setWebhook": "设置 Webhook",
+      "webhookSet": "请将此 URL 添加为你的 GitHub 仓库的 Webhook。",
+      "copyUrl": "复制 URL",
+      "removeWebhook": "移除 Webhook",
+      "removeWebhookTitle": "移除该 Webhook？",
+      "removeWebhookBody": "推送将不再通过它部署此应用。",
+      "history": "历史",
+      "status": "状态",
+      "commit": "提交",
+      "detail": "详情",
+      "when": "时间",
+      "empty": {
+        "title": "暂无部署",
+        "body": "来自 GitHub（App 或 Webhook）的部署会显示在这里。"
+      },
+      "state": {
+        "pending": "等待中",
+        "clone": "正在克隆",
+        "commit": "正在应用提交",
+        "restarting": "正在重启",
+        "success": "已部署",
+        "error": "失败"
+      }
+    },
+    "envs": {
+      "description": "你的应用从运行环境中读取这些变量。粘贴整个 .env 文件即可一次添加多个。",
+      "key": "键",
+      "value": "值",
+      "add": "添加变量",
+      "paste": "粘贴 .env",
+      "import": "导入文件",
+      "show": "显示值",
+      "hide": "隐藏值",
+      "copy": "复制值",
+      "edit": "编辑",
+      "delete": "删除变量",
+      "deleteTitle": "删除 {{KEY}}？",
+      "deleteBody": "它将从此应用的环境变量中移除。",
+      "save": "保存",
+      "pasteBody": "每行一个 KEY=value。注释和空行会被跳过，已存在的键会被覆盖。",
+      "found": "待保存的变量：{{COUNT}} 个",
+      "foundOne": "待保存的变量：{{COUNT}} 个",
+      "skipped": "已跳过第 {{LINES}} 行：格式不是 KEY=value。",
+      "tooLarge": "此文件太大，不像是 .env 文件。",
+      "empty": {
+        "title": "暂无变量",
+        "body": "添加一个，或粘贴整个 .env 文件。"
+      }
+    },
+    "settings": {
+      "commit": "发送文件",
+      "commitBody": "将文件或文件夹发送到此应用。文件夹中 squarecloud.ignore 列出的内容会被排除。",
+      "restart": "发送后重启应用",
+      "files": "选择文件",
+      "folder": "选择文件夹",
+      "committed": "文件已发送",
+      "delete": "删除应用",
+      "deleteBody": "删除该应用及其文件。删除前会先创建一个恢复快照，之后可以下载。",
+      "deleteAction": "删除应用",
+      "deleteTitle": "删除 {{NAME}}？",
+      "deleteConfirm": "这将删除 {{NAME}} 及其文件。删除前会先创建一个恢复快照。",
+      "deletePrompt": "输入 {{NAME}} 以确认"
+    },
+    "files": {
+      "description": "你的应用的文件。每个文件都在 VS Code 编辑器中打开，保存即写回。",
+      "newFile": "新建文件",
+      "newFolder": "新建文件夹",
+      "upload": "上传文件",
+      "openFolder": "作为文件夹打开",
+      "empty": {
+        "body": "在这里上传文件，或在“设置”标签页中提交一个文件夹。",
+        "title": "还没有文件"
+      },
+      "invalidName": "请输入不含“..”且不以“/”结尾的名称。",
+      "target": "位置：{{PATH}}",
+      "tooLarge": "超过 10 MB 的文件无法在此打开。请下载快照来获取此文件。",
+      "uploaded": "已上传 {{COUNT}} 个文件",
+      "uploadedOne": "已上传 {{COUNT}} 个文件",
+      "deleteTitle": "删除 {{NAME}}？",
+      "deleteFile": "该文件将从应用中移除。此操作无法撤销。",
+      "deleteFolder": "该文件夹及其中所有内容将从应用中移除。此操作无法撤销。",
+      "renameTitle": "重命名 {{NAME}}",
+      "name": "名称",
+      "blocked": "此文件夹受保护，无法打开。",
+      "gone": "此文件夹已不存在。",
+      "emptyFolder": "空文件夹",
+      "rename": "重命名",
+      "uploadHere": "上传文件到此处",
+      "newFileTitle": "创建文件",
+      "newFolderTitle": "创建文件夹",
+      "nameHint": "使用“/”创建文件夹。示例：“src/index.js”",
+      "pathTooLong": "完整路径超过 256 个字符。请使用更短的名称或文件夹。"
+    },
+    "network": {
+      "section": {
+        "analytics": "分析",
+        "domains": "域名",
+        "logs": "访问日志",
+        "errors": "错误",
+        "performance": "性能"
+      },
+      "analytics": {
+        "description": "到达你网站地址的请求，在边缘节点统计。",
+        "empty": {
+          "title": "暂无流量",
+          "body": "当你的网站开始有访客后，流量、设备和来源将显示在这里。尝试扩大时间范围。"
+        },
+        "openSite": "打开网站",
+        "listEmpty": "此时间段内没有记录。网站收到访问后，数据会显示在这里。"
+      },
+      "domains": {
+        "description": "你的应用的地址、自定义域名所需的 DNS 记录，以及边缘缓存。",
+        "default": "默认地址",
+        "defaultBody": "每个网站都有一个。添加自定义域名后它依然可用。",
+        "noDefault": "此应用没有默认地址。",
+        "customBody": "将你拥有的域名指向此应用，HTTPS 会自动配置。适用于 Standard、Pro 和 Enterprise 套餐。",
+        "custom": "自定义域名",
+        "placeholder": "输入自定义域名。例如：mywebsite.com",
+        "save": "保存",
+        "invalid": "域名无效。只能使用字母、数字、连字符和点，不能包含空格。示例：app.mysite.com",
+        "reserved": "Square Cloud 的域名不能用作自定义域名。",
+        "savedAs": "此域名将保存为：",
+        "saved": "{{DOMAIN}} 已添加到此应用。下方的 DNS 记录可能需要片刻才会显示。",
+        "remove": "移除",
+        "removeTitle": "从此应用中移除域名？",
+        "removeBody": "{{DOMAIN}} 将不再指向此应用。"
+      },
+      "logs": {
+        "description": "边缘节点上的每个请求，最新的在前。新请求最多可能需要 5 分钟才会显示。",
+        "filter": "按路径、状态、IP 或国家筛选",
+        "showing": "显示 {{TOTAL}} 条中最新的 {{SHOWN}} 条。筛选或选择更短的时间范围以查看其余内容。",
+        "noMatch": "没有与“{{QUERY}}”匹配的请求。",
+        "time": "时间",
+        "method": "方法",
+        "path": "路径",
+        "ip": "IP",
+        "empty": {
+          "title": "此时间范围内没有请求",
+          "body": "请调整时间范围或筛选条件。新请求最多需要 5 分钟才会显示。"
+        },
+        "paywall": {
+          "title": "查看每一个到达的请求",
+          "body": "每次访问你网站的 IP、路由、状态、延迟和缓存，让你在错误发生的那一刻就能调试。"
+        }
+      },
+      "errors": {
+        "byStatus": "按状态",
+        "description": "在边缘节点失败的响应：除非包含 4xx，否则仅显示 5xx。",
+        "total": "错误总数",
+        "by4xx": "4xx 错误",
+        "by5xx": "5xx 错误",
+        "include4xx": "包括 4xx",
+        "include4xxHint": "机器人和扫描器会产生大量 4xx 错误。仅在需要时开启。",
+        "overTime": "错误随时间变化（按状态）",
+        "paths": "错误最多的路径",
+        "pathsEmpty": "此时间段内没有错误路径。",
+        "empty": {
+          "title": "此时间段内没有错误",
+          "body": "在所选时间范围内，你网站的所有请求都成功响应。"
+        }
+      },
+      "performance": {
+        "description": "访客在边缘节点等待的时间，以及你的应用响应所用的时间。",
+        "edge": "CDN（边缘）",
+        "edgeBody": "Cloudflare 边缘的首字节时间，也就是你的访客等待了多久。",
+        "origin": "服务器（源站）",
+        "originBody": "你的容器响应时间，也就是应用处理花了多久。",
+        "edgeP95": "边缘延迟（p95）",
+        "originP95": "源站延迟（p95）",
+        "overTime": "p95 延迟随时间变化",
+        "slowest": "最慢的路径",
+        "slowestEmpty": "此时间段内没有路由收到请求。",
+        "countries": "按请求数排名的国家/地区",
+        "sampling": "≈ 估计值；Cloudflare 在高流量下对这些数据进行采样。",
+        "empty": {
+          "title": "暂无性能数据",
+          "body": "此时间段内没有请求。当你的网站收到流量后，边缘和源站延迟将显示在这里。"
+        },
+        "paywall": {
+          "title": "找出你的网站在哪里变慢",
+          "body": "按百分位查看边缘和源站延迟、最慢的路由，以及各地区的响应时间。"
+        }
+      },
+      "group": {
+        "clients": "客户端",
+        "responses": "响应",
+        "sources": "流量来源"
+      },
+      "filters": {
+        "hint": "点击任意一行即可筛选所有面板。",
+        "clear": "清除筛选",
+        "remove": "移除{{FILTER}}筛选",
+        "empty": {
+          "title": "没有符合这些筛选条件的流量",
+          "body": "当前筛选组合在此时间段内没有匹配的流量。移除某个筛选或全部清除后即可重新查看流量。"
+        }
+      },
+      "rowTitle": "{{REQUESTS}} 次请求 · {{VISITS}} 次访问 · {{BYTES}}",
+      "sent": "发送",
+      "received": "接收",
+      "copy": "复制",
+      "plan": "适用于 Pro 和 Enterprise 套餐。",
+      "range": {
+        "custom": "自定义",
+        "apply": "应用",
+        "label": "时间范围",
+        "1h": "最近 1 小时",
+        "24h": "最近 24 小时",
+        "3d": "最近 3 天",
+        "7d": "最近 7 天",
+        "start": "开始",
+        "end": "结束",
+        "invalid": "时间范围的开始时间必须早于结束时间，且须在最近 7 天内。"
+      },
+      "dns": {
+        "body": "在你的域名 DNS 服务商处添加这些记录。验证和 HTTPS 证书会自动完成。",
+        "type": "类型",
+        "status": "状态",
+        "alternative": "备选",
+        "title": "DNS 配置",
+        "active": "已生效",
+        "pending": "待处理",
+        "issuing": "正在签发证书",
+        "role": {
+          "traffic": "流量",
+          "ownership": "域名所有权",
+          "certificate": "SSL 证书"
+        },
+        "name": "名称",
+        "value": "值",
+        "fallback": {
+          "title": "替代方案：DCV 委派",
+          "body": "无需创建 TXT 记录 _acme-challenge，只需创建这条 CNAME。它永远不会改变，续期证书时也无需再修改 DNS。请先删除 TXT 记录 _acme-challenge：CNAME 不能与其他记录同名。"
+        },
+        "empty": {
+          "title": "记录尚未就绪",
+          "body": "刚添加域名后出现这种情况是正常的：记录需要几分钟才能就绪。列表每分钟会自动刷新。"
+        },
+        "reason": "Cloudflare 提供的原因："
+      },
+      "purge": {
+        "body": "清除边缘节点保存的网站副本，让每位访客都能获取最新版本。部署后很实用。",
+        "title": "缓存清理",
+        "action": "清除缓存",
+        "done": "已开始清除缓存。全球边缘节点正在移除旧副本。最多可能需要 10 秒，所有访客才能看到你网站的最新版本。"
+      },
+      "requests": "请求",
+      "visits": "访问",
+      "bandwidth": "带宽",
+      "bandwidthHint": "发送 · 接收 {{RECEIVED}}",
+      "countries": "国家/地区",
+      "timeline": "时间线",
+      "thin": "流量不足，无法绘制时间线",
+      "class": {
+        "2xx": "成功",
+        "3xx": "重定向",
+        "4xx": "客户端错误",
+        "5xx": "服务器错误"
+      },
+      "dim": {
+        "countries": "来源国家",
+        "paths": "路由",
+        "referers": "引荐来源",
+        "providers": "提供商",
+        "os": "系统",
+        "browsers": "浏览器",
+        "protocols": "协议",
+        "status": "状态码",
+        "content": "内容"
+      },
+      "filter": {
+        "country": "国家/地区",
+        "path": "路由",
+        "referer": "来源",
+        "provider": "提供商",
+        "browser": "浏览器",
+        "os": "系统",
+        "protocol": "协议",
+        "status": "状态码",
+        "content_type": "内容"
+      },
+      "tor": "Tor 网络",
+      "unknownOrigin": "未知来源",
+      "notWebsite": {
+        "title": "此应用不是网站",
+        "body": "分析数据统计的是到达网站公共地址的请求，而此应用部署时未启用 Web 发布。如需分析，请在启用 Web 发布后重新部署。它的日志仍可正常查看。",
+        "action": "查看日志"
+      }
+    }
+  },
+  "files": {
+    "exists": "此文件夹中已存在 {{NAME}}。",
+    "invalidPath": "该路径无效。",
+    "otherApp": "文件只能在同一个应用内移动。",
+    "signIn": "连接你的 Square Cloud 账户即可打开此应用的文件。",
+    "tooLarge": "超过 10 MB 的文件无法在此打开或保存。较大的文件请通过提交发送。",
+    "uploadTooLarge": "这些文件超过 10 MB，因此未上传任何内容：{{NAMES}}。请通过提交发送。",
+    "pathTooLong": "完整路径超过 256 个字符。请使用更短的名称或文件夹。",
+    "uploadPartial": "停止前已上传 {{COUNT}}/{{TOTAL}} 个文件。"
+  },
+  "blob": {
+    "panel": {
+      "upload": "上传文件",
+      "all": "所有文件",
+      "visibility": "可见性",
+      "public": "公开",
+      "private": "私有",
+      "drop": "拖放以上传到 {{FOLDER}}",
+      "dropConfirm": "将这些文件上传到 {{FOLDER}}？",
+      "noPlanBody": "你的账户没有有效套餐。你仍可以查看、下载、删除文件，以及将文件设为私有。要上传新文件，请订阅一个套餐。",
+      "empty": "上传你的第一个文件",
+      "emptyBody": "图片、视频、备份和静态资源，可使用公开或私有链接。你也可以把文件拖到此区域。",
+      "emptyFolder": "此文件夹为空",
+      "emptyFolderBody": "上传文件到此文件夹，或把文件拖到这个区域。",
+      "expires": "到期时间",
+      "copyLink": "复制链接",
+      "uploads": "上传",
+      "waiting": "排队中",
+      "tempLink": "临时链接",
+      "tempLinkCreate": "生成并复制链接",
+      "never": "永不",
+      "originalName": "原始名称",
+      "folder": "文件夹",
+      "deleteBody": "没有回收站：已删除的文件无法恢复。",
+      "files": "文件",
+      "included": "套餐 {{SIZE}} 中的 {{PERCENT}}",
+      "loadMore": "加载更多",
+      "noPlan": "没有有效套餐",
+      "notInPlan": "Blob 随套餐提供",
+      "notInPlanBody": "通过公开或私有链接存储文件。订阅套餐即可上传第一个文件。",
+      "subtitle": "通过公开或私有链接访问的文件",
+      "tempLinkBody": "任何拥有链接的人都可以在过期前下载该文件，且无法单独撤销。创建链接需要有效套餐；如果此 VS Code 连接被撤销，链接会提前失效。",
+      "tempLinkCopied": "链接已复制，有效期至 {{DATE}}。",
+      "tooBigToDrop": "超过 90 MiB 的文件无法拖放到这里。请用“上传文件”上传 {{NAMES}}。",
+      "uploaded": "已上传 {{COUNT}}/{{TOTAL}}",
+      "duration": {
+        "1h": "1 小时",
+        "6h": "6 小时",
+        "12h": "12 小时",
+        "24h": "24 小时"
+      },
+      "validity": "有效期",
+      "publicLink": "公开链接"
+    }
+  },
+  "command.openWorkspace": "打开工作区...",
+  "command.openBlob": "打开 Blob 存储"
 }

@@ -16,6 +16,7 @@ function legibleMemory(memory: number) {
 
 export const MEMORY = {
   required: true,
+  docs: () => t("configFile.hover.memory"),
   /**
    * This function is used to autocomplete the memory value in the config file.
    */
