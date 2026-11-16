@@ -24,8 +24,8 @@ importers:
         specifier: ^4.2.0
         version: 4.2.0
       ignore:
-        specifier: ^7.0.10
-        version: 7.0.10
+        specifier: ^7.0.14
+        version: 7.0.14
       jszip:
         specifier: ^3.10.2
         version: 3.10.2
@@ -1413,8 +1413,8 @@ packages:
   ieee754@1.2.1:
     resolution: {integrity: sha512-dcyqhDvX1C46lXZcVqCpK+FtMRQVdIMN6/Df5js2zouUsqG7I6sFxitIC+7KYK29KdXOLHdu9zL4sFnoVQnqaA==}
 
-  ignore@7.0.10:
-    resolution: {integrity: sha512-HpbUakT7xp5miBUywCHf36ZEuAJNklBJDDsGpUIjMzOSmM8ELSfA9Sa/QDPeNeqeoN31u+UTCkL4klCOVvRm4Q==}
+  ignore@7.0.14:
+    resolution: {integrity: sha512-wCBiZ77u1tuWde6G/nfOtLaCTYcFDU5yCzARzK10y+rLhzYoL7a7yEemcopcc2Mzow7gZOIjnV2ym1NYmdiJOQ==}
     engines: {node: '>= 4'}
 
   immediate@3.0.6:
@@ -3361,7 +3361,7 @@ snapshots:
     dependencies:
       '@sindresorhus/merge-streams': 2.3.0
       fast-glob: 3.3.3
-      ignore: 7.0.10
+      ignore: 7.0.14
       path-type: 6.0.0
       slash: 5.1.0
       unicorn-magic: 0.3.0
@@ -3426,7 +3426,7 @@ snapshots:
   ieee754@1.2.1:
     optional: true
 
-  ignore@7.0.10: {}
+  ignore@7.0.14: {}
 
   immediate@3.0.6: {}
 
