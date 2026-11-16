@@ -2,6 +2,56 @@
 
 All notable changes to this project will be documented in this file.
 
+## 6.0.0
+
+Everything you'd do on the website, inside VS Code: a sidebar for the whole account, a panel for each application, database, workspace and your Blob storage, your application's files in regular editors, and Square Cloud's tools in agent mode. Redesigned with the website's own look.
+
+### Added
+
+- **Application panel.** Click an application to open it in an editor tab with nine tabs:
+  - **Overview:** live CPU, RAM, network and storage, details and the latest logs.
+  - **Metrics:** CPU, RAM, network, disk and storage over 24 hours, or 7 days on Pro and Enterprise from 512 MB. When the API answers with 24 hours, the tab says so.
+  - **Logs:** history, then new lines as they arrive, with search, pause, clear and download.
+  - **Deploys:** link a GitHub repository and branch, or set a deploy webhook, and see the deploy history.
+  - **Variables:** hidden values you can reveal, edit and delete, and a whole `.env` pasted or imported at once.
+  - **Files:** browse, create, rename, upload and delete.
+  - **Snapshots:** create, download, and restore while following each step until it succeeds or fails.
+  - **Network** (websites): analytics with filters, domains and DNS records, access logs, errors, performance and cache purge.
+  - **Settings:** commit files or a folder, and delete the application.
+- **Database panel:** live usage, start and stop, connection details, the TLS certificate (download or reset), a password reset that keeps the new password in memory until you copy or reveal it, metrics, snapshots, the name and memory, and delete.
+- **Workspace panel:** members and their roles, adding a member with their invite code, the shared applications, and leaving or deleting the workspace. `Square Cloud: Open workspace...` opens it.
+- **Blob panel:** browse by folder, upload as public or private with a picker or by dragging files in (a dialog lists the dropped files and their visibility before anything goes up), copy a public or temporary link, delete, and see your storage use. `Square Cloud: Open Blob storage` opens it.
+- **Your application's files in VS Code.** The Files tab opens each file in a regular editor, and saving writes it back. **Open as folder** adds the whole application to your workspace (`squarecloud://app/<application ID>/`).
+- **Agent mode.** The extension adds the Square Cloud MCP server to VS Code with your connected account, so agent mode can check status, read logs or restart an application when you ask.
+- **A hover for `squarecloud.app`.** Hover over a key to see what it does, whether the file needs it, and a link to its section of the reference.
+- **Panels come back** after a reload or a restart of VS Code, on the tab you left them.
+- **Metrics for every application and database.** They're no longer limited to applications with 512 MB or more, and databases have them too, also as `Square Cloud: Open database metrics...`.
+
+### Changes
+
+- **One sidebar.** The sign-in view and the dashboard are now one view, with a workspace picker, favorites at the top, a filter, hover actions on each row, Blob storage, and incidents or maintenance at the bottom. Each row's status and CPU and memory use line up in one column, and the footer links to the dashboard, the documentation in your language and support.
+- **A simpler sign-in.** The 8-character code in large type, one button and a link to paste a key instead, with what VS Code can do listed below. The authorization now also asks for `files:read`, `files:write`, `blob:read`, `blob:write` and `mcp`. An authorization from 5.x keeps working; the Files tab and agent mode offer **Reconnect** to grant the rest, and Blob shows up after you do.
+- **Commands open the panel.** Logs, the live stream, metrics, snapshot restore and the website's access logs, errors and performance used to print into an output channel; they now open the panel on that tab. Their IDs are the same, so your keybindings keep working.
+- **Upload opens the new application's panel** instead of a notification.
+- **One notification per action.** A command shows its progress or its result, never both: the success toasts after start, stop, restart, commit, variables, GitHub linking, cache purge, workspaces and databases are gone. Deleting an application, creating a database and downloading a certificate show their progress in the status bar, so the one notification is the one with the next step.
+- **`MAIN` follows the platform's rule:** in `squarecloud.app` it's required unless `RUNTIME` is set. `START` alone no longer makes it optional, since an upload with neither `MAIN` nor `RUNTIME` is refused.
+- **The database "restart" after a password reset says what it does:** it stops and then starts the database, since there is no database restart.
+- **Walkthrough rewritten** for the sidebar, the panels, the files, Blob and agent mode, with new still illustrations.
+- **New icons** for the activity bar and the `squarecloud.app`, `squarecloud.config` and `squarecloud.ignore` files, drawn from the Square Cloud logo.
+- **Copy in all eight languages** reviewed: short, in sentence case, and consistent with the website's terms. Command titles are in sentence case, and the account page is named **My account › Security**.
+- **The `squarecloud.favApps` setting** has a real description.
+- **Databases read as hosted.** The help, the walkthrough and the README describe them as databases hosted on Square Cloud.
+- **Official SDKs:** `@squarecloud/api` 6.1, and `@squarecloud/blob` 4.2 for Blob storage.
+
+### Removed
+
+- The commands `squarecloud.refreshEntry` and `squarecloud.refreshWorkspaces`, which no longer did anything. Use `Square Cloud: Refresh`.
+- The output channels for logs, the live stream, metrics and the edge reports.
+
+### Docs
+
+- README rewritten for 6.0, with new screenshots. CONTRIBUTING covers the command title convention, `pnpm test` and the webview preview.
+
 ## 5.3.2
 
 ### Fixes
