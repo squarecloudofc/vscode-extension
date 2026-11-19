@@ -32,8 +32,8 @@ importers:
         specifier: ^3.10.2
         version: 3.10.2
       preact:
-        specifier: ^10.29.8
-        version: 10.29.8
+        specifier: ^11.2.0
+        version: 11.2.0
       vscode-ext-localisation:
         specifier: ^1.1.0
         version: 1.1.0
@@ -1302,10 +1302,10 @@ packages:
     resolution: {integrity: sha512-qcJu88Q2IWqJsDD529JKMdwGm/dvInW4HvQnRwiH9JtihJvzGOscDtHE3x1pBKeUOTysQ8kVmLnJ2kJu7yhcGA==}
     engines: {node: '>=12'}
 
-  preact@10.29.8:
-    resolution: {integrity: sha512-ej2aVZ+vZ8WO7tvlQWRM9N63A0KzF9q4mWJfDUHgYaIofWY9hu74QdnQrjoPMmZi2/nZ5gN0bJCQF49xQqx09Q==}
+  preact@11.2.0:
+    resolution: {integrity: sha512-/HfHI/7N84e6GrWBJ3J280z3mLaRJiDcSvj/A+y/4AbLnND/1UlGHe1sR6oYuTGwId0nP7dqDU9OnLxMPZ7xBg==}
     peerDependencies:
-      preact-render-to-string: '>=5'
+      preact-render-to-string: '>=6.7.0'
     peerDependenciesMeta:
       preact-render-to-string:
         optional: true
@@ -2575,7 +2575,7 @@ snapshots:
 
   picomatch@4.0.7: {}
 
-  preact@10.29.8: {}
+  preact@11.2.0: {}
 
   process-nextick-args@2.0.1: {}
 

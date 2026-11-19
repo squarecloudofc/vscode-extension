@@ -83,7 +83,7 @@
     "@squarecloud/blob": "^4.2.0",
     "ignore": "^7.0.14",
     "jszip": "^3.10.2",
-    "preact": "^10.29.8",
+    "preact": "^11.2.0",
     "vscode-ext-localisation": "^1.1.0",
     "xoid": "^1.0.1"
   },
