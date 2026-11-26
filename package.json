@@ -81,7 +81,7 @@
   "dependencies": {
     "@squarecloud/api": "^6.1.0",
     "@squarecloud/blob": "^4.2.0",
-    "ignore": "^7.0.14",
+    "ignore": "^7.0.16",
     "jszip": "^3.10.2",
     "preact": "^10.29.8",
     "vscode-ext-localisation": "^1.1.0",
